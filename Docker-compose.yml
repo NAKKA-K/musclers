@@ -15,8 +15,6 @@ services:
     container_name: "app_rails"
     volumes:
       - ./backend:/backend
-    ports:
-      - "8080:8080"
     depends_on:
       - db
 
