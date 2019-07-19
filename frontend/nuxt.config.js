@@ -58,6 +58,10 @@ export default {
       success: colors.green.accent3
     }
   },
+  server: {
+    host: '0.0.0.0',
+    port: 3000
+  },
   /*
   ** Build configuration
   */

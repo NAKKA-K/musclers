@@ -1,13 +1,14 @@
 FROM node:12-alpine
 
 ENV TZ='Asia/Tokyo'
-#WORKDIR /app
+RUN apk update &&\
+    npm install -g npm &&\
+    npm install -g @vue/cli
 
-#COPY ./app/package.json /app
-#COPY ./app/package-lock.json /app
-#RUN npm install
+WORKDIR /frontend
 
-#COPY app /app
+COPY package.json /frontend
+COPY package-lock.json /frontend
+RUN npm install
 
-CMD [ "echo", "web server" ]
-#CMD ["npm","start"]
+COPY . /frontend
