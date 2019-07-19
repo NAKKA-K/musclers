@@ -9,18 +9,9 @@ services:
     volumes:
       - psql_data:/var/lib/postgresql/data
 
-  web:
-    build: ./frontend
-    container_name: "web_nuxt"
-    volumes:
-      - ./frontend:/frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - app
-
   app:
     build: ./backend
+    command: bundle exec rails s -p 8080 -b '0.0.0.0'
     container_name: "app_rails"
     volumes:
       - ./backend:/backend
@@ -28,6 +19,17 @@ services:
       - "8080:8080"
     depends_on:
       - db
+
+  web:
+    build: ./frontend
+    command: npm run dev
+    container_name: "web_nuxt"
+    volumes:
+      - ./frontend:/frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
 
 volumes:
   psql_data:
