@@ -42,6 +42,7 @@ export default {
   */
   modules: [
     '@nuxtjs/vuetify',
+    '@nuxtjs/axios',
   ],
   /*
   ** vuetify module configuration
@@ -58,9 +59,12 @@ export default {
       success: colors.green.accent3
     }
   },
-  server: {
-    host: '0.0.0.0',
-    port: 3000
+  axios: {
+  },
+  watchers: {
+    webpack: {
+      poll: true
+    }
   },
   /*
   ** Build configuration
