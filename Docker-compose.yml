@@ -2,32 +2,36 @@ version: '3'
 services:
   db:
     build: ./db_psql
-    container_name: "db_psql"
+    container_name: 'db_psql'
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
     volumes:
       - psql_data:/var/lib/postgresql/data
 
-  app:
+  api:
+    tty: true
     build: ./backend
+    container_name: 'api_rails'
     command: bundle exec rails s -p 8080 -b '0.0.0.0'
-    container_name: "app_rails"
     volumes:
       - ./backend:/backend
     depends_on:
       - db
 
-  web:
+  frontend:
+    tty: true
     build: ./frontend
+    container_name: 'front_nuxt'
     command: npm run dev
-    container_name: "web_nuxt"
     volumes:
       - ./frontend:/frontend
+      - node_modules:/frontend/node_modules
     ports:
       - "3000:3000"
     depends_on:
-      - app
+      - api
 
 volumes:
   psql_data:
+  node_modules:
