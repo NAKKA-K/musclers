@@ -16,8 +16,9 @@ export default {
   },
   methods: {
     async sample() {
+      const HOGE_API_URL = "http://localhost:8080/hoge/show"
       await axios.get(
-        '/api/hoge/show',
+        HOGE_API_URL,
         {
         headers: { 
           'Content-Type': 'application/json',

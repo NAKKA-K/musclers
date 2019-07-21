@@ -36,7 +36,6 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    'plugins/axios'
   ],
   /*
   ** Nuxt.js modules
@@ -61,10 +60,6 @@ export default {
     }
   },
   axios: {
-    proxy: true
-  },
-  proxy: {
-    '/api/': { target: 'http://api:8080', pathRewrite: { '^/api/': '/' } }
   },
   watchers: {
     webpack: {
