@@ -37,13 +37,14 @@ Muscler'sのAPI仕様書
 
 # Group INFORMATIONS
 
-## Informations [/api/informations]
+## Informations [/api/users/{userId}/informations]
 
 ### 通知一覧を取得する [GET]
 
-## Information [/api/informations/{id}]
+## Information [/api/users/{userId}/informations]
 
-### 特定の通知を既読にする [PATCH]
+### 通知を既読にする [PATCH]
+
 
 # Group TAGS
 
