@@ -54,6 +54,12 @@ Muscler'sのAPI仕様書
 
 
 # Group USER_TAGS
+
+## UserTags [/api/users/{userId}/user_tags]
+
+### ユーザーのタグ一覧を取得する [GET]
+
+
 # Group GROUPS
 # Group GROUP_USERS
 # Group GROUP_MESSAGES
