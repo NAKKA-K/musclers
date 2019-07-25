@@ -5,6 +5,24 @@ HOST:
 
 Muscler'sのAPI仕様書
 
+# 基本構造
+
+## Resource
+
+    {
+        "code": 200,
+        "data": {
+        },
+    }
+
+## Error
+
+    {
+        "code": 400,
+        "message": "",
+        "errors": [],
+    }
+
 
 # Group USERS
 
@@ -23,6 +41,9 @@ Muscler'sのAPI仕様書
 
 ### 通知一覧を取得する [GET]
 
+## Information [/api/informations/{id}]
+
+### 特定の通知を既読にする [PATCH]
 
 # Group TAGS
 
