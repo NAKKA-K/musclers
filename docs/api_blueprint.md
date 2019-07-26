@@ -79,7 +79,6 @@ Muscler'sのAPI仕様書
 ### 特定のグループを削除する [DELETE]
 
 
-
 # Group GROUP_USERS
 
 ## User to Group [/api/groups/{group_id}/join]
@@ -93,6 +92,10 @@ Muscler'sのAPI仕様書
 ## User in Group [/api/groups/{group_id}/users/{user_id}]
 
 ### 特定のグループに参加している、特定のユーザーを除外する [DELETE]
+
+## (仮)GroupUser [/api/group_users/{group_user_id}]
+
+### 特定のグループに参加しているユーザーを除外する [DELETE]
 
 
 # Group GROUP_MESSAGES
