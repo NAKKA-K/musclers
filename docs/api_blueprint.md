@@ -99,6 +99,14 @@ Muscler'sのAPI仕様書
 
 
 # Group GROUP_MESSAGES
+
+## GroupMessages [/api/groups/{group_id}/messages]
+
+### 特定のグループで発生したメッセージの一覧を取得する [GET]
+
+### 特定のグループに新規メッセージを送信する [POST]
+
+
 # Group DMS
 # Group D_M_GROUPS
 
