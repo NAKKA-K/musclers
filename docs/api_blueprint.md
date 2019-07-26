@@ -43,7 +43,7 @@ Muscler'sのAPI仕様書
 
 ## Information [/api/users/{userId}/informations]
 
-### 通知を既読にする [PATCH]
+### 全ての通知を既読にする [PATCH]
 
 
 # Group TAGS
@@ -58,6 +58,10 @@ Muscler'sのAPI仕様書
 ## UserTags [/api/users/{userId}/user_tags]
 
 ### ユーザーのタグ一覧を取得する [GET]
+
+### ユーザーのタグ一覧を設定する [PUT]
+
+### ユーザーのタグを一つ設定する [POST]
 
 
 # Group GROUPS
