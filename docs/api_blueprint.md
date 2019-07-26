@@ -65,6 +65,19 @@ Muscler'sのAPI仕様書
 
 
 # Group GROUPS
+
+## Groups [/api/groups]
+
+### グループの一覧を取得する [GET]
+
+### グループを追加する [POST]
+
+## Group [/api/groups/{groupId}]
+
+### 特定のグループを編集する [PUT]
+
+### 特定のグループを削除する [DELETE]
+
 # Group GROUP_USERS
 # Group GROUP_MESSAGES
 # Group DMS
