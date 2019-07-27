@@ -107,6 +107,11 @@ Muscler'sのAPI仕様書
 ### 特定のグループに新規メッセージを送信する [POST]
 
 
-# Group DMS
-# Group D_M_GROUPS
+# Group DIRECT_MESSAGE_GROUPS
 
+## DirectMessageGroups on me [/api/direct_message_groups/me]
+
+### 自分のダイレクトメッセージグループの一覧を取得する [GET]
+
+
+# Group DIRECT_MESSAGES
