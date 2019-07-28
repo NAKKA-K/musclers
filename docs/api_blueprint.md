@@ -109,5 +109,9 @@ Muscler'sのAPI仕様書
 
 ### 自分のダイレクトメッセージグループの一覧を取得する [GET]
 
+## DirectMessageGroups [/api/direct_message_groups/{direct_message_group_id}]
+
+### ダイレクトメッセージの特定のトークを削除する [DELETE]
+
 
 # Group DIRECT_MESSAGES
