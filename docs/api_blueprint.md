@@ -115,3 +115,15 @@ Muscler'sのAPI仕様書
 
 
 # Group DIRECT_MESSAGES
+
+## DirectMessages [/api/direct_message_groups/{direct_message_group_id}]
+
+### 特定ユーザーとのダイレクトメッセージ一覧を取得する [GET]
+
+### 特定ユーザーとのダイレクトメッセージに新規メッセージを送信する [POST]
+
+## (仮)DirectMessage [/api/direct_messages/{direct_message_id}]
+
+### 特定のダイレクトメッセージを更新する [PATCH]
+
+### 特定のダイレクトメッセージを削除する [DELETE]
