@@ -93,10 +93,6 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループに参加している、特定のユーザーを除外する [DELETE]
 
-## (仮)GroupUser [/api/group_users/{group_user_id}]
-
-### 特定のグループに参加しているユーザーを除外する [DELETE]
-
 
 # Group GROUP_MESSAGES
 
