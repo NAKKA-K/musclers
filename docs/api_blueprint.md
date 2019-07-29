@@ -54,7 +54,61 @@ Muscler'sのAPI仕様書
 
 ### 全ユーザー情報を取得する [GET]
 
-## Users [/api/users/{id}]
++ Headers
+    Authorization: Barare ...
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id (number)
+        + nickname (string)
+        + thumbnail (string)
+        + description (string)
+        + age (number)
+        + gender (enum[number])
+            + Members
+                + 1 - 男性
+                + 2 - 女性
+                + 3 - その他
+        + height (number)
+        + weight (number)
+        + figure (enum[number])
+            + Members
+                + 1 - 痩せ型筋肉質
+                + 5 - 普通筋肉質
+                + 10 - 肥満型筋肉質
+                + 15 - 痩せ型
+                + 20 - 普通
+                + 25 - 肥満型
+                + 99 - その他
+        + muscle_mass (number)
+        + body_fat_percentage (number)
+
+    + Body
+
+        [
+            {
+                "id": "2",
+                "nickname": "test-staff",
+                "thumbnail": "https://avatars0.githubusercontent.com/u/22770924",
+                "description": "This acount is test account.",
+                "age": 26,
+                "gender": 1,
+                "height": 175,
+                "weight": 65,
+                "figure": 1,
+                "muscle_mass": 44,
+                "body_fat_percentage": 12,
+                "created_at": "2018-11-19 04:58:55",
+                "updated_at": "2018-11-19 04:58:55",
+            }
+        ]
+
+## Users [/api/users/{user_id}]
+
++ Parameters
+
+    + user_id: 1 (number) - usersテーブルのID
 
 ### 特定のユーザー情報を取得する [GET]
 
