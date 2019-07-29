@@ -5,23 +5,32 @@ HOST:
 
 Muscler'sのAPI仕様書
 
-# 基本構造
+# Group 基本構造
 
 ## Resource
 
-    {
-        "code": 200,
-        "data": {
-        },
-    }
+````
+{
+    "code": 200,
+    "data": {
+
+    },
+}
+````
 
 ## Error
 
-    {
-        "code": 400,
-        "message": "",
-        "errors": [],
-    }
+````
+{
+    "code": 400,
+    "message": "",
+    "errors": [
+        {
+
+        },
+    ],
+}
+````
 
 
 # Group AUTH
