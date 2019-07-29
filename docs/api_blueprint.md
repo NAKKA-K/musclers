@@ -112,6 +112,26 @@ Muscler'sのAPI仕様書
 
 ### 特定のユーザー情報を取得する [GET]
 
++ Response 200
+
+    + Body
+
+        {
+            "id": "2",
+            "nickname": "test-staff",
+            "thumbnail": "https://avatars0.githubusercontent.com/u/22770924",
+            "description": "This acount is test account.",
+            "age": 26,
+            "gender": 1,
+            "height": 175,
+            "weight": 65,
+            "figure": 1,
+            "muscle_mass": 44,
+            "body_fat_percentage": 12,
+            "created_at": "2018-11-19 04:58:55",
+            "updated_at": "2018-11-19 04:58:55",
+        }
+
 
 # Group INFORMATIONS
 
