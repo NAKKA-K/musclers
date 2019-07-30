@@ -135,7 +135,11 @@ Muscler'sのAPI仕様書
 
 # Group INFORMATIONS
 
-## Informations [/api/users/{userId}/informations]
+## Informations [/api/users/{user_id}/informations]
+
++ Parameters
+
+    + user_id: 1 (number) - usersテーブルのID
 
 ### 通知一覧を取得する [GET]
 
