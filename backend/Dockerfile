@@ -1,7 +1,7 @@
 FROM ruby:2.6
 
 ENV TZ='Asia/Tokyo'
-RUN apt-get update -qq &&\
+RUN apt update -qq &&\
     apt install -y build-essential libpq-dev nodejs vim &&\
     gem update bundler
 
