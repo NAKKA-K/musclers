@@ -133,6 +133,7 @@ Muscler'sのAPI仕様書
 
 ### 全ての通知を既読にする [PATCH]
 
++ Response 204 (application/json)
 
 # Group TAGS
 
