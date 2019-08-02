@@ -88,7 +88,7 @@ Muscler'sのAPI仕様書
 
             [
                 {
-                    "id": "2",
+                    "id": 1,
                     "nickname": "test-staff",
                     "thumbnail": "https://avatars0.githubusercontent.com/u/22770924",
                     "description": "This acount is test account.",
@@ -117,7 +117,7 @@ Muscler'sのAPI仕様書
     + Body
 
             {
-                "id": "2",
+                "id": 1,
                 "nickname": "test-staff",
                 "thumbnail": "https://avatars0.githubusercontent.com/u/22770924",
                 "description": "This acount is test account.",
