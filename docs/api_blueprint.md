@@ -121,6 +121,14 @@ Muscler'sのAPI仕様書
 
 ### 通知一覧を取得する [GET]
 
++ Headers
+    Authorization: Barare ...
+
++ Response 200 (application/json)
+
+    + Attributes (array[Information])
+
+
 ## Information [/api/users/{userId}/informations]
 
 ### 全ての通知を既読にする [PATCH]
