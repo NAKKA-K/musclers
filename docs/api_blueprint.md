@@ -32,6 +32,45 @@ Muscler'sのAPI仕様書
 }
 ````
 
+## Data Structures
+
+### User (object)
+
++ id (number)
++ nickname: 範馬勇次郎 (string)
++ thumbnail: https://avatars0.githubusercontent.com/u/22770924 (string)
++ description: 筋友を探しています！ (string)
++ age: 22 (number)
++ gender: 1 (enum[number])
+    + Members
+        + 1 - 男性
+        + 2 - 女性
+        + 3 - その他
++ height: 175 (number)
++ weight: 65 (number)
++ figure: 1 (enum[number])
+    + Members
+        + 1 - 痩せ型筋肉質
+        + 5 - 普通筋肉質
+        + 10 - 肥満型筋肉質
+        + 15 - 痩せ型
+        + 20 - 普通
+        + 25 - 肥満型
+        + 99 - その他
++ muscle_mass: 44 (number)
++ body_fat_percentage: 12 (number)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
+### Information (object)
+
++ id: 1 (number)
++ body: 「筋肉モンスターたちの集会所」グループから招待が来ています。 (string)
++ is_read: true (boolean)
++ user_id: 3 (number)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
 
 # Group AUTH
 
