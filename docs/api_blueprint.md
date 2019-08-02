@@ -93,9 +93,6 @@ Muscler'sのAPI仕様書
 
 ### 全ユーザー情報を取得する [GET]
 
-+ Headers
-    Authorization: Barare ...
-
 + Response 200 (application/json)
 
     + Attributes
