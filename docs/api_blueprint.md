@@ -71,6 +71,13 @@ Muscler'sのAPI仕様書
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
+### Tag (object)
+
++ id: 1 (number)
++ name: マッチョ (string)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
 
 # Group AUTH
 
@@ -128,12 +135,12 @@ Muscler'sのAPI仕様書
 
     + Attributes (array[Information])
 
-
 ## Information [/api/users/{userId}/informations]
 
 ### 全ての通知を既読にする [PATCH]
 
 + Response 204 (application/json)
+
 
 # Group TAGS
 
@@ -141,6 +148,9 @@ Muscler'sのAPI仕様書
 
 ### ユーザーに設定できるタグ一覧を取得する [GET]
 
++ Response 200 (application/json)
+
+    + Attributes (array[Tag])
 
 # Group USER_TAGS
 
