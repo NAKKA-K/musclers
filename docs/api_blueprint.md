@@ -191,6 +191,19 @@ Muscler'sのAPI仕様書
 
 ### ユーザーのタグを一つ設定する [POST]
 
++ Headers
+    Authorization: Barare ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + tag: 2 (number)
+
++ Response 201 (application/json)
+
+    + Headers
+        Location: http://localhost:8080/api/users/{userId}/user_tags
+
 
 # Group GROUPS
 
