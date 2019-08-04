@@ -78,6 +78,14 @@ Muscler'sのAPI仕様書
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
+### UserTag (object)
+
++ id: 1 (number)
++ user_id: 1 (number)
++ tag (Tag)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
 
 # Group AUTH
 
