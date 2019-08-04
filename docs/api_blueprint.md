@@ -160,11 +160,17 @@ Muscler'sのAPI仕様書
 
     + Attributes (array[Tag])
 
+
 # Group USER_TAGS
 
 ## UserTags [/api/users/{userId}/user_tags]
 
 ### ユーザーのタグ一覧を取得する [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[UserTag])
+
 
 ### ユーザーのタグ一覧を設定する [PUT]
 
