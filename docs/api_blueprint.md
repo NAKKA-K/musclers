@@ -199,6 +199,8 @@ Muscler'sのAPI仕様書
 
         Location: http://localhost:8080/api/users/{userId}/user_tags
 
+    + Attributes (array[Tag])
+
 ### ユーザーのタグを一つ設定する [POST]
 
 + Headers
@@ -212,8 +214,10 @@ Muscler'sのAPI仕様書
 + Response 201 (application/json)
 
     + Headers
+
         Location: http://localhost:8080/api/users/{userId}/user_tags
 
+    + Attributes (array[Tag])
 
 # Group GROUPS
 
