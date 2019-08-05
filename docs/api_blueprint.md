@@ -328,6 +328,12 @@ Muscler'sのAPI仕様書
 
 ### グループに参加するユーザー一覧を取得する [GET]
 
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + group (Group)
+        + users (array[User])
+
 ## User in Group [/api/groups/{group_id}/users/{user_id}]
 
 ### 特定のグループに参加している、特定のユーザーを除外する [DELETE]
