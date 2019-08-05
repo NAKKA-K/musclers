@@ -265,6 +265,12 @@ Muscler'sのAPI仕様書
 
 ## Group [/api/groups/{groupId}]
 
+### グループの詳細を取得する [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (Group)
+
 ### 特定のグループを編集する [PUT]
 
 ### 特定のグループを削除する [DELETE]
