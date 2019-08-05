@@ -96,6 +96,14 @@ Muscler'sのAPI仕様書
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
+### GroupMessage
+
++ body: 今日はみんなで大腿四頭筋を追い込みましょう！！ (string)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
++ user (User)
++ group (Group)
+
 
 # Group AUTH
 
