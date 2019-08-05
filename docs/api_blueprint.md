@@ -514,3 +514,8 @@ Muscler'sのAPI仕様書
     + Attributes (DirectMessage)
 
 ### 特定のダイレクトメッセージを削除する [DELETE]
+
++ Headers
+    Authorization: Barare ...
+
++ Response 204 (application/json)
