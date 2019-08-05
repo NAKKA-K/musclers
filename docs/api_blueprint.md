@@ -385,6 +385,14 @@ Muscler'sのAPI仕様書
 
     + Attributes (GroupMessage)
 
+## GroupMessage [/api/groups/{group_id}/messages/{group_message_id}]
+
+### 特定のグループで発生したメッセージを一つ取得する [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (GroupMessage)
+
 
 # Group DIRECT_MESSAGE_GROUPS
 
