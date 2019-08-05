@@ -302,6 +302,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループを削除する [DELETE]
 
++ Headers
+    Authorization: Barare ...
+
++ Response 204 (application/json)
+
 
 # Group GROUP_USERS
 
