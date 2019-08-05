@@ -445,11 +445,12 @@ Muscler'sのAPI仕様書
     + Attributes (array[object])
         + (object)
             + to_user (User)
-            + latest_messages (array)
-                + id: 1 (number)
-                + body: 君はもうバッチリ筋肉追い込んだかい！！？ (string)
-                + created_at: `2019-11-19 04:58:55` (string)
-                + updated_at: `2019-11-19 04:58:55` (string)
+            + latest_messages (array[object])
+                + (object)
+                    + id: 1 (number)
+                    + body: 君はもうバッチリ筋肉追い込んだかい！！？ (string)
+                    + created_at: `2019-11-19 04:58:55` (string)
+                    + updated_at: `2019-11-19 04:58:55` (string)
 
 
 ## DirectMessageGroups [/api/direct_message_groups/{direct_message_group_id}]
