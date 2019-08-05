@@ -225,6 +225,11 @@ Muscler'sのAPI仕様書
 
 ### グループの一覧を取得する [GET]
 
++ Response 200 (application/json)
+
+    + Attributes (array[Group])
+
+
 ### グループを追加する [POST]
 
 ## Group [/api/groups/{groupId}]
