@@ -358,6 +358,15 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループで発生したメッセージの一覧を取得する [GET]
 
++ Headers
+    Authorization: Barare ...
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + group (Group)
+        + messages (array[GroupMessage])
+
 ### 特定のグループに新規メッセージを送信する [POST]
 
 
