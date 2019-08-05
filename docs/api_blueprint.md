@@ -501,4 +501,16 @@ Muscler'sのAPI仕様書
 
 ### 特定のダイレクトメッセージを更新する [PATCH]
 
++ Headers
+    Authorization: Barare ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + body: サイド!トライセップス！！！ (string)
+
++ Response 200 (application/json)
+
+    + Attributes (DirectMessage)
+
 ### 特定のダイレクトメッセージを削除する [DELETE]
