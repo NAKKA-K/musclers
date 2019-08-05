@@ -200,6 +200,10 @@ Muscler'sのAPI仕様書
 
 ## UserTags [/api/users/{userId}/user_tags]
 
++ Parameters
+
+    + user_id: 1 (number) - usersテーブルのID
+
 ### ユーザーのタグ一覧を取得する [GET]
 
 + Response 200 (application/json)
@@ -290,6 +294,10 @@ Muscler'sのAPI仕様書
 
 ## Group [/api/groups/{groupId}]
 
++ Parameters
+
+    + group_id: 1 (number) - groupsテーブルのID
+
 ### グループの詳細を取得する [GET]
 
 + Response 200 (application/json)
@@ -337,6 +345,10 @@ Muscler'sのAPI仕様書
 
 ## User to Group [/api/groups/{group_id}/join]
 
++ Parameters
+
+    + group_id: 1 (number) - groupsテーブルのID
+
 ### 特定のグループにユーザーが参加する [POST]
 
 + Headers
@@ -351,6 +363,10 @@ Muscler'sのAPI仕様書
 
 ## Users in Group [/api/groups/{group_id}/users]
 
++ Parameters
+
+    + group_id: 1 (number) - groupsテーブルのID
+
 ### グループに参加するユーザー一覧を取得する [GET]
 
 + Response 200 (application/json)
@@ -360,6 +376,11 @@ Muscler'sのAPI仕様書
         + users (array[User])
 
 ## User in Group [/api/groups/{group_id}/users/{user_id}]
+
++ Parameters
+
+    + group_id: 1 (number) - groupsテーブルのID
+    + user_id: 1 (number) - usersテーブルのID
 
 ### 特定のグループに参加している、特定のユーザーを除外する [DELETE]
 
@@ -372,6 +393,10 @@ Muscler'sのAPI仕様書
 # Group GROUP_MESSAGES
 
 ## GroupMessages [/api/groups/{group_id}/messages]
+
++ Parameters
+
+    + group_id: 1 (number) - groupsテーブルのID
 
 ### 特定のグループで発生したメッセージの一覧を取得する [GET]
 
@@ -403,6 +428,11 @@ Muscler'sのAPI仕様書
     + Attributes (GroupMessage)
 
 ## GroupMessage [/api/groups/{group_id}/messages/{group_message_id}]
+
++ Parameters
+
+    + group_id: 1 (number) - groupsテーブルのID
+    + group_message_id: 1 (number) - group_messagesテーブルのID
 
 ### 特定のグループで発生した特定メッセージを一つ取得する [GET]
 
@@ -456,6 +486,10 @@ Muscler'sのAPI仕様書
 
 ## DirectMessageGroups [/api/direct_message_groups/{direct_message_group_id}]
 
++ Parameters
+
+    + direct_message_group_id: 1 (number) - direct_message_groupsテーブルのID
+
 ### ダイレクトメッセージの特定のトークを削除する [DELETE]
 
 + Headers
@@ -467,6 +501,11 @@ Muscler'sのAPI仕様書
 # Group DIRECT_MESSAGES
 
 ## DirectMessages [/api/direct_message_groups/{direct_message_group_id}]
+
++ Parameters
+
+    + direct_message_group_id: 1 (number) - direct_message_groupsテーブルのID
+
 
 ### 特定ユーザーとのダイレクトメッセージ一覧を取得する [GET]
 
@@ -499,6 +538,11 @@ Muscler'sのAPI仕様書
     + Attributes (DirectMessage)
 
 ## DirectMessage [/api/direct_messages/{direct_message_id}]
+
++ Parameters
+
+    + direct_message_id: 1 (number) - direct_messagesテーブルのID
+
 
 ### 特定のダイレクトメッセージを更新する [PATCH]
 
