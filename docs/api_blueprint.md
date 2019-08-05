@@ -314,6 +314,16 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループにユーザーが参加する [POST]
 
++ Headers
+    Authorization: Barare ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + group_id (number)
+
++ Response 204 (application/json)
+
 ## Users in Group [/api/groups/{group_id}/users]
 
 ### グループに参加するユーザー一覧を取得する [GET]
