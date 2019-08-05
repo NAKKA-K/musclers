@@ -469,6 +469,20 @@ Muscler'sのAPI仕様書
 
 ### 特定ユーザーとのダイレクトメッセージ一覧を取得する [GET]
 
++ Headers
+    Authorization: Barare ...
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + to_user (User)
+        + messages (array[object])
+            + (object)
+                + id: 1 (number)
+                + body: 君はもうバッチリ筋肉追い込んだかい！！？ (string)
+                + created_at: `2019-11-19 04:58:55` (string)
+                + updated_at: `2019-11-19 04:58:55` (string)
+
 ### 特定ユーザーとのダイレクトメッセージに新規メッセージを送信する [POST]
 
 ## (仮)DirectMessage [/api/direct_messages/{direct_message_id}]
