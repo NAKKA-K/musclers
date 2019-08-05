@@ -86,6 +86,16 @@ Muscler'sのAPI仕様書
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
+### Group (object)
+
++ id: 1 (number)
++ name: 筋肉モンスターの集会所 (string)
++ description: 筋肉は全てを解決してくれる！ (string)
++ is_public: true (boolean)
++ tags (array[Tag])
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
 
 # Group AUTH
 
