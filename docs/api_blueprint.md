@@ -485,7 +485,19 @@ Muscler'sのAPI仕様書
 
 ### 特定ユーザーとのダイレクトメッセージに新規メッセージを送信する [POST]
 
-## (仮)DirectMessage [/api/direct_messages/{direct_message_id}]
++ Headers
+    Authorization: Barare ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + body: サイド!トライセップス！！！ (string)
+
++ Response 201 (application/json)
+
+    + Attributes (DirectMessage)
+
+## DirectMessage [/api/direct_messages/{direct_message_id}]
 
 ### 特定のダイレクトメッセージを更新する [PATCH]
 
