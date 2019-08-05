@@ -407,6 +407,12 @@ Muscler'sのAPI仕様書
 
     + Attributes (GroupMessage)
 
+### 特定のグループで発生した特定のメッセージを一つ削除する [DELETE]
+
++ Headers
+    Authorization: Barare ...
+
++ Response 204 (application/json)
 
 
 # Group DIRECT_MESSAGE_GROUPS
