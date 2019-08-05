@@ -177,9 +177,10 @@ Muscler'sのAPI仕様書
 
     + Attributes (array[Information])
 
-## Information [/api/users/{userId}/informations]
-
 ### 全ての通知を既読にする [PATCH]
+
++ Headers
+    Authorization: Barare ...
 
 + Response 204 (application/json)
 
