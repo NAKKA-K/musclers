@@ -456,6 +456,11 @@ Muscler'sのAPI仕様書
 
 ### ダイレクトメッセージの特定のトークを削除する [DELETE]
 
++ Headers
+    Authorization: Barare ...
+
++ Response 204 (application/json)
+
 
 # Group DIRECT_MESSAGES
 
