@@ -232,6 +232,37 @@ Muscler'sのAPI仕様書
 
 ### グループを追加する [POST]
 
++ Headers
+    Authorization: Barare ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: 筋肉モンスターたちの集会所 (string)
+        + description: 筋肉は全てを解決してくれる！ (string)
+        + is_public: true (boolean)
+        + tags (array[number])
+            + Members
+                + 1 - 痩せ型
+                + 5 - 普通
+                + 10 - ぽっちゃり型
+                + 15 - 筋肉質
+                + 20 - マッチョ
+                + 25 - ゴリマッチョ
+                + 30 - 健康
+                + 35 - 趣味
+                + 40 - 仕事
+                + 45 - 短期的
+                + 50 - 長期的
+
++ Response 201 (application/json)
+
+    + Headers
+
+        Location: http://localhost:8080/api/groups/{groupId}
+
+    + Attributes (Group)
+
 ## Group [/api/groups/{groupId}]
 
 ### 特定のグループを編集する [PUT]
