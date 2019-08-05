@@ -369,6 +369,22 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループに新規メッセージを送信する [POST]
 
++ Headers
+    Authorization: Barare ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + body: 今日はみんなで大腿四頭筋を追い込みましょう！！ (string)
+
++ Response 201 (application/json)
+
+    + Headers
+
+        Location: http://localhost:8080/api/groups/{group_id}/messages/{group_message_id}
+
+    + Attributes (GroupMessage)
+
 
 # Group DIRECT_MESSAGE_GROUPS
 
