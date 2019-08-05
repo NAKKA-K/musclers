@@ -105,6 +105,21 @@ Muscler'sのAPI仕様書
 + user (User)
 + group (Group)
 
+### DirectMessageGroup (object)
+
++ id: 1 (number)
++ to_user (User)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
+### DirectMessage (object)
+
++ id: 1 (number)
++ body: 君はもうバッチリ筋肉追い込んだかい！！？ (string)
++ direct_message_group (DirectMessageGroup)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
 
 # Group AUTH
 
