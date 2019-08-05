@@ -387,11 +387,26 @@ Muscler'sのAPI仕様書
 
 ## GroupMessage [/api/groups/{group_id}/messages/{group_message_id}]
 
-### 特定のグループで発生したメッセージを一つ取得する [GET]
+### 特定のグループで発生した特定メッセージを一つ取得する [GET]
 
 + Response 200 (application/json)
 
     + Attributes (GroupMessage)
+
+### 特定のグループで発生した特定のメッセージを一つ編集する [PUT]
+
++ Headers
+    Authorization: Barare ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + body: 今日はみんなで僧帽筋を追い込みましょう！！ (string)
+
++ Response 200 (application/json)
+
+    + Attributes (GroupMessage)
+
 
 
 # Group DIRECT_MESSAGE_GROUPS
