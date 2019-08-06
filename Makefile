@@ -1,6 +1,10 @@
-.PHONY: init run down ps
+.PHONY: setenv init run down ps
 
-init:
+setenv: environments
+	cp environments/.env ./
+	cp environments/{master.key,credentials.yml.enc} backend/config/
+
+init: setenv
 	docker-compose build
 	docker-compose run --rm api rails db:create
 	docker-compose down
