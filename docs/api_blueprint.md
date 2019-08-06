@@ -12,6 +12,7 @@ Muscler'sのAPI仕様書
 ````
 {
     "code": 200,
+    "message": "Success",
     "data": {
 
     },
@@ -184,6 +185,14 @@ Muscler'sのAPI仕様書
 
 + Response 204 (application/json)
 
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
 
 # Group TAGS
 
@@ -229,6 +238,23 @@ Muscler'sのAPI仕様書
         Location: http://localhost:8080/api/users/{userId}/user_tags
 
     + Attributes (array[Tag])
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
++ Response 400 (application/json)
+
+        {
+            "code": 400,
+            "message": "リクエストが間違っています",
+            "errors": [
+            ],
+        }
 
 ### ユーザーのタグを一つ設定する [POST]
 
