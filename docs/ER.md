@@ -73,23 +73,22 @@ entity "group_messages" {
 groups --o{ group_messages
 users --o{ group_messages
 
-entity "dms" {
+entity "direct_message_groups" {
+    + id [PK]
+    ==
+    # by_user_id [FK(users,id)]
+    # to_user_id [FK(users,id)]
+}
+
+entity "direct_messages" {
     + id [PK]
     ==
     body:text
-    # user_id [FK(users,id)]
-    # d_m_group_id [FK(d_m_groups,id)]
+    # direct_message_group_id [FK(direct_message_groups,id)]
 }
 
-entity "d_m_groups" {
-    + id [PK]
-    ==
-    # user_id1 [FK(users,id)]
-    # user_id2 [FK(users,id)]
-}
-users --o{ d_m_groups
-d_m_groups --o{ dms
-users --o{ dms
+users --o{ direct_message_groups
+direct_message_groups --o{ direct_messages
 
 @enduml
 ```

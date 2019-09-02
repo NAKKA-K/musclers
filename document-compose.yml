@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  aglio:
+    build: ./docs
+    ports:
+      - "3030:3030"
+    volumes:
+      - "./docs:/docs"
+    tty: true
+    command: aglio --theme-variables slate -i index.md -s -p 3030 -h 0.0.0.0
+  drakov:
+    build: ./docs
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docs:/docs"
+    tty: true
+    command: drakov -f "**/*.md" --public --watch --p 8000
+
