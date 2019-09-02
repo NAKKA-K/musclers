@@ -43,7 +43,14 @@ export default {
   modules: [
     '@nuxtjs/vuetify',
     '@nuxtjs/axios',
+    '@nuxtjs/pwa'
   ],
+  /**
+   * PWA compatible for develop
+   */
+  workbox: {
+    dev: true
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
