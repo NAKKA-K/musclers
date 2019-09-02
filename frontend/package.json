@@ -8,7 +8,9 @@
     "dev": "HOST=0.0.0.0 PORT=3000 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.5.4",
@@ -17,8 +19,16 @@
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-nuxt": "^0.4.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.18.2",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "nodemon": "^1.18.9"
+    "stylus-loader": "^3.0.2"
   }
 }
