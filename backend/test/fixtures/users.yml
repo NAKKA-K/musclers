@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nickname: MyString
+  email: 
+  password: MyString
+  thumbnail: MyString
+  description: MyText
+  age: 
+  gender: 
+  height: 
+  weight: 
+  figure: 
+  muscle_mass: 
+  body_fat_percentage: 
+  seriousness: 
+
+two:
+  nickname: MyString
+  email: 
+  password: MyString
+  thumbnail: MyString
+  description: MyText
+  age: 
+  gender: 
+  height: 
+  weight: 
+  figure: 
+  muscle_mass: 
+  body_fat_percentage: 
+  seriousness: 
