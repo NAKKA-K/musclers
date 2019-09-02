@@ -50,7 +50,6 @@ export default {
    */
   modules: [
     // Doc: https://buefy.github.io/#/documentation
-    // 'nuxt-buefy',
     '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
