@@ -1,11 +1,9 @@
 <template>
-  <v-layout>
-  </v-layout>
+  <v-layout> </v-layout>
 </template>
 
 <script>
 export default {
-  components: {
-  }
+  components: {}
 }
 </script>
