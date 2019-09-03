@@ -5,6 +5,7 @@ module Api
     end
 
     def show
+      #ユーザ詳細
       render json: { message:"I'm show." }
     end
 
