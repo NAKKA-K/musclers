@@ -6,7 +6,10 @@ module Api
 
     def show
       #ユーザ詳細
-      render json: { message:"I'm show." }
+      user_id = params[:id]
+      user_detail = User.fetch_user_detail_from(user_id)
+      response_user_detail_json = make_user_detail_json(user_detail)
+      render json: response_user_detail_json
     end
 
     def create
@@ -19,6 +22,24 @@ module Api
 
     def destroy
       render json: { message:"I'm destroy." }
+    end
+
+    private
+
+    def make_user_detail_json(user_detail)
+      if user_detail.nil?
+        {
+          "code": 404,
+          "message": "Fatal",
+          "error": "指定したユーザは存在しません"
+        }
+      else
+        {
+          "code": 200,
+          "message": "Success",
+          "data": user_detail
+        }
+      end
     end
   end
 end
