@@ -1,0 +1,17 @@
+ja:
+  enums:
+    user:
+      gender:
+        Not_set: "未設定"
+        Man: "男性"
+        Woman: "女性"
+        Other: "その他"
+      figure:
+        Not_set: "未設定"
+        Skinny_muscle: "痩せ型筋肉質"
+        Normal_muscle: "普通型筋肉質"
+        Obese_muscle: "肥満型筋肉質"
+        Skinny: "痩せ型"
+        Normal: "普通型"
+        Obese:  "肥満型"
+        Other:  "その他"
