@@ -1,13 +1,14 @@
 class User < ApplicationRecord
-  enum gender:  { Not_set: 0, Man: 1, Woman: 2, Other: 3}, _prefix: true
+  enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
-                  Not_set: 0,
-                  Skinny_muscle: 1,
-                  Normal_muscle: 5,
-                  Obese_muscle: 10,
-                  Skinny: 15,
-                  Normal: 20,
-                  Obese:25,
-                  Other: 99
+                  not_set: 0,
+                  skinny_muscle: 1,
+                  normal_muscle: 5,
+                  obese_muscle: 10,
+                  skinny: 15,
+                  normal: 20,
+                  obese:25,
+                  other: 99
                 }, _prefix: true
+  enum seriousness: { not_set: 0, gachi:1, enjoy:2}, _prefix: true
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_02_104101) do
+ActiveRecord::Schema.define(version: 2019_09_03_033014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_09_02_104101) do
     t.integer "figure", default: 0, null: false
     t.integer "muscle_mass"
     t.integer "body_fat_percentage"
-    t.integer "seriousness"
+    t.integer "seriousness", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
