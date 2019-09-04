@@ -157,8 +157,19 @@ Muscler'sのAPI仕様書
 
 + Response 200
 
-    + Attributes (User)
+    + Attributes (object)
+        + code: 200 (number)
+        + message: success (string)
+        + data (User)
 
++ Response 404
+
+  {
+      "code": 404,
+      "errors": [
+        { message: "指定したユーザは存在しません。" }
+      ],
+  }
 
 # Group INFORMATIONS
 
