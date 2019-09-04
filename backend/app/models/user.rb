@@ -15,4 +15,9 @@ class User < ApplicationRecord
   def self.fetch_user_detail_from(user_id)
     User.find_by(id:user_id)
   end
+
+  def self.search_user_in(search_keyword)
+    #Sprint1の段階ではキーワードを無視して検索
+    User.all
+  end
 end
