@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :omniauthable
+
   enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
                   not_set: 0,
