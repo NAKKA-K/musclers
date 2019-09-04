@@ -24,7 +24,6 @@ Muscler'sのAPI仕様書
 ````
 {
     "code": 400,
-    "message": "",
     "errors": [
         {
 
