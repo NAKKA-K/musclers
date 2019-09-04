@@ -17,7 +17,7 @@ class User < ApplicationRecord
   end
 
   def self.search_user_in(search_keyword)
-    #Sprint1の段階ではキーワードを無視して検索
+    # TODO: Sprint1の段階ではキーワードを無視して検索
     User.all
   end
 end
