@@ -13,8 +13,6 @@ class User < ApplicationRecord
   enum seriousness: { not_set: 0, gachi:1, enjoy:2}, _prefix: true
 
   def self.fetch_user_detail_from(user_id)
-    User.find(user_id)
-  rescue ActiveRecord::RecordNotFound => e
-    nil
+    User.find_by(id:user_id)
   end
 end

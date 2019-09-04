@@ -29,15 +29,18 @@ module Api
     def make_user_detail_json(user_detail)
       if user_detail.nil?
         {
-          "code": 404,
-          "message": "Fatal",
-          "error": "指定したユーザは存在しません"
+          code: 404,
+          errors: [
+            {
+              message: "指定したユーザは存在しません"
+            },
+          ],
         }
       else
         {
-          "code": 200,
-          "message": "Success",
-          "data": user_detail
+          code: 200,
+          message: "Success",
+          data: user_detail
         }
       end
     end
