@@ -17,6 +17,10 @@ down:
 ps:
 	docker-compose ps
 
+migrate:
+	docker-compose exec -e RAILD_ENV=development api rails db:migrate
+	docker-compose exec -e RAILD_ENV=test api rails db:migrate
+
 
 .PHONY: mock/*
 
