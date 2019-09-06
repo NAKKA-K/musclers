@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { omniauth_callbacks: 'api/omni_auth' }
+
   namespace 'api' do
     resources :users do
       collection do
