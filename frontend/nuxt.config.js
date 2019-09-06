@@ -1,5 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
 
+require('dotenv').config()
+const { API_URL } = process.env
+
 export default {
   mode: 'universal',
   /*
@@ -37,7 +40,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    {
+      src: '~plugins/persistedstate.js',
+      ssr: false
+    }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -92,8 +100,5 @@ export default {
   },
   env: {
     API_URL
-  },
-  plugins: [
-    { src: "~plugins/persistedstate.js", ssr: false }
-  ]
+  }
 }
