@@ -1,8 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable
+  devise :database_authenticatable, :rememberable, :omniauthable
 
   enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
@@ -17,7 +16,24 @@ class User < ApplicationRecord
                 }, _prefix: true
   enum seriousness: { not_set: 0, gachi:1, enjoy:2}, _prefix: true
 
+
   def self.fetch_user_detail_from(user_id)
     User.find_by(id:user_id)
+  end
+
+  def self.find_for_oauth(auth)
+    User.where(uid: auth.uid, provider: auth.provider).first_or_create!
+  end
+
+
+  private
+
+  # override auth methods of devise -------------------------
+  def password_required?
+    false
+  end
+
+  def encrypted_password
+    ''
   end
 end
