@@ -89,5 +89,10 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  watchers: {
+    webpack: {
+      poll: true
+    }
   }
 }
