@@ -91,7 +91,7 @@ export default {
     extend(config, ctx) {}
   },
   env: {
-    MUSCLE_URL
+    API_URL
   },
   plugins: [
     { src: "~plugins/persistedstate.js", ssr: false }
