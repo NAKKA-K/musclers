@@ -89,5 +89,11 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-  }
+  },
+  env: {
+    MUSCLE_URL
+  },
+  plugins: [
+    { src: "~plugins/persistedstate.js", ssr: false }
+  ]
 }
