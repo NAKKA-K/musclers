@@ -21,10 +21,14 @@ class User < ApplicationRecord
     User.find_by(id:user_id)
   end
 
+  def self.search_user_in(search_keyword)
+    # TODO: Sprint1の段階ではキーワードを無視して検索
+    User.all
+  end
+
   def self.find_for_oauth(auth)
     User.where(uid: auth.uid, provider: auth.provider).first_or_create!
   end
-
 
   private
 

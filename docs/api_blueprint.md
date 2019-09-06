@@ -171,6 +171,30 @@ Muscler'sのAPI仕様書
       ],
   }
 
+## Users [/api/users/search?nickname={nickname}]
+
++ Parameters
+
+    + nickname: denshi (string) - ユーザの名前
+
+### ユーザの検索結果を取得する [GET]
+
++ Response 200
+
+    + Attributes (object)
+        + code: 200 (number)
+        + message: success (string)
+        + data (array[User,User])
+
++ Response 404
+
+  {
+      "code": 404,
+      "errors": [
+        { message: "お探しのユーザが見つかりませんでした。" }
+      ],
+  }
+
 # Group INFORMATIONS
 
 ## Informations [/api/users/{user_id}/informations]

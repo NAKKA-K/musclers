@@ -4,8 +4,14 @@ module Api
       render json: { message:"I'm index." }
     end
 
+    def search
+      search_keyword = params[:nickname]
+      search_result_data = User.search_user_in(search_keyword)
+      response_search_result_json = make_search_result_json(search_result_data)
+      render json: response_search_result_json
+    end
+
     def show
-      #ユーザ詳細
       user_id = params[:id]
       user_detail = User.fetch_user_detail_from(user_id)
       response_user_detail_json = make_user_detail_json(user_detail)
@@ -44,5 +50,25 @@ module Api
         }
       end
     end
+
+    def make_search_result_json(search_result_data)
+      if search_result_data.blank?
+        {
+          code: 404,
+          errors: [
+            {
+              message: "お探しのユーザが見つかりませんでした"
+            },
+          ],
+        }
+      else
+        {
+          code: 200,
+          message: "Success",
+          data: search_result_data
+        }
+      end
+    end
+
   end
 end
