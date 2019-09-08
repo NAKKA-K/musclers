@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+    include DeviseTokenAuth::Concerns::SetUserByToken
+
     def success_res(status, message: nil, data: nil)
       render json: {
         status: status,

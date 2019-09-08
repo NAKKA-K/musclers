@@ -1,5 +1,5 @@
 module Api
-  class OmniAuthController < Devise::OmniauthCallbacksController
+  class OmniAuthController < DeviseTokenAuth::OmniauthCallbacksController
     def facebook
       callback_from(:facebook)
     end
@@ -8,6 +8,7 @@ module Api
 
     def callback_from(provider)
       begin
+        logger.debug(request.env['omniauth.auth'])
         @user = User.find_for_oauth(request.env['omniauth.auth'])
       rescue => e
         logger.error(e)

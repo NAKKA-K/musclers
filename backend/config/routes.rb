@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'api/omni_auth' }
+  namespace 'api', defaults: { format: :json } do
+    mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+      omniauth_callbacks: 'api/omni_auth'
+    }
+  end
+  # devise_for :users , controllers: { omniauth_callbacks: 'api/omni_auth' }
 
   namespace 'api' do
     resources :users do
