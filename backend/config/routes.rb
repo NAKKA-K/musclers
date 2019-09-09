@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     mount_devise_token_auth_for 'User', at: 'auth', controllers: {
       omniauth_callbacks: 'api/omni_auth'
     }
+    get '/my_callback', to: 'omni_auth#facebook'
   end
   # devise_for :users , controllers: { omniauth_callbacks: 'api/omni_auth' }
 
