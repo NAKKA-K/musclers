@@ -32,12 +32,6 @@ gem 'rack-cors'
 gem 'dotenv-rails'
 gem 'enum_help'
 
-# Authentication gems
-gem 'devise', '~> 4.7.0'
-gem 'devise_token_auth', '~> 1.1.2'
-gem 'omniauth'
-gem 'omniauth-facebook'
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
