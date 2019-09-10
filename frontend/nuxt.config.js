@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
+require('dotenv').config()
+
 export default {
   mode: 'universal',
   /*
@@ -53,7 +55,8 @@ export default {
     '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth'
   ],
   /**
    * PWA compatible for develop
@@ -89,5 +92,23 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  /**
+   * auth session
+   */
+  auth: {
+    redirect: {
+      login: '/',
+      logout: '/',
+      callback: '/callback',
+      home: '/'
+    },
+    strategies: {
+      facebook: {
+        client_id: process.env.FACEBOOK_APP,
+        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+        scope: ['public_profile', 'email', 'user_birthday']
+      }
+    }
   }
 }
