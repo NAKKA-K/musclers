@@ -53,7 +53,8 @@ export default {
     '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth'
   ],
   /**
    * PWA compatible for develop
@@ -89,5 +90,25 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  /**
+   * auth session
+   */
+  auth: {
+    redirect: {
+      login: '/',
+      logout: '/',
+      callback: '/callback',
+      home: '/'
+    },
+    strategies: {
+      facebook: {
+        facebook_app: process.env.FACEBOOK_APP,
+        facebook_secret: process.env.FACEBOOK_SECRET
+      },
+      github: {
+        scope: ['read:user'] // デフォルトだと ['user', 'email'] となり、権限がやや強いので絞る
+      }
+    }
   }
 }
