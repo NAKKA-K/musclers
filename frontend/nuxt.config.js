@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
+require('dotenv').config()
+
 export default {
   mode: 'universal',
   /*
@@ -103,11 +105,9 @@ export default {
     },
     strategies: {
       facebook: {
-        facebook_app: process.env.FACEBOOK_APP,
-        facebook_secret: process.env.FACEBOOK_SECRET
-      },
-      github: {
-        scope: ['read:user'] // デフォルトだと ['user', 'email'] となり、権限がやや強いので絞る
+        client_id: process.env.FACEBOOK_APP,
+        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+        scope: ['public_profile', 'email', 'user_birthday']
       }
     }
   }

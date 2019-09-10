@@ -7,7 +7,7 @@
     <button type="button" @click="onClick4">window</button>
     <button type="button" @click="login">login</button>
     <button type="button" @click="logout">logout</button>
-    {{ $auth.$state }}
+    <br /><br />{{ $auth.$state }}
     <a
       href="https://www.facebook.com/v2.10/dialog/oauth?client_id=501914390641876&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fomniauth%2Ffacebook%2Fcallback&response_type=code&scope=email&state=894a95f6381c156ae112e07e978cebe089bd17a934f7b5d5"
       >link</a
