@@ -21,6 +21,9 @@ migrate:
 	docker-compose exec -e RAILD_ENV=development api rails db:migrate
 	docker-compose exec -e RAILD_ENV=test api rails db:migrate
 
+lintfix:
+	docker-compose exec frontend npm run lintfix
+
 
 .PHONY: mock/*
 
