@@ -3,11 +3,17 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  async asyncData({ req }) {
-    await axios
-      .get('http://localhost:8080/api/')
+  async mounted() {
+    const state = this.$auth.$state
+    const postData = {
+      uid: state.user.id,
+      provider: state.strategy,
+      email: state.user.email
+    }
+
+    await this.$axios
+      .post('http://localhost:8080/api/auth/sign_in', postData)
       .then((res) => console.log(res))
       .catch((err) => console.error(err))
   }
