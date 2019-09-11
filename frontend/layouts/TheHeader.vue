@@ -5,7 +5,7 @@
         <div>
           <v-toolbar-title>Muscler's</v-toolbar-title>
         </div>
-        <div class="search_bar">
+        <div class="search-bar">
           <v-text-field
             label="ユーザー検索"
             hide-details
@@ -14,7 +14,7 @@
           />
         </div>
         <v-toolbar-items class="hidden-sm-and-down">
-          <div class="select_size">
+          <div class="select-size">
             <v-select
               item-text="title"
               :items="group"
@@ -24,7 +24,7 @@
           </div>
         </v-toolbar-items>
         <v-spacer></v-spacer>
-        <v-badge color="red" overlap class="badge_position">
+        <v-badge color="red" overlap class="badge-position">
           <i class="material-icons">notifications</i>
           <!--TODO:通知きた時用の分岐<v-if>-->
           <template v-slot:badge>
@@ -68,12 +68,12 @@ export default {
 </script>
 
 <style>
-.search_bar {
+.search-bar {
   width: 140px;
   margin: 0px 0px 20px 15px;
 }
 
-.select_size {
+.select-size {
   width: 100px;
   margin: 0px 0px 0px 5px;
 }
@@ -82,7 +82,7 @@ export default {
   font-size: 25px;
 }
 
-.badge_position {
+.badge-position {
   margin: 0px 10px 0px 0px;
 }
 </style>
