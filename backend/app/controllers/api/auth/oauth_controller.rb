@@ -16,16 +16,16 @@ module Api
         end
 
         sign_in @user
-        if user_signed_in?
-          # TODO: access_tokenを返す
-          success_res(200, message: '認証されました', data: @user) and return
+        if authenticated?
+          data = LoggedinUserSerializer.new(@user).as_json
+          success_res(200, message: '認証されました', data: data) and return
         else
           error_res(401, err: '認証に失敗しました') and return
         end
       end
 
       def auth_params
-        params.require(:auth).permit(:provider, :uid, :email)
+        params.permit(:provider, :uid, :email)
       end
     end
   end
