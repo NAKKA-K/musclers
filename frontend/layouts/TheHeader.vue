@@ -31,12 +31,15 @@
             <span>1</span>
           </template>
         </v-badge>
-        <v-menu offset-y>
+        <v-menu>
           <template v-slot:activator="{ on }">
-            <i class="material-icons large-size">account_circle</i>
+            <v-btn icon v-on="on">
+              <i class="material-icons large-size">account_circle</i>
+            </v-btn>
           </template>
+
           <v-list>
-            <v-list-item v-for="(item, i) in items" :key="i">
+            <v-list-item v-for="item in items" :key="item" @click="() => {}">
               <v-list-item-title>{{ item.title }}</v-list-item-title
               ><br />
             </v-list-item>
