@@ -20,7 +20,6 @@ export default {
   },
   mounted() {
     this.sample()
-    console.log(JSON.stringify(this.$auth.$state))
   },
   methods: {
     async sample() {
