@@ -5,29 +5,28 @@
         <div>
           <v-toolbar-title>Muscler's</v-toolbar-title>
         </div>
-        <div>
-          <v-textarea
+        <div class="search_bar">
+          <v-text-field
             label="ユーザー検索"
-            prepend-inner-icon="search"
-            rows="1"
-            style="width:140px;margin:0px 0px 0px 15px;"
+            hide-details
+            prepend-icon="search"
+            single-line
           />
         </div>
         <v-toolbar-items class="hidden-sm-and-down">
-          <div>
+          <div class="select_size">
             <v-select
               item-text="title"
               :items="group"
               label="グループ"
-              style="width:100px"
               return-object
             />
           </div>
         </v-toolbar-items>
         <v-spacer></v-spacer>
-        <v-badge color="red" overlap style="margin:0px 10px 0px 0px;">
+        <v-badge color="red" overlap class="badge_position">
           <i class="material-icons">notifications</i>
-          <!--<v-if>-->
+          <!--TODO:通知きた時用の分岐<v-if>-->
           <template v-slot:badge>
             <span>1</span>
           </template>
@@ -69,7 +68,21 @@ export default {
 </script>
 
 <style>
+.search_bar {
+  width: 140px;
+  margin: 0px 0px 20px 15px;
+}
+
+.select_size {
+  width: 100px;
+  margin: 0px 0px 0px 5px;
+}
+
 .material-icons.large-size {
   font-size: 25px;
+}
+
+.badge_position {
+  margin: 0px 10px 0px 0px;
 }
 </style>
