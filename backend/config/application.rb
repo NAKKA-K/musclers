@@ -47,8 +47,7 @@ module Backend
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
     config.middleware.use ActionDispatch::Cookies
-    config.session_store :cookie_store, key: '_interslice_session'
-    config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
+    config.middleware.use ActionDispatch::Session::CookieStore
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
@@ -60,5 +59,6 @@ module Backend
       end
     end
 
+    ActiveModelSerializers.config.adapter = :json_api
   end
 end
