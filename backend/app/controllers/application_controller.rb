@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
     # ログイン用のトークンを生成し、ログインしたユーザーを返す
     def sign_in(user)
-      user.generate_access_token!
+      user.update_access_token!
       @current_user = user
     end
 

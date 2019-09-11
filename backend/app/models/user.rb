@@ -27,7 +27,7 @@ class User < ApplicationRecord
   end
 
 
-  def generate_access_token!
+  def update_access_token!
     self.access_token = generate_friendly_token
     self.save!
   end
