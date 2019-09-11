@@ -1,19 +1,20 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-toolbar>
+      <v-toolbar flat :color="'#ffac12'">
         <div>
           <v-toolbar-title>Muscler's</v-toolbar-title>
         </div>
-        <div>
-          <v-textarea
+        <div class="search-bar">
+          <v-text-field
             label="ユーザー検索"
-            prepend-inner-icon="search"
-            rows="1"
+            hide-details
+            prepend-icon="search"
+            single-line
           />
         </div>
         <v-toolbar-items class="hidden-sm-and-down">
-          <div>
+          <div class="select-size">
             <v-select
               item-text="title"
               :items="group"
@@ -23,16 +24,16 @@
           </div>
         </v-toolbar-items>
         <v-spacer></v-spacer>
-        <a>
-          <v-badge style="margin:25px;">
-            <template v-slot:badge
-              >0</template
-            >
-          </v-badge>
-        </a>
+        <v-badge color="red" overlap class="badge-position">
+          <i class="material-icons">notifications</i>
+          <!--TODO:通知きた時用の分岐<v-if>-->
+          <template v-slot:badge>
+            <span>1</span>
+          </template>
+        </v-badge>
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <i class="material-icons" btn>account_circle</i>
+            <i class="material-icons large-size">account_circle</i>
           </template>
           <v-list>
             <v-list-item v-for="(item, i) in items" :key="i">
@@ -65,3 +66,23 @@ export default {
   })
 }
 </script>
+
+<style>
+.search-bar {
+  width: 140px;
+  margin: 0px 0px 20px 15px;
+}
+
+.select-size {
+  width: 100px;
+  margin: 0px 0px 0px 5px;
+}
+
+.material-icons.large-size {
+  font-size: 25px;
+}
+
+.badge-position {
+  margin: 0px 10px 0px 0px;
+}
+</style>
