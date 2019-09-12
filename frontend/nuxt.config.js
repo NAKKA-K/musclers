@@ -127,5 +127,10 @@ export default {
         scope: ['public_profile', 'email', 'user_birthday']
       }
     }
+  },
+  watchers: {
+    webpack: {
+      poll: true
+    }
   }
 }
