@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <TheHeader />
-    <TheFooter />
+    <v-app id="inspire">
+      <TheHeader />
+      <nuxt />
+      <TheFooter />
+    </v-app>
   </div>
 </template>
 
