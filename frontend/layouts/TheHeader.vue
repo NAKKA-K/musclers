@@ -39,9 +39,11 @@
           </template>
 
           <v-list>
-            <v-list-item v-for="item in items" :key="item" @click="() => {}">
-              <v-list-item-title>{{ item.title }}</v-list-item-title
-              ><br />
+            <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
+              <v-list-item-title>
+                {{ item.title }}
+              </v-list-item-title>
+              <br />
             </v-list-item>
           </v-list>
         </v-menu>
@@ -49,6 +51,7 @@
     </v-app>
   </div>
 </template>
+
 <script>
 export default {
   data: () => ({
