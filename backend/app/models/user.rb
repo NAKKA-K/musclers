@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def self.find_for_oauth(auth)
-    User.where(uid: auth[:uid], provider: auth[:provider]).first_or_create!
+    User.where(uid: auth[:uid], provider: auth[:provider]).first_or_initialize
   end
 
 
