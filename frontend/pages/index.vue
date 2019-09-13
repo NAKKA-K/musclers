@@ -1,5 +1,10 @@
 <template>
-  <h1>response data:{{ message }}</h1>
+  <div>
+    <h1>response data:{{ message }}</h1>
+    <button type="button" @click="login">login</button>
+    <button type="button" @click="logout">logout</button>
+    <p>{{ $auth.$state }}</p>
+  </div>
 </template>
 
 <script>
@@ -31,6 +36,13 @@ export default {
           this.message = res.data.message
         })
         .catch((err) => console.log(err))
+    },
+
+    login() {
+      this.$auth.loginWith('facebook')
+    },
+    logout() {
+      this.$auth.logout()
     }
   }
 }
