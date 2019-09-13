@@ -6,6 +6,11 @@
 export default {
   async mounted() {
     const state = this.$auth.$state
+    if (!state.user) {
+      console.error('認証できませんでした')
+      return
+    }
+
     const postData = {
       uid: state.user.id,
       provider: state.strategy,
@@ -13,7 +18,7 @@ export default {
     }
 
     try {
-      const res = await this.$axios.post('/api/auth/sign_in', postData)
+      const res = await this.$axios.$post('/api/auth/sign_in', postData)
 
       await this.$store.dispatch('auth/setCurrentUser', { user: res.data.data })
     } catch (err) {
