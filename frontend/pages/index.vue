@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>response data:{{ message }}</h1>
+    <nuxt-link to="/auth/login">ログイン</nuxt-link>
     <button type="button" @click="login">login</button>
     <button type="button" @click="logout">logout</button>
     <p>{{ $auth.$state }}</p>
