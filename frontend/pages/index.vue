@@ -32,7 +32,6 @@ export default {
           timeout: 15000
         })
         .then((res) => {
-          console.log(res.data)
           this.message = res.data.message
         })
         .catch((err) => console.log(err))
