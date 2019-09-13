@@ -3,14 +3,23 @@ class ApplicationController < ActionController::API
 
   # トークン生成済みのユーザーのみ認証する
   def authenticate_user_from_token!
+    user = authenticate_user_from_token
+    if user
+      @current_user = user
+    else
+      error_res(401, message: '認証失敗しました')
+    end
+  end
+
+  def authenticate_user_from_token
     token = request.env['Authorization']
     # TODO: 今後、トークンの失効期限をもうけたい場合、トークン生成時を記録し、以下のユーザー取得時に時間の比較をする
     user = User.find_by(access_token: token)
 
     if user && user.secure_token_compare(token)
-      @current_user = user
+      user
     else
-      error_res(401, message: '認証失敗しました')
+      nil
     end
   end
 
@@ -26,7 +35,7 @@ class ApplicationController < ActionController::API
 
   # ログイン中のユーザーを返す
   def current_user
-    @current_user ||= authenticate_user_from_token!
+    @current_user ||= authenticate_user_from_token
   end
 
   def success_res(status, message: nil, data: nil)
