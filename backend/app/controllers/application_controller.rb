@@ -35,7 +35,6 @@ class ApplicationController < ActionController::API
       message: message,
       data: data
     }
-
   end
 
   def error_res(status, message: nil, err: nil)
