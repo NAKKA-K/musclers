@@ -1,3 +1,4 @@
+/*
 import createPersistedState from 'vuex-persistedstate'
 
 export default ({ store, isHMR }) => {
@@ -13,3 +14,4 @@ export default ({ store, isHMR }) => {
     })
   }
 }
+*/

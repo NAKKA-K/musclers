@@ -3,7 +3,8 @@ export const state = () => ({
   user_name: null, // user name
   user_token: null, // user token
   user_image_url: null, // user image
-  login_status: false // user status flag
+  login_status: false, // user status flag
+  isLoading: false
 })
 
 export const mutations = {
@@ -18,6 +19,9 @@ export const mutations = {
     state.user = null
     state.user_token = null
     state.status = false
+  },
+  setIsLoading(state, isLoading) {
+    state.isLoading = isLoading
   }
 }
 

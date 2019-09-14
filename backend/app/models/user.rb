@@ -1,8 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :rememberable, :omniauthable
-
   enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
                   not_set: 0,
@@ -27,17 +23,33 @@ class User < ApplicationRecord
   end
 
   def self.find_for_oauth(auth)
-    User.where(uid: auth.uid, provider: auth.provider).first_or_create!
+    User.where(uid: auth[:uid], provider: auth[:provider]).first_or_initialize
+  end
+
+
+  def update_access_token!
+    self.access_token = generate_friendly_token
+    self.save!
+  end
+
+  # (by devise gem) constant-time comparison algorithm to prevent timing attacks
+  def secure_token_compare(token)
+    a = self.access_token
+    b = token
+
+    return false if a.blank? || b.blank? || a.bytesize != b.bytesize
+    l = a.unpack "C#{a.bytesize}"
+
+    res = 0
+    b.each_byte { |byte| res |= byte ^ l.shift }
+    res == 0
   end
 
   private
 
-  # override auth methods of devise -------------------------
-  def password_required?
-    false
+  # トークンに使用されるランダムな文字列を生成する
+  def generate_friendly_token
+    SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz')
   end
 
-  def encrypted_password
-    ''
-  end
 end

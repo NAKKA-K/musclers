@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="container" style="background-color: #FFB300;">
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center>
@@ -35,7 +35,7 @@
                     width="30%"
                     color="orange lighten-2"
                     class="white--text button-size"
-                    @click="userLogin"
+                    @click="login"
                     >ログイン</v-btn
                   >
                 </v-card-actions>
@@ -60,10 +60,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-const LOGIN_URL = process.env.API_URL + 'api/auth/login'
-
 export default {
   components: {},
   data() {
@@ -73,28 +69,8 @@ export default {
     }
   },
   methods: {
-    async userLogin() {
-      await axios
-        .post(LOGIN_URL, {
-          user: {
-            email: this.user_email,
-            password: this.user_pass
-          }
-        })
-        .then((res) => {
-          this.response = res.data
-          if (this.response.message === 'succesful login') {
-            this.$store.commit('login', {
-              user_name: this.response.user_name,
-              user_token: this.response.user_token,
-              user_id: this.response.user_id,
-              user_image_url: this.response.user_image_url
-            })
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    login() {
+      this.$auth.loginWith('facebook')
     }
   }
 }
@@ -105,3 +81,22 @@ export default {
   min-width: 70%;
 }
 </style>
+
+<!--
+<template>
+  <div>
+    <h1>login page</h1>
+    <button type="button" @click="login">login</button>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    login() {
+      this.$auth.loginWith('facebook')
+    }
+  }
+}
+</script>
+-->
