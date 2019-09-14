@@ -1,5 +1,5 @@
 <template>
-  <section class="container" style="background-color: #FFB300;">
+  <section class="container" style="background-color: #FFB74D;">
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center>
