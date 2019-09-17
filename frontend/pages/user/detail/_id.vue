@@ -80,25 +80,32 @@
 
 <script>
 export default {
-  components: {},
-  async asyncData({ params, $axios }) {
-    const USER_DETAIL_API_URL = `http://localhost:8080/api/users/${params.id}`
-    const response = await $axios.get(USER_DETAIL_API_URL, {
-      headers: {
-        'Content-Type': 'application/json'
+  async asyncData({ params, $axios, redirect }) {
+    const USER_DETAIL_API_URL = `http://api:8080/api/users/${params.id}`
+    try {
+      const response = await $axios.$get(USER_DETAIL_API_URL, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      console.log(response.status)
+      const StatusCode = response.status
+      if (StatusCode === 200) {
+        return {
+          status_code: StatusCode,
+          user_detail_data: response.data
+        }
+      } else if (StatusCode === 404) {
+        return {
+          status_code: StatusCode,
+          err_msg: response.errors[0].message
+        }
+      } else {
+        return redirect('/')
       }
-    })
-    const StatusCode = response.data.code
-    if (StatusCode === 200) {
-      return {
-        status_code: StatusCode,
-        user_detail_data: response.data.data
-      }
-    } else {
-      return {
-        status_code: StatusCode,
-        err_msg: response.data.errors[0].message
-      }
+    } catch (err) {
+      console.log(err)
+      return redirect('/')
     }
   }
 }
