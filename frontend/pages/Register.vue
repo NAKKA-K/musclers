@@ -4,7 +4,6 @@
     <h5 class="red--text">
       Facebookでメールアドレスが設定されていませんでした。
     </h5>
-    <br />
     <v-container>
       <v-col>
         <v-text-field
