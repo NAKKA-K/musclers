@@ -47,7 +47,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn v-else text @click="login">
+      <v-btn v-else id="header-login-btn" text @click="login">
         ログイン
       </v-btn>
     </v-toolbar>
@@ -107,5 +107,9 @@ export default {
 
 .badge-position {
   margin: 0px 10px 0px 0px;
+}
+
+#header-login-btn {
+  padding: 0;
 }
 </style>
