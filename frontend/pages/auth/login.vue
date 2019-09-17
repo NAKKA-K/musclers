@@ -14,20 +14,11 @@
               <v-card-actions primary-title class="justify-center">
                 <v-btn
                   primary
-                  width="30%"
-                  color="orange lighten-2"
-                  class="white--text button-size"
-                  @click="login"
-                  >ログイン</v-btn
-                >
-              </v-card-actions>
-              <v-card-actions primary-title class="justify-center">
-                <v-btn
-                  primary
-                  width="30%"
                   color="light-blue darken-2"
                   class="white--text button-size"
-                  >Facebookで新規登録</v-btn
+                  style="min-width: 60%;"
+                  @click="login"
+                  >Facebookでログイン</v-btn
                 >
               </v-card-actions>
             </v-card>
@@ -40,7 +31,7 @@
 
 <script>
 export default {
-  components: {},
+  layout: 'login',
   methods: {
     login() {
       this.$auth.loginWith('facebook')
@@ -48,9 +39,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.button-size {
-  min-width: 70%;
-}
-</style>
