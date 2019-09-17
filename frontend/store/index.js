@@ -9,11 +9,13 @@ export const state = () => ({
 
 export const mutations = {
   login(state, payload) {
+    /*
     state.user_name = payload.user_name
     state.user_token = payload.user_token
     state.user_id = payload.user_id
     state.user_image_url = payload.user_image_url
     state.login_status = true
+    */
   },
   logout(state) {
     state.user = null

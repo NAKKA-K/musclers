@@ -4,21 +4,6 @@
       <v-container fluid fill-height>
         <v-layout justify-center>
           <v-flex xs12 sm8>
-            <!-- success login -->
-            <div v-if="this.response.message === ''">
-              <v-alert :value="true" type="success">
-                ログインに成功しました!!
-              </v-alert>
-            </div>
-
-            <!-- can't login... -->
-            <div v-else-if="this.response.message === ''">
-              <v-alert :value="true" type="error">
-                ログインに失敗しました...
-              </v-alert>
-            </div>
-            <br /><br /><br />
-
             <!-- login form -->
             <div v-if="this.response.message !== ''">
               <v-card class="elevation-12">
@@ -81,22 +66,3 @@ export default {
   min-width: 70%;
 }
 </style>
-
-<!--
-<template>
-  <div>
-    <h1>login page</h1>
-    <button type="button" @click="login">login</button>
-  </div>
-</template>
-
-<script>
-export default {
-  methods: {
-    login() {
-      this.$auth.loginWith('facebook')
-    }
-  }
-}
-</script>
--->
