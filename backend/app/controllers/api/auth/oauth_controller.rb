@@ -1,6 +1,8 @@
 module Api
   module Auth
     class OauthController < ApplicationController
+      skip_before_action :authenticate_user_from_token!
+
       def facebook
         callback_from(:facebook)
       end
@@ -8,17 +10,24 @@ module Api
       private
 
       def callback_from(provider)
-        begin
-          @user = User.find_for_oauth(auth_params)
-        rescue => e
-          logger.error(e)
-          error_res(500, err: '認証に失敗しました') and return
+        @user = User.find_for_oauth(auth_params)
+
+        status = 200
+        if @user.new_record?
+          status = 201
+
+          begin
+            @user.save!
+          rescue => e
+            logger.error(e)
+            error_res(500, err: '認証に失敗しました') and return
+          end
         end
 
-        sign_in @user
-        if authenticated?
+        authenticate @user
+        if sign_in?
           data = LoggedinUserSerializer.new(@user).as_json
-          success_res(200, message: '認証されました', data: data) and return
+          success_res(status, message: '認証されました', data: data) and return
         else
           error_res(401, err: '認証に失敗しました') and return
         end

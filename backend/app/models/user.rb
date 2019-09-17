@@ -23,11 +23,11 @@ class User < ApplicationRecord
   end
 
   def self.find_for_oauth(auth)
-    User.where(uid: auth[:uid], provider: auth[:provider]).first_or_create!
+    User.where(uid: auth[:uid], provider: auth[:provider]).first_or_initialize
   end
 
 
-  def generate_access_token!
+  def update_access_token!
     self.access_token = generate_friendly_token
     self.save!
   end
