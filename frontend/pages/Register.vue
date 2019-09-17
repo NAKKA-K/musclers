@@ -16,9 +16,10 @@
       </v-col>
     </v-container>
     <div class="margin-bottom">
-      <nuxt-link to="/sign_up"
-        ><v-btn class="primary" rounded>登録</v-btn></nuxt-link
-      >
+      <nuxt-link to="/sign_up">
+        <v-btn class="primary" rounded>登録
+        </v-btn>
+      </nuxt-link>
     </div>
   </div>
 </template>
