@@ -30,7 +30,8 @@
           <span>1</span>
         </template>
       </v-badge>
-      <v-menu>
+
+      <v-menu v-if="currentUser" offset-y>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
             <i class="material-icons large-size">account_circle</i>
@@ -39,27 +40,32 @@
 
         <v-list>
           <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
-            <v-list-item-title>
-              {{ item.title }}
-            </v-list-item-title>
-            <br />
+            <v-icon v-text="item.icon"></v-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-btn v-else text @click="login">
+        ログイン
+      </v-btn>
     </v-toolbar>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: () => ({
     items: [
-      { title: 'マイページ' },
-      { title: 'おすすめユーザー' },
-      { title: 'メッセージ' },
-      { title: 'グループ' },
-      { title: '検索' },
-      { title: 'ログアウト' }
+      { icon: 'account_circle', title: 'マイページ' },
+      { icon: 'account_circle', title: 'おすすめユーザー' },
+      { icon: 'account_circle', title: 'メッセージ' },
+      { icon: 'account_circle', title: 'グループ' },
+      { icon: 'account_circle', title: '検索' },
+      { icon: 'account_circle', title: 'ログアウト' }
     ],
     group: [
       { title: 'グループ検索' },
@@ -67,7 +73,20 @@ export default {
       { title: 'グループ一覧' },
       { title: '参加グループ' }
     ]
-  })
+  }),
+  mounted() {
+    console.log(this.currentUser)
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: 'auth/currentUser'
+    })
+  },
+  methods: {
+    login() {
+      this.$auth.loginWith('facebook')
+    }
+  }
 }
 </script>
 
