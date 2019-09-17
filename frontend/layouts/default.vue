@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-app id="inspire">
+    <v-app id="inspire" style="background-color: #FFB74D;">
       <TheHeader />
       <nuxt />
       <TheFooter />
