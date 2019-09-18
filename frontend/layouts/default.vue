@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
-    <v-app id="inspire">
+  <v-app id="inspire">
+    <div id="app">
       <TheHeader />
       <nuxt />
       <TheFooter />
-    </v-app>
-  </div>
+    </div>
+  </v-app>
 </template>
 
 <script>
