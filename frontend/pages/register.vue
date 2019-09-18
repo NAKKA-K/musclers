@@ -5,20 +5,18 @@
       Facebookでメールアドレスが設定されていませんでした。
     </h5>
     <v-container>
-      <v-col>
+      <v-col cols="12" sm="6" offset-sm="3">
         <v-text-field
           label="kobedenshi@gmail.com"
           hide-details
           prepend-icon="email"
           single-line
-          class="width pa-5"
         />
       </v-col>
     </v-container>
     <div class="margin-bottom">
       <nuxt-link to="/sign_up">
-        <v-btn class="primary" rounded>登録
-        </v-btn>
+        <v-btn class="primary" rounded>登録 </v-btn>
       </nuxt-link>
     </div>
   </div>
