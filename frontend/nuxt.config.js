@@ -43,8 +43,13 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/axios.js'],
-
+  plugins: [
+    {
+      src: '~plugins/persistedstate.js',
+      ssr: false
+    },
+    '~/plugins/axios.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
