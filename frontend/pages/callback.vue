@@ -20,7 +20,7 @@ export default {
     try {
       const res = await this.$axios.$post('/api/auth/sign_in', postData)
 
-      await this.$store.dispatch('auth/setCurrentUser', { user: res.data.data })
+      await this.$store.dispatch('auth/setCurrentUser', { user: res.data })
     } catch (err) {
       console.error(err)
     }
