@@ -1,52 +1,53 @@
 <template>
   <div>
     <v-toolbar flat :color="'#ffac12'">
-      <div>
-        <v-toolbar-title>Muscler's</v-toolbar-title>
-      </div>
-      <div class="search-bar">
+      <v-toolbar-title class="header-title">Muscler's</v-toolbar-title>
+
+      <v-col cols="6" sm="3">
         <v-text-field
           label="ユーザー検索"
           hide-details
           prepend-icon="search"
           single-line
         />
+      </v-col>
+
+      <div class="hidden-xs-only">
+        <group-selector
+          klass="group-selector"
+          :items="group"
+          :handle-select="handleSelectGroup"
+        />
       </div>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <div class="select-size">
-          <v-select
-            item-text="title"
-            :items="group"
-            label="グループ"
-            return-object
-          />
-        </div>
-      </v-toolbar-items>
+
       <v-spacer></v-spacer>
-      <v-badge color="red" overlap class="badge-position">
-        <i class="material-icons">notifications</i>
-        <!--TODO:通知きた時用の分岐<v-if>-->
-        <template v-slot:badge>
-          <span>1</span>
-        </template>
-      </v-badge>
 
-      <v-menu v-if="currentUser" offset-y>
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <i class="material-icons large-size">account_circle</i>
-          </v-btn>
-        </template>
+      <div v-if="currentUser">
+        <v-badge color="red" overlap class="badge-position">
+          <i class="material-icons">notifications</i>
+          <!--TODO:通知きた時用の分岐<v-if>-->
+          <template v-slot:badge>
+            <span>1</span>
+          </template>
+        </v-badge>
 
-        <v-list>
-          <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
-            <v-icon v-text="item.icon"></v-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn icon v-on="on">
+              <v-icon>account_circle</v-icon>
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
+              <v-icon v-text="item.icon"></v-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
       <v-btn v-else id="header-login-btn" text @click="login">
         ログイン
       </v-btn>
@@ -56,8 +57,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import GroupSelector from '../components/GroupSelector.vue'
 
 export default {
+  components: {
+    GroupSelector
+  },
   data: () => ({
     items: [
       { icon: 'account_circle', title: 'マイページ' },
@@ -68,15 +73,12 @@ export default {
       { icon: 'account_circle', title: 'ログアウト' }
     ],
     group: [
-      { title: 'グループ検索' },
-      { title: 'グループ作成' },
-      { title: 'グループ一覧' },
-      { title: '参加グループ' }
+      { id: 1, icon: 'account_circle', text: 'グループ検索' },
+      { id: 2, icon: 'account_circle', text: 'グループ作成' },
+      { id: 3, icon: 'account_circle', text: 'グループ一覧' },
+      { id: 4, icon: 'account_circle', text: '参加グループ' }
     ]
   }),
-  mounted() {
-    console.log(this.currentUser)
-  },
   computed: {
     ...mapGetters({
       currentUser: 'auth/currentUser'
@@ -85,20 +87,22 @@ export default {
   methods: {
     login() {
       this.$auth.loginWith('facebook')
+    },
+    handleSelectGroup(groupObj) {
+      console.log(groupObj)
     }
   }
 }
 </script>
 
 <style>
-.search-bar {
-  width: 140px;
-  margin: 0px 0px 20px 15px;
+.header-title {
+  margin-right: 0.8em;
 }
 
-.select-size {
-  width: 100px;
-  margin: 0px 0px 0px 5px;
+.group-selector {
+  max-width: 12em;
+  margin-bottom: -22px;
 }
 
 .material-icons.large-size {
