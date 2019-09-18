@@ -22,13 +22,8 @@
 
       <v-spacer></v-spacer>
 
-      <div>
-        <v-badge
-          color="red"
-          overlap
-          class="badge-position"
-          style="display:inline-block"
-        >
+      <div v-if="currentUser">
+        <v-badge color="red" overlap class="badge-position">
           <i class="material-icons">notifications</i>
           <!--TODO:通知きた時用の分岐<v-if>-->
           <template v-slot:badge>
@@ -53,6 +48,9 @@
           </v-list>
         </v-menu>
       </div>
+      <v-btn v-else id="header-login-btn" text @click="login">
+        ログイン
+      </v-btn>
     </v-toolbar>
   </div>
 </template>
