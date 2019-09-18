@@ -19,7 +19,7 @@
       <nuxt-link to="/sign_up">
         <v-btn class="primary" rounded>登録
         </v-btn>
-        </nuxt-link>
+      </nuxt-link>
     </div>
   </div>
 </template>
