@@ -2,7 +2,9 @@
   <v-app id="inspire">
     <div id="app">
       <TheHeader />
-      <nuxt />
+      <div class="container">
+        <nuxt />
+      </div>
       <TheFooter />
     </div>
   </v-app>
