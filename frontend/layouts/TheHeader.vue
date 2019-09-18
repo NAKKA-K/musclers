@@ -22,8 +22,13 @@
 
       <v-spacer></v-spacer>
 
-      <div v-if="currentUser">
-        <v-badge color="red" overlap class="badge-position">
+      <div>
+        <v-badge
+          color="red"
+          overlap
+          class="badge-position"
+          style="display:inline-block"
+        >
           <i class="material-icons">notifications</i>
           <!--TODO:通知きた時用の分岐<v-if>-->
           <template v-slot:badge>
@@ -48,9 +53,6 @@
           </v-list>
         </v-menu>
       </div>
-      <v-btn v-else id="header-login-btn" text @click="login">
-        ログイン
-      </v-btn>
     </v-toolbar>
   </div>
 </template>
@@ -105,12 +107,9 @@ export default {
   margin-bottom: -22px;
 }
 
-.material-icons.large-size {
-  font-size: 25px;
-}
-
 .badge-position {
   margin: 0px 10px 0px 0px;
+  vertical-align: middle;
 }
 
 #header-login-btn {
