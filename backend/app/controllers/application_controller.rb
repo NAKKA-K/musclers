@@ -39,7 +39,7 @@ class ApplicationController < ActionController::API
   end
 
   def success_res(status, message: nil, data: nil)
-    render json: {
+    render status: status, json: {
       status: status,
       message: message,
       data: data
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::API
   end
 
   def error_res(status, message: nil, err: nil)
-    render json: {
+    render status: status, json: {
       status: status,
       message: message,
       errors: [
