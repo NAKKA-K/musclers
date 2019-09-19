@@ -55,6 +55,7 @@ module Api
       if search_result_data.blank?
         {
           code: 404,
+          message: "お探しのユーザが見つかりませんでした",
           errors: [
             {
               message: "お探しのユーザが見つかりませんでした"

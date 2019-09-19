@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-toolbar flat :color="'#ffac12'">
-      <v-toolbar-title class="header-title">Muscler's</v-toolbar-title>
+      <v-toolbar-title>
+        <nuxt-link to="/" class="header-title">Muscler's</nuxt-link>
+      </v-toolbar-title>
 
       <v-col cols="6" sm="3">
         <v-text-field
@@ -34,7 +36,10 @@
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn icon v-on="on">
-              <v-icon>account_circle</v-icon>
+              <v-avatar v-if="currentUser.thumbnail">
+                <img :src="currentUser.thumbnail" />
+              </v-avatar>
+              <v-icon v-else>person</v-icon>
             </v-btn>
           </template>
 
@@ -88,6 +93,10 @@ export default {
     login() {
       this.$auth.loginWith('facebook')
     },
+    logout() {
+      this.$auth.logout()
+      this.$store.dispatch('auth/logout')
+    },
     handleSelectGroup(groupObj) {
       console.log(groupObj)
     }
@@ -98,6 +107,9 @@ export default {
 <style>
 .header-title {
   margin-right: 0.8em;
+  color: black !important;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .group-selector {

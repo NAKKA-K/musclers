@@ -98,10 +98,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL:
-      process.env.NODE_ENV === 'production'
-        ? 'http://localhost:8080'
-        : 'http://localhost:8080'
+    baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://api:8080'
   },
 
   /*
