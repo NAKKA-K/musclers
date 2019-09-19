@@ -4,13 +4,24 @@
 
     <v-list v-if="users">
       <v-row>
-        <v-col cols="6" xs="12" v-for="user in users" :key="user.id">
-          <v-img
-            :src="
-              user.thumbnail ||
-                'https://pbs.twimg.com/media/D5h_2fXX4AAVopV?format=jpg&name=medium'
-            "
-          ></v-img>
+        <v-col
+          v-for="user in users"
+          :key="user.id"
+          cols="6"
+          xl="3"
+          lg="3"
+          md="3"
+          sm="3"
+        >
+          <div class="pa-4">
+            <v-img
+              :src="
+                user.thumbnail ||
+                  'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
+              "
+            ></v-img>
+            <p class="text-center" v-text="user.nickname || 'No name'"></p>
+          </div>
         </v-col>
       </v-row>
     </v-list>
