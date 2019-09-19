@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-toolbar flat :color="'#ffac12'">
-      <v-toolbar-title class="header-title">Muscler's</v-toolbar-title>
+      <v-toolbar-title>
+        <nuxt-link to="/" class="header-title">Muscler's</nuxt-link>
+      </v-toolbar-title>
 
       <v-col cols="6" sm="3">
         <v-text-field
@@ -105,6 +107,9 @@ export default {
 <style>
 .header-title {
   margin-right: 0.8em;
+  color: black !important;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .group-selector {
