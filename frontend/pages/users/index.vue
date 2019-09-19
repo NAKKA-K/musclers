@@ -24,7 +24,7 @@
 export default {
   async asyncData({ $axios }) {
     const users = await $axios
-      .get('/api/users/search')
+      .$get('/api/users/search')
       .then((res) => res.data)
       .catch((err) => {
         if (err && err.response && err.response.data) {
