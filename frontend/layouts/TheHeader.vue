@@ -34,7 +34,10 @@
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn icon v-on="on">
-              <v-icon>account_circle</v-icon>
+              <v-avatar v-if="currentUser.thumbnail">
+                <img :src="currentUser.thumbnail" />
+              </v-avatar>
+              <v-icon v-else>person</v-icon>
             </v-btn>
           </template>
 
