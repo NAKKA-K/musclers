@@ -91,6 +91,10 @@ export default {
     login() {
       this.$auth.loginWith('facebook')
     },
+    logout() {
+      this.$auth.logout()
+      this.$store.dispatch('auth/logout')
+    },
     handleSelectGroup(groupObj) {
       console.log(groupObj)
     }
