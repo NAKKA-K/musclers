@@ -6,13 +6,13 @@
           <v-list>
             <v-list-item class="justify-center">
               <v-list-item-avatar size="280">
-                <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+                <v-img :src="thumbnail"></v-img>
               </v-list-item-avatar>
             </v-list-item>
             <v-list-item-content class="headline  text-center">
-              <v-list-item-title class="title">YAMADA TARO</v-list-item-title>
+              <v-list-item-title class="title">{{ name }}</v-list-item-title>
               <v-list-item-subtitle
-                >筋ともを探しています！！</v-list-item-subtitle
+                >{{ description }}</v-list-item-subtitle
               >
             </v-list-item-content>
           </v-list>
@@ -69,6 +69,9 @@ export default {
       tab: null,
       // TODO:新規登録機能が完成するまではダミーデータを表示させておく
       //     完成すればvalueにAPIレスポンスデータを当てはめる
+      name: 'YAMADA TARO',
+      description: '筋友を探しています',
+      thumbnail: 'https://cdn.vuetifyjs.com/images/john.png',
       items: [
         { title: '年齢', value: '22' },
         { title: '性別', value: '女性' },
