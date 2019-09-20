@@ -2,76 +2,60 @@
   <v-container fluid fill-height>
     <v-layout justify-center>
       <v-flex xs12 sm6 md6>
-        <div v-if="status_code !== 200">
-          <p>{{ err_msg }}</p>
-        </div>
-        <div v-else>
-          <v-card>
-            <v-img
-              height="20vh"
-              src="https://cdn.vuetifyjs.com/images/john.png"
-            ></v-img>
+        <v-card height="70vh" class="user-card" outlined>
+          <v-list class="card-list">
             <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="headline"
-                  >Our Changing Planet</v-list-item-title
-                >
-                <v-list-item-subtitle>by Kurt Wagner</v-list-item-subtitle>
-              </v-list-item-content>
+              <v-list-item-avatar size="260" class="user-avatar">
+                <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+              </v-list-item-avatar>
             </v-list-item>
-            <v-card-title>YYAMADA TARO</v-card-title>
-            <v-card-text class="detail-content">
-              <ol>
-                <li v-if="user_detail_data.age" class="title text--primary">
-                  年齢：{{ user_detail_data.age }}
-                </li>
-                <li v-else class="title text--primary">
-                  年齢：未設定
-                </li>
-                <li v-if="user_detail_data.gender" class="title text--primary">
-                  性別：{{ user_detail_data.gender }}
-                </li>
-                <li v-else class="title text--primary">
-                  性別：未設定
-                </li>
-                <li v-if="user_detail_data.height" class="title text--primary">
-                  身長：{{ user_detail_data.height }}
-                </li>
-                <li v-else class="title text--primary">
-                  身長：未設定
-                </li>
-                <li v-if="user_detail_data.weight" class="title text--primary">
-                  体重：{{ user_detail_data.weight }}
-                </li>
-                <li v-else class="title text--primary">
-                  体重：未設定
-                </li>
-                <li v-if="user_detail_data.figure" class="title text--primary">
-                  体型：{{ user_detail_data.figure }}
-                </li>
-                <li v-else class="title text--primary">
-                  体型：未設定
-                </li>
-                <!--
-                TODO: 筋肉量と体脂肪率の項目は
-                ユーザ詳細APIのレスポンスに筋肉量と体脂肪率のデータが含まれてから処理を書く
-              -->
-                <li class="title text--primary">
-                  筋肉量：未設定
-                </li>
-                <li class="title text--primary">体脂肪率：未設定</li>
-                <li
-                  v-if="user_detail_data.seriousness"
-                  class="title text--primary"
+            <v-list-item-content class="headline  text-center">
+              <v-list-item-title class="title">YAMADA TARO</v-list-item-title>
+              <v-list-item-subtitle
+                >筋ともを探しています！！</v-list-item-subtitle
+              >
+            </v-list-item-content>
+          </v-list>
+          <v-tabs v-model="tab" fixed-tabs background-color="#FEBA00">
+            <v-tab>
+              基本情報
+            </v-tab>
+            <v-tab>
+              自慢の部位
+            </v-tab>
+          </v-tabs>
+          <v-tabs-items v-model="tab">
+            <v-tab-item>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in items"
+                  :key="index"
+                  two-line
                 >
-                  本気度：{{ user_detail_data.seriousness }}
-                </li>
-                <li v-else class="title text--primary">
-                  本気度：未設定
-                </li>
-              </ol>
-            </v-card-text>
-          </v-card>
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    <v-list-item-subtitle>{{
+                      item.value
+                    }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-tab-item>
+            <v-tab-item>
+              <!--
+                TODO: 自慢の部位が登録できるようになった時に
+                      画面をデザインして実装する
+              -->
+            </v-tab-item>
+          </v-tabs-items>
+        </v-card>
+        <div class="move-items">
+          <nuxt-link to="/" class="move-icon">
+            <v-icon color="#FEBA00" x-large>arrow_back_ios</v-icon>
+          </nuxt-link>
+          <nuxt-link to="/" class="move-icon">
+            <v-icon color="#FEBA00" x-large>arrow_forward_ios</v-icon>
+          </nuxt-link>
         </div>
       </v-flex>
     </v-layout>
@@ -80,8 +64,26 @@
 
 <script>
 export default {
-  async asyncData({ params, $axios, redirect }) {
+  data() {
+    return {
+      tab: null,
+      // TODO:新規登録機能が完成するまではダミーデータを表示させておく
+      //     完成すればvalueにAPIレスポンスデータを当てはめる
+      items: [
+        { title: '年齢', value: '22' },
+        { title: '性別', value: '女性' },
+        { title: '身長', value: '175' },
+        { title: '体重', value: '65' },
+        { title: '体型', value: '普通型' },
+        { title: '筋肉量', value: '28.6' },
+        { title: '体脂肪率', value: '12' },
+        { title: '本気度', value: 'ガチ' }
+      ]
+    }
+  },
+  async asyncData({ params, $axios, error }) {
     const USER_DETAIL_API_URL = `http://api:8080/api/users/${params.id}`
+    console.log(params.id)
     try {
       const response = await $axios.$get(USER_DETAIL_API_URL, {
         headers: {
@@ -89,24 +91,41 @@ export default {
         }
       })
       console.log(response.status)
-      const StatusCode = response.status
-      if (StatusCode === 200) {
+      const statusCode = response.status
+      if (statusCode === 200) {
         return {
-          status_code: StatusCode,
-          user_detail_data: response.data
+          statusCode,
+          userDetailData: response.data
         }
-      } else if (StatusCode === 404) {
+      } else if (statusCode === 404) {
         return {
-          status_code: StatusCode,
-          err_msg: response.errors[0].message
+          statusCode,
+          errMsg: response.errors[0].message
         }
       } else {
-        return redirect('/')
+        // error({ statusCode, message: response.message })
+        // TODO: Gitに上げる前にコメントを外す
       }
     } catch (err) {
       console.log(err)
-      return redirect('/')
     }
   }
 }
 </script>
+
+<style scoped>
+.user-card {
+  overflow-y: auto;
+}
+.user-avatar {
+  align-items: center;
+}
+.move-items {
+  text-align: center;
+  margin-top: 3%;
+}
+div .move-icon {
+  text-decoration: none;
+  padding: 15px;
+}
+</style>
