@@ -2,7 +2,7 @@
   <v-container fluid fill-height>
     <v-layout justify-center>
       <v-flex xs12 sm6 md6>
-        <v-card height="70vh" class="user-card" outlined>
+        <v-card height="70vh" class="user-card" outlined raised>
           <v-list>
             <v-list-item class="justify-center">
               <v-list-item-avatar size="280">
