@@ -71,17 +71,17 @@ export default {
   data: () => ({
     items: [
       { icon: 'account_circle', title: 'マイページ' },
-      { icon: 'account_circle', title: 'おすすめユーザー' },
-      { icon: 'account_circle', title: 'メッセージ' },
-      { icon: 'account_circle', title: 'グループ' },
-      { icon: 'account_circle', title: '検索' },
-      { icon: 'account_circle', title: 'ログアウト' }
+      { icon: 'star', title: 'おすすめユーザー' },
+      { icon: 'message', title: 'メッセージ' },
+      { icon: 'group', title: 'グループ' },
+      { icon: 'search', title: '検索' },
+      { icon: 'assignment_return', title: 'ログアウト' }
     ],
     group: [
-      { id: 1, icon: 'account_circle', text: 'グループ検索' },
-      { id: 2, icon: 'account_circle', text: 'グループ作成' },
-      { id: 3, icon: 'account_circle', text: 'グループ一覧' },
-      { id: 4, icon: 'account_circle', text: '参加グループ' }
+      { id: 1, icon: 'search', text: 'グループ検索' },
+      { id: 2, icon: 'add', text: 'グループ作成' },
+      { id: 3, icon: 'ballot', text: 'グループ一覧' },
+      { id: 4, icon: 'group', text: '参加グループ' }
     ]
   }),
   computed: {

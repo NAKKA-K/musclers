@@ -35,7 +35,7 @@ module Api
     def make_user_detail_json(user_detail)
       if user_detail.nil?
         {
-          code: 404,
+          status: 404,
           errors: [
             {
               message: "指定したユーザは存在しません"
@@ -44,7 +44,7 @@ module Api
         }
       else
         {
-          code: 200,
+          status: 200,
           message: "Success",
           data: user_detail
         }
@@ -54,8 +54,7 @@ module Api
     def make_search_result_json(search_result_data)
       if search_result_data.blank?
         {
-          code: 404,
-          message: "お探しのユーザが見つかりませんでした",
+          status: 404,
           errors: [
             {
               message: "お探しのユーザが見つかりませんでした"
@@ -64,7 +63,7 @@ module Api
         }
       else
         {
-          code: 200,
+          status: 200,
           message: "Success",
           data: search_result_data
         }
