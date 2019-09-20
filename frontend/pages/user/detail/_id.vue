@@ -3,9 +3,9 @@
     <v-layout justify-center>
       <v-flex xs12 sm6 md6>
         <v-card height="70vh" class="user-card" outlined>
-          <v-list class="card-list">
+          <v-list>
             <v-list-item class="justify-center">
-              <v-list-item-avatar size="260">
+              <v-list-item-avatar size="280">
                 <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
               </v-list-item-avatar>
             </v-list-item>
@@ -82,7 +82,7 @@ export default {
     }
   },
   async asyncData({ params, $axios, error }) {
-    const USER_DETAIL_API_URL = `http://api:8080/api/users/${params.id}`
+    const USER_DETAIL_API_URL = `/api/users/${params.id}`
     console.log(params.id)
     try {
       const response = await $axios.$get(USER_DETAIL_API_URL, {
@@ -103,8 +103,7 @@ export default {
           errMsg: response.errors[0].message
         }
       } else {
-        // error({ statusCode, message: response.message })
-        // TODO: Gitに上げる前にコメントを外す
+        error({ statusCode, message: response.message })
       }
     } catch (err) {
       console.log(err)
