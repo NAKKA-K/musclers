@@ -11,9 +11,7 @@
             </v-list-item>
             <v-list-item-content class="headline  text-center">
               <v-list-item-title class="title">{{ name }}</v-list-item-title>
-              <v-list-item-subtitle
-                >{{ description }}</v-list-item-subtitle
-              >
+              <v-list-item-subtitle>{{ description }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list>
           <v-tabs v-model="tab" fixed-tabs background-color="#FEBA00">
