@@ -1,7 +1,5 @@
 module Api
   class UsersController < ApplicationController
-    skip_before_action :authenticate_user_from_token!
-
     def index
       render json: { message:"I'm index." }
     end
