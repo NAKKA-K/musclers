@@ -1,5 +1,7 @@
 module Api
   class UsersController < ApplicationController
+    skip_before_action :authenticate_user_from_token!
+
     def index
       render json: { message:"I'm index." }
     end
@@ -46,7 +48,22 @@ module Api
         {
           code: 200,
           message: "Success",
-          data: user_detail
+          data: {
+            id: user_detail.id,
+            nickname: user_detail.nickname,
+            thumbnail: user_detail.thumbnail,
+            description: user_detail.description,
+            age: user_detail.age,
+            gender: user_detail.gender_i18n,
+            height: user_detail.height,
+            weight: user_detail.weight,
+            figure: user_detail.figure_i18n,
+            muscle_mass: user_detail.muscle_mass,
+            body_fat_percentage: user_detail.body_fat_percentage,
+            created_at: user_detail.created_at,
+            updated_at: user_detail.updated_at,
+            seriousness: user_detail.seriousness_i18n
+          }
         }
       end
     end
