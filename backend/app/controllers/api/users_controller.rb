@@ -54,12 +54,7 @@ module Api
     def make_search_result_json(search_result_data)
       if search_result_data.blank?
         {
-<<<<<<< HEAD
-          code: 404,
-          message: "お探しのユーザが見つかりませんでした",
-=======
           status: 404,
->>>>>>> 3de0c5b63258a78611f9d82f25b42655dad49127
           errors: [
             {
               message: "お探しのユーザが見つかりませんでした"
