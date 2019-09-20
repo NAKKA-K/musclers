@@ -43,8 +43,13 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/axios.js'],
-
+  plugins: [
+    {
+      src: '~plugins/persistedstate.js',
+      ssr: false
+    },
+    '~/plugins/axios.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -93,10 +98,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL:
-      process.env.NODE_ENV === 'production'
-        ? 'http://localhost:8080'
-        : 'http://localhost:8080'
+    baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://api:8080'
   },
 
   /*

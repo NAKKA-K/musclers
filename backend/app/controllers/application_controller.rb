@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
   end
 
   def authenticate_user_from_token
-    token = request.env['Authorization']
+    token = request.headers['Authorization']
     # TODO: 今後、トークンの失効期限をもうけたい場合、トークン生成時を記録し、以下のユーザー取得時に時間の比較をする
     user = User.find_by(access_token: token)
 
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::API
   end
 
   def success_res(status, message: nil, data: nil)
-    render json: {
+    render status: status, json: {
       status: status,
       message: message,
       data: data
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::API
   end
 
   def error_res(status, message: nil, err: nil)
-    render json: {
+    render status: status, json: {
       status: status,
       message: message,
       errors: [
