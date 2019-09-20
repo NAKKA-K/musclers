@@ -73,9 +73,11 @@ export default {
   /**
    * PWA compatible for develop
    */
+  /*
   workbox: {
     dev: true
   },
+  */
 
   /*
    ** vuetify module configuration
