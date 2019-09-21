@@ -48,7 +48,8 @@ export default {
       src: '~plugins/persistedstate.js',
       ssr: false
     },
-    '~/plugins/axios.js'
+    '~/plugins/axios.js',
+    '~/plugins/fetchUserData.js'
   ],
   /*
    ** Nuxt.js dev-modules
