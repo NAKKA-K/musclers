@@ -7,15 +7,29 @@ module Api
     def search
       search_keyword = params[:nickname]
       search_result_data = User.search_user_in(search_keyword)
-      response_search_result_json = make_search_result_json(search_result_data)
-      render json: response_search_result_json
+      if search_result_data.blank?
+        error_res(
+          404,
+          message: "お探しのユーザは見つかりませんでした",
+          err: "お探しのユーザは見つかりませんでした"
+        ) and return
+      else
+        success_res(200, message: 'ユーザが見つかりました', data: search_result_data) and return
+      end
     end
 
     def show
       user_id = params[:id]
       user_detail = User.fetch_user_detail_from(user_id)
-      response_user_detail_json = make_user_detail_json(user_detail)
-      render json: response_user_detail_json
+      if user_detail.nil?
+        error_res(
+          404,
+          message: "指定したユーザは存在しません",
+          err: "指定したユーザは存在しません"
+        ) and return
+      else
+        success_res(200, message: 'ユーザが見つかりました', data: user_detail) and return
+      end
     end
 
     def create
@@ -28,46 +42,6 @@ module Api
 
     def destroy
       render json: { message:"I'm destroy." }
-    end
-
-    private
-
-    def make_user_detail_json(user_detail)
-      if user_detail.nil?
-        {
-          status: 404,
-          errors: [
-            {
-              message: "指定したユーザは存在しません"
-            },
-          ],
-        }
-      else
-        {
-          status: 200,
-          message: "Success",
-          data: user_detail
-        }
-      end
-    end
-
-    def make_search_result_json(search_result_data)
-      if search_result_data.blank?
-        {
-          status: 404,
-          errors: [
-            {
-              message: "お探しのユーザが見つかりませんでした"
-            },
-          ],
-        }
-      else
-        {
-          status: 200,
-          message: "Success",
-          data: search_result_data
-        }
-      end
     end
 
   end
