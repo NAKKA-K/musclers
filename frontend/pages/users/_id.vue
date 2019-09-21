@@ -82,32 +82,27 @@ export default {
       ]
     }
   },
-  async asyncData({ params, $axios, error }) {
-    const USER_DETAIL_API_URL = `/api/users/${params.id}`
-    console.log(params.id)
+  async asyncData({ app, params, error }) {
     try {
-      const response = await $axios.$get(USER_DETAIL_API_URL, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      console.log(response.status)
+      const response = await app.$fetchUserData(params.id)
       const statusCode = response.status
       if (statusCode === 200) {
         return {
           statusCode,
           userDetailData: response.data
         }
-      } else if (statusCode === 404) {
-        return {
-          statusCode,
-          errMsg: response.errors[0].message
-        }
-      } else {
-        error({ statusCode, message: response.message })
       }
     } catch (err) {
-      console.log(err)
+      const errCode = err.response.status
+      const errMsg = err.response.data.message
+      if (errCode === 404) {
+        return {
+          errCode,
+          errMsg
+        }
+      } else {
+        error({ status: errCode, message: errMsg })
+      }
     }
   }
 }
