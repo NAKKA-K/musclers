@@ -48,8 +48,7 @@ export default {
       src: '~plugins/persistedstate.js',
       ssr: false
     },
-    '~/plugins/axios.js',
-    '~/plugins/fetchUserData.js'
+    '~/plugins/axios.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -99,7 +98,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://api:8080'
+    baseURL: process.env.NODE_ENV === 'production' ? '' : process.env.API_URL
   },
 
   /*

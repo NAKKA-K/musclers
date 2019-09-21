@@ -82,9 +82,9 @@ export default {
       ]
     }
   },
-  async asyncData({ app, params, error }) {
+  async asyncData({ $axios, params, error }) {
     try {
-      const response = await app.$fetchUserData(params.id)
+      const response = await $axios.get(`/api/users/${params.id}`)
       const statusCode = response.status
       if (statusCode === 200) {
         return {
