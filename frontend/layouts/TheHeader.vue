@@ -5,7 +5,7 @@
         <nuxt-link to="/" class="header-title">Muscler's</nuxt-link>
       </v-toolbar-title>
 
-      <v-col cols="6" sm="3">
+      <v-col class="col-5 col-xs-4">
         <v-text-field
           label="ユーザー検索"
           hide-details
@@ -44,15 +44,25 @@
           </template>
 
           <v-list>
-            <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
+            <v-list-item v-for="(item, i) in items" :key="i" :to="item.link">
               <v-icon v-text="item.icon"></v-icon>
               <v-list-item-content>
                 <v-list-item-title v-text="item.title"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
+
+            <v-list-item key="logout" @click="logout">
+              <v-icon>assignment_return</v-icon>
+              <v-list-item-content>
+                <v-list-item-title>ログアウト</v-list-item-title>
+                <!-- TODO: デバッグ情報なので削除する -->
+                <v-list-item-title v-text="currentUser"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </v-list>
         </v-menu>
       </div>
+      <!-- toプロパティで制御してしまうと、ログイン画面にいるときボタンの見た目が変わってしまうためclickで制御 -->
       <v-btn v-else id="header-login-btn" text @click="login">
         ログイン
       </v-btn>
@@ -70,12 +80,11 @@ export default {
   },
   data: () => ({
     items: [
-      { icon: 'account_circle', title: 'マイページ' },
-      { icon: 'star', title: 'おすすめユーザー' },
-      { icon: 'message', title: 'メッセージ' },
-      { icon: 'group', title: 'グループ' },
-      { icon: 'search', title: '検索' },
-      { icon: 'assignment_return', title: 'ログアウト' }
+      { link: '/', icon: 'account_circle', title: 'マイページ' },
+      { link: '/', icon: 'star', title: 'おすすめユーザー' },
+      { link: '/', icon: 'message', title: 'メッセージ' },
+      { link: '/', icon: 'group', title: 'グループ' },
+      { link: '/users', icon: 'search', title: '検索' }
     ],
     group: [
       { id: 1, icon: 'search', text: 'グループ検索' },
@@ -91,7 +100,7 @@ export default {
   },
   methods: {
     login() {
-      this.$auth.loginWith('facebook')
+      this.$router.push('/auth/login')
     },
     logout() {
       this.$auth.logout()
