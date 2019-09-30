@@ -61,8 +61,6 @@
               </v-avatar>
               <v-list-item-content>
                 <v-list-item-title>ログアウト</v-list-item-title>
-                <!-- TODO: デバッグ情報なので削除する -->
-                <v-list-item-title v-text="currentUser"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
