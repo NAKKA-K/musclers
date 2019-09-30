@@ -7,10 +7,12 @@
 
       <v-col class="col-5 col-xs-4">
         <v-text-field
+          v-model="searchQuery"
           label="ユーザー検索"
           hide-details
           prepend-icon="search"
           single-line
+          @keyup.enter="onSubmitSearch()"
         />
       </v-col>
 
@@ -91,11 +93,12 @@ export default {
       { link: '/users', icon: 'search', title: '検索' }
     ],
     group: [
-      { id: 1, icon: 'search', text: 'グループ検索' },
-      { id: 2, icon: 'add', text: 'グループ作成' },
-      { id: 3, icon: 'ballot', text: 'グループ一覧' },
-      { id: 4, icon: 'group', text: '参加グループ' }
-    ]
+      { id: 1, icon: 'search', text: 'グループ検索', value: 'search' },
+      { id: 2, icon: 'add', text: 'グループ作成', value: 'create' },
+      { id: 3, icon: 'ballot', text: 'グループ一覧', value: 'list' },
+      { id: 4, icon: 'group', text: '参加グループ', value: 'joined' }
+    ],
+    searchQuery: ''
   }),
   computed: {
     ...mapGetters({
@@ -112,6 +115,27 @@ export default {
     },
     handleSelectGroup(groupObj) {
       console.log(groupObj)
+      if (!groupObj) {
+        return
+      }
+
+      switch (groupObj.value) {
+        case 'search':
+          this.$router.push('/groups/search')
+          break
+        case 'create':
+          this.$router.push('/groups/new')
+          break
+        case 'list':
+          this.$router.push('/groups')
+          break
+        case 'joined':
+          this.$router.push('/groups/joined')
+          break
+      }
+    },
+    onSubmitSearch() {
+      this.$router.push('/users?q=' + this.searchQuery)
     }
   }
 }
