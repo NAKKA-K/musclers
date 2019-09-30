@@ -45,14 +45,18 @@
 
           <v-list>
             <v-list-item v-for="(item, i) in items" :key="i" :to="item.link">
-              <v-icon v-text="item.icon"></v-icon>
+              <v-avatar size="25px" class="mr-2">
+                <v-icon v-text="item.icon"></v-icon>
+              </v-avatar>
               <v-list-item-content>
                 <v-list-item-title v-text="item.title"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
 
             <v-list-item key="logout" @click="logout">
-              <v-icon>assignment_return</v-icon>
+              <v-avatar size="25px" class="mr-2">
+                <v-icon>assignment_return</v-icon>
+              </v-avatar>
               <v-list-item-content>
                 <v-list-item-title>ログアウト</v-list-item-title>
                 <!-- TODO: デバッグ情報なので削除する -->
