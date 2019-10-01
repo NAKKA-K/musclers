@@ -5,3 +5,42 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+# ボディビルダー、フィジーカー、サマスタ、ベスボで検索
+thumbnails = [
+  'http://livedoor.blogimg.jp/zzcj/imgs/3/b/3b905779.jpg',
+  'http://fanblogs.jp/bodybuilder/file/iris20kyle.jpg',
+  'https://stat.ameba.jp/user_images/20140525/13/midori-an/74/40/j/t02200344_0479075012952205534.jpg?caw=800',
+  'http://www.premium-fit.co.jp/wp-content/uploads/2019/07/A1A16F49-4AA5-4A12-BDD6-90F4AF9082F8.jpeg',
+  'https://pbs.twimg.com/media/DzgMrMAVsAAxnyC.jpg',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9r64ro0L5SWPQZp5b9qHQWZd5PglUFQabc4nsoUyHd_R2q2qm',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9nM1kkw3TkFlLmj3WabZl2v6fg5J5Lc_iw1ooLx89tLZXIzG-',
+  'https://rr.img.naver.jp/mig?src=http%3A%2F%2Fup.gc-img.net%2Fpost_img_web%2F2012%2F12%2F7af4ad6f2df9e96c4f185a67e7e28650_0.jpeg&twidth=1000&theight=0&qlt=80&res_format=jpg&op=r',
+  'http://www.realgym.jp/wordp/wp-content/uploads/2017/04/052-200x300.jpg',
+  'https://scontent-sea1-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s750x750/68765671_378962866115886_6540317063799890795_n.jpg?_nc_ht=scontent-sea1-1.cdninstagram.com&oh=e222989717d0ece898555d55bb8a577b&oe=5DFED125&ig_cache_key=MjEyNjIwNDY0ODA3MDI4NjY2Mg%3D%3D.2',
+  'https://contents.oricon.co.jp/photo/img/4000/4756/detail/img660/1560129877598.jpg',
+  'http://20hours-performanceworkout.com/wp-content/uploads/2019/05/Top-naked-macho.jpg.pagespeed.ce.sclwlAKBbT.jpg',
+  'https://pbs.twimg.com/media/DmBHrwCUcAAjbyq.jpg',
+  'https://i.pinimg.com/originals/b4/b0/6e/b4b06ef5acf1b5c68b69ee1f19fc5dac.png',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0uC5WGPcbHE3ZVdjceTtHTHLx9Hj230ki0mSSNYOKlcX2afe8',
+]
+
+ActiveRecord::Base.transaction do
+  15.times do |i|
+    user = {
+      provider: 'test',
+      uid: Faker::Number.unique.leading_zero_number(digits: 15),
+      nickname: Faker::Name.name,
+      description: Faker::Lorem.sentence(word_count: Faker::Number.number(digits: 2)),
+      thumbnail: thumbnails[i],
+      age: Faker::Number.number(digits: 2),
+      gender: Faker::Number.between(from: 0, to: 3),
+      height: Faker::Number.number(digits: 3),
+      weight: Faker::Number.between(from: 1, to: 120),
+      figure: 5,
+      seriousness: Faker::Number.between(from: 0, to: 2),
+    }
+    User.create!(user)
+  end
+end
