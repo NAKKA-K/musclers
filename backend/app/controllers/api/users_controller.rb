@@ -37,7 +37,14 @@ module Api
     end
 
     def update
-      render json: { message:"I'm update." }
+      @user = User.find(params:[:uid])
+      begin
+        @user.update!(email: params[:email])
+        success_res(200, message: 'Eメールを更新しました') and return
+      rescue => e
+        logger.error(e)
+        error_res(500, err: '更新に失敗しました') and return
+      end
     end
 
     def destroy

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, uniqueness: true, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
   enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
                   not_set: 0,
