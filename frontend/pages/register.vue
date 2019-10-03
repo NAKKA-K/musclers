@@ -76,7 +76,7 @@ export default {
         } catch (err) {
           if (!err.response.status) {
             this.$router.push('/')
-          } else if (err.response.status === 400) {
+          } else if (err.response.status === 422) {
             this.validErrors.email = err.response.data.errors.message
           } else {
             this.$router.push('/')

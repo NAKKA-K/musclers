@@ -42,11 +42,11 @@ module Api
         @user.update!(email: params[:email])
         success_res(200, message: 'Eメールを更新しました') and return
       rescue ActiveRecord::RecordNotFound
-        error_res(404, err: 'ユーザが存在しません') and return
+        error_res(404, message: 'ユーザが存在しません',err: 'ユーザが存在しません') and return
       rescue ActiveRecord::RecordInvalid => e
-        error_res(400, err: e.record.errors) and return
+        error_res(422, message: 'バリデーションエラー',err: e.record.errors) and return
       rescue
-        error_res(500, err: '更新に失敗しました') and return
+        error_res(500, message: '更新に失敗しました',err: '更新に失敗しました') and return
       end
     end
 
