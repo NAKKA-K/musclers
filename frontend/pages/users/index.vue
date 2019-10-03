@@ -36,7 +36,12 @@
             </v-card-text>
 
             <div class="text-center">
-              <v-btn color="#1CA1F1" rounded outlined>
+              <v-btn
+                color="#1CA1F1"
+                rounded
+                outlined
+                @click="() => sendFriendRequest(user.id)"
+              >
                 友達申請する
               </v-btn>
             </div>
@@ -81,6 +86,13 @@ export default {
     return {
       searchQuery,
       users
+    }
+  },
+
+  methods: {
+    sendFriendRequest(userId) {
+      // TODO: 友達申請APIを呼び出す
+      console.log(userId)
     }
   }
 }
