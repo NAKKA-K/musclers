@@ -44,8 +44,9 @@ module Api
       rescue ActiveRecord::RecordNotFound
         error_res(404, message: 'ユーザが存在しません',err: 'ユーザが存在しません') and return
       rescue ActiveRecord::RecordInvalid => e
-        error_res(422, message: 'バリデーションエラー',err: e.record.errors) and return
-      rescue
+        error_res(422, message: '入力内容が正しくありません',err: e.record.errors) and return
+      rescue => e
+        logger.error(e)
         error_res(500, message: '更新に失敗しました',err: '更新に失敗しました') and return
       end
     end
