@@ -19,6 +19,7 @@
             max-width="374"
             max-height="530"
             min-height="530"
+            :to="`/users/${user.id}`"
           >
             <v-img
               height="300"
@@ -43,7 +44,7 @@
                 color="#1CA1F1"
                 rounded
                 outlined
-                @click="() => sendFriendRequest(user.id)"
+                @click.prevent="() => sendFriendRequest(user.id)"
               >
                 友達申請する
               </v-btn>
