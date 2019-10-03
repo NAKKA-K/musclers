@@ -8,21 +8,39 @@
         <v-col
           v-for="user in users"
           :key="user.id"
-          cols="6"
+          cols="12"
           xl="3"
           lg="3"
           md="3"
           sm="3"
         >
-          <div class="pa-4">
+          <v-card
+            class="mx-auto my-4"
+            max-width="374"
+            max-height="530"
+            min-height="530"
+          >
             <v-img
+              height="250"
               :src="
                 user.thumbnail ||
                   'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
               "
             ></v-img>
-            <p class="text-center" v-text="user.nickname || 'No name'"></p>
-          </div>
+            <v-card-title v-text="user.nickname || 'No name'"></v-card-title>
+            <v-card-text class="pb-2">
+              <div class="mb-3 black--text sub-info-text">
+                友達: 9000人<br />本気度: ガチ
+              </div>
+              <div class="card-body-overflow" v-text="user.description"></div>
+            </v-card-text>
+
+            <div class="text-center">
+              <v-btn color="#1CA1F1" rounded outlined>
+                友達申請する
+              </v-btn>
+            </div>
+          </v-card>
         </v-col>
       </v-row>
     </v-list>
@@ -67,3 +85,16 @@ export default {
   }
 }
 </script>
+
+<style>
+.card-body-overflow {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  min-height: 8em;
+}
+.sub-info-text {
+  font-size: 14px;
+}
+</style>
