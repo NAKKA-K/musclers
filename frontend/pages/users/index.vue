@@ -21,15 +21,18 @@
             min-height="530"
           >
             <v-img
-              height="250"
+              height="300"
               :src="
                 user.thumbnail ||
                   'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
               "
             ></v-img>
-            <v-card-title v-text="user.nickname || 'No name'"></v-card-title>
-            <v-card-text class="pb-2">
-              <div class="mb-3 black--text sub-info-text">
+            <v-card-title
+              class="pb-0"
+              v-text="user.nickname || 'No name'"
+            ></v-card-title>
+            <v-card-text class="pb-1">
+              <div class="mb-4 black--text sub-info-text">
                 友達: 9000人<br />本気度: ガチ
               </div>
               <div class="card-body-overflow" v-text="user.description"></div>
@@ -102,9 +105,9 @@ export default {
 .card-body-overflow {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 3;
   overflow: hidden;
-  min-height: 8em;
+  min-height: 5em;
 }
 .sub-info-text {
   font-size: 14px;
