@@ -37,12 +37,15 @@ module Api
     end
 
     def update
-      @user = User.find(params:[:uid])
       begin
+        @user = User.find(params[:id])
         @user.update!(email: params[:email])
         success_res(200, message: 'Eメールを更新しました') and return
-      rescue => e
-        logger.error(e)
+      rescue ActiveRecord::RecordNotFound
+        error_res(404, err: 'ユーザが存在しません') and return
+      rescue ActiveRecord::RecordInvalid => e
+        error_res(400, err: e.record.errors) and return
+      rescue
         error_res(500, err: '更新に失敗しました') and return
       end
     end
