@@ -253,6 +253,26 @@ Muscler'sのAPI仕様書
       ],
   }
 
+### ユーザ情報更新 [PATCH]
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: Eメールを更新しました (string)
+
++ Response 500
+
+    + Attributes (object)
+        + status: 500 (number)
+        + message: 更新に失敗しました (string)
+
+## Users [/api/users/{user_id}]
+
++ Parameters
+
+    + email: huga@hoge.com (string) - ユーザのEメール
+
 # Group INFORMATIONS
 
 ## Informations [/api/users/{user_id}/informations]
