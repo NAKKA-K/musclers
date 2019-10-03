@@ -253,6 +253,12 @@ Muscler'sのAPI仕様書
       ],
   }
 
+## Users [/api/users/{user_id}]
+
++ Parameters
+
+    + email: huga@hoge.com (string) - ユーザのEメール
+
 ### ユーザ情報更新 [PATCH]
 
 + Response 200
@@ -261,17 +267,35 @@ Muscler'sのAPI仕様書
         + status: 200 (number)
         + message: Eメールを更新しました (string)
 
++ Response 404
+
+  {
+      "status": 404,
+      "message": "ユーザが存在しません"
+      "errors": [
+        { message: "ユーザが存在しません" }
+      ],
+  }
+
++ Response 422
+
+  {
+      "status": 422,
+      "message": "バリデーションエラー"
+      "errors": [
+        { message: { email:"Eメールの形式で入力してください" } }
+      ],
+  }
+
 + Response 500
 
-    + Attributes (object)
-        + status: 500 (number)
-        + message: 更新に失敗しました (string)
-
-## Users [/api/users/{user_id}]
-
-+ Parameters
-
-    + email: huga@hoge.com (string) - ユーザのEメール
+  {
+      "status": 500,
+      "message": "更新に失敗しました"
+      "errors": [
+        { message: "更新に失敗しました" }
+      ],
+  }
 
 # Group INFORMATIONS
 
