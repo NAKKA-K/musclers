@@ -6,14 +6,19 @@
           <v-list>
             <v-list-item class="justify-center">
               <v-list-item-avatar size="280">
-                <v-img :src="thumbnail"></v-img>
+                <v-img :src="user.thumbnail"></v-img>
               </v-list-item-avatar>
             </v-list-item>
-            <v-list-item-content class="headline  text-center">
-              <v-list-item-title class="title">{{ name }}</v-list-item-title>
-              <v-list-item-subtitle>{{ description }}</v-list-item-subtitle>
+            <v-list-item-content class="headline text-center title-space">
+              <v-list-item-title class="title">
+                {{ user.nickname }}
+              </v-list-item-title>
+              <div class="user-description">
+                {{ user.description }}
+              </div>
             </v-list-item-content>
           </v-list>
+
           <v-tabs v-model="tab" fixed-tabs background-color="#FEBA00">
             <v-tab>
               基本情報
@@ -22,23 +27,69 @@
               自慢の部位
             </v-tab>
           </v-tabs>
+
           <v-tabs-items v-model="tab">
             <v-tab-item>
               <v-list>
-                <v-list-item
-                  v-for="(item, index) in items"
-                  :key="index"
-                  two-line
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    <v-list-item-subtitle>{{
-                      item.value
-                    }}</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
+                <user-detail-card-item
+                  :item="{
+                    title: '年齢',
+                    value: user.age,
+                    default: 'none'
+                  }"
+                />
+                <user-detail-card-item
+                  :item="{
+                    title: '性別',
+                    value: user.gender,
+                    default: 'none'
+                  }"
+                />
+                <user-detail-card-item
+                  :item="{
+                    title: '身長',
+                    value: user.height,
+                    default: 'none'
+                  }"
+                />
+                <user-detail-card-item
+                  :item="{
+                    title: '体重',
+                    value: user.weight,
+                    default: 'none'
+                  }"
+                />
+                <user-detail-card-item
+                  :item="{
+                    title: '体型',
+                    value: user.figure,
+                    default: 'none'
+                  }"
+                />
+                <user-detail-card-item
+                  :item="{
+                    title: '筋肉量',
+                    value: user.muscle_mass,
+                    default: 'none'
+                  }"
+                />
+                <user-detail-card-item
+                  :item="{
+                    title: '体脂肪率',
+                    value: user.body_fat_percentage,
+                    default: 'none'
+                  }"
+                />
+                <user-detail-card-item
+                  :item="{
+                    title: '本気度',
+                    value: user.seriousness,
+                    default: 'none'
+                  }"
+                />
               </v-list>
             </v-tab-item>
+
             <v-tab-item>
               <!--
                 TODO: 自慢の部位が登録できるようになった時に
@@ -47,6 +98,7 @@
             </v-tab-item>
           </v-tabs-items>
         </v-card>
+
         <div class="move-items">
           <nuxt-link to="/" class="move-icon">
             <v-icon color="#FEBA00" x-large>arrow_back_ios</v-icon>
@@ -61,48 +113,38 @@
 </template>
 
 <script>
+import UserDetailCardItem from '../../components/UserDetailCardItem.vue'
+
 export default {
+  components: {
+    UserDetailCardItem
+  },
+
   data() {
     return {
-      tab: null,
-      // TODO:新規登録機能が完成するまではダミーデータを表示させておく
-      //     完成すればvalueにAPIレスポンスデータを当てはめる
-      name: 'YAMADA TARO',
-      description: '筋友を探しています',
-      thumbnail: 'https://cdn.vuetifyjs.com/images/john.png',
-      items: [
-        { title: '年齢', value: '22' },
-        { title: '性別', value: '女性' },
-        { title: '身長', value: '175' },
-        { title: '体重', value: '65' },
-        { title: '体型', value: '普通型' },
-        { title: '筋肉量', value: '28.6' },
-        { title: '体脂肪率', value: '12' },
-        { title: '本気度', value: 'ガチ' }
-      ]
+      tab: null
     }
   },
   async asyncData({ $axios, params, error }) {
-    try {
-      const response = await $axios.get(`/api/users/${params.id}`)
-      const statusCode = response.status
-      if (statusCode === 200) {
-        return {
-          statusCode,
-          userDetailData: response.data
-        }
-      }
-    } catch (err) {
-      const errCode = err.response.status
-      const errMsg = err.response.data.message
-      if (errCode === 404) {
-        return {
-          errCode,
-          errMsg
-        }
-      } else {
-        error({ status: errCode, message: errMsg })
-      }
+    const response = await $axios
+      .get(`/api/users/${params.id}`)
+      .catch((err) => {
+        console.log(err)
+        console.log(err.response)
+        return err.response
+      })
+
+    if (!response) {
+      throw new Error('ネットワークに接続できませんでした')
+      // TODO: もう少し何とかする。toastとか出す?
+    } else if (response.status !== 200) {
+      error({ status: response.status, message: response.data.message })
+      return
+    }
+
+    console.log(response.data.data)
+    return {
+      user: response.data.data
     }
   }
 }
@@ -119,5 +161,14 @@ export default {
 div .move-icon {
   text-decoration: none;
   padding: 15px;
+}
+
+.title-space {
+  margin-left: 10%;
+  width: 80%;
+}
+
+.user-description {
+  font-size: 0.875rem;
 }
 </style>
