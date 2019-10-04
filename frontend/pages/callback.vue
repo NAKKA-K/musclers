@@ -22,9 +22,9 @@ export default {
       await this.$store.dispatch('auth/setCurrentUser', { user: res.data })
 
       if (res.status === 200) {
-        this.$router.push('/users')
+        return this.$router.push('/users')
       } else if (res.status === 201) {
-        this.$router.push('/') // TODO: Email等の入力画面に遷移させる
+        return this.$router.push('/') // TODO: Email等の入力画面に遷移させる
       }
     } catch (err) {
       console.error(err)
