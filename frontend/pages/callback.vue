@@ -6,10 +6,13 @@
 export default {
   async mounted() {
     const state = this.$auth.$state
+
+    /*
     if (!state.user) {
       console.error('認証できませんでした')
       return this.$router.push('/auth/login')
     }
+    */
 
     const postData = {
       uid: state.user.id,
@@ -19,7 +22,7 @@ export default {
 
     try {
       const res = await this.$axios.$post('/api/auth/sign_in', postData)
-      await this.$store.dispatch('auth/setCurrentUser', { user: res.data })
+      await this.$store.commit('auth/setCurrentUser', { user: res.data })
       if (res.data.email !== '') {
         this.$router.push('/users')
       } else {

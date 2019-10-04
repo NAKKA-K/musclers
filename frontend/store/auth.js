@@ -11,6 +11,7 @@ export const getters = {
 export const mutations = {
   setCurrentUser(state, { user }) {
     state.currentUser = user
+    state.token = user.access_token
   },
   setToken(state, { token }) {
     state.token = token
