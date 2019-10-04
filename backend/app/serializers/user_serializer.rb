@@ -17,11 +17,14 @@ class UserSerializer < ActiveModel::Serializer
   )
 
   def gender
+    object.gender_i18n
   end
 
   def figure
+    object.figure_i18n
   end
 
   def seriousness
+    object.seriousness_i18n
   end
 end
