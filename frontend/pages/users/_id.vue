@@ -142,7 +142,6 @@ export default {
       return
     }
 
-    console.log(response.data.data)
     return {
       user: response.data.data
     }
