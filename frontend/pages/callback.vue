@@ -20,11 +20,10 @@ export default {
     try {
       const res = await this.$axios.$post('/api/auth/sign_in', postData)
       await this.$store.dispatch('auth/setCurrentUser', { user: res.data })
-
-      if (res.status === 200) {
+      if (res.data.email !== '') {
         this.$router.push('/users')
-      } else if (res.status === 201) {
-        this.$router.push('/') // TODO: Email等の入力画面に遷移させる
+      } else {
+        this.$router.push('/register') // TODO: Email等の入力画面に遷移させる
       }
     } catch (err) {
       console.error(err)
