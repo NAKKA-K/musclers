@@ -6,14 +6,12 @@
           <v-list>
             <v-list-item class="justify-center">
               <v-list-item-avatar size="280">
-                <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+                <v-img :src="thumbnail"></v-img>
               </v-list-item-avatar>
             </v-list-item>
             <v-list-item-content class="headline  text-center">
-              <v-list-item-title class="title">YAMADA TARO</v-list-item-title>
-              <v-list-item-subtitle
-                >筋ともを探しています！！</v-list-item-subtitle
-              >
+              <v-list-item-title class="title">{{ name }}</v-list-item-title>
+              <v-list-item-subtitle>{{ description }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list>
           <v-tabs v-model="tab" fixed-tabs background-color="#FEBA00">
@@ -69,6 +67,9 @@ export default {
       tab: null,
       // TODO:新規登録機能が完成するまではダミーデータを表示させておく
       //     完成すればvalueにAPIレスポンスデータを当てはめる
+      name: 'YAMADA TARO',
+      description: '筋友を探しています',
+      thumbnail: 'https://cdn.vuetifyjs.com/images/john.png',
       items: [
         { title: '年齢', value: '22' },
         { title: '性別', value: '女性' },
@@ -81,32 +82,27 @@ export default {
       ]
     }
   },
-  async asyncData({ params, $axios, error }) {
-    const USER_DETAIL_API_URL = `/api/users/${params.id}`
-    console.log(params.id)
+  async asyncData({ $axios, params, error }) {
     try {
-      const response = await $axios.$get(USER_DETAIL_API_URL, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      console.log(response.status)
+      const response = await $axios.get(`/api/users/${params.id}`)
       const statusCode = response.status
       if (statusCode === 200) {
         return {
           statusCode,
           userDetailData: response.data
         }
-      } else if (statusCode === 404) {
-        return {
-          statusCode,
-          errMsg: response.errors[0].message
-        }
-      } else {
-        error({ statusCode, message: response.message })
       }
     } catch (err) {
-      console.log(err)
+      const errCode = err.response.status
+      const errMsg = err.response.data.message
+      if (errCode === 404) {
+        return {
+          errCode,
+          errMsg
+        }
+      } else {
+        error({ status: errCode, message: errMsg })
+      }
     }
   }
 }

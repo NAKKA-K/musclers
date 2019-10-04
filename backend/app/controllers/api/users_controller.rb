@@ -1,5 +1,7 @@
 module Api
   class UsersController < ApplicationController
+    skip_before_action :authenticate_user_from_token!, only: [:search, :show]
+
     def index
       render json: { message:"I'm index." }
     end
@@ -7,15 +9,29 @@ module Api
     def search
       search_keyword = params[:nickname]
       search_result_data = User.search_user_in(search_keyword)
-      response_search_result_json = make_search_result_json(search_result_data)
-      render json: response_search_result_json
+      if search_result_data.blank?
+        error_res(
+          404,
+          message: "お探しのユーザは見つかりませんでした",
+          err: "お探しのユーザは見つかりませんでした"
+        ) and return
+      else
+        success_res(200, message: 'ユーザが見つかりました', data: search_result_data) and return
+      end
     end
 
     def show
       user_id = params[:id]
       user_detail = User.fetch_user_detail_from(user_id)
-      response_user_detail_json = make_user_detail_json(user_detail)
-      render json: response_user_detail_json
+      if user_detail.nil?
+        error_res(
+          404,
+          message: "指定したユーザは存在しません",
+          err: "指定したユーザは存在しません"
+        ) and return
+      else
+        success_res(200, message: 'ユーザが見つかりました', data: user_detail) and return
+      end
     end
 
     def create
@@ -84,6 +100,5 @@ module Api
         }
       end
     end
-
   end
 end

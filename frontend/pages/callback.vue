@@ -8,7 +8,7 @@ export default {
     const state = this.$auth.$state
     if (!state.user) {
       console.error('認証できませんでした')
-      return
+      return this.$router.push('/auth/login')
     }
 
     const postData = {

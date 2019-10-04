@@ -100,7 +100,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://api:8080'
+    baseURL: process.env.NODE_ENV === 'production' ? '' : process.env.API_URL
   },
 
   /*
@@ -118,7 +118,7 @@ export default {
    */
   auth: {
     redirect: {
-      login: '/',
+      login: '/auth/login',
       logout: '/',
       callback: '/callback',
       home: '/'

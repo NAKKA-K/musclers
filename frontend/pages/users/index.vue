@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>ユーザー一覧</h1>
+    <p>「{{ searchQuery }}」で検索しました。</p>
 
     <v-list v-if="users">
       <v-row>
@@ -33,7 +34,20 @@
 
 <script>
 export default {
-  async asyncData({ $axios }) {
+  data: () => ({
+    searchQuery: '',
+    users: []
+  }),
+
+  beforeRouteUpdate(to, from, next) {
+    // 検索クエリを更新
+    this.searchQuery = to.query.q
+    next()
+  },
+
+  async asyncData({ $axios, query }) {
+    const searchQuery = query.q
+
     const users = await $axios
       .$get('/api/users/search')
       .then((res) => res.data)
@@ -47,6 +61,7 @@ export default {
       })
 
     return {
+      searchQuery,
       users
     }
   }
