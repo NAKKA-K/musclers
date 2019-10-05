@@ -22,7 +22,7 @@ export default {
 
     try {
       const res = await this.$axios.$post('/api/auth/sign_in', postData)
-      await this.$store.commit('auth/setCurrentUser', { user: res.data })
+      await this.$store.dispatch('auth/setCurrentUser', { user: res.data })
       if (res.data.email !== '') {
         this.$router.push('/users')
       } else {
