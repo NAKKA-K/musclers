@@ -18,9 +18,9 @@
       </v-flex>
     </template>
     <template slot="item" slot-scope="data">
-      <v-list-item-icon>
+      <v-avatar size="25px" class="mr-2">
         <v-icon v-text="data.item.icon"></v-icon>
-      </v-list-item-icon>
+      </v-avatar>
       <v-list-item-content>
         <v-list-item-title v-text="data.item.text"></v-list-item-title>
       </v-list-item-content>

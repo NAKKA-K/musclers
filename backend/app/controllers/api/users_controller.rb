@@ -1,5 +1,7 @@
 module Api
   class UsersController < ApplicationController
+    skip_before_action :authenticate_user_from_token!, only: [:search, :show]
+
     def index
       render json: { message:"I'm index." }
     end
@@ -44,5 +46,59 @@ module Api
       render json: { message:"I'm destroy." }
     end
 
+    private
+
+    def make_user_detail_json(user_detail)
+      if user_detail.nil?
+        {
+          status: 404,
+          errors: [
+            {
+              message: "指定したユーザは存在しません"
+            },
+          ],
+        }
+      else
+        {
+          status: 200,
+          message: "Success",
+          data: {
+            id: user_detail.id,
+            nickname: user_detail.nickname,
+            thumbnail: user_detail.thumbnail,
+            description: user_detail.description,
+            age: user_detail.age,
+            gender: user_detail.gender_i18n,
+            height: user_detail.height,
+            weight: user_detail.weight,
+            figure: user_detail.figure_i18n,
+            muscle_mass: user_detail.muscle_mass,
+            body_fat_percentage: user_detail.body_fat_percentage,
+            created_at: user_detail.created_at,
+            updated_at: user_detail.updated_at,
+            seriousness: user_detail.seriousness_i18n
+          }
+        }
+      end
+    end
+
+    def make_search_result_json(search_result_data)
+      if search_result_data.blank?
+        {
+          status: 404,
+          errors: [
+            {
+              message: "お探しのユーザが見つかりませんでした"
+            },
+          ],
+        }
+      else
+        {
+          status: 200,
+          message: "Success",
+          data: search_result_data
+        }
+      end
+    end
   end
 end
