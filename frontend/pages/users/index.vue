@@ -34,7 +34,7 @@
             ></v-card-title>
             <v-card-text class="pb-1">
               <div class="mb-4 black--text sub-info-text">
-                友達: 9000人<br />本気度: ガチ
+                友達: 9000人<br />本気度: {{ user.seriousness || 'none' }}
               </div>
               <div class="card-body-overflow" v-text="user.description"></div>
             </v-card-text>
