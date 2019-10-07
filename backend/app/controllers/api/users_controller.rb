@@ -16,7 +16,8 @@ module Api
           err: "お探しのユーザは見つかりませんでした"
         ) and return
       else
-        success_res(200, message: 'ユーザが見つかりました', data: search_result_data) and return
+        data = ActiveModel::Serializer::CollectionSerializer.new(search_result_data, each_serializer: UserSerializer).as_json
+        success_res(200, message: 'ユーザが見つかりました', data: data) and return
       end
     end
 
