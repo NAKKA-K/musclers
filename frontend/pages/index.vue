@@ -8,14 +8,5 @@
 </template>
 
 <script>
-export default {
-  methods: {
-    login() {
-      this.$auth.loginWith('facebook')
-    },
-    logout() {
-      this.$auth.logout()
-    }
-  }
-}
+export default {}
 </script>
