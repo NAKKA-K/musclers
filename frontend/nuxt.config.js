@@ -122,7 +122,7 @@ export default {
       login: '/auth/login',
       logout: '/',
       callback: '/callback',
-      home: '/'
+      home: false
     },
     strategies: {
       facebook: {
