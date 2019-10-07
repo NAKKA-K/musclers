@@ -19,15 +19,18 @@ export default {
       try {
         const res = await this.$axios.$post('/api/auth/sign_in', postData)
         this.$store.dispatch('auth/setCurrentUser', { user: res.data })
-        if (res.data.email !== '') {
-          this.$router.push('/home')
-        } else if (res.data.email === '' || res.data.email === null) {
-          this.$router.push('/register') // TODO: Email等の入力画面に遷移させる
+        if (
+          res.data.email === '' ||
+          res.data.email === null ||
+          typeof res.data.email === 'undefined'
+        ) {
+          this.$router.push('/register')
         } else {
-          this.$router.push('/auth/login')
+          this.$router.push('/home')
         }
       } catch (err) {
         console.error(err)
+        this.$router.push('/auth/login')
       }
     }
   }
