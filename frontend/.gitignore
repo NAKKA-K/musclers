@@ -81,6 +81,9 @@ dist
 .idea
 .editorconfig
 
+# static files
+/static/images/
+
 # Service worker
 sw.*
 
