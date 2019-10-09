@@ -40,15 +40,13 @@ ActiveRecord::Base.transaction do
       figure: 5,
       seriousness: Faker::Number.between(from: 0, to: 2),
     }
-    User.create!(user)
+    user_record = User.create!(user)
     open(thumbnails[i]) do |file|
       p "fetching image data from #{thumbnails[i]}"
-      user = User.last
-      p file.content_type
       if file.content_type == "image/jpeg"
-        user.thumbnail.attach(io: file, filename: "sample#{i}.jpg")
+        user_record.thumbnail.attach(io: file, filename: "sample#{i}.jpg")
       else
-        user.thumbnail.attach(io: file, filename: "sample#{i}.png")
+        user_record.thumbnail.attach(io: file, filename: "sample#{i}.png")
       end
     end    
   end
