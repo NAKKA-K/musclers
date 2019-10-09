@@ -7,7 +7,13 @@ module Api
     end
 
     def search
-      search_result_data = User.search_user_in(page: params[:page], search_keyword: params[:q])
+      per_page = params[:per_page] ? params[:per_page] : 20
+      search_result_data = User.search_user_in(
+        page: params[:page],
+        per_page: per_page,
+        search_keyword: params[:q]
+      )
+
       if search_result_data.blank?
         error_res(
           404,
