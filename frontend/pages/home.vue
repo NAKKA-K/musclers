@@ -112,6 +112,7 @@
     </div>
   </div>
 </template>
+
 <style>
 .img-size {
   width: 121px;

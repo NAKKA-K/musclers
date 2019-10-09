@@ -11,7 +11,7 @@ Muscler'sのAPI仕様書
 
 ````
 {
-    "code": 200,
+    "status": 200,
     "message": "Success",
     "data": {
 
@@ -23,10 +23,11 @@ Muscler'sのAPI仕様書
 
 ````
 {
-    "code": 400,
+    "status": 400,
+    "message": "Error",
     "errors": [
         {
-
+          errMsg: "error message"
         },
     ],
 }
@@ -43,6 +44,7 @@ Muscler'sのAPI仕様書
 + age: 22 (number)
 + gender: 1 (enum[number])
     + Members
+        + 0 - 未設定
         + 1 - 男性
         + 2 - 女性
         + 3 - その他
@@ -50,6 +52,7 @@ Muscler'sのAPI仕様書
 + weight: 65 (number)
 + figure: 1 (enum[number])
     + Members
+        + 0 - 未設定
         + 1 - 痩せ型筋肉質
         + 5 - 普通筋肉質
         + 10 - 肥満型筋肉質
@@ -59,6 +62,11 @@ Muscler'sのAPI仕様書
         + 99 - その他
 + muscle_mass: 44 (number)
 + body_fat_percentage: 12 (number)
++ seriousness: 0 (enum[number])
+    + Members
+        + 0 - 未設定
+        + 1 - ガチ
+        + 2 - エンジョイ
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
@@ -206,16 +214,62 @@ Muscler'sのAPI仕様書
 + Response 200
 
     + Attributes (object)
-        + code: 200 (number)
-        + message: success (string)
+        + status: 200 (number)
+        + message: ユーザが見つかりました (string)
         + data (User)
 
 + Response 404
 
   {
-      "code": 404,
+      "status": 404,
+      "message": "指定したユーザは存在しません。"
       "errors": [
         { message: "指定したユーザは存在しません。" }
+      ],
+  }
+
+### ユーザ情報更新 [PATCH]
++ Headers
+    Authorization: ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + email: sample@example.com (string)
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: Eメールを更新しました (string)
+
++ Response 404
+
+  {
+      "status": 404,
+      "message": "ユーザが存在しません"
+      "errors": [
+        { message: "ユーザが存在しません" }
+      ],
+  }
+
++ Response 422
+
+  {
+      "status": 422,
+      "message": "入力内容が正しくありません"
+      "errors": [
+        { message: { email:"Eメールの形式で入力してください" } }
+      ],
+  }
+
++ Response 500
+
+  {
+      "status": 500,
+      "message": "更新に失敗しました"
+      "errors": [
+        { message: "更新に失敗しました" }
       ],
   }
 
@@ -230,14 +284,15 @@ Muscler'sのAPI仕様書
 + Response 200
 
     + Attributes (object)
-        + code: 200 (number)
-        + message: success (string)
+        + status: 200 (number)
+        + message: ユーザが見つかりました。 (string)
         + data (array[User,User])
 
 + Response 404
 
   {
-      "code": 404,
+      "status": 404,
+      "message": "お探しのユーザは見つかりませんでした・"
       "errors": [
         { message: "お探しのユーザが見つかりませんでした。" }
       ],

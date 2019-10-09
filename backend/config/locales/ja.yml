@@ -19,3 +19,10 @@ ja:
         not_set: "未設定"
         gachi:   "ガチ"
         enjoy:   "エンジョイ"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: "Eメールの形式で入力してください"

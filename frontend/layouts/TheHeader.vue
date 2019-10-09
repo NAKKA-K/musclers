@@ -1,14 +1,18 @@
 <template>
   <div>
     <v-toolbar flat :color="'#ffac12'">
-      <v-toolbar-title class="header-title">Muscler's</v-toolbar-title>
+      <v-toolbar-title>
+        <nuxt-link to="/" class="header-title">Muscler's</nuxt-link>
+      </v-toolbar-title>
 
-      <v-col cols="6" sm="3">
+      <v-col class="col-5 col-xs-4">
         <v-text-field
+          v-model="searchQuery"
           label="ユーザー検索"
           hide-details
           prepend-icon="search"
           single-line
+          @keyup.enter="onSubmitSearch()"
         />
       </v-col>
 
@@ -34,20 +38,35 @@
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn icon v-on="on">
-              <v-icon>account_circle</v-icon>
+              <v-avatar v-if="currentUser.thumbnail">
+                <img :src="currentUser.thumbnail" />
+              </v-avatar>
+              <v-icon v-else>person</v-icon>
             </v-btn>
           </template>
 
           <v-list>
-            <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
-              <v-icon v-text="item.icon"></v-icon>
+            <v-list-item v-for="(item, i) in items" :key="i" :to="item.link">
+              <v-avatar size="25px" class="mr-2">
+                <v-icon v-text="item.icon"></v-icon>
+              </v-avatar>
               <v-list-item-content>
                 <v-list-item-title v-text="item.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item key="logout" @click="logout">
+              <v-avatar size="25px" class="mr-2">
+                <v-icon>assignment_return</v-icon>
+              </v-avatar>
+              <v-list-item-content>
+                <v-list-item-title>ログアウト</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-menu>
       </div>
+      <!-- toプロパティで制御してしまうと、ログイン画面にいるときボタンの見た目が変わってしまうためclickで制御 -->
       <v-btn v-else id="header-login-btn" text @click="login">
         ログイン
       </v-btn>
@@ -65,19 +84,19 @@ export default {
   },
   data: () => ({
     items: [
-      { icon: 'account_circle', title: 'マイページ' },
-      { icon: 'star', title: 'おすすめユーザー' },
-      { icon: 'message', title: 'メッセージ' },
-      { icon: 'group', title: 'グループ' },
-      { icon: 'search', title: '検索' },
-      { icon: 'assignment_return', title: 'ログアウト' }
+      { link: '/mypage', icon: 'account_circle', title: 'マイページ' },
+      { link: '/', icon: 'star', title: 'おすすめユーザー' },
+      { link: '/messages', icon: 'message', title: 'メッセージ' },
+      { link: '/groups', icon: 'group', title: 'グループ' },
+      { link: '/users', icon: 'search', title: '検索' }
     ],
     group: [
-      { id: 1, icon: 'search', text: 'グループ検索' },
-      { id: 2, icon: 'add', text: 'グループ作成' },
-      { id: 3, icon: 'ballot', text: 'グループ一覧' },
-      { id: 4, icon: 'group', text: '参加グループ' }
-    ]
+      { id: 1, icon: 'search', text: 'グループ検索', value: 'search' },
+      { id: 2, icon: 'add', text: 'グループ作成', value: 'create' },
+      { id: 3, icon: 'ballot', text: 'グループ一覧', value: 'list' },
+      { id: 4, icon: 'group', text: '参加グループ', value: 'joined' }
+    ],
+    searchQuery: ''
   }),
   computed: {
     ...mapGetters({
@@ -86,10 +105,35 @@ export default {
   },
   methods: {
     login() {
-      this.$auth.loginWith('facebook')
+      this.$router.push('/auth/login')
+    },
+    logout() {
+      this.$auth.logout()
+      this.$store.dispatch('auth/logout')
     },
     handleSelectGroup(groupObj) {
       console.log(groupObj)
+      if (!groupObj) {
+        return
+      }
+
+      switch (groupObj.value) {
+        case 'search':
+          this.$router.push('/groups/search')
+          break
+        case 'create':
+          this.$router.push('/groups/new')
+          break
+        case 'list':
+          this.$router.push('/groups')
+          break
+        case 'joined':
+          this.$router.push('/groups/joined')
+          break
+      }
+    },
+    onSubmitSearch() {
+      this.$router.push('/users?q=' + this.searchQuery)
     }
   }
 }
@@ -98,6 +142,9 @@ export default {
 <style>
 .header-title {
   margin-right: 0.8em;
+  color: black !important;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .group-selector {

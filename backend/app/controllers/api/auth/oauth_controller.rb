@@ -14,6 +14,7 @@ module Api
 
         status = 200
         if @user.new_record?
+          @user.email = auth_params[:email].blank? ? "" : auth_params[:email]
           status = 201
 
           begin

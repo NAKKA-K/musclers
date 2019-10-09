@@ -1,31 +1,95 @@
 <template>
-  <div class="text-center">
-    <h3 class="margin">メールアドレスの設定</h3>
-    <h5 class="red--text">
-      Facebookでメールアドレスが設定されていませんでした。
-    </h5>
-    <v-container>
-      <v-col cols="12" sm="6" offset-sm="3">
-        <v-text-field
-          label="kobedenshi@gmail.com"
-          hide-details
-          prepend-icon="email"
-          single-line
-        />
-      </v-col>
-    </v-container>
-    <div class="margin-bottom">
-      <nuxt-link to="/sign_up">
-        <v-btn class="primary" rounded>登録 </v-btn>
-      </nuxt-link>
-    </div>
-  </div>
+  <v-container>
+    <v-col cols="12" sm="6" offset-sm="3">
+      <div class="text-center">
+        <h3 class="margin">メールアドレスの設定</h3>
+        <h5 class="red--text">
+          Facebookでメールアドレスが設定されていませんでした。
+        </h5>
+        <form>
+          <v-text-field
+            v-model="$v.email.$model"
+            :error-messages="emailErrors"
+            label="kobedenshi@gmail.com"
+            prepend-icon="email"
+            single-line
+            required
+            @input="$v.email.$touch()"
+            @blur="$v.email.$touch()"
+          />
+          <v-alert
+            v-if="validErrors.email"
+            border="right"
+            colored-border
+            type="error"
+            elevation="2"
+          >
+            {{ validErrors.email }}
+          </v-alert>
+          <v-btn class="primary" rounded @click="submit">submit</v-btn>
+          <h5 v-if="errMsg" class="red--text">{{ errMsg }}</h5>
+        </form>
+      </div>
+    </v-col>
+  </v-container>
 </template>
+<script>
+import { required, email } from 'vuelidate/lib/validators'
+export default {
+  validations: {
+    email: { required, email }
+  },
+
+  data: () => ({
+    email: '',
+    errMsg: null,
+    validErrors: {
+      email: null
+    }
+  }),
+
+  computed: {
+    emailErrors() {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.email &&
+        errors.push('メールアドレスの形式で入力してください')
+      !this.$v.email.required && errors.push('メールアドレスを入力してください')
+      return errors
+    }
+  },
+
+  methods: {
+    async submit() {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.errMsg = '未入力の項目があります'
+      } else {
+        const user = this.$store.getters['auth/currentUser']
+        const postData = {
+          id: user.id,
+          email: this.email
+        }
+        try {
+          await this.$axios.$patch('/api/users/' + postData.id, postData)
+          this.$router.push('/sign_up')
+        } catch (err) {
+          if (!err.response.status) {
+            this.$router.push('/')
+          } else if (err.response.status === 422) {
+            this.validErrors.email = err.response.data.errors.message
+          } else {
+            this.$router.push('/')
+          }
+        }
+      }
+    }
+  }
+}
+</script>
+
 <style>
 .margin {
   margin: 120px 0px 0px 0px;
-}
-.margin-bottom {
-  margin-bottom: 50px;
 }
 </style>
