@@ -29,7 +29,6 @@
     "@nuxtjs/vuetify": "^1.8.3",
     "axios": "^0.19.0",
     "nuxt": "^2.0.0",
-    "vuejs-paginate": "^2.1.0",
     "vuelidate": "^0.7.4",
     "vuex-persistedstate": "^2.5.4"
   },
