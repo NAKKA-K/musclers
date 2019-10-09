@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one_attached :thumbnail
   validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
