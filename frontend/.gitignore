@@ -82,8 +82,8 @@ dist
 .editorconfig
 
 # static files
-/static/images/
-
+/static/images/*
+!/static/images/.keep
 # Service worker
 sw.*
 
