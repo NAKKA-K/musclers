@@ -1,12 +1,12 @@
 <template>
   <v-app id="inspire">
-    <div id="app">
-      <TheHeader />
-      <div class="container-fluid">
+    <TheHeader />
+    <v-content>
+      <v-container class="pa-0" fluid>
         <nuxt />
-      </div>
-      <TheFooter />
-    </div>
+      </v-container>
+    </v-content>
+    <TheFooter />
   </v-app>
 </template>
 
