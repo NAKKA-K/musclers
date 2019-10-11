@@ -7,8 +7,13 @@ module Api
     end
 
     def search
-      search_keyword = params[:nickname]
-      search_result_data = User.search_user_in(search_keyword)
+      per_page = params[:per_page] ? params[:per_page] : 20
+      search_result_data = User.search_user_in(
+        page: params[:page],
+        per_page: per_page,
+        search_keyword: params[:q]
+      )
+
       if search_result_data.blank?
         error_res(
           404,
@@ -16,8 +21,12 @@ module Api
           err: "お探しのユーザは見つかりませんでした"
         ) and return
       else
-        data = ActiveModel::Serializer::CollectionSerializer.new(search_result_data, each_serializer: UserSerializer).as_json
-        success_res(200, message: 'ユーザが見つかりました', data: data) and return
+        data = ActiveModel::Serializer::CollectionSerializer.new(
+          search_result_data,
+          each_serializer: UserSerializer
+        ).as_json
+        meta = make_paginator_meta(search_result_data)
+        success_res(200, message: 'ユーザが見つかりました', data: data, meta: meta) and return
       end
     end
 
