@@ -113,24 +113,16 @@ export default {
               </v-text-field>
             </v-row>
             <v-row>
-              <v-checkbox
-                v-model="checkbox"
-                label="Do you agree?"
-                required
-              ></v-checkbox>
-              <v-checkbox
-                v-model="checkbox"
-                label="Do you agree?"
-                required
-              ></v-checkbox>
-              <v-checkbox
-                v-model="checkbox"
-                label="Do you agree?"
-                required
-              ></v-checkbox>
+              <p>本気度</p>
+              <v-radio-group row>
+                <v-radio label="ガチ" value="radio-1"></v-radio>
+                <v-radio label="エンジョイ" value="radio-2"></v-radio>
+                <v-radio label="未設定" value="radio-3"></v-radio>
+              </v-radio-group>
             </v-row>
             <v-row>
-              <v-select label="Item" required></v-select>
+              <p>体系</p>
+              <v-select :items="items" label="未選択" multiple></v-select>
             </v-row>
             <v-btn color="info">
               検索する
@@ -141,4 +133,15 @@ export default {
     </v-layout>
   </div>
 </template>
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      items: ['a', 'b']
+    }
+  }
+}
+</script>
+<style>
+@import '@/assets/css/index.css';
+</style>
