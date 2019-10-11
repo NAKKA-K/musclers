@@ -78,9 +78,9 @@
     </div>
     <div class="register-wrapper">
       <div class="container">
-        <nuxt-link to="/auth/login" class="btn">
-          Muscler'sを始める
-        </nuxt-link>
+        <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
+          BookBokを始める
+        </v-btn>
       </div>
     </div>
   </div>
