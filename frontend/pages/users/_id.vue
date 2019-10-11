@@ -100,10 +100,10 @@
         </v-card>
 
         <div class="move-items">
-          <nuxt-link to="/" class="move-icon">
+          <nuxt-link :to="`/users/${user.id - 1}`" class="move-icon">
             <v-icon color="#FEBA00" x-large>arrow_back_ios</v-icon>
           </nuxt-link>
-          <nuxt-link to="/" class="move-icon">
+          <nuxt-link :to="`/users/${user.id + 1}`" class="move-icon">
             <v-icon color="#FEBA00" x-large>arrow_forward_ios</v-icon>
           </nuxt-link>
         </div>
