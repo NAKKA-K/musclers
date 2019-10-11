@@ -1,8 +1,15 @@
-.PHONY: setenv init run down ps
+.PHONY: setenv reinit init run down ps migrate lintfix
 
 setenv: environments
 	cp environments/.env ./
 	cp environments/{master.key,credentials.yml.enc} backend/config/
+
+reinit:
+	docker-compose down -v --rmi all
+	docker-compose up -d
+	docker-compose exec api rails db:create
+	docker-compose exec api rails db:migrate
+	docker-compose exec api rails db:seed
 
 init: setenv
 	docker-compose build
