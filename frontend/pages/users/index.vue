@@ -3,6 +3,8 @@
     <h1>ユーザー一覧</h1>
     <p>「{{ searchQuery }}」で検索しました。</p>
 
+    <paginator :meta="meta" @click="updateUsersPage"></paginator>
+
     <v-list v-if="users">
       <v-row>
         <v-col
@@ -19,22 +21,24 @@
             max-width="374"
             max-height="530"
             min-height="530"
-            :to="`/users/${user.id}`"
           >
-            <v-img
-              height="300"
-              :src="
-                user.thumbnail ||
-                  'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
-              "
-            ></v-img>
-            <v-card-title
-              class="pb-0"
-              v-text="user.nickname || 'No name'"
-            ></v-card-title>
+            <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
+              <v-img
+                height="300"
+                :src="
+                  user.thumbnail ||
+                    'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
+                "
+              ></v-img>
+            </nuxt-link>
+            <v-card-title class="pb-0">
+              <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
+                {{ user.nickname || 'No name' }}
+              </nuxt-link>
+            </v-card-title>
             <v-card-text class="pb-1">
               <div class="mb-4 black--text sub-info-text">
-                友達: 9000人<br />本気度: ガチ
+                友達: 9000人<br />本気度: {{ user.seriousness || 'none' }}
               </div>
               <div class="card-body-overflow" v-text="user.description"></div>
             </v-card-text>
@@ -60,10 +64,16 @@
 </template>
 
 <script>
+import Paginator from '../../components/Paginator'
+
 export default {
+  components: {
+    Paginator
+  },
+
   data: () => ({
     searchQuery: '',
-    users: []
+    users: null
   }),
 
   beforeRouteUpdate(to, from, next) {
@@ -72,24 +82,27 @@ export default {
     next()
   },
 
-  async asyncData({ $axios, query }) {
+  async asyncData({ $axios, query, error }) {
     const searchQuery = query.q
 
-    const users = await $axios
-      .$get('/api/users/search')
-      .then((res) => res.data)
-      .catch((err) => {
-        if (err && err.response && err.response.data) {
-          console.error('Reponse: ' + err.response.data.message)
-        } else {
-          console.error(err)
-        }
-        return null
-      })
+    const res = await $axios.$get('/api/users/search').catch((err) => {
+      if (err && err.response && err.response.data) {
+        console.error('Reponse: ' + err.response.data.message)
+        return err.response
+      }
+
+      throw err
+    })
+
+    if (res.status !== 200) {
+      error({ statusCode: res.status, message: res.data.message })
+      return
+    }
 
     return {
       searchQuery,
-      users
+      users: res.data,
+      meta: res.meta
     }
   },
 
@@ -97,6 +110,23 @@ export default {
     sendFriendRequest(userId) {
       // TODO: 友達申請APIを呼び出す
       console.log(userId)
+    },
+    async updateUsersPage(page) {
+      const res = await this.$axios
+        .$get(`/api/users/search?page=${page}`)
+        .catch((err) => {
+          if (err && err.response && err.response.data) {
+            console.error('Reponse: ' + err.response.data.message)
+            return err.response
+          }
+
+          throw err
+        })
+
+      if (res.status === 200) {
+        this.users = res.data
+        this.meta = res.meta
+      }
     }
   }
 }

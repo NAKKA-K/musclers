@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+require 'open-uri'
 
 # ボディビルダー、フィジーカー、サマスタ、ベスボで検索
 thumbnails = [
@@ -33,7 +33,6 @@ ActiveRecord::Base.transaction do
       uid: Faker::Number.unique.leading_zero_number(digits: 15),
       nickname: Faker::Name.name,
       description: Faker::Lorem.sentence(word_count: Faker::Number.number(digits: 2)),
-      thumbnail: thumbnails[i],
       age: Faker::Number.number(digits: 2),
       gender: Faker::Number.between(from: 0, to: 3),
       height: Faker::Number.number(digits: 3),
@@ -41,6 +40,14 @@ ActiveRecord::Base.transaction do
       figure: 5,
       seriousness: Faker::Number.between(from: 0, to: 2),
     }
-    User.create!(user)
+    user_record = User.create!(user)
+    open(thumbnails[i]) do |file|
+      p "fetching image data from #{thumbnails[i]}"
+      if file.content_type == "image/jpeg"
+        user_record.thumbnail.attach(io: file, filename: "sample#{i}.jpg")
+      else
+        user_record.thumbnail.attach(io: file, filename: "sample#{i}.png")
+      end
+    end
   end
 end

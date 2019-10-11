@@ -228,6 +228,51 @@ Muscler'sのAPI仕様書
       ],
   }
 
+### ユーザ情報更新 [PATCH]
++ Headers
+    Authorization: ...
+
++ Request (application/json)
+
+    + Attributes (object)
+        + email: sample@example.com (string)
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: Eメールを更新しました (string)
+
++ Response 404
+
+  {
+      "status": 404,
+      "message": "ユーザが存在しません"
+      "errors": [
+        { message: "ユーザが存在しません" }
+      ],
+  }
+
++ Response 422
+
+  {
+      "status": 422,
+      "message": "入力内容が正しくありません"
+      "errors": [
+        { message: { email:"Eメールの形式で入力してください" } }
+      ],
+  }
+
++ Response 500
+
+  {
+      "status": 500,
+      "message": "更新に失敗しました"
+      "errors": [
+        { message: "更新に失敗しました" }
+      ],
+  }
+
 ## Users [/api/users/search?nickname={nickname}]
 
 + Parameters

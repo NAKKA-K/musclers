@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_one_attached :thumbnail
+  validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
                   not_set: 0,
@@ -14,12 +16,12 @@ class User < ApplicationRecord
 
 
   def self.fetch_user_detail_from(user_id)
-    User.find_by(id:user_id)
+    User.find_by(id: user_id)
   end
 
-  def self.search_user_in(search_keyword)
+  def self.search_user_in(page: 1, per_page: 20, search_keyword: '')
     # TODO: Sprint1の段階ではキーワードを無視して検索
-    User.all
+    User.page(page).per(per_page)
   end
 
   def self.find_for_oauth(auth)
