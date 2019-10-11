@@ -48,6 +48,6 @@ ActiveRecord::Base.transaction do
       else
         user_record.thumbnail.attach(io: file, filename: "sample#{i}.png")
       end
-    end    
+    end
   end
 end
