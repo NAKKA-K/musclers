@@ -79,11 +79,10 @@
     <div class="register-wrapper">
       <div class="container">
         <nuxt-link to="/auth/login" class="btn">
-          BookBokを始める
+          Muscler'sを始める
         </nuxt-link>
       </div>
     </div>
->>>>>>> 9893cb81640a10e6011059ec14a38606a1aa9bdf
   </div>
 </template>
 <script>
