@@ -78,7 +78,7 @@
     </div>
     <div class="register-wrapper">
       <div class="container">
-        <nuxt-link to="/auth/login" class="btn">
+        <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
           Muscler'sを始める
         </nuxt-link>
       </div>
