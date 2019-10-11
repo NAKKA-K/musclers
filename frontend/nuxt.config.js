@@ -38,7 +38,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/css/index.css'],
 
   /*
    ** Plugins to load before mounting the App
@@ -48,7 +48,8 @@ export default {
       src: '~plugins/persistedstate.js',
       ssr: false
     },
-    '~/plugins/axios.js'
+    '~/plugins/axios.js',
+    '~/plugins/vuelidate.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -121,7 +122,7 @@ export default {
       login: '/auth/login',
       logout: '/',
       callback: '/callback',
-      home: '/'
+      home: '/redirect'
     },
     strategies: {
       facebook: {

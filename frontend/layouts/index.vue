@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <TheHeader />
     <v-content>
-      <v-container>
+      <v-container class="pa-0" fluid>
         <nuxt />
       </v-container>
     </v-content>
