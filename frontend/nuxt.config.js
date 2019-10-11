@@ -101,7 +101,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? '' : process.env.API_URL
+    baseURL: process.env.API_URL,
+    browserBaseURL: process.env.API_URL_BROWSER
   },
 
   /*

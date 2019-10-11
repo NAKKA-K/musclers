@@ -21,19 +21,21 @@
             max-width="374"
             max-height="530"
             min-height="530"
-            :to="`/users/${user.id}`"
           >
-            <v-img
-              height="300"
-              :src="
-                user.thumbnail ||
-                  'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
-              "
-            ></v-img>
-            <v-card-title
-              class="pb-0"
-              v-text="user.nickname || 'No name'"
-            ></v-card-title>
+            <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
+              <v-img
+                height="300"
+                :src="
+                  user.thumbnail ||
+                    'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
+                "
+              ></v-img>
+            </nuxt-link>
+            <v-card-title class="pb-0">
+              <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
+                {{ user.nickname || 'No name' }}
+              </nuxt-link>
+            </v-card-title>
             <v-card-text class="pb-1">
               <div class="mb-4 black--text sub-info-text">
                 友達: 9000人<br />本気度: {{ user.seriousness || 'none' }}
