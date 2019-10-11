@@ -79,7 +79,7 @@
     <div class="register-wrapper">
       <div class="container">
         <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
-          BookBokを始める
+          Muscler'sを始める
         </v-btn>
       </div>
     </div>
