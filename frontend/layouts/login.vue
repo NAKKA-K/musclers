@@ -1,12 +1,12 @@
 <template>
-  <v-app id="inspire">
-    <div id="app">
-      <v-app id="inspire" style="background-color: #ffb74d;">
-        <TheHeader />
+  <v-app id="inspire" style="background-color: #ffb74d;">
+    <TheHeader />
+    <v-content>
+      <v-container>
         <nuxt />
-        <TheFooter />
-      </v-app>
-    </div>
+      </v-container>
+    </v-content>
+    <TheFooter />
   </v-app>
 </template>
 
