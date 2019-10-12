@@ -59,12 +59,85 @@
                         ></v-select>
                       </td>
                     </tr>
+                    <tr>
+                      <th>年齢</th>
+                      <td>
+                        <v-row>
+                          <v-col>
+                            <v-text-field
+                              placeholder="20"
+                              mask="##"
+                              outlined
+                              dense
+                              class="minimum-text-field"
+                            ></v-text-field>
+                          </v-col>
+                          <h1>~</h1>
+                          <v-col>
+                            <v-text-field
+                              placeholder="25"
+                              outlined
+                              dense
+                              class="minimum-text-field"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>体重</th>
+                      <td>
+                        <v-row>
+                          <v-col>
+                            <v-text-field
+                              placeholder="60"
+                              outlined
+                              dense
+                              class="minimum-text-field"
+                            ></v-text-field>
+                          </v-col>
+                          <h1>~</h1>
+                          <v-col>
+                            <v-text-field
+                              placeholder="70"
+                              outlined
+                              dense
+                              class="minimum-text-field"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>身長</th>
+                      <td>
+                        <v-row>
+                          <v-col>
+                            <v-text-field
+                              placeholder="170"
+                              outlined
+                              dense
+                              class="minimum-text-field"
+                            ></v-text-field>
+                          </v-col>
+                          <h1>~</h1>
+                          <v-col>
+                            <v-text-field
+                              placeholder="175"
+                              outlined
+                              dense
+                              class="minimum-text-field"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </td>
+                    </tr>
                   </tbody>
                 </template>
               </v-simple-table>
             </v-col>
             <v-flex text-center>
-              <v-btn color="light-blue darken-2">
+              <v-btn color="#ffac12">
                 検索する
               </v-btn>
             </v-flex>
@@ -92,3 +165,8 @@ export default {
   }
 }
 </script>
+<style>
+.minimum-text-field {
+  transform: scale(0.8);
+}
+</style>
