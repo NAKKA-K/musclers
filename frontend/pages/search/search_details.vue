@@ -62,14 +62,15 @@
                     <tr>
                       <th>年齢</th>
                       <td>
-                        <v-row>
+                        <v-row class="table-element">
                           <v-col>
                             <v-text-field
                               placeholder="20"
-                              mask="##"
                               outlined
+                              suffix="歳"
                               dense
                               class="minimum-text-field"
+                              maxlength="3"
                             ></v-text-field>
                           </v-col>
                           <h1>~</h1>
@@ -77,8 +78,10 @@
                             <v-text-field
                               placeholder="25"
                               outlined
+                              suffix="歳"
                               dense
                               class="minimum-text-field"
+                              maxlength="3"
                             ></v-text-field>
                           </v-col>
                         </v-row>
@@ -87,13 +90,15 @@
                     <tr>
                       <th>体重</th>
                       <td>
-                        <v-row>
+                        <v-row class="table-element">
                           <v-col>
                             <v-text-field
                               placeholder="60"
                               outlined
+                              suffix="kg"
                               dense
                               class="minimum-text-field"
+                              maxlength="3"
                             ></v-text-field>
                           </v-col>
                           <h1>~</h1>
@@ -101,8 +106,10 @@
                             <v-text-field
                               placeholder="70"
                               outlined
+                              suffix="kg"
                               dense
                               class="minimum-text-field"
+                              maxlength="3"
                             ></v-text-field>
                           </v-col>
                         </v-row>
@@ -111,13 +118,15 @@
                     <tr>
                       <th>身長</th>
                       <td>
-                        <v-row>
+                        <v-row class="table-element">
                           <v-col>
                             <v-text-field
                               placeholder="170"
                               outlined
+                              suffix="cm"
                               dense
                               class="minimum-text-field"
+                              maxlength="3"
                             ></v-text-field>
                           </v-col>
                           <h1>~</h1>
@@ -125,8 +134,10 @@
                             <v-text-field
                               placeholder="175"
                               outlined
+                              suffix="cm"
                               dense
                               class="minimum-text-field"
+                              maxlength="3"
                             ></v-text-field>
                           </v-col>
                         </v-row>
@@ -168,5 +179,8 @@ export default {
 <style>
 .minimum-text-field {
   transform: scale(0.8);
+}
+.table-element {
+  align-items: center;
 }
 </style>
