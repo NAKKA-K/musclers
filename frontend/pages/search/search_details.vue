@@ -45,6 +45,7 @@
                         <v-radio-group row>
                           <v-radio label="男" value="male"></v-radio>
                           <v-radio label="女" value="female"></v-radio>
+                          <v-radio label="その他" value="other"></v-radio>
                         </v-radio-group>
                       </td>
                     </tr>
@@ -77,7 +78,16 @@
 export default {
   data() {
     return {
-      body_shape: ['やせ型', 'ぽっちゃり', '普通']
+      body_shape: [
+        '未設定',
+        '痩せ型筋肉質',
+        '普通筋肉質',
+        '肥満型筋肉質',
+        '痩せ型',
+        '普通',
+        '肥満型',
+        'その他'
+      ]
     }
   }
 }
