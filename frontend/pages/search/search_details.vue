@@ -63,7 +63,7 @@
               </v-simple-table>
             </v-col>
             <v-flex text-center>
-              <v-btn color="info">
+              <v-btn color="light-blue darken-2">
                 検索する
               </v-btn>
             </v-flex>
