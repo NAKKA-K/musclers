@@ -1,4 +1,3 @@
-<!--
 <template>
   <div>
     <div class="top-wrapper">
@@ -89,56 +88,6 @@
 <script>
 export default {
   layout: 'index'
-}
-</script>
-<style>
-@import '@/assets/css/index.css';
-</style>
--->
-<!-- debug用画面 -->
-<template>
-  <div>
-    <v-layout justify-center style="width=80%">
-      <v-form>
-        <div class="container">
-          <v-col>
-            <v-row>
-              <v-text-field
-                flat
-                solo-inverted
-                append-icon="search"
-                label="キーワードで検索"
-                hide-details
-              >
-              </v-text-field>
-            </v-row>
-            <v-row>
-              <p>本気度</p>
-              <v-radio-group row>
-                <v-radio label="ガチ" value="radio-1"></v-radio>
-                <v-radio label="エンジョイ" value="radio-2"></v-radio>
-                <v-radio label="未設定" value="radio-3"></v-radio>
-              </v-radio-group>
-            </v-row>
-            <v-row>
-              <v-select :items="items" label="体系" multiple></v-select>
-            </v-row>
-            <v-btn color="info">
-              検索する
-            </v-btn>
-          </v-col>
-        </div>
-      </v-form>
-    </v-layout>
-  </div>
-</template>
-<script>
-export default {
-  data() {
-    return {
-      items: ['やせ型', 'ぽっちゃり', '']
-    }
-  }
 }
 </script>
 <style>
