@@ -98,7 +98,7 @@ export default {
 <!-- debug用画面 -->
 <template>
   <div>
-    <v-layout justify-center>
+    <v-layout justify-center style="width=80%">
       <v-form>
         <div class="container">
           <v-col>
@@ -121,8 +121,7 @@ export default {
               </v-radio-group>
             </v-row>
             <v-row>
-              <p>体系</p>
-              <v-select :items="items" label="未選択" multiple></v-select>
+              <v-select :items="items" label="体系" multiple></v-select>
             </v-row>
             <v-btn color="info">
               検索する
@@ -137,7 +136,7 @@ export default {
 export default {
   data() {
     return {
-      items: ['a', 'b']
+      items: ['やせ型', 'ぽっちゃり', '']
     }
   }
 }
