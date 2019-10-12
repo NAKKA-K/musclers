@@ -119,6 +119,7 @@ export default {
    * auth session
    */
   auth: {
+    watchLoggedIn: false,
     redirect: {
       login: '/auth/login',
       logout: '/',
