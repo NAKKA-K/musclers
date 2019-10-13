@@ -70,6 +70,7 @@
                               outlined
                               suffix="歳"
                               dense
+                              hide-details
                               class="minimum-text-field"
                               maxlength="3"
                               type="number"
@@ -82,6 +83,7 @@
                               outlined
                               suffix="歳"
                               dense
+                              hide-details
                               class="minimum-text-field"
                               maxlength="3"
                               type="number"
@@ -101,6 +103,7 @@
                               outlined
                               suffix="kg"
                               dense
+                              hide-details
                               class="minimum-text-field"
                               maxlength="3"
                               type="number"
@@ -113,6 +116,7 @@
                               outlined
                               suffix="kg"
                               dense
+                              hide-details
                               class="minimum-text-field"
                               maxlength="3"
                               type="number"
@@ -132,6 +136,7 @@
                               outlined
                               suffix="cm"
                               dense
+                              hide-details
                               class="minimum-text-field"
                               maxlength="3"
                               type="number"
@@ -144,6 +149,7 @@
                               outlined
                               suffix="cm"
                               dense
+                              hide-details
                               class="minimum-text-field"
                               maxlength="3"
                               type="number"
