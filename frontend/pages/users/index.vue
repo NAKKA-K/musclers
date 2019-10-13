@@ -79,6 +79,8 @@ export default {
   beforeRouteUpdate(to, from, next) {
     // 検索クエリを更新
     this.searchQuery = to.query.q
+    // TODO: 再取得
+    console.log('beforeRouteUpdate')
     next()
   },
 
