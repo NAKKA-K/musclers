@@ -164,7 +164,7 @@
             </v-col>
 
             <v-flex text-center>
-              <v-btn color="#ffac12">
+              <v-btn color="#ffac12" dark large>
                 検索する
               </v-btn>
             </v-flex>
