@@ -17,11 +17,7 @@
             </v-row>
 
             <v-col class="pb-5">
-              <v-simple-table
-                :dense="dense"
-                :fixed-header="fixedHeader"
-                :height="height"
-              >
+              <v-simple-table>
                 <template v-slot:default>
                   <thead>
                     <tr>
