@@ -15,6 +15,7 @@
               >
               </v-text-field>
             </v-row>
+
             <v-col class="pb-5">
               <v-simple-table
                 :dense="dense"
@@ -28,6 +29,7 @@
                       <th class="text-center">選択</th>
                     </tr>
                   </thead>
+
                   <tbody>
                     <tr>
                       <th>本気度</th>
@@ -39,6 +41,7 @@
                         </v-radio-group>
                       </td>
                     </tr>
+
                     <tr>
                       <th>性別</th>
                       <td>
@@ -49,6 +52,7 @@
                         </v-radio-group>
                       </td>
                     </tr>
+
                     <tr>
                       <th>体系</th>
                       <td>
@@ -59,6 +63,7 @@
                         ></v-select>
                       </td>
                     </tr>
+
                     <tr>
                       <th>年齢</th>
                       <td>
@@ -71,6 +76,7 @@
                               dense
                               class="minimum-text-field"
                               maxlength="3"
+                              type="number"
                             ></v-text-field>
                           </v-col>
                           <h1>~</h1>
@@ -82,11 +88,13 @@
                               dense
                               class="minimum-text-field"
                               maxlength="3"
+                              type="number"
                             ></v-text-field>
                           </v-col>
                         </v-row>
                       </td>
                     </tr>
+
                     <tr>
                       <th>体重</th>
                       <td>
@@ -99,6 +107,7 @@
                               dense
                               class="minimum-text-field"
                               maxlength="3"
+                              type="number"
                             ></v-text-field>
                           </v-col>
                           <h1>~</h1>
@@ -110,11 +119,13 @@
                               dense
                               class="minimum-text-field"
                               maxlength="3"
+                              type="number"
                             ></v-text-field>
                           </v-col>
                         </v-row>
                       </td>
                     </tr>
+
                     <tr>
                       <th>身長</th>
                       <td>
@@ -127,6 +138,7 @@
                               dense
                               class="minimum-text-field"
                               maxlength="3"
+                              type="number"
                             ></v-text-field>
                           </v-col>
                           <h1>~</h1>
@@ -138,6 +150,7 @@
                               dense
                               class="minimum-text-field"
                               maxlength="3"
+                              type="number"
                             ></v-text-field>
                           </v-col>
                         </v-row>
@@ -147,6 +160,7 @@
                 </template>
               </v-simple-table>
             </v-col>
+
             <v-flex text-center>
               <v-btn color="#ffac12">
                 検索する
@@ -158,6 +172,7 @@
     </v-layout>
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -176,6 +191,7 @@ export default {
   }
 }
 </script>
+
 <style>
 .minimum-text-field {
   transform: scale(0.8);
