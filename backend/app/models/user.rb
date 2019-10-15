@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   def self.search_user_in(page: 1, per_page: 20, search_keyword: '')
     # TODO: Sprint1の段階ではキーワードを無視して検索
-    User.page(page).per(per_page)
+    User.page(page).per(per_page).with_attached_thumbnail
   end
 
   def self.find_for_oauth(auth)
