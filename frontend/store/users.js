@@ -1,13 +1,16 @@
 export const state = () => ({
   searchParameters: {
-    text: '',
-    page: 1,
-    seriousness: 0,
-    gender: 0,
-    figure: 0,
-    ageBetween: { min: null, max: null },
-    weightBetween: { min: null, max: null },
-    heightBetween: { min: null, max: null }
+    keywords: null,
+    page: null,
+    seriousness: null,
+    gender: null,
+    figure: null,
+    ageMin: null,
+    ageMax: null,
+    weightMin: null,
+    weightMax: null,
+    heightMin: null,
+    heightMax: null
   }
 })
 
