@@ -15,7 +15,18 @@ export const state = () => ({
 })
 
 export const getters = {
-  searchParameters: (state) => state.searchParameters
+  searchParameters: (state) => state.searchParameters,
+  shapedSearchParameters: (state) => {
+    // 設定されたパラメータだけを抽出
+    return Object.entries(state.searchParameters)
+      .filter(([key, val]) => {
+        return val !== null
+      })
+      .reduce((result, current) => {
+        result[current[0]] = current[1]
+        return result
+      }, {})
+  }
 }
 
 export const mutations = {
