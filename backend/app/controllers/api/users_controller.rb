@@ -11,7 +11,7 @@ module Api
       search_result_data = User.search_user_in(
         page: params[:page],
         per_page: per_page,
-        search_keyword: params[:q]
+        search_keyword: params[:keywords]
       )
 
       if search_result_data.blank?
