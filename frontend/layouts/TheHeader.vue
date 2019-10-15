@@ -103,7 +103,8 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      currentUser: 'auth/currentUser'
+      currentUser: 'auth/currentUser',
+      shapedSearchParameters: 'users/shapedSearchParameters'
     })
   },
   methods: {
@@ -115,7 +116,6 @@ export default {
       this.$store.dispatch('auth/logout')
     },
     handleSelectGroup(groupObj) {
-      console.log(groupObj)
       if (!groupObj) {
         return
       }
@@ -136,7 +136,12 @@ export default {
       }
     },
     onSubmitSearch() {
-      this.$router.push('/users?q=' + this.searchQuery)
+      const parameters = { keywords: this.searchQuery }
+      this.$store.commit('users/setSearchParameters', { parameters })
+      this.$router.push({
+        path: '/users',
+        query: this.shapedSearchParameters
+      })
     }
   }
 }
