@@ -20,7 +20,7 @@ export const getters = {
     // 設定されたパラメータだけを抽出
     return Object.entries(state.searchParameters)
       .filter(([key, val]) => {
-        return val !== null
+        return val !== null && val !== ''
       })
       .reduce((result, current) => {
         result[current[0]] = current[1]
