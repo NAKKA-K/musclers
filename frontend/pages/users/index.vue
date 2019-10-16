@@ -67,6 +67,17 @@
 import { mapGetters } from 'vuex'
 import Paginator from '../../components/Paginator'
 
+function fetchSearchedUsers({ fetcher, params }) {
+  return fetcher.$get(`/api/users/search`, { params }).catch((err) => {
+    if (err && err.response && err.response.data) {
+      console.error('Reponse: ' + err.response.data.message)
+      return err.response
+    }
+
+    throw err
+  })
+}
+
 export default {
   components: {
     Paginator
@@ -94,18 +105,10 @@ export default {
   async asyncData({ $axios, query, error, store }) {
     const searchQuery = query.q
 
-    const res = await $axios
-      .$get('/api/users/search', {
-        params: store.getters['users/shapedSearchParameters']
-      })
-      .catch((err) => {
-        if (err && err.response && err.response.data) {
-          console.error('Reponse: ' + err.response.data.message)
-          return err.response
-        }
-
-        throw err
-      })
+    const res = await fetchSearchedUsers({
+      fetcher: $axios,
+      params: store.getters['users/shapedSearchParameters']
+    })
 
     if (res.status !== 200) {
       error({ statusCode: res.status, message: res.data.message })
