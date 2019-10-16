@@ -113,6 +113,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  middleware: 'auth'
+}
+</script>
+
 <style>
 .img-size {
   width: 121px;

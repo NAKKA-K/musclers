@@ -2,7 +2,10 @@
   <div>
     <v-toolbar flat :color="'#ffac12'">
       <v-toolbar-title>
-        <nuxt-link to="/" class="header-title">Muscler's</nuxt-link>
+        <nuxt-link v-if="currentUser" to="/home" class="header-title">
+          Muscler's
+        </nuxt-link>
+        <nuxt-link v-else to="/" class="header-title">Muscler's</nuxt-link>
       </v-toolbar-title>
 
       <v-col class="col-5 col-xs-4">
