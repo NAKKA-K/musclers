@@ -94,11 +94,15 @@ export default {
     })
   },
 
-  beforeRouteUpdate(to, from, next) {
-    // 検索クエリを更新
-    this.searchQuery = to.query.q
-    // TODO: 再取得
-    console.log('beforeRouteUpdate')
+  async beforeRouteUpdate(to, from, next) {
+    const res = await fetchSearchedUsers({
+      fetcher: this.$axios,
+      params: this.shapedSearchParameters
+    })
+    if (res.status === 200) {
+      this.users = res.data
+      this.meta = res.meta
+    }
     next()
   },
 
