@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Paginator from '../../components/Paginator'
 
 export default {
@@ -76,6 +77,12 @@ export default {
     users: null
   }),
 
+  computed: {
+    ...mapGetters({
+      shapedSearchParameters: 'users/shapedSearchParameters'
+    })
+  },
+
   beforeRouteUpdate(to, from, next) {
     // 検索クエリを更新
     this.searchQuery = to.query.q
@@ -84,17 +91,21 @@ export default {
     next()
   },
 
-  async asyncData({ $axios, query, error }) {
+  async asyncData({ $axios, query, error, store }) {
     const searchQuery = query.q
 
-    const res = await $axios.$get('/api/users/search').catch((err) => {
-      if (err && err.response && err.response.data) {
-        console.error('Reponse: ' + err.response.data.message)
-        return err.response
-      }
+    const res = await $axios
+      .$get('/api/users/search', {
+        params: store.getters['users/shapedSearchParameters']
+      })
+      .catch((err) => {
+        if (err && err.response && err.response.data) {
+          console.error('Reponse: ' + err.response.data.message)
+          return err.response
+        }
 
-      throw err
-    })
+        throw err
+      })
 
     if (res.status !== 200) {
       error({ statusCode: res.status, message: res.data.message })
@@ -114,8 +125,11 @@ export default {
       console.log(userId)
     },
     async updateUsersPage(page) {
+      const parameters = { page }
+      this.$store.commit('users/addSearchParameters', { parameters })
+
       const res = await this.$axios
-        .$get(`/api/users/search?page=${page}`)
+        .$get(`/api/users/search`, { params: this.shapedSearchParameters })
         .catch((err) => {
           if (err && err.response && err.response.data) {
             console.error('Reponse: ' + err.response.data.message)
