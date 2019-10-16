@@ -1,4 +1,4 @@
-export const state = () => ({
+const defaultState = {
   searchParameters: {
     keywords: null,
     page: null,
@@ -12,7 +12,9 @@ export const state = () => ({
     heightMin: null,
     heightMax: null
   }
-})
+}
+
+export const state = () => defaultState
 
 export const getters = {
   searchParameters: (state) => state.searchParameters,

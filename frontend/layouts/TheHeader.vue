@@ -101,12 +101,14 @@ export default {
     ],
     searchQuery: ''
   }),
+
   computed: {
     ...mapGetters({
       currentUser: 'auth/currentUser',
       shapedSearchParameters: 'users/shapedSearchParameters'
     })
   },
+
   methods: {
     login() {
       this.$router.push('/auth/login')
