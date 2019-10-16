@@ -33,6 +33,20 @@ export const getters = {
 
 export const mutations = {
   setSearchParameters(state, { parameters }) {
+    state.searchParameters = { ...defaultState.searchParameters, ...parameters }
+  },
+  addSearchParameters(state, { parameters }) {
     state.searchParameters = { ...state.searchParameters, ...parameters }
+  },
+  setFilteredSearchParameters(state, { queries }) {
+    const filteredQueries = Object.entries(queries)
+      .filter(([key, val]) => {
+        return state.searchParameters.hasOwnProperty(key)
+      })
+      .reduce((result, current) => {
+        result[current[0]] = current[1]
+        return result
+      }, {})
+    state.searchParameters = { ...state.searchParameters, ...filteredQueries }
   }
 }
