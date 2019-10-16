@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>ユーザー一覧</h1>
-    <p>「{{ searchQuery }}」で検索しました。</p>
+    <p>「{{ shapedSearchParameters.keywords }}」で検索しました。</p>
 
     <paginator :meta="meta" @click="updateUsersPage"></paginator>
 
