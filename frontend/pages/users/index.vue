@@ -131,25 +131,11 @@ export default {
       // TODO: 友達申請APIを呼び出す
       console.log(userId)
     },
-    async updateUsersPage(page) {
+    updateUsersPage(page) {
+      // pageの変更をURLのクエリパラメータに反映
       const parameters = { page }
       this.$store.commit('users/addSearchParameters', { parameters })
-
-      const res = await this.$axios
-        .$get(`/api/users/search`, { params: this.shapedSearchParameters })
-        .catch((err) => {
-          if (err && err.response && err.response.data) {
-            console.error('Reponse: ' + err.response.data.message)
-            return err.response
-          }
-
-          throw err
-        })
-
-      if (res.status === 200) {
-        this.users = res.data
-        this.meta = res.meta
-      }
+      this.$router.replace({ query: this.shapedSearchParameters })
     }
   }
 }
