@@ -14,6 +14,8 @@ class User < ApplicationRecord
                 }, _prefix: true
   enum seriousness: { not_set: 0, gachi:1, enjoy:2}, _prefix: true
 
+  scope :where_unique_user, ->(uid:, provider:) { where(uid: uid, provider: provider) }
+
 
   def self.fetch_user_detail_from(user_id)
     User.find_by(id: user_id)
@@ -25,7 +27,7 @@ class User < ApplicationRecord
   end
 
   def self.find_for_oauth(auth)
-    User.where(uid: auth[:uid], provider: auth[:provider]).first_or_initialize
+    User.where_unique_user(uid: auth[:uid], provider: auth[:provider]).first_or_initialize
   end
 
 
