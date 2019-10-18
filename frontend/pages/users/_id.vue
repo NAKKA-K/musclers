@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <v-layout justify-center>
-      <v-flex xs12 sm6 md6>
+      <v-flex xs12 sm10 md10>
         <v-card height="70vh" class="user-card" outlined raised>
           <v-list>
             <v-list-item class="justify-center">
