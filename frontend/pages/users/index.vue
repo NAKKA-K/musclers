@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>ユーザー一覧</h1>
-    <p>「{{ searchQuery }}」で検索しました。</p>
+    <p>「{{ shapedSearchParameters.keywords }}」で検索しました。</p>
 
     <paginator :meta="meta" @click="updateUsersPage"></paginator>
 
@@ -64,7 +64,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Paginator from '../../components/Paginator'
+
+function fetchSearchedUsers({ fetcher, params }) {
+  return fetcher.$get(`/api/users/search`, { params }).catch((err) => {
+    if (err && err.response && err.response.data) {
+      console.error('Reponse: ' + err.response.data.message)
+      return err.response
+    }
+
+    throw err
+  })
+}
 
 export default {
   components: {
@@ -76,22 +88,30 @@ export default {
     users: null
   }),
 
-  beforeRouteUpdate(to, from, next) {
-    // 検索クエリを更新
-    this.searchQuery = to.query.q
+  computed: {
+    ...mapGetters({
+      shapedSearchParameters: 'users/shapedSearchParameters'
+    })
+  },
+
+  async beforeRouteUpdate(to, from, next) {
+    const res = await fetchSearchedUsers({
+      fetcher: this.$axios,
+      params: this.shapedSearchParameters
+    })
+    if (res.status === 200) {
+      this.users = res.data
+      this.meta = res.meta
+    }
     next()
   },
 
-  async asyncData({ $axios, query, error }) {
+  async asyncData({ $axios, query, error, store }) {
     const searchQuery = query.q
 
-    const res = await $axios.$get('/api/users/search').catch((err) => {
-      if (err && err.response && err.response.data) {
-        console.error('Reponse: ' + err.response.data.message)
-        return err.response
-      }
-
-      throw err
+    const res = await fetchSearchedUsers({
+      fetcher: $axios,
+      params: store.getters['users/shapedSearchParameters']
     })
 
     if (res.status !== 200) {
@@ -111,22 +131,11 @@ export default {
       // TODO: 友達申請APIを呼び出す
       console.log(userId)
     },
-    async updateUsersPage(page) {
-      const res = await this.$axios
-        .$get(`/api/users/search?page=${page}`)
-        .catch((err) => {
-          if (err && err.response && err.response.data) {
-            console.error('Reponse: ' + err.response.data.message)
-            return err.response
-          }
-
-          throw err
-        })
-
-      if (res.status === 200) {
-        this.users = res.data
-        this.meta = res.meta
-      }
+    updateUsersPage(page) {
+      // pageの変更をURLのクエリパラメータに反映
+      const parameters = { page }
+      this.$store.commit('users/addSearchParameters', { parameters })
+      this.$router.replace({ query: this.shapedSearchParameters })
     }
   }
 }
