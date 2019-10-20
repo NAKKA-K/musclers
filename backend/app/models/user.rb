@@ -16,6 +16,27 @@ class User < ApplicationRecord
 
   scope :where_unique_user, ->(uid:, provider:) { where(uid: uid, provider: provider) }
 
+  scope :search_by_keywords_or_all, ->(keywords) do
+    return all if keywords.blank?
+
+    keywords = keywords.split.map { |val| "%#{val}%" }
+    where('nickname ILIKE ANY (array[?])', keywords)
+      .or(User.where('description ILIKE ANY (array[?])', keywords))
+  end
+
+  scope :where_seriousness_or_all, ->(seriousness) { where(seriousness: seriousness) if seriousness.present? }
+  scope :where_gender_or_all, ->(gender) { where(gender: gender) if gender.present? }
+  scope :where_figures_or_all, ->(figures) { where(figure: figures) if figures.present? }
+  scope :where_between_age_or_all, ->(ageMin, ageMax) {
+    where(age: (ageMin ||= 0)...(ageMax ||= 999)) if ageMin.present? || ageMax.present?
+  }
+  scope :where_between_weight_or_all, ->(weightMin, weightMax) {
+    where(weight: (weightMin ||= 0)...(weightMax ||= 999)) if weightMin.present? || weightMax.present?
+  }
+  scope :where_between_height_or_all, ->(heightMin, heightMax) {
+    where(height: (heightMin ||= 0)...(heightMax ||= 999)) if heightMin.present? || heightMax.present?
+  }
+
 
   def self.fetch_user_detail_from(user_id)
     User.find_by(id: user_id)
