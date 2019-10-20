@@ -42,9 +42,19 @@ class User < ApplicationRecord
     User.find_by(id: user_id)
   end
 
-  def self.search_user_in(page: 1, per_page: 20, search_keyword: '')
+  def self.search_user_in(params)
     # TODO: Sprint1の段階ではキーワードを無視して検索
-    User.page(page).per(per_page).with_attached_thumbnail
+    page = params[:page] ? params[:page] : 1
+    per_page = params[:per_page] ? params[:per_page] : 20
+    User.page(page).per(per_page)
+      .search_by_keywords_or_all(params[:keywords])
+      .where_seriousness_or_all(params[:seriousness])
+      .where_gender_or_all(params[:gender])
+      .where_figures_or_all(params[:figures])
+      .where_between_age_or_all(params[:ageMin], params[:ageMax])
+      .where_between_weight_or_all(params[:weightMin], params[:weightMax])
+      .where_between_height_or_all(params[:heightMin], params[:heightMax])
+      .with_attached_thumbnail
   end
 
   def self.find_for_oauth(auth)

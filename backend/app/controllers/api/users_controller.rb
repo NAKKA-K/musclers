@@ -7,12 +7,7 @@ module Api
     end
 
     def search
-      per_page = params[:per_page] ? params[:per_page] : 20
-      search_result_data = User.search_user_in(
-        page: params[:page],
-        per_page: per_page,
-        search_keyword: params[:keywords]
-      )
+      search_result_data = User.search_user_in(search_params)
 
       if search_result_data.blank?
         error_res(
@@ -67,6 +62,25 @@ module Api
 
     def destroy
       render json: { message:"I'm destroy." }
+    end
+
+    private
+
+    def search_params
+      params.permit(
+        :page,
+        :per_page,
+        :keywords,
+        :seriousness,
+        :gender,
+        :figures,
+        :ageMin,
+        :ageMax,
+        :weightMin,
+        :weightMax,
+        :heightMin,
+        :heightMax
+      )
     end
   end
 end
