@@ -9,20 +9,12 @@ module Api
     def search
       search_result_data = User.search_user_in(search_params)
 
-      if search_result_data.blank?
-        error_res(
-          404,
-          message: "お探しのユーザは見つかりませんでした",
-          err: "お探しのユーザは見つかりませんでした"
-        ) and return
-      else
-        data = ActiveModel::Serializer::CollectionSerializer.new(
-          search_result_data,
-          each_serializer: UserSerializer
-        ).as_json
-        meta = make_paginator_meta(search_result_data)
-        success_res(200, message: 'ユーザが見つかりました', data: data, meta: meta) and return
-      end
+      data = ActiveModel::Serializer::CollectionSerializer.new(
+        search_result_data,
+        each_serializer: UserSerializer
+      ).as_json
+      meta = make_paginator_meta(search_result_data)
+      success_res(200, message: 'ユーザが見つかりました', data: data, meta: meta) and return
     end
 
     def show
