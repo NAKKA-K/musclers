@@ -31,7 +31,7 @@
                       <th>本気度</th>
                       <td>
                         <v-radio-group row>
-                          <v-radio label="ガチ" value="sirias"></v-radio>
+                          <v-radio label="ガチ" value="serious"></v-radio>
                           <v-radio label="エンジョイ" value="enjoy"></v-radio>
                           <v-radio label="未設定" value="none"></v-radio>
                         </v-radio-group>
