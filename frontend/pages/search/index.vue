@@ -42,7 +42,7 @@
                     <tr>
                       <th>性別</th>
                       <td>
-                        <v-radio-group row>
+                        <v-radio-group v-model="gender" row>
                           <v-radio label="男" value="male"></v-radio>
                           <v-radio label="女" value="female"></v-radio>
                           <v-radio label="その他" value="other"></v-radio>
@@ -202,7 +202,8 @@ export default {
       heightMin: null,
       heightMax: null
     },
-    seriousnessHash: { none: 0, serious: 1, enjoy: 2 }
+    seriousnessHash: { none: 0, serious: 1, enjoy: 2 },
+    gendersHash: { male: 1, female: 2, other: 3 }
   }),
 
   computed: {
@@ -213,6 +214,14 @@ export default {
       },
       get() {
         return this.searchParameters.seriousness
+      }
+    },
+    gender: {
+      set(val) {
+        this.searchParameters.gender = this.gendersHash[val]
+      },
+      get() {
+        return this.searchParameters.gender
       }
     }
   },
