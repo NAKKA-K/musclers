@@ -6,6 +6,7 @@
           <v-col>
             <v-row class="pb-5">
               <v-text-field
+                v-model="searchParameters.keywords"
                 append-icon="search"
                 label="キーワードで検索"
                 hide-details
@@ -30,7 +31,7 @@
                     <tr>
                       <th>本気度</th>
                       <td>
-                        <v-radio-group row>
+                        <v-radio-group v-model="seriousness" row>
                           <v-radio label="ガチ" value="serious"></v-radio>
                           <v-radio label="エンジョイ" value="enjoy"></v-radio>
                           <v-radio label="未設定" value="none"></v-radio>
@@ -164,7 +165,7 @@
             </v-col>
 
             <v-flex text-center>
-              <v-btn color="#ffac12" dark large>
+              <v-btn color="#ffac12" dark large @click="submitSearch">
                 検索する
               </v-btn>
             </v-flex>
@@ -177,18 +178,50 @@
 
 <script>
 export default {
-  data() {
-    return {
-      body_shape: [
-        '未設定',
-        '痩せ型筋肉質',
-        '普通筋肉質',
-        '肥満型筋肉質',
-        '痩せ型',
-        '普通',
-        '肥満型',
-        'その他'
-      ]
+  data: () => ({
+    body_shape: [
+      '未設定',
+      '痩せ型筋肉質',
+      '普通筋肉質',
+      '肥満型筋肉質',
+      '痩せ型',
+      '普通',
+      '肥満型',
+      'その他'
+    ],
+    searchParameters: {
+      keywords: null,
+      page: null,
+      seriousness: null,
+      gender: null,
+      figure: null,
+      ageMin: null,
+      ageMax: null,
+      weightMin: null,
+      weightMax: null,
+      heightMin: null,
+      heightMax: null
+    },
+    seriousnessHash: { none: 0, serious: 1, enjoy: 2 }
+  }),
+
+  computed: {
+    seriousness: {
+      set(val) {
+        // HACK: サーバ側の求めるデータがIDなので、文字列からIDに変換している。IDが変わっても変更しやすいようにハッシュで一元管理している
+        this.searchParameters.seriousness = this.seriousnessHash[val]
+      },
+      get() {
+        return this.searchParameters.seriousness
+      }
+    }
+  },
+
+  methods: {
+    submitSearch() {
+      console.log('submit')
+      console.log(this.searchParameters)
+      // this.$store.commit('users/setSearchParameters', { parameters })
     }
   }
 }
