@@ -54,7 +54,10 @@
                       <th>体系</th>
                       <td>
                         <v-select
-                          :items="body_shape"
+                          v-model="figures"
+                          :items="figuresArray"
+                          item-text="label"
+                          item-value="value"
                           label="体系"
                           multiple
                         ></v-select>
@@ -179,16 +182,6 @@
 <script>
 export default {
   data: () => ({
-    body_shape: [
-      '未設定',
-      '痩せ型筋肉質',
-      '普通筋肉質',
-      '肥満型筋肉質',
-      '痩せ型',
-      '普通',
-      '肥満型',
-      'その他'
-    ],
     searchParameters: {
       keywords: null,
       page: null,
@@ -203,7 +196,17 @@ export default {
       heightMax: null
     },
     seriousnessHash: { none: 0, serious: 1, enjoy: 2 },
-    gendersHash: { male: 1, female: 2, other: 3 }
+    gendersHash: { male: 1, female: 2, other: 3 },
+    figuresArray: [
+      { label: '未設定', value: 0 },
+      { label: '痩せ型筋肉質', value: 1 },
+      { label: '普通筋肉質', value: 5 },
+      { label: '肥満型筋肉質', value: 10 },
+      { label: '痩せ型', value: 15 },
+      { label: '普通', value: 20 },
+      { label: '肥満型', value: 25 },
+      { label: 'その他', value: 99 }
+    ]
   }),
 
   computed: {
@@ -222,6 +225,14 @@ export default {
       },
       get() {
         return this.searchParameters.gender
+      }
+    },
+    figures: {
+      set(val) {
+        this.searchParameters.figures = val
+      },
+      get() {
+        return this.searchParameters.figures
       }
     }
   },
