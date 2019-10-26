@@ -190,7 +190,6 @@ export default {
   data: () => ({
     searchParameters: {
       keywords: null,
-      page: null,
       seriousness: null,
       gender: null,
       figures: null,
