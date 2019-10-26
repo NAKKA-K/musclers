@@ -70,6 +70,7 @@
                         <v-row class="table-element">
                           <v-col>
                             <v-text-field
+                              v-model="searchParameters.ageMin"
                               placeholder="20"
                               outlined
                               suffix="歳"
@@ -83,6 +84,7 @@
                           <h1>~</h1>
                           <v-col>
                             <v-text-field
+                              v-model="searchParameters.ageMax"
                               placeholder="25"
                               outlined
                               suffix="歳"
@@ -103,6 +105,7 @@
                         <v-row class="table-element">
                           <v-col>
                             <v-text-field
+                              v-model="searchParameters.weightMin"
                               placeholder="60"
                               outlined
                               suffix="kg"
@@ -116,6 +119,7 @@
                           <h1>~</h1>
                           <v-col>
                             <v-text-field
+                              v-model="searchParameters.weightMax"
                               placeholder="70"
                               outlined
                               suffix="kg"
@@ -136,6 +140,7 @@
                         <v-row class="table-element">
                           <v-col>
                             <v-text-field
+                              v-model="searchParameters.heightMin"
                               placeholder="170"
                               outlined
                               suffix="cm"
@@ -149,6 +154,7 @@
                           <h1>~</h1>
                           <v-col>
                             <v-text-field
+                              v-model="searchParameters.heightMax"
                               placeholder="175"
                               outlined
                               suffix="cm"
@@ -187,7 +193,7 @@ export default {
       page: null,
       seriousness: null,
       gender: null,
-      figure: null,
+      figures: null,
       ageMin: null,
       ageMax: null,
       weightMin: null,
@@ -216,7 +222,10 @@ export default {
         this.searchParameters.seriousness = this.seriousnessHash[val]
       },
       get() {
-        return this.searchParameters.seriousness
+        const val = Object.keys(this.seriousnessHash).filter((key) => {
+          return this.seriousnessHash[key] === this.searchParameters.seriousness
+        })
+        return val[0]
       }
     },
     gender: {
@@ -224,7 +233,10 @@ export default {
         this.searchParameters.gender = this.gendersHash[val]
       },
       get() {
-        return this.searchParameters.gender
+        const val = Object.keys(this.gendersHash).filter((key) => {
+          return this.gendersHash[key] === this.searchParameters.gender
+        })
+        return val[0]
       }
     },
     figures: {
