@@ -250,9 +250,10 @@ export default {
 
   methods: {
     submitSearch() {
-      console.log('submit')
-      console.log(this.searchParameters)
-      // this.$store.commit('users/setSearchParameters', { parameters })
+      this.$store.commit('users/setSearchParameters', {
+        parameters: this.searchParameters
+      })
+      this.$router.push('/users')
     }
   }
 }
