@@ -49,7 +49,8 @@ export default {
       ssr: false
     },
     '~/plugins/axios.js',
-    '~/plugins/vuelidate.js'
+    '~/plugins/vuelidate.js',
+    '~/plugins/queryParamsUpdater.js'
   ],
   /*
    ** Nuxt.js dev-modules
