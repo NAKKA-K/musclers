@@ -25,6 +25,7 @@ import TheJoingroup from './TheJoingroup.vue'
 import TheNotification from './TheNotification.vue'
 import TheRecommenduser from './TheRecommenduser.vue'
 export default {
+  middleware: 'auth',
   name: 'App',
   components: {
     TheJoingroup,
@@ -33,3 +34,10 @@ export default {
   }
 }
 </script>
+<style>
+.img-size {
+  width: 121px;
+  height: 121px;
+  border-radius: 50%;
+}
+</style>
