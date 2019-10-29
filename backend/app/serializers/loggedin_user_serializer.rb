@@ -23,7 +23,7 @@ class LoggedinUserSerializer < ActiveModel::Serializer
     if object.thumbnail.attached?
       url_for(object.thumbnail)
     else
-      'images/noimage.png'
+      "http://localhost:8080/images/noimage.png"
     end
   end
 
