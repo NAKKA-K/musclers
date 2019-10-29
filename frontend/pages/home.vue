@@ -20,6 +20,7 @@
     </v-card>
   </div>
 </template>
+
 <script>
 import TheJoingroup from './TheJoingroup.vue'
 import TheNotification from './TheNotification.vue'

@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_one_attached :thumbnail
+  validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :nickname, length: { maximum: 64}
+  validates :description, length: { maximum: 1024}
   enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
                   not_set: 0,
@@ -12,18 +16,51 @@ class User < ApplicationRecord
                 }, _prefix: true
   enum seriousness: { not_set: 0, gachi:1, enjoy:2}, _prefix: true
 
+  scope :where_unique_user, ->(uid:, provider:) { where(uid: uid, provider: provider) }
 
-  def self.fetch_user_detail_from(user_id)
-    User.find_by(id:user_id)
+  scope :search_by_keywords_or_all, ->(keywords) do
+    return all if keywords.blank?
+
+    keywords = keywords.split.map { |val| "%#{val}%" }
+    where('nickname ILIKE ANY (array[?])', keywords)
+      .or(User.where('description ILIKE ANY (array[?])', keywords))
   end
 
-  def self.search_user_in(search_keyword)
+  scope :where_seriousness_or_all, ->(seriousness) { where(seriousness: seriousness) if seriousness.present? }
+  scope :where_gender_or_all, ->(gender) { where(gender: gender) if gender.present? }
+  scope :where_figures_or_all, ->(figures) { where(figure: figures) if figures.present? }
+  scope :where_between_age_or_all, ->(ageMin, ageMax) {
+    where(age: (ageMin ||= 0)...(ageMax ||= 999)) if ageMin.present? || ageMax.present?
+  }
+  scope :where_between_weight_or_all, ->(weightMin, weightMax) {
+    where(weight: (weightMin ||= 0)...(weightMax ||= 999)) if weightMin.present? || weightMax.present?
+  }
+  scope :where_between_height_or_all, ->(heightMin, heightMax) {
+    where(height: (heightMin ||= 0)...(heightMax ||= 999)) if heightMin.present? || heightMax.present?
+  }
+
+
+  def self.fetch_user_detail_from(user_id)
+    User.find_by(id: user_id)
+  end
+
+  def self.search_user_in(params)
     # TODO: Sprint1の段階ではキーワードを無視して検索
-    User.all
+    page = params[:page] ? params[:page] : 1
+    per_page = params[:per_page] ? params[:per_page] : 20
+    User.page(page).per(per_page)
+      .search_by_keywords_or_all(params[:keywords])
+      .where_seriousness_or_all(params[:seriousness])
+      .where_gender_or_all(params[:gender])
+      .where_figures_or_all(params[:figures])
+      .where_between_age_or_all(params[:ageMin], params[:ageMax])
+      .where_between_weight_or_all(params[:weightMin], params[:weightMax])
+      .where_between_height_or_all(params[:heightMin], params[:heightMax])
+      .with_attached_thumbnail
   end
 
   def self.find_for_oauth(auth)
-    User.where(uid: auth[:uid], provider: auth[:provider]).first_or_initialize
+    User.where_unique_user(uid: auth[:uid], provider: auth[:provider]).first_or_initialize
   end
 
 

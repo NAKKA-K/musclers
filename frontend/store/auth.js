@@ -9,10 +9,10 @@ export const getters = {
 }
 
 export const mutations = {
-  setCurrentUser(state, user) {
+  setCurrentUser(state, { user }) {
     state.currentUser = user
   },
-  setToken(state, token) {
+  setToken(state, { token }) {
     state.token = token
   }
 }
@@ -21,5 +21,9 @@ export const actions = {
   setCurrentUser({ commit }, { user }) {
     commit('setCurrentUser', { user })
     commit('setToken', { token: user.access_token })
+  },
+  logout({ commit }) {
+    commit('setCurrentUser', { user: null })
+    commit('setToken', { token: null })
   }
 }

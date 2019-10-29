@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST:
+HOST: http://localhost:8080
 
 # Muscler's API
 
@@ -11,7 +11,7 @@ Muscler'sのAPI仕様書
 
 ````
 {
-    "code": 200,
+    "status": 200,
     "message": "Success",
     "data": {
 
@@ -23,10 +23,11 @@ Muscler'sのAPI仕様書
 
 ````
 {
-    "code": 400,
+    "status": 400,
+    "message": "Error",
     "errors": [
         {
-
+          errMsg: "error message"
         },
     ],
 }
@@ -43,6 +44,7 @@ Muscler'sのAPI仕様書
 + age: 22 (number)
 + gender: 1 (enum[number])
     + Members
+        + 0 - 未設定
         + 1 - 男性
         + 2 - 女性
         + 3 - その他
@@ -50,6 +52,7 @@ Muscler'sのAPI仕様書
 + weight: 65 (number)
 + figure: 1 (enum[number])
     + Members
+        + 0 - 未設定
         + 1 - 痩せ型筋肉質
         + 5 - 普通筋肉質
         + 10 - 肥満型筋肉質
@@ -59,6 +62,11 @@ Muscler'sのAPI仕様書
         + 99 - その他
 + muscle_mass: 44 (number)
 + body_fat_percentage: 12 (number)
++ seriousness: 0 (enum[number])
+    + Members
+        + 0 - 未設定
+        + 1 - ガチ
+        + 2 - エンジョイ
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
@@ -120,6 +128,16 @@ Muscler'sのAPI仕様書
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
+### MetaPaginator (object)
+
++ current_page: 1 (number)
++ is_first_page: true (boolean)
++ is_last_page: false (boolean)
++ next_page: 2 (number, nullable)
++ prev_page: null (number, nullable)
++ size: 20 (number)
++ total_count: 100 (number)
++ total_pages: 50 (number)
 
 # Group AUTH
 
@@ -140,10 +158,11 @@ Muscler'sのAPI仕様書
 
 ### ユーザー登録 [POST]
 
-+ Headers
-    Authorization: ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: ...
 
     + Attributes (object)
         + uid: 212345432 (string)
@@ -206,42 +225,104 @@ Muscler'sのAPI仕様書
 + Response 200
 
     + Attributes (object)
-        + code: 200 (number)
-        + message: success (string)
+        + status: 200 (number)
+        + message: ユーザが見つかりました (string)
         + data (User)
 
 + Response 404
 
-  {
-      "code": 404,
-      "errors": [
-        { message: "指定したユーザは存在しません。" }
-      ],
-  }
+        {
+            "status": 404,
+            "message": "指定したユーザは存在しません。"
+            "errors": [
+                { message: "指定したユーザは存在しません。" }
+            ],
+        }
 
-## Users [/api/users/search?nickname={nickname}]
+### ユーザ情報更新 [PATCH]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
+    + Attributes (object)
+        + email: sample@example.com (string)
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: Eメールを更新しました (string)
+
++ Response 404
+
+        {
+            "status": 404,
+            "message": "ユーザが存在しません"
+            "errors": [
+                { message: "ユーザが存在しません" }
+            ],
+        }
+
++ Response 422
+
+        {
+            "status": 422,
+            "message": "入力内容が正しくありません"
+            "errors": [
+                { message: { email:"Eメールの形式で入力してください" } }
+            ],
+        }
+
++ Response 500
+
+        {
+            "status": 500,
+            "message": "更新に失敗しました"
+            "errors": [
+                { message: "更新に失敗しました" }
+            ],
+        }
+
+## Users [/api/users/search?page={page}&per_page={per_page}&keywords={keywords}&seriousness={seriousness}&gender={gender}&figures%5B%5D={figures}&ageMin={ageMin}&ageMax={ageMax}&weightMin={weightMin}&weightMax={weightMax}&heightMin={heightMin}&heightMax={heightMax}]
 
 + Parameters
 
-    + nickname: denshi (string) - ユーザの名前
+    + keywords: フィジーク選手 (string, optional) - ユーザの名前と概要から部分一致検索される
+    + page: 1 (number, optional) - ページ番号
+    + per_page: 20 (number, optional) - 1ページの要素数
+    + seriousness: 0 (number, optional) - 本気度のID
+    + gender: 0 (number, optional) - 性別のID
+    + figures: 0 (array[number], optional) - 体格のID配列
+    + ageMin: 20 (number, optional) - 下限年齢
+    + ageMax: 40 (number, optional) - 上限年齢
+    + weightMin: 40 (number, optional) - 下限体重
+    + weightMax: 60 (number, optional) - 上限体重
+    + heightMin: 160 (number, optional) - 下限身長
+    + heightMax: 180 (number, optional) - 上限身長
+
 
 ### ユーザの検索結果を取得する [GET]
 
 + Response 200
 
     + Attributes (object)
-        + code: 200 (number)
-        + message: success (string)
+        + status: 200 (number)
+        + message: ユーザが見つかりました。 (string)
         + data (array[User,User])
+        + meta (MetaPaginator)
 
 + Response 404
 
-  {
-      "code": 404,
-      "errors": [
-        { message: "お探しのユーザが見つかりませんでした。" }
-      ],
-  }
+        {
+            "status": 404,
+            "message": "お探しのユーザは見つかりませんでした・"
+            "errors": [
+                { message: "お探しのユーザが見つかりませんでした。" }
+            ],
+        }
 
 # Group INFORMATIONS
 
@@ -253,8 +334,11 @@ Muscler'sのAPI仕様書
 
 ### 通知一覧を取得する [GET]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 200 (application/json)
 
@@ -262,8 +346,11 @@ Muscler'sのAPI仕様書
 
 ### 全ての通知を既読にする [PATCH]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 204 (application/json)
 
@@ -289,7 +376,7 @@ Muscler'sのAPI仕様書
 
 # Group USER_TAGS
 
-## UserTags [/api/users/{userId}/user_tags]
+## UserTags [/api/users/{user_id}/user_tags]
 
 + Parameters
 
@@ -304,10 +391,11 @@ Muscler'sのAPI仕様書
 
 ### ユーザーのタグ一覧を設定する [PUT]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + tags (array)
@@ -317,7 +405,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-        Location: http://localhost:8080/api/users/{userId}/user_tags
+            Location: http://localhost:8080/api/users/{userId}/user_tags
 
     + Attributes (array[Tag])
 
@@ -340,10 +428,11 @@ Muscler'sのAPI仕様書
 
 ### ユーザーのタグを一つ設定する [POST]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + tag: 2 (number)
@@ -352,7 +441,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-        Location: http://localhost:8080/api/users/{userId}/user_tags
+            Location: http://localhost:8080/api/users/{userId}/user_tags
 
     + Attributes (array[Tag])
 
@@ -369,10 +458,11 @@ Muscler'sのAPI仕様書
 
 ### グループを追加する [POST]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + name: 筋肉モンスターたちの集会所 (string)
@@ -396,11 +486,11 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-        Location: http://localhost:8080/api/groups/{groupId}
+            Location: http://localhost:8080/api/groups/{groupId}
 
     + Attributes (Group)
 
-## Group [/api/groups/{groupId}]
+## Group [/api/groups/{group_id}]
 
 + Parameters
 
@@ -414,10 +504,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループを編集する [PUT]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + name: 筋肉モンスターたちの集会所 (string)
@@ -443,8 +534,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループを削除する [DELETE]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 204 (application/json)
 
@@ -459,10 +553,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループにユーザーが参加する [POST]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + group_id (number)
@@ -492,8 +587,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループに参加している、特定のユーザーを除外する [DELETE]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 204 (application/json)
 
@@ -508,8 +606,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループで発生したメッセージの一覧を取得する [GET]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 200 (application/json)
 
@@ -519,10 +620,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループに新規メッセージを送信する [POST]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + body: 今日はみんなで大腿四頭筋を追い込みましょう！！ (string)
@@ -531,7 +633,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-        Location: http://localhost:8080/api/groups/{group_id}/messages/{group_message_id}
+            Location: http://localhost:8080/api/groups/{group_id}/messages/{group_message_id}
 
     + Attributes (GroupMessage)
 
@@ -550,10 +652,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループで発生した特定のメッセージを一つ編集する [PUT]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + body: 今日はみんなで僧帽筋を追い込みましょう！！ (string)
@@ -564,8 +667,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のグループで発生した特定のメッセージを一つ削除する [DELETE]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 204 (application/json)
 
@@ -576,8 +682,11 @@ Muscler'sのAPI仕様書
 
 ### 自分のダイレクトメッセージグループの一覧を取得する [GET]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 200 (application/json)
 
@@ -592,33 +701,20 @@ Muscler'sのAPI仕様書
                     + updated_at: `2019-11-19 04:58:55` (string)
 
 
-## DirectMessageGroups [/api/direct_message_groups/{direct_message_group_id}]
+## DirectMessages [/api/direct_message_groups/{direct_group_id}]
 
 + Parameters
 
-    + direct_message_group_id: 1 (number) - direct_message_groupsテーブルのID
-
-### ダイレクトメッセージの特定のトークを削除する [DELETE]
-
-+ Headers
-    Authorization: Barare ...
-
-+ Response 204 (application/json)
-
-
-# Group DIRECT_MESSAGES
-
-## DirectMessages [/api/direct_message_groups/{direct_message_group_id}]
-
-+ Parameters
-
-    + direct_message_group_id: 1 (number) - direct_message_groupsテーブルのID
+    + direct_group_id: 1 (number) - direct_message_groupsテーブルのID(direct_message_group_idだと長すぎて認識してくれなかったのでこの名前に)
 
 
 ### 特定ユーザーとのダイレクトメッセージ一覧を取得する [GET]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 200 (application/json)
 
@@ -633,10 +729,11 @@ Muscler'sのAPI仕様書
 
 ### 特定ユーザーとのダイレクトメッセージに新規メッセージを送信する [POST]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + body: サイド!トライセップス！！！ (string)
@@ -644,6 +741,9 @@ Muscler'sのAPI仕様書
 + Response 201 (application/json)
 
     + Attributes (DirectMessage)
+
+
+# Group DIRECT_MESSAGES
 
 ## DirectMessage [/api/direct_messages/{direct_message_id}]
 
@@ -654,10 +754,11 @@ Muscler'sのAPI仕様書
 
 ### 特定のダイレクトメッセージを更新する [PATCH]
 
-+ Headers
-    Authorization: Barare ...
-
 + Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
     + Attributes (object)
         + body: サイド!トライセップス！！！ (string)
@@ -668,7 +769,10 @@ Muscler'sのAPI仕様書
 
 ### 特定のダイレクトメッセージを削除する [DELETE]
 
-+ Headers
-    Authorization: Barare ...
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Barare ...
 
 + Response 204 (application/json)
