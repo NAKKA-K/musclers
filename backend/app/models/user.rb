@@ -12,7 +12,7 @@ class User < ApplicationRecord
                   obese:25,
                   other: 99
                 }, _prefix: true
-  enum seriousness: { not_set: 0, gachi:1, enjoy:2}, _prefix: true
+  enum seriousness: { none: 0, gachi:1, enjoy:2}, _prefix: true
 
   scope :where_unique_user, ->(uid:, provider:) { where(uid: uid, provider: provider) }
 
