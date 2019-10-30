@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_one_attached :thumbnail
   validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :nickname, length: { maximum: 64}
+  validates :description, length: { maximum: 1024}
   enum gender:  { none: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
                   none: 0,
