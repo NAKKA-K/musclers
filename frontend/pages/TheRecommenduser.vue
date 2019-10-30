@@ -35,10 +35,6 @@
           />
           <h4>呉屋 省吾</h4>
         </v-col>
-        <v-col cols="12">
-          <!-- リンクになる。 -->
-          <h5 class="blue--text">もっと見る</h5>
-        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -48,8 +44,5 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-}
-.margin {
-  margin-right: 30px;
 }
 </style>

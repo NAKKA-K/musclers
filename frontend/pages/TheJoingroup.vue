@@ -31,10 +31,6 @@
           />
           <h4>I❤️筋肉</h4>
         </v-col>
-        <v-col cols="12">
-          <!-- リンクになる。 -->
-          <h5 class="blue--text">もっと見る</h5>
-        </v-col>
       </v-row>
     </v-container>
   </div>
