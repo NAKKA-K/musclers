@@ -26,3 +26,7 @@ ja:
           attributes:
             email:
               invalid: "Eメールの形式で入力してください"
+            nickname:
+              invalid: "名前が長すぎます。64文字以内で入力してください"
+            description:
+              invalid: "文章が長すぎます。1024文字以内で入力してください"
