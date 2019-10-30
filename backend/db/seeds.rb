@@ -51,3 +51,8 @@ ActiveRecord::Base.transaction do
     end
   end
 end
+
+tag = ["chubby", "normal", "thin", "macho", "lean", "slim", "health", "hobby", "job", "short_term", "long_term"]
+tag.each do |item|
+  Tag.create(name: item)
+end
