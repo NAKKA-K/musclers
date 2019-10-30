@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     end
 
     resources :users do
+      member do
+        patch :edit
+      end
+
       collection do
         get :search
       end
