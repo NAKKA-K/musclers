@@ -89,4 +89,7 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz')
   end
 
+ #　UserTagに使用されるuser_idのFK設定
+    has_mony: user_tags
+  
 end
