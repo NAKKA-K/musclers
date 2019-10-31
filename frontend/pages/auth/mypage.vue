@@ -25,10 +25,24 @@
     </div>
 
     <v-text-field
+      v-model="email"
+      label="Eメール"
+      :disabled="disabled"
+    ></v-text-field>
+
+    <v-text-field
       v-model="nickname"
       label="ニックネーム"
       :disabled="disabled"
     ></v-text-field>
+
+    <v-textarea
+      v-model="description"
+      label="自己紹介"
+      outlined
+      rows="5"
+      :disabled="disabled"
+    ></v-textarea>
 
     <v-text-field
       v-model="age"
@@ -121,10 +135,22 @@ export default {
   }),
 
   computed: {
+    email: {
+      get: (vm) => (vm.user ? vm.user.email : null),
+      set(val) {
+        this.setUserPartial('email', val)
+      }
+    },
     nickname: {
       get: (vm) => (vm.user ? vm.user.nickname : null),
       set(val) {
         this.setUserPartial('nickname', val)
+      }
+    },
+    description: {
+      get: (vm) => (vm.user ? vm.user.description : null),
+      set(val) {
+        this.setUserPartial('description', val)
       }
     },
     age: {
