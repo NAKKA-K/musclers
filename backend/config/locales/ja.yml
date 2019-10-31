@@ -29,3 +29,10 @@ ja:
           attributes:
             email:
               invalid: "Eメールの形式で入力してください"
+              blank:  "値を入力してください"
+            nickname:
+              too_long: "名前が長すぎます。64文字以内で入力してください"
+              blank:  "値を入力してください"
+            description:
+              too_long: "文章が長すぎます。1024文字以内で入力してください"
+              blank:  "値を入力してください"

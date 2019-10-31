@@ -239,7 +239,7 @@ Muscler'sのAPI仕様書
             ],
         }
 
-### ユーザ情報更新 [PATCH]
+### 新規ユーザのEmail更新 [PATCH]
 
 + Request (application/json)
 
@@ -273,6 +273,90 @@ Muscler'sのAPI仕様書
             "message": "入力内容が正しくありません"
             "errors": [
                 { message: { email:"Eメールの形式で入力してください" } }
+            ],
+        }
+
++ Response 500
+
+        {
+            "status": 500,
+            "message": "更新に失敗しました"
+            "errors": [
+                { message: "更新に失敗しました" }
+            ],
+        }
+
+## Users [/api/users/{user_id}/edit]
+
++ Parameters
+
+    + user_id: 1 (number) - usersテーブルのID
+
+### 既存ユーザのプロフィール情報の更新 [PATCH]
+
++ Request (multipart/form-data)
+
+    + Headers
+
+            Authorization: ...
+
+    + Attributes (object)
+        + user (object)
+            + nickname: 範馬勇次郎 (string)
+            + description: 筋友を探しています！ (string)
+            + age: 22 (number)
+            + gender: 1 (enum[number])
+                + Members
+                    + 1 - 男性
+                    + 2 - 女性
+                    + 3 - その他
+            + height: 175 (number)
+            + weight: 65 (number)
+            + figure: 1 (enum[number])
+                + Members
+                    + 1 - 痩せ型筋肉質
+                    + 5 - 普通筋肉質
+                    + 10 - 肥満型筋肉質
+                    + 15 - 痩せ型
+                    + 20 - 普通
+                    + 25 - 肥満型
+                    + 99 - その他
+            + muscle_mass: 44 (number)
+            + body_fat_percentage: 12 (number)
+            + email: sample@example.com (string)
+            + thumbnail: 画像データ
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: ユーザ情報を更新しました (string)
+        + data: null
+        + meta: null
+
++ Response 404
+
+        {
+            "status": 404,
+            "message": "ユーザが存在しません"
+            "errors": [
+                { message: "ユーザが存在しません" }
+            ],
+        }
+
++ Response 422
+
+        {
+            "status": 422,
+            "message": "入力内容が正しくありません"
+            "errors": [
+              {
+                "message":{
+                  "email":["Eメールの形式で入力してください"],
+                  "nickname":["名前が長すぎます。64文字以内で入力してください"],
+                  "description":["文章が長すぎます。1024文字以内で入力してください"]
+                }
+              }
             ],
         }
 
