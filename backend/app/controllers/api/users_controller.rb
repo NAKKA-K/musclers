@@ -54,9 +54,9 @@ module Api
 
     def edit
       begin
-        update_data = enum_params_to_integer(user_params)
-        @user = User.find(update_data[:id])
-        @user.update!(update_data)
+        edit_data = enum_params_to_integer(user_params)
+        @user = User.find(params[:id])
+        @user.update!(edit_data)
         success_res(200, message: 'ユーザ情報を更新しました') and return
       rescue ActiveRecord::RecordNotFound
         error_res(404, message: 'ユーザが存在しません',err: 'ユーザが存在しません') and return
@@ -92,8 +92,7 @@ module Api
     end
 
     def user_params
-      params.permit(
-        :id,
+      params.require(:user).permit(
         :nickname,
         :description,
         :age,
@@ -114,7 +113,7 @@ module Api
       enum_params.each do |key|
         user_params[key] = user_params[key].to_i
       end
-
+  
       user_params
     end
   end
