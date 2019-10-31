@@ -139,6 +139,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import TheJoingroup from './TheJoingroup.vue'
 import TheNotification from './TheNotification.vue'
 import TheRecommenduser from './TheRecommenduser.vue'
@@ -155,6 +156,12 @@ export default {
       tab: null,
       items: ['トップ', '参加中のグループ', '通知', 'おすすめユーザー']
     }
+  },
+  async asyncData({ store }) {},
+  computed: {
+    ...mapGetters(['joingroup']),
+    ...mapGetters(['notification']),
+    ...mapGetters(['recommendusers'])
   }
 }
 </script>
