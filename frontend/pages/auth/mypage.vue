@@ -8,6 +8,16 @@
       </v-btn>
     </v-layout>
 
+    <div class="mb-5">
+      <img
+        v-if="user.thumbnail"
+        :src="user.thumbnail"
+        height="150"
+        @click="pickFile"
+      />
+      <input ref="image" type="file" style="display: none" accept="image/*" />
+    </div>
+
     <v-text-field
       v-model="nickname"
       label="ニックネーム"
@@ -201,6 +211,9 @@ export default {
     },
     setUserPartial(key, value) {
       this.user = { ...this.user, [key]: value }
+    },
+    pickFile() {
+      this.$refs.image.click()
     }
   }
 }
