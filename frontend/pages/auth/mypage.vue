@@ -15,7 +15,13 @@
         height="150"
         @click="pickFile"
       />
-      <input ref="image" type="file" style="display: none" accept="image/*" />
+      <input
+        ref="image"
+        type="file"
+        style="display: none"
+        accept="image/*"
+        :disabled="disabled"
+      />
     </div>
 
     <v-text-field
