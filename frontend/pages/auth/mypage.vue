@@ -25,7 +25,7 @@
     </div>
 
     <v-text-field
-      v-model="email"
+      v-model="$v.email.$model"
       label="Eメール"
       :disabled="disabled"
     ></v-text-field>
@@ -106,6 +106,8 @@
 </template>
 
 <script>
+import { required, email } from 'vuelidate/lib/validators'
+
 export default {
   middleware: 'auth',
   data: () => ({
@@ -133,6 +135,13 @@ export default {
       { label: 'その他', value: 99 }
     ]
   }),
+
+  validations: {
+    email: {
+      required,
+      email
+    }
+  },
 
   computed: {
     email: {
@@ -240,6 +249,7 @@ export default {
   methods: {
     enableEdit() {
       this.disabled = false
+      console.log(this.$v.email)
     },
     setUserPartial(key, value) {
       this.user = { ...this.user, [key]: value }
