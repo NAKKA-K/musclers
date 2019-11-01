@@ -44,10 +44,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    {
-      src: '~plugins/persistedstate.js',
-      ssr: false
-    },
+    '~plugins/persistedstate.js',
     '~/plugins/axios.js',
     '~/plugins/vuelidate.js',
     '~/plugins/queryParamsUpdater.js'
