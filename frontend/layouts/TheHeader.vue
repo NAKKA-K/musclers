@@ -116,6 +116,7 @@ export default {
     logout() {
       this.$auth.logout()
       this.$store.dispatch('auth/logout')
+      this.$router.push('/')
     },
     handleSelectGroup(groupObj) {
       if (!groupObj) {
