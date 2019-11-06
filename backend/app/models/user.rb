@@ -3,9 +3,9 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :nickname, length: { maximum: 64}
   validates :description, length: { maximum: 1024}
-  enum gender:  { not_set: 0, man: 1, woman: 2, other: 3}, _prefix: true
+  enum gender:  { none: 0, man: 1, woman: 2, other: 3}, _prefix: true
   enum figure:  {
-                  not_set: 0,
+                  none: 0,
                   skinny_muscle: 1,
                   normal_muscle: 5,
                   obese_muscle: 10,
@@ -14,7 +14,7 @@ class User < ApplicationRecord
                   obese:25,
                   other: 99
                 }, _prefix: true
-  enum seriousness: { not_set: 0, gachi:1, enjoy:2}, _prefix: true
+  enum seriousness: { none: 0, gachi:1, enjoy:2}, _prefix: true
 
   scope :where_unique_user, ->(uid:, provider:) { where(uid: uid, provider: provider) }
 

@@ -2,11 +2,13 @@ ja:
   enums:
     user:
       gender:
+        none: "未設定"
         not_set: "未設定"
         man: "男性"
         woman: "女性"
         other: "その他"
       figure:
+        none: "未設定"
         not_set: "未設定"
         skinny_muscle: "痩せ型筋肉質"
         normal_muscle: "普通型筋肉質"
@@ -16,6 +18,7 @@ ja:
         obese:  "肥満型"
         other:  "その他"
       seriousness:
+        none: "未設定"
         not_set: "未設定"
         gachi:   "ガチ"
         enjoy:   "エンジョイ"
@@ -26,3 +29,10 @@ ja:
           attributes:
             email:
               invalid: "Eメールの形式で入力してください"
+              blank:  "値を入力してください"
+            nickname:
+              too_long: "名前が長すぎます。64文字以内で入力してください"
+              blank:  "値を入力してください"
+            description:
+              too_long: "文章が長すぎます。1024文字以内で入力してください"
+              blank:  "値を入力してください"

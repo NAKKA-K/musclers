@@ -87,8 +87,8 @@ export default {
   },
   data: () => ({
     items: [
-      { link: '/mypage', icon: 'account_circle', title: 'マイページ' },
-      { link: '/', icon: 'star', title: 'おすすめユーザー' },
+      { link: '/auth/mypage', icon: 'account_circle', title: 'マイページ' },
+      { link: '/home', icon: 'star', title: 'おすすめユーザー' },
       { link: '/messages', icon: 'message', title: 'メッセージ' },
       { link: '/groups', icon: 'group', title: 'グループ' },
       { link: '/users', icon: 'search', title: '検索' }
@@ -116,6 +116,7 @@ export default {
     logout() {
       this.$auth.logout()
       this.$store.dispatch('auth/logout')
+      this.$router.push('/')
     },
     handleSelectGroup(groupObj) {
       if (!groupObj) {
