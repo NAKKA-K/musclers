@@ -26,6 +26,7 @@
 
     <v-text-field
       v-model="$v.email.$model"
+      :error-messages="emailErrors"
       label="Eメール"
       :disabled="disabled"
     ></v-text-field>
@@ -107,6 +108,7 @@
 
 <script>
 import { required, email } from 'vuelidate/lib/validators'
+import { validateEmail } from '~/validations'
 
 export default {
   middleware: 'auth',
@@ -233,7 +235,8 @@ export default {
       set(val) {
         this.setUserPartial('body_fat_percentage', val)
       }
-    }
+    },
+    emailErrors: (vm) => validateEmail(vm.$v.email)
   },
 
   asyncData({ store }) {
