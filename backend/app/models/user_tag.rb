@@ -1,9 +1,9 @@
 class UserTag < ApplicationRecord
-    #参照されている側のFK設定(belong_to)
+    #参照されている側のFK設定(belongs_to)
     #has_one:１対１
-    belong_to: user
+    belongs_to :user
 
-    #has_mony：１対多
-    belong_to: tag
+    #has_many：１対多
+    belongs_to :tag
 
 end

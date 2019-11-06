@@ -90,6 +90,6 @@ class User < ApplicationRecord
   end
 
  #　UserTagに使用されるuser_idのFK設定
-    has_mony: user_tags
+    has_many :user_tags
   
 end
