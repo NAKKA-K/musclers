@@ -32,7 +32,8 @@
     ></v-text-field>
 
     <v-text-field
-      v-model="nickname"
+      v-model="$v.nickname.$model"
+      :error-messages="nicknameErrors"
       label="ニックネーム"
       :disabled="disabled"
     ></v-text-field>
@@ -107,8 +108,8 @@
 </template>
 
 <script>
-import { required, email } from 'vuelidate/lib/validators'
-import { validateEmail } from '~/validations'
+import { required, email, maxLength } from 'vuelidate/lib/validators'
+import { validateEmail, validateNickname } from '~/validations'
 
 export default {
   middleware: 'auth',
@@ -142,6 +143,10 @@ export default {
     email: {
       required,
       email
+    },
+    nickname: {
+      required,
+      maxLength: maxLength(64)
     }
   },
 
@@ -236,7 +241,8 @@ export default {
         this.setUserPartial('body_fat_percentage', val)
       }
     },
-    emailErrors: (vm) => validateEmail(vm.$v.email)
+    emailErrors: (vm) => validateEmail(vm.$v.email),
+    nicknameErrors: (vm) => validateNickname(vm.$v.nickname)
   },
 
   asyncData({ store }) {
@@ -252,7 +258,7 @@ export default {
   methods: {
     enableEdit() {
       this.disabled = false
-      console.log(this.$v.email)
+      console.log(this.$v.nickname)
     },
     setUserPartial(key, value) {
       this.user = { ...this.user, [key]: value }
