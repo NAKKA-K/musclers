@@ -34,12 +34,15 @@
     <v-text-field
       v-model="$v.nickname.$model"
       :error-messages="nicknameErrors"
+      counter="64"
       label="ニックネーム"
       :disabled="disabled"
     ></v-text-field>
 
     <v-textarea
-      v-model="description"
+      v-model="$v.description.$model"
+      :error-messages="descriptionErrors"
+      counter="1024"
       label="自己紹介"
       outlined
       rows="5"
@@ -109,7 +112,11 @@
 
 <script>
 import { required, email, maxLength } from 'vuelidate/lib/validators'
-import { validateEmail, validateNickname } from '~/validations'
+import {
+  validateEmail,
+  validateNickname,
+  validateDescription
+} from '~/validations'
 
 export default {
   middleware: 'auth',
@@ -147,6 +154,10 @@ export default {
     nickname: {
       required,
       maxLength: maxLength(64)
+    },
+    description: {
+      required,
+      maxLength: maxLength(1024)
     }
   },
 
@@ -242,7 +253,8 @@ export default {
       }
     },
     emailErrors: (vm) => validateEmail(vm.$v.email),
-    nicknameErrors: (vm) => validateNickname(vm.$v.nickname)
+    nicknameErrors: (vm) => validateNickname(vm.$v.nickname),
+    descriptionErrors: (vm) => validateDescription(vm.$v.description)
   },
 
   asyncData({ store }) {
