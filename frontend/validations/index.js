@@ -14,14 +14,14 @@ export const validate = (validator, validations) => {
 export const validateEmail = (validator) => {
   const validations = [
     { email: 'メールアドレスの形式で入力してください' },
-    { required: 'メールアドレスを入力してください' }
+    { required: '入力してください' }
   ]
   return validate(validator, validations)
 }
 
 export const validateNickname = (validator) => {
   const validations = [
-    { required: 'ニックネームを入力してください' },
+    { required: '入力してください' },
     {
       maxLength: `${validator.$params.maxLength.max}文字以下で入力してください`
     }
@@ -31,7 +31,7 @@ export const validateNickname = (validator) => {
 
 export const validateDescription = (validator) => {
   const validations = [
-    { required: '入力が必要です' },
+    { required: '入力してください' },
     {
       maxLength: `${validator.$params.maxLength.max}文字以下で入力してください`
     }
