@@ -6,12 +6,15 @@
       <v-btn class="my-4" tile outlined color="success" @click="enableEdit">
         <v-icon small>edit</v-icon>編集
       </v-btn>
+      <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
+        <v-icon small>edit</v-icon>保存
+      </v-btn>
     </v-layout>
 
     <div class="mb-5">
       <img
-        v-if="user.thumbnail"
-        :src="user.thumbnail"
+        v-if="thumbnailSrc"
+        :src="thumbnailSrc"
         height="150"
         @click="pickFile"
       />
@@ -21,6 +24,7 @@
         style="display: none"
         accept="image/*"
         :disabled="disabled"
+        @change="onPickedFile"
       />
     </div>
 
@@ -146,7 +150,8 @@ export default {
       { label: '普通', value: 20 },
       { label: '肥満型', value: 25 },
       { label: 'その他', value: 99 }
-    ]
+    ],
+    thumbnailSrc: ''
   }),
 
   validations: {
@@ -261,24 +266,66 @@ export default {
 
   asyncData({ store }) {
     const user = store.getters['auth/currentUser']
-    console.log(user)
     if (!user) return
 
-    return {
-      user
-    }
+    const data = { user }
+    if (user.thumbnail) data.thumbnailSrc = user.thumbnail
+    console.log(user, data.thumbnailSrc)
+
+    return data
   },
 
   methods: {
     enableEdit() {
       this.disabled = false
-      console.log(this.$v.nickname)
     },
     setUserPartial(key, value) {
       this.user = { ...this.user, [key]: value }
     },
     pickFile() {
       this.$refs.image.click()
+    },
+    onPickedFile(e) {
+      const file = e.target.files[0]
+      if (typeof file !== 'undefined') {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.addEventListener('load', () => {
+          this.thumbnailSrc = reader.result
+          this.setUserPartial('thumbnail', file)
+        })
+      }
+    },
+    submitUserEdit() {
+      const formData = new FormData()
+      for (const key of Object.keys(this.user)) {
+        switch (key) {
+          case 'nickname':
+          case 'description':
+          case 'age':
+          case 'gender':
+          case 'height':
+          case 'weight':
+          case 'figure':
+          case 'muscle_mass':
+          case 'body_fat_percentage':
+          case 'seriousness':
+          case 'email':
+          case 'thumbnail':
+            console.log(key)
+            formData.append(key, this.user[key])
+            break
+        }
+      }
+
+      this.$axios.$patch(`/api/users/${this.user.id}/edit`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
     }
   }
 }
