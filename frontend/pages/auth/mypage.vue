@@ -52,6 +52,7 @@
     <v-text-field
       v-model="age"
       label="年齢"
+      type="number"
       :disabled="disabled"
     ></v-text-field>
 
@@ -67,12 +68,14 @@
     <v-text-field
       v-model="height"
       label="身長"
+      type="number"
       :disabled="disabled"
     ></v-text-field>
 
     <v-text-field
       v-model="weight"
       label="体重"
+      type="number"
       :disabled="disabled"
     ></v-text-field>
 
