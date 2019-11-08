@@ -270,7 +270,7 @@ export default {
 
     const data = { user }
     if (user.thumbnail) data.thumbnailSrc = user.thumbnail
-    console.log(user, data.thumbnailSrc)
+    console.log(user)
 
     return data
   },
@@ -311,7 +311,6 @@ export default {
           case 'muscle_mass':
           case 'body_fat_percentage':
           case 'email':
-          case 'thumbnail':
             formData.append(`user[${key}]`, this.user[key])
             break
           case 'gender':
@@ -322,6 +321,11 @@ export default {
             break
           case 'seriousness':
             formData.append(`user[${key}]`, this.seriousness)
+            break
+          case 'thumbnail':
+            if (typeof this.user.thumbnail !== 'string') {
+              formData.append(`user[${key}]`, this.user[key])
+            }
             break
         }
       }
