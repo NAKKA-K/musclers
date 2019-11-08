@@ -1,124 +1,105 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout justify-center>
-      <v-flex xs12 sm6 md6>
-        <v-card height="70vh" class="user-card" outlined raised>
-          <v-list>
-            <v-list-item class="justify-center">
-              <v-list-item-avatar size="280">
-                <v-img :src="user.thumbnail"></v-img>
-              </v-list-item-avatar>
-            </v-list-item>
-            <v-list-item-content class="headline text-center title-space">
-              <v-list-item-title class="title">
-                {{ user.nickname }}
-              </v-list-item-title>
-              <div class="user-description">
-                {{ user.description }}
-              </div>
-            </v-list-item-content>
-          </v-list>
-
-          <v-tabs v-model="tab" fixed-tabs background-color="#FEBA00">
-            <v-tab>
-              基本情報
-            </v-tab>
-            <v-tab>
-              自慢の部位
-            </v-tab>
-          </v-tabs>
-
-          <v-tabs-items v-model="tab">
-            <v-tab-item>
-              <v-list>
-                <user-detail-card-item
-                  :item="{
-                    title: '年齢',
-                    value: user.age,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '性別',
-                    value: user.gender,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '身長',
-                    value: user.height,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '体重',
-                    value: user.weight,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '体型',
-                    value: user.figure,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '筋肉量',
-                    value: user.muscle_mass,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '体脂肪率',
-                    value: user.body_fat_percentage,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '本気度',
-                    value: user.seriousness,
-                    default: 'none'
-                  }"
-                />
-              </v-list>
-            </v-tab-item>
-
-            <v-tab-item>
-              <!--
-                TODO: 自慢の部位が登録できるようになった時に
-                      画面をデザインして実装する
-              -->
-            </v-tab-item>
-          </v-tabs-items>
-        </v-card>
-
-        <div class="move-items">
-          <nuxt-link :to="`/users/${user.id - 1}`" class="move-icon">
-            <v-icon color="#FEBA00" x-large>arrow_back_ios</v-icon>
-          </nuxt-link>
-          <nuxt-link :to="`/users/${user.id + 1}`" class="move-icon">
-            <v-icon color="#FEBA00" x-large>arrow_forward_ios</v-icon>
-          </nuxt-link>
+  <div>
+    <div
+      :style="{ 'background-image': 'url(' + user.thumbnail + ')' }"
+      class="top-wrapper"
+    >
+      <div class="container">
+        <h1>筋肉を今よりも素敵に。</h1>
+        <p>筋肉大好き人間が集まるマッチングアプリです。</p>
+        <p>他人が投稿した筋肉を見たり、筋トレをしましょう。</p>
+        <div class="register-wrapper mt-5">
+          <v-btn to="/auth/login" class="register-btn" color="#FFAC12" nuxt>
+            Musclersを始める
+          </v-btn>
         </div>
-      </v-flex>
-    </v-layout>
+      </div>
+    </div>
+    <div class="services-wrapper">
+      <div class="container">
+        <div class="service-heading">
+          <h2>Musclersには様々な仕組みがあります</h2>
+        </div>
+        <div class="services">
+          <div class="service-box">
+            <div class="service-icon">
+              <v-icon color="#FEBA00" size="90">emoji_people</v-icon>
+              <p>マッチング</p>
+            </div>
+            <p class="service-text">
+              様々な筋肉と出会うことが出来ます。
+            </p>
+          </div>
+          <div class="service-box">
+            <div class="service-icon">
+              <v-icon color="#FEBA00" size="90">person_add</v-icon>
+              <p>友達申請</p>
+            </div>
+            <p class="service-text">
+              気になる人と繋がりを作ることができます。
+            </p>
+          </div>
+          <div class="service-box">
+            <div class="service-icon">
+              <v-icon color="#FEBA00" size="90">message</v-icon>
+              <p>メッセージ</p>
+            </div>
+            <p class="service-text">
+              友達になった人とやり取りすることが出来ます。
+            </p>
+          </div>
+          <div class="service-box">
+            <div class="service-icon">
+              <v-icon color="#FEBA00" size="90">search</v-icon>
+              <p>検索</p>
+            </div>
+            <p class="service-text">
+              自分好みの筋肉を詳細に検索できます。
+            </p>
+          </div>
+          <div class="service-box">
+            <div class="service-icon">
+              <v-icon color="#FEBA00" size="90">group</v-icon>
+              <p>グループ</p>
+            </div>
+            <p class="service-text">
+              グループを作成し、話し合うことが出来ます。
+            </p>
+          </div>
+          <div class="service-box">
+            <div class="service-icon">
+              <v-icon color="#FEBA00" size="90">fitness_center</v-icon>
+              <p>筋肉</p>
+            </div>
+            <p class="service-text">
+              Musclersを用いて筋肉ライフを充実させましょう。
+            </p>
+          </div>
+          <div class="clear-float-left" />
+        </div>
+      </div>
+    </div>
+    <div class="register-wrapper">
+      <div class="container">
+        <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
+          Muscler'sを始める
+        </v-btn>
+      </div>
+    </div>
+  </div>
+  <!--
+  <v-container>
+    <v-img :src="user.thumbnail" class="head-img"></v-img>
+    <v-layout justify-center> </v-layout>
   </v-container>
+  -->
 </template>
 
 <script>
-import UserDetailCardItem from '../../components/UserDetailCardItem.vue'
+// import UserDetailCardItem from '../../components/UserDetailCardItem.vue'
 
 export default {
-  components: {
-    UserDetailCardItem
-  },
+  layout: 'index',
 
   data() {
     return {
@@ -150,6 +131,8 @@ export default {
 </script>
 
 <style scoped>
+@import '@/assets/css/user_details.css';
+
 .user-card {
   overflow-y: auto;
 }
@@ -169,5 +152,13 @@ div .move-icon {
 
 .user-description {
   font-size: 0.875rem;
+}
+.top-wrapper {
+  padding: 100px 0 100px 0;
+  height: 90vh;
+  background-size: cover;
+  color: white;
+  font-size: 1.2em;
+  text-shadow: 0px 0px 5px #000;
 }
 </style>
