@@ -2,81 +2,62 @@
   <div>
     <div
       :style="{ 'background-image': 'url(' + user.thumbnail + ')' }"
-      class="top-wrapper"
+      class="user-information"
     >
-      <div class="container">
-        <h1>筋肉を今よりも素敵に。</h1>
-        <p>筋肉大好き人間が集まるマッチングアプリです。</p>
-        <p>他人が投稿した筋肉を見たり、筋トレをしましょう。</p>
-        <div class="register-wrapper mt-5">
-          <v-btn to="/auth/login" class="register-btn" color="#FFAC12" nuxt>
-            Musclersを始める
+      <v-col cols="3" offset-md="1">
+        <div class="container bg-rgba">
+          <h2>{{ user.nickname }}</h2>
+          <p>{{ user.description }}</p>
+          <v-btn to="" class="mt-10" outlined color="blue lighten-1">
+            友達申請をする
           </v-btn>
         </div>
-      </div>
+      </v-col>
     </div>
     <div class="services-wrapper">
       <div class="container">
-        <div class="service-heading">
-          <h2>Musclersには様々な仕組みがあります</h2>
+        <div class="md-12">
+          <h3>情報</h3>
         </div>
-        <div class="services">
-          <div class="service-box">
-            <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">emoji_people</v-icon>
-              <p>マッチング</p>
-            </div>
-            <p class="service-text">
-              様々な筋肉と出会うことが出来ます。
-            </p>
-          </div>
-          <div class="service-box">
-            <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">person_add</v-icon>
-              <p>友達申請</p>
-            </div>
-            <p class="service-text">
-              気になる人と繋がりを作ることができます。
-            </p>
-          </div>
-          <div class="service-box">
-            <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">message</v-icon>
-              <p>メッセージ</p>
-            </div>
-            <p class="service-text">
-              友達になった人とやり取りすることが出来ます。
-            </p>
-          </div>
-          <div class="service-box">
-            <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">search</v-icon>
-              <p>検索</p>
-            </div>
-            <p class="service-text">
-              自分好みの筋肉を詳細に検索できます。
-            </p>
-          </div>
-          <div class="service-box">
-            <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">group</v-icon>
-              <p>グループ</p>
-            </div>
-            <p class="service-text">
-              グループを作成し、話し合うことが出来ます。
-            </p>
-          </div>
-          <div class="service-box">
-            <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">fitness_center</v-icon>
-              <p>筋肉</p>
-            </div>
-            <p class="service-text">
-              Musclersを用いて筋肉ライフを充実させましょう。
-            </p>
-          </div>
-          <div class="clear-float-left" />
-        </div>
+        <v-row>
+          <v-col cols="4" offset-md="1">
+            <v-img class="profile-image" :src="user.thumbnail"></v-img>
+          </v-col>
+          <v-col cols="7" class="standard-information">
+            <v-row>
+              <v-col cols="4">
+                <p>年齢： {{ user.age }}</p>
+              </v-col>
+              <v-col cols="4">
+                <p>本気度： {{ user.seriousness }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <p>身長： {{ user.height }}</p>
+              </v-col>
+              <v-col cols="4">
+                <p>体型： {{ user.figure }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <p>性別： {{ user.gender }}</p>
+              </v-col>
+              <v-col cols="4">
+                <p>筋肉量： {{ user.muscle_mass }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <p>体重： {{ user.wight }}</p>
+              </v-col>
+              <v-col cols="4">
+                <p>体脂肪率： {{ user.body_fat_percentage }}</p>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
       </div>
     </div>
     <div class="register-wrapper">
@@ -87,17 +68,9 @@
       </div>
     </div>
   </div>
-  <!--
-  <v-container>
-    <v-img :src="user.thumbnail" class="head-img"></v-img>
-    <v-layout justify-center> </v-layout>
-  </v-container>
-  -->
 </template>
 
 <script>
-// import UserDetailCardItem from '../../components/UserDetailCardItem.vue'
-
 export default {
   layout: 'index',
 
@@ -131,34 +104,35 @@ export default {
 </script>
 
 <style scoped>
-@import '@/assets/css/user_details.css';
-
-.user-card {
-  overflow-y: auto;
+.profile-image {
+  width: 280px;
+  height: 280px;
+  border-radius: 10px;
 }
-.move-items {
-  text-align: center;
-  margin-top: 3%;
-}
-div .move-icon {
-  text-decoration: none;
-  padding: 15px;
-}
-
-.title-space {
-  margin-left: 10%;
-  width: 80%;
-}
-
-.user-description {
-  font-size: 0.875rem;
-}
-.top-wrapper {
+.user-information {
   padding: 100px 0 100px 0;
   height: 90vh;
   background-size: cover;
-  color: white;
   font-size: 1.2em;
-  text-shadow: 0px 0px 5px #000;
+  text-align: center;
+}
+.user-information h2 {
+  font-size: 22px;
+  font-weight: 100;
+  margin-top: 16px;
+}
+.user-information p {
+  font-size: 12px;
+  text-align: left;
+  margin-top: 16px;
+}
+
+.standard-information {
+  text-align: left;
+  font-size: 1.2em;
+}
+.bg-rgba {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
 }
 </style>
