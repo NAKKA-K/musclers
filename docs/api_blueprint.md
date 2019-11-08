@@ -203,6 +203,32 @@ Muscler'sのAPI仕様書
         + updated_at: `2019-11-19 04:58:55` (string)
 
 
+## Myself [/api/auth/user]
+
+### ログイン中の自分自身のデータを取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 自分自身のデータ (string)
+        + data (User)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+
 # Group USERS
 
 ## Users [/api/users]
