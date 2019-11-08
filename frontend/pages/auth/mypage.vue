@@ -299,7 +299,7 @@ export default {
         })
       }
     },
-    submitUserEdit() {
+    async submitUserEdit() {
       const formData = new FormData()
       for (const key of Object.keys(this.user)) {
         switch (key) {
@@ -320,11 +320,16 @@ export default {
         }
       }
 
-      this.$axios.$patch(`/api/users/${this.user.id}/edit`, formData, {
+      await this.$axios.$patch(`/api/users/${this.user.id}/edit`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
+
+      const currentUser = await this.$axios
+        .$get('/api/auth/user')
+        .then((res) => res.data)
+      this.$store.dispatch('auth/setCurrentUser', { user: currentUser })
     }
   }
 }
