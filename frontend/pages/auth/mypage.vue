@@ -315,8 +315,7 @@ export default {
           case 'seriousness':
           case 'email':
           case 'thumbnail':
-            console.log(key)
-            formData.append(key, this.user[key])
+            formData.append(`user[${key}]`, this.user[key])
             break
         }
       }
