@@ -6,12 +6,15 @@
       <v-btn class="my-4" tile outlined color="success" @click="enableEdit">
         <v-icon small>edit</v-icon>編集
       </v-btn>
+      <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
+        <v-icon small>edit</v-icon>保存
+      </v-btn>
     </v-layout>
 
     <div class="mb-5">
       <img
-        v-if="user.thumbnail"
-        :src="user.thumbnail"
+        v-if="thumbnailSrc"
+        :src="thumbnailSrc"
         height="150"
         @click="pickFile"
       />
@@ -21,23 +24,29 @@
         style="display: none"
         accept="image/*"
         :disabled="disabled"
+        @change="onPickedFile"
       />
     </div>
 
     <v-text-field
-      v-model="email"
+      v-model="$v.email.$model"
+      :error-messages="emailErrors"
       label="Eメール"
       :disabled="disabled"
     ></v-text-field>
 
     <v-text-field
-      v-model="nickname"
+      v-model="$v.nickname.$model"
+      :error-messages="nicknameErrors"
+      counter="64"
       label="ニックネーム"
       :disabled="disabled"
     ></v-text-field>
 
     <v-textarea
-      v-model="description"
+      v-model="$v.description.$model"
+      :error-messages="descriptionErrors"
+      counter="1024"
       label="自己紹介"
       outlined
       rows="5"
@@ -47,6 +56,7 @@
     <v-text-field
       v-model="age"
       label="年齢"
+      type="number"
       :disabled="disabled"
     ></v-text-field>
 
@@ -62,12 +72,14 @@
     <v-text-field
       v-model="height"
       label="身長"
+      type="number"
       :disabled="disabled"
     ></v-text-field>
 
     <v-text-field
       v-model="weight"
       label="体重"
+      type="number"
       :disabled="disabled"
     ></v-text-field>
 
@@ -106,6 +118,13 @@
 </template>
 
 <script>
+import { required, email, maxLength } from 'vuelidate/lib/validators'
+import {
+  validateEmail,
+  validateNickname,
+  validateDescription
+} from '~/validations'
+
 export default {
   middleware: 'auth',
   data: () => ({
@@ -131,8 +150,23 @@ export default {
       { label: '普通', value: 20 },
       { label: '肥満型', value: 25 },
       { label: 'その他', value: 99 }
-    ]
+    ],
+    thumbnailSrc: ''
   }),
+
+  validations: {
+    email: {
+      required,
+      email
+    },
+    nickname: {
+      required,
+      maxLength: maxLength(64)
+    },
+    description: {
+      maxLength: maxLength(1024)
+    }
+  },
 
   computed: {
     email: {
@@ -224,17 +258,21 @@ export default {
       set(val) {
         this.setUserPartial('body_fat_percentage', val)
       }
-    }
+    },
+    emailErrors: (vm) => validateEmail(vm.$v.email),
+    nicknameErrors: (vm) => validateNickname(vm.$v.nickname),
+    descriptionErrors: (vm) => validateDescription(vm.$v.description)
   },
 
   asyncData({ store }) {
     const user = store.getters['auth/currentUser']
-    console.log(user)
     if (!user) return
 
-    return {
-      user
-    }
+    const data = { user }
+    if (user.thumbnail) data.thumbnailSrc = user.thumbnail
+    console.log(user)
+
+    return data
   },
 
   methods: {
@@ -246,6 +284,62 @@ export default {
     },
     pickFile() {
       this.$refs.image.click()
+    },
+    onPickedFile(e) {
+      const file = e.target.files[0]
+      if (typeof file !== 'undefined') {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.addEventListener('load', () => {
+          this.thumbnailSrc = reader.result
+          this.setUserPartial('thumbnail', file)
+        })
+      }
+    },
+    async submitUserEdit() {
+      const formData = new FormData()
+      for (const key of Object.keys(this.user)) {
+        switch (key) {
+          case 'nickname':
+          case 'description':
+          case 'age':
+          case 'height':
+          case 'weight':
+          case 'muscle_mass':
+          case 'body_fat_percentage':
+          case 'email':
+            formData.append(`user[${key}]`, this.user[key])
+            break
+          case 'gender':
+            formData.append(`user[${key}]`, this.gender)
+            break
+          case 'figure':
+            formData.append(`user[${key}]`, this.figure)
+            break
+          case 'seriousness':
+            formData.append(`user[${key}]`, this.seriousness)
+            break
+          case 'thumbnail':
+            if (typeof this.user.thumbnail !== 'string') {
+              formData.append(`user[${key}]`, this.user[key])
+            }
+            break
+        }
+      }
+
+      await this.$axios.$patch(`/api/users/${this.user.id}/edit`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      const currentUser = await this.$axios
+        .$get('/api/auth/user')
+        .then((res) => res.data)
+      this.$store.dispatch('auth/setCurrentUser', { user: currentUser })
     }
   }
 }

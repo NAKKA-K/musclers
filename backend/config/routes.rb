@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace 'api', defaults: { format: :json } do
     namespace 'auth' do
       post '/sign_in', to: 'oauth#facebook'
+
+      get '/user', to: 'user#myself'
     end
 
     resources :users do
