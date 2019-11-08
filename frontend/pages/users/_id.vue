@@ -60,6 +60,22 @@
         </v-row>
       </div>
     </div>
+    <div v-swiper:mySwiper="swiperOption" class="swiper-container">
+      <ul class="swiper-wrapper">
+        <li class="swiper-slide">slide1</li>
+        <li class="swiper-slide">slide2</li>
+        <li class="swiper-slide">slide3</li>
+        <li class="swiper-slide">slide4</li>
+        <li class="swiper-slide">slide5</li>
+        <li class="swiper-slide">slide6</li>
+      </ul>
+      <button class="swiper-button-prev" type="button">
+        前へ
+      </button>
+      <button class="swiper-button-next" type="button">
+        次へ
+      </button>
+    </div>
     <div class="register-wrapper">
       <div class="container">
         <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
@@ -73,10 +89,19 @@
 <script>
 export default {
   layout: 'index',
-
   data() {
     return {
-      tab: null
+      tab: null,
+      swiperOption: {
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 50,
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      }
     }
   },
   async asyncData({ $axios, params, error }) {
