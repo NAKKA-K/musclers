@@ -306,16 +306,22 @@ export default {
           case 'nickname':
           case 'description':
           case 'age':
-          case 'gender':
           case 'height':
           case 'weight':
-          case 'figure':
           case 'muscle_mass':
           case 'body_fat_percentage':
-          case 'seriousness':
           case 'email':
           case 'thumbnail':
             formData.append(`user[${key}]`, this.user[key])
+            break
+          case 'gender':
+            formData.append(`user[${key}]`, this.gender)
+            break
+          case 'figure':
+            formData.append(`user[${key}]`, this.figure)
+            break
+          case 'seriousness':
+            formData.append(`user[${key}]`, this.seriousness)
             break
         }
       }
