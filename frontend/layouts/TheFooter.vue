@@ -8,9 +8,13 @@
         <nuxt-link to="/terms_of_service" class="mr-4">
           利用規約
         </nuxt-link>
-        <nuxt-link to="">
+        <a
+          href="https://forms.gle/W55NsQjum3Cym3bE9"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           お問い合わせ
-        </nuxt-link>
+        </a>
       </v-col>
     </v-footer>
   </div>
