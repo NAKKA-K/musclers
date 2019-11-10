@@ -33,10 +33,6 @@ module Api
       end
     end
 
-    def create
-      render json: { message:"I'm create." }
-    end
-
     def update
       begin
         @user = User.find(params[:id])
@@ -66,10 +62,6 @@ module Api
         logger.error(e)
         error_res(500, message: '更新に失敗しました',err: '更新に失敗しました') and return
       end
-    end
-
-    def destroy
-      render json: { message:"I'm destroy." }
     end
 
     private
