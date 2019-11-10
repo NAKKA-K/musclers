@@ -1,12 +1,8 @@
 module Api
   class UsersController < ApplicationController
-    skip_before_action :authenticate_user_from_token!, only: [:search, :show]
+    skip_before_action :authenticate_user_from_token!, only: [:index, :show]
 
     def index
-      render json: { message:"I'm index." }
-    end
-
-    def search
       search_result_data = User.search_user_in(search_params)
 
       data = ActiveModel::Serializer::CollectionSerializer.new(

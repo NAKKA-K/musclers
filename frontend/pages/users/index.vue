@@ -68,7 +68,7 @@ import { mapGetters } from 'vuex'
 import Paginator from '../../components/Paginator'
 
 function fetchSearchedUsers({ fetcher, params }) {
-  return fetcher.$get(`/api/users/search`, { params }).catch((err) => {
+  return fetcher.$get(`/api/users`, { params }).catch((err) => {
     if (err && err.response && err.response.data) {
       console.error('Reponse: ' + err.response.data.message)
       return err.response
