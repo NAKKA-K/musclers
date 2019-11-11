@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :direct_message_groups, :dependent => :destroy
   has_one_attached :thumbnail
   validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :nickname, length: { maximum: 64}
