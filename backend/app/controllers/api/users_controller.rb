@@ -113,7 +113,7 @@ module Api
       enum_params.each do |key|
         user_params[key] = user_params[key].to_i
       end
-  
+
       user_params
     end
   end
