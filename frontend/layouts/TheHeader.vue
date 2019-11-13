@@ -90,7 +90,7 @@ export default {
       { link: '/auth/mypage', icon: 'account_circle', title: 'マイページ' },
       { link: '/home', icon: 'star', title: 'おすすめユーザー' },
       { link: '/direct_messages', icon: 'message', title: 'DM一覧' },
-      { link: '/group_messages', icon: 'group', title: 'グループ' },
+      { link: '/groups', icon: 'group', title: 'グループ' },
       { link: '/users', icon: 'search', title: '検索' }
     ],
     group: [
