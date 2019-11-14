@@ -96,7 +96,8 @@ entity "friends" {
     # user_id [FK(user,id)]
     # target_id [FK(user,id)]
 }
-users --o{ friends
+users --|{ friends
+users }|-- friends
 
 @enduml
 ```
