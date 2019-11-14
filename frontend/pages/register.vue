@@ -33,6 +33,7 @@
     </v-col>
   </v-container>
 </template>
+
 <script>
 import { required, email } from 'vuelidate/lib/validators'
 export default {
@@ -64,23 +65,22 @@ export default {
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.errMsg = '未入力の項目があります'
-      } else {
-        const user = this.$store.getters['auth/currentUser']
-        const postData = {
-          id: user.id,
-          email: this.email
-        }
-        try {
-          await this.$axios.$patch('/api/users/' + postData.id, postData)
-          this.$router.push('/sign_up')
-        } catch (err) {
-          if (!err.response.status) {
-            this.$router.push('/')
-          } else if (err.response.status === 422) {
-            this.validErrors.email = err.response.data.errors.message
-          } else {
-            this.$router.push('/')
-          }
+        return
+      }
+
+      const user = this.$store.getters['auth/currentUser']
+      const postData = {
+        id: user.id,
+        email: this.email
+      }
+      try {
+        await this.$axios.$patch('/api/users/' + postData.id, postData)
+        this.$router.push('/sign_up')
+      } catch (err) {
+        if (err.response.status === 422) {
+          this.validErrors.email = err.response.data.errors.message
+        } else {
+          this.$router.push('/')
         }
       }
     }
