@@ -1,27 +1,53 @@
 <template>
-  <div class="text-center margin">
-    <i class="material-icons large-size">account_circle</i>
-    <h3>
-      神戸 太郎
-    </h3>
-    <div class="margin-bottom">
-      <p class="margin-bottom">
-        <v-btn class="warning" rounded>プロフィール編集</v-btn>
+  <div class="text-center ma-4">
+    <v-card class="user-thumbnail mx-auto">
+      <v-img
+        v-if="currentUser.thumbnail"
+        :src="currentUser.thumbnail"
+        class="user-thumbnail"
+      />
+    </v-card>
+    <h2 class="mb-6">
+      {{ currentUser.nickname }}
+    </h2>
+
+    <div>
+      <p>
+        <v-btn class="warning" x-large @click="clickProfileEdit">
+          プロフィール編集
+        </v-btn>
       </p>
       <p>
-        <v-btn class="primary" rounded>始める</v-btn>
+        <v-btn class="primary" x-large @click="clickStart">始める</v-btn>
       </p>
     </div>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  middleware: 'auth',
+
+  computed: {
+    ...mapGetters({ currentUser: 'auth/currentUser' })
+  },
+
+  methods: {
+    clickProfileEdit() {
+      this.$router.push('/auth/mypage')
+    },
+    clickStart() {
+      this.$router.push('/home')
+    }
+  }
+}
+</script>
+
 <style>
-.margin {
-  margin: 120px 0px 0px 0px;
-}
-.margin-bottom {
-  margin-top: 20px;
-}
-.material-icons.large-size {
-  font-size: 90px;
+.user-thumbnail {
+  max-width: 300px;
+  max-height: 300px;
 }
 </style>
