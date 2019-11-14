@@ -7,18 +7,20 @@
         class="user-thumbnail"
       />
     </v-card>
-    <h2 class="mb-6">
+    <h2 class="mb-12">
       {{ currentUser.nickname }}
     </h2>
 
     <div>
       <p>
-        <v-btn class="warning" x-large @click="clickProfileEdit">
+        <v-btn class="warning large-button" x-large @click="clickProfileEdit">
           プロフィール編集
         </v-btn>
       </p>
       <p>
-        <v-btn class="primary" x-large @click="clickStart">始める</v-btn>
+        <v-btn class="primary large-button" x-large @click="clickStart">
+          始める
+        </v-btn>
       </p>
     </div>
   </div>
@@ -49,5 +51,9 @@ export default {
 .user-thumbnail {
   max-width: 300px;
   max-height: 300px;
+}
+
+.large-button {
+  width: 280px;
 }
 </style>
