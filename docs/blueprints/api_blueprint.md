@@ -317,7 +317,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 200 (application/json)
 
@@ -341,7 +341,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 200 (application/json)
 
@@ -396,7 +396,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + to_user_id: 2 (number)
@@ -436,7 +436,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 200 (application/json)
 
@@ -465,7 +465,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + body: サイド!トライセップス！！！ (string)
@@ -499,7 +499,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + body: サイド!トライセップス！！！ (string)
@@ -525,7 +525,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 200 (application/json)
 
@@ -550,7 +550,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 200 (application/json)
 
@@ -795,7 +795,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + tags (array)
@@ -832,7 +832,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + tag: 2 (number)
@@ -862,7 +862,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + name: 筋肉モンスターたちの集会所 (string)
@@ -908,7 +908,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + name: 筋肉モンスターたちの集会所 (string)
@@ -938,7 +938,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 204 (application/json)
 
@@ -957,7 +957,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + group_id (number)
@@ -991,7 +991,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 204 (application/json)
 
@@ -1010,7 +1010,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 200 (application/json)
 
@@ -1024,7 +1024,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + body: 今日はみんなで大腿四頭筋を追い込みましょう！！ (string)
@@ -1056,7 +1056,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + body: 今日はみんなで僧帽筋を追い込みましょう！！ (string)
@@ -1071,7 +1071,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 204 (application/json)
 
