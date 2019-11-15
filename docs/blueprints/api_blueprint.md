@@ -984,10 +984,15 @@ Muscler'sのAPI仕様書
 
             Authorization: ...
 
-    + Attributes (object)
-        + group_id (number)
-
 + Response 204 (application/json)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
 
 ## Users in Group [/api/groups/{group_id}/users]
 
