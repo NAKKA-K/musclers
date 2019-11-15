@@ -95,6 +95,7 @@ entity "friends" {
     ==
     # user_id [FK(user,id)]
     # target_id [FK(user,id)]
+    is_pending:boolean
 }
 users --|{ friends
 users }|-- friends
