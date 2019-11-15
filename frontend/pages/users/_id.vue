@@ -62,25 +62,15 @@
     </div>
     <div v-swiper:mySwiper="swiperOption" class="swiper-container">
       <ul class="swiper-wrapper">
-        <li class="swiper-slide">slide1</li>
-        <li class="swiper-slide">slide2</li>
-        <li class="swiper-slide">slide3</li>
-        <li class="swiper-slide">slide4</li>
-        <li class="swiper-slide">slide5</li>
-        <li class="swiper-slide">slide6</li>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
       </ul>
-      <button class="swiper-button-prev" type="button">
-        前へ
-      </button>
-      <button class="swiper-button-next" type="button">
-        次へ
-      </button>
-    </div>
-    <div class="register-wrapper">
-      <div class="container">
-        <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
-          Muscler'sを始める
-        </v-btn>
+      <div class="outlined">
+        <button class="swiper-button-prev" type="button"></button>
+        <button class="swiper-button-next" type="button"></button>
       </div>
     </div>
   </div>
@@ -158,6 +148,49 @@ export default {
 }
 .bg-rgba {
   background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.swiper-container {
+  margin-top: 30px;
+  width: 70%;
+  height: 400px;
+}
+.my-swiper {
+  height: 300px;
+  width: 100%;
+}
+.swiper-slide {
+  text-align: center;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-pagination-bullet {
+  background-color: red;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 70%;
+  width: 27px;
+  height: 44px;
+  background-size: 27px 44px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.swiper-button-prev {
+  background-image: url('~/assets/images/prev.001.jpeg');
+  margin-left: 40%;
+}
+.swiper-button-next {
+  background-image: url('~/assets/images/next.001.jpeg');
+  margin-right: 40%;
+}
+.slide-image {
+  width: 220px;
+  height: 200px;
   border-radius: 10px;
 }
 </style>

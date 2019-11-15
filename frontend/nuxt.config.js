@@ -36,11 +36,6 @@ export default {
   loading: { color: '#fff' },
 
   /*
-   ** Global CSS
-   */
-  css: ['@/assets/css/index.css', 'swiper/dist/css/swiper.css'],
-
-  /*
    ** Plugins to load before mounting the App
    */
   plugins: [
@@ -48,8 +43,14 @@ export default {
     '~/plugins/axios.js',
     '~/plugins/vuelidate.js',
     '~/plugins/queryParamsUpdater.js',
-    { src: '~/plugins/vue-awesome-swiper.js', mode: 'client' }
+    { src: '~/plugins/swiper.js', ssr: false }
   ],
+
+  /*
+   ** Global CSS
+   */
+  css: ['@/assets/css/index.css', 'swiper/dist/css/swiper.css'],
+
   /*
    ** Nuxt.js dev-modules
    */
