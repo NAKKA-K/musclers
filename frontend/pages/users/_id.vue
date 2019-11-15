@@ -87,6 +87,7 @@ export default {
         centeredSlides: true,
         spaceBetween: 50,
         loop: true,
+        backgroundUrl: '~/assets/images/next.png',
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
@@ -181,12 +182,14 @@ export default {
   background-repeat: no-repeat;
 }
 .swiper-button-prev {
-  background-image: url('~/assets/images/prev.001.jpeg');
+  background-image: url('~@/assets/images/prev.png');
   margin-left: 40%;
+  background-size: 100px 100px;
 }
 .swiper-button-next {
-  background-image: url('~/assets/images/next.001.jpeg');
+  background-image: url('~@/assets/images/next.png');
   margin-right: 40%;
+  background-size: 100px 100px;
 }
 .slide-image {
   width: 220px;
