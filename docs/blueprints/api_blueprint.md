@@ -567,6 +567,31 @@ Muscler'sのAPI仕様書
             "errors": [],
         }
 
+### 友達申請する [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
+    + Attributes (object)
+        + user_id: 2 (number)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + status: 201 (number)
+        + message: 申請しました (string)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
 
 # Group USERS
 
