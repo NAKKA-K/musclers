@@ -231,14 +231,43 @@ Muscler'sのAPI仕様書
 
 # Group USERS
 
-## Users [/api/users]
+## Users [/api/users?page={page}&per_page={per_page}&keywords={keywords}&seriousness={seriousness}&gender={gender}&figures%5B%5D={figures}&ageMin={ageMin}&ageMax={ageMax}&weightMin={weightMin}&weightMax={weightMax}&heightMin={heightMin}&heightMax={heightMax}]
 
-### 全ユーザー情報を取得する [GET]
++ Parameters
 
-+ Response 200 (application/json)
+    + keywords: フィジーク選手 (string, optional) - ユーザの名前と概要から部分一致検索される
+    + page: 1 (number, optional) - ページ番号
+    + per_page: 20 (number, optional) - 1ページの要素数
+    + seriousness: 0 (number, optional) - 本気度のID
+    + gender: 0 (number, optional) - 性別のID
+    + figures: 0 (array[number], optional) - 体格のID配列
+    + ageMin: 20 (number, optional) - 下限年齢
+    + ageMax: 40 (number, optional) - 上限年齢
+    + weightMin: 40 (number, optional) - 下限体重
+    + weightMax: 60 (number, optional) - 上限体重
+    + heightMin: 160 (number, optional) - 下限身長
+    + heightMax: 180 (number, optional) - 上限身長
 
-    + Attributes (array[User,User])
 
+### ユーザの検索結果を取得する [GET]
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: ユーザが見つかりました。 (string)
+        + data (array[User,User])
+        + meta (MetaPaginator)
+
++ Response 404
+
+        {
+            "status": 404,
+            "message": "お探しのユーザは見つかりませんでした・"
+            "errors": [
+                { message: "お探しのユーザが見つかりませんでした。" }
+            ],
+        }
 
 ## Users [/api/users/{user_id}]
 
@@ -396,43 +425,6 @@ Muscler'sのAPI仕様書
             ],
         }
 
-## Users [/api/users/search?page={page}&per_page={per_page}&keywords={keywords}&seriousness={seriousness}&gender={gender}&figures%5B%5D={figures}&ageMin={ageMin}&ageMax={ageMax}&weightMin={weightMin}&weightMax={weightMax}&heightMin={heightMin}&heightMax={heightMax}]
-
-+ Parameters
-
-    + keywords: フィジーク選手 (string, optional) - ユーザの名前と概要から部分一致検索される
-    + page: 1 (number, optional) - ページ番号
-    + per_page: 20 (number, optional) - 1ページの要素数
-    + seriousness: 0 (number, optional) - 本気度のID
-    + gender: 0 (number, optional) - 性別のID
-    + figures: 0 (array[number], optional) - 体格のID配列
-    + ageMin: 20 (number, optional) - 下限年齢
-    + ageMax: 40 (number, optional) - 上限年齢
-    + weightMin: 40 (number, optional) - 下限体重
-    + weightMax: 60 (number, optional) - 上限体重
-    + heightMin: 160 (number, optional) - 下限身長
-    + heightMax: 180 (number, optional) - 上限身長
-
-
-### ユーザの検索結果を取得する [GET]
-
-+ Response 200
-
-    + Attributes (object)
-        + status: 200 (number)
-        + message: ユーザが見つかりました。 (string)
-        + data (array[User,User])
-        + meta (MetaPaginator)
-
-+ Response 404
-
-        {
-            "status": 404,
-            "message": "お探しのユーザは見つかりませんでした・"
-            "errors": [
-                { message: "お探しのユーザが見つかりませんでした。" }
-            ],
-        }
 
 # Group INFORMATIONS
 
