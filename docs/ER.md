@@ -88,6 +88,7 @@ entity "direct_messages" {
     # direct_message_group_id [FK(direct_message_groups,id)]
 }
 
+users --o{ direct_messages
 users --o{ direct_message_groups
 direct_message_groups --o{ direct_messages
 
