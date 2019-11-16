@@ -84,6 +84,7 @@ entity "direct_messages" {
     + id [PK]
     ==
     body:text
+    # send_user_id [FK(users,id)]
     # direct_message_group_id [FK(direct_message_groups,id)]
 }
 
