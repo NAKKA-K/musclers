@@ -1,9 +1,9 @@
 class User < ApplicationRecord
-  has_many :by_user,
+  has_many :by_users,
             class_name: "DirectMessageGroup", 
             foreign_key: :by_user_id, 
             :dependent => :destroy
-  has_many :to_user,
+  has_many :to_users,
             class_name: "DirectMessageGroup",
             foreign_key: :to_user_id,
             :dependent => :destroy

@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "DirectMessageGroup association" do
+    before do
+      let(:user1) { create(:user) }
+      let(:user2) { create(:user) }
+    end
+
+    
+  end
 end
