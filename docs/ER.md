@@ -90,5 +90,15 @@ entity "direct_messages" {
 users --o{ direct_message_groups
 direct_message_groups --o{ direct_messages
 
+entity "friends" {
+    + id [PK]
+    ==
+    # user_id [FK(user,id)]
+    # target_id [FK(user,id)]
+    is_pending:boolean
+}
+users --|{ friends
+users }|-- friends
+
 @enduml
 ```
