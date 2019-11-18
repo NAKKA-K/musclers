@@ -1,1 +1,1 @@
-<!-- include(api_blueprint.md) -->
+<!-- include(blueprints/api_blueprint.md) -->
