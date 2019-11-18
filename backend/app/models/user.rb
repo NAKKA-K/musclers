@@ -7,6 +7,10 @@ class User < ApplicationRecord
             class_name: "DirectMessageGroup",
             foreign_key: :to_user_id,
             :dependent => :destroy
+  has_many :send_users,
+            class_name: "DirectMessage",
+            foreign_key: :send_user_id,
+            :dependent => :destroy
   has_one_attached :thumbnail
   validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :nickname, length: { maximum: 64}

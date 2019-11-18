@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_11_045019) do
+ActiveRecord::Schema.define(version: 2019_11_18_002854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,9 @@ ActiveRecord::Schema.define(version: 2019_11_11_045019) do
     t.bigint "direct_message_group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "send_user_id"
     t.index ["direct_message_group_id"], name: "index_direct_messages_on_direct_message_group_id"
+    t.index ["send_user_id"], name: "index_direct_messages_on_send_user_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -93,6 +95,7 @@ ActiveRecord::Schema.define(version: 2019_11_11_045019) do
   add_foreign_key "direct_message_groups", "users", column: "by_user_id"
   add_foreign_key "direct_message_groups", "users", column: "to_user_id"
   add_foreign_key "direct_messages", "direct_message_groups"
+  add_foreign_key "direct_messages", "users", column: "send_user_id"
   add_foreign_key "user_tags", "tags"
   add_foreign_key "user_tags", "users"
 end
