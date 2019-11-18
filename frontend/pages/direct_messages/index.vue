@@ -3,9 +3,9 @@
     <h1>DM一覧</h1>
 
     <v-card max-width="450" class="mx-auto">
-      <v-list three-line>
-        <template v-for="(item, index) in computed_direct_message_groups">
-          <v-list-item :key="index">
+      <template v-for="(item, index) in computed_direct_message_groups">
+        <v-list :key="index" three-line>
+          <v-list-item :to="`/direct_messages/${item.id}`">
             <v-list-item-avatar>
               <v-img :src="item.opponent.thumbnail"></v-img>
             </v-list-item-avatar>
@@ -28,8 +28,8 @@
             :key="index"
             :inset="true"
           ></v-divider>
-        </template>
-      </v-list>
+        </v-list>
+      </template>
     </v-card>
   </div>
 </template>
