@@ -5,9 +5,7 @@ class Api::TagsController < ApplicationController
         {
             "status": 200,
             "message": "タグ一覧を表示しました",
-            "data": {
-                Tag.all(@tags)
-            }
+            "data": @tags
         }
     end
     
