@@ -1,128 +1,98 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout justify-center>
-      <v-flex xs12 sm6 md6>
-        <v-card height="70vh" class="user-card" outlined raised>
-          <v-list>
-            <v-list-item class="justify-center">
-              <v-list-item-avatar size="280">
-                <v-img :src="user.thumbnail"></v-img>
-              </v-list-item-avatar>
-            </v-list-item>
-            <v-list-item-content class="headline text-center title-space">
-              <v-list-item-title class="title">
-                {{ user.nickname }}
-              </v-list-item-title>
-              <div class="user-description">
-                {{ user.description }}
-              </div>
-            </v-list-item-content>
-          </v-list>
-
-          <v-tabs v-model="tab" fixed-tabs background-color="#FEBA00">
-            <v-tab>
-              基本情報
-            </v-tab>
-            <v-tab>
-              自慢の部位
-            </v-tab>
-          </v-tabs>
-
-          <v-tabs-items v-model="tab">
-            <v-tab-item>
-              <v-list>
-                <user-detail-card-item
-                  :item="{
-                    title: '年齢',
-                    value: user.age,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '性別',
-                    value: user.gender,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '身長',
-                    value: user.height,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '体重',
-                    value: user.weight,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '体型',
-                    value: user.figure,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '筋肉量',
-                    value: user.muscle_mass,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '体脂肪率',
-                    value: user.body_fat_percentage,
-                    default: 'none'
-                  }"
-                />
-                <user-detail-card-item
-                  :item="{
-                    title: '本気度',
-                    value: user.seriousness,
-                    default: 'none'
-                  }"
-                />
-              </v-list>
-            </v-tab-item>
-
-            <v-tab-item>
-              <!--
-                TODO: 自慢の部位が登録できるようになった時に
-                      画面をデザインして実装する
-              -->
-            </v-tab-item>
-          </v-tabs-items>
-        </v-card>
-
-        <div class="move-items">
-          <nuxt-link :to="`/users/${user.id - 1}`" class="move-icon">
-            <v-icon color="#FEBA00" x-large>arrow_back_ios</v-icon>
-          </nuxt-link>
-          <nuxt-link :to="`/users/${user.id + 1}`" class="move-icon">
-            <v-icon color="#FEBA00" x-large>arrow_forward_ios</v-icon>
-          </nuxt-link>
+  <div>
+    <div
+      :style="{ 'background-image': 'url(' + user.thumbnail + ')' }"
+      class="user-information"
+    >
+      <v-col cols="3" offset-md="1">
+        <div class="container bg-rgba">
+          <h2>{{ user.nickname }}</h2>
+          <p>{{ user.description }}</p>
+          <v-btn to="" class="mt-10" outlined color="blue lighten-1">
+            友達申請をする
+          </v-btn>
         </div>
-      </v-flex>
-    </v-layout>
-  </v-container>
+      </v-col>
+    </div>
+    <div class="services-wrapper">
+      <div class="container">
+        <div class="md-12">
+          <h3>情報</h3>
+        </div>
+        <v-row>
+          <v-col cols="4" offset-md="1">
+            <v-img class="profile-image" :src="user.thumbnail"></v-img>
+          </v-col>
+          <v-col cols="7" class="standard-information">
+            <v-row>
+              <v-col cols="4">
+                <p>年齢： {{ user.age }}</p>
+              </v-col>
+              <v-col cols="4">
+                <p>本気度： {{ user.seriousness }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <p>身長： {{ user.height }}</p>
+              </v-col>
+              <v-col cols="4">
+                <p>体型： {{ user.figure }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <p>性別： {{ user.gender }}</p>
+              </v-col>
+              <v-col cols="4">
+                <p>筋肉量： {{ user.muscle_mass }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <p>体重： {{ user.wight }}</p>
+              </v-col>
+              <v-col cols="4">
+                <p>体脂肪率： {{ user.body_fat_percentage }}</p>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </div>
+    </div>
+    <div v-swiper:mySwiper="swiperOption" class="swiper-container">
+      <ul class="swiper-wrapper">
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+        <v-img class="slide-image swiper-slide" :src="user.thumbnail"></v-img>
+      </ul>
+      <div class="outlined">
+        <button class="swiper-button-prev" type="button"></button>
+        <button class="swiper-button-next" type="button"></button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import UserDetailCardItem from '../../components/UserDetailCardItem.vue'
-
 export default {
-  components: {
-    UserDetailCardItem
-  },
-
+  layout: 'index',
   data() {
     return {
-      tab: null
+      tab: null,
+      swiperOption: {
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 50,
+        loop: true,
+        backgroundUrl: '~/assets/images/next.png',
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      }
     }
   },
   async asyncData({ $axios, params, error }) {
@@ -150,24 +120,80 @@ export default {
 </script>
 
 <style scoped>
-.user-card {
-  overflow-y: auto;
+.profile-image {
+  width: 280px;
+  height: 280px;
+  border-radius: 10px;
 }
-.move-items {
+.user-information {
+  padding: 100px 0 100px 0;
+  height: 90vh;
+  background-size: cover;
+  font-size: 1.2em;
   text-align: center;
-  margin-top: 3%;
 }
-div .move-icon {
-  text-decoration: none;
-  padding: 15px;
+.user-information h2 {
+  font-size: 22px;
+  font-weight: 100;
+  margin-top: 16px;
+}
+.user-information p {
+  font-size: 12px;
+  text-align: left;
+  margin-top: 16px;
 }
 
-.title-space {
-  margin-left: 10%;
-  width: 80%;
+.standard-information {
+  text-align: left;
+  font-size: 1.2em;
+}
+.bg-rgba {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
 }
 
-.user-description {
-  font-size: 0.875rem;
+.swiper-container {
+  margin-top: 30px;
+  width: 70%;
+  height: 400px;
+}
+.my-swiper {
+  height: 300px;
+  width: 100%;
+}
+.swiper-slide {
+  text-align: center;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-pagination-bullet {
+  background-color: red;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 70%;
+  width: 27px;
+  height: 44px;
+  background-size: 27px 44px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.swiper-button-prev {
+  background-image: url('~@/assets/images/prev.png');
+  margin-left: 40%;
+  background-size: 100px 100px;
+}
+.swiper-button-next {
+  background-image: url('~@/assets/images/next.png');
+  margin-right: 40%;
+  background-size: 100px 100px;
+}
+.slide-image {
+  width: 220px;
+  height: 200px;
+  border-radius: 10px;
 }
 </style>
