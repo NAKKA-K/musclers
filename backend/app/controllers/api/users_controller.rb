@@ -60,7 +60,7 @@ module Api
       end
     end
 
-    def recommend
+    def recommended_users
       recommend_user_data = User.fetch_recommend_users_in(recommend_params)
 
       data = ActiveModel::Serializer::CollectionSerializer.new(

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       end
 
       collection do
-        post :recommend
+        post :recommended_users
       end
     end
   end

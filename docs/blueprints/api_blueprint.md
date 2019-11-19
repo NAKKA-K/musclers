@@ -260,7 +260,7 @@ Muscler'sのAPI仕様書
 
 ## RecommendedUsers [/api/user/recommended_users]
 
-### おすすめユーザーの一覧を取得する [GET]
+### おすすめユーザーの一覧を取得する [POST]
 
 + Request (application/json)
 
@@ -268,11 +268,15 @@ Muscler'sのAPI仕様書
 
             Authorization: ...
 
+    + Attributes (object)
+        + figure: 0 (number)
+        + seriousness: 1 (number)
+
 + Response 200
 
     + Attributes (object)
         + status: 200 (number)
-        + message: ユーザーが見つかりました (string)
+        + message: お勧めユーザーが見つかりました (string)
         + data (array[User,User])
 
 + Response 401 (application/json)
