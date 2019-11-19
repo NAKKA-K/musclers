@@ -9,4 +9,14 @@ class Api::TagsController < ApplicationController
         }
     end
     
+    #ユーザーが持っているタグを返す
+    def user_tags_index
+        @user_tags = current_user.user_tags
+        {
+            "status": 200,
+            "message": "ユーザータグ一覧を表示しました",
+            "data": @user_tags
+        }
+    end
+
 end
