@@ -12,5 +12,6 @@ FactoryBot.define do
     weight { Faker::Number.between(from: 1, to: 120) }
     figure { figures[Random.rand(0 .. 7)] }
     seriousness { Faker::Number.between(from: 0, to: 2) }
+    access_token { SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz') }
   end
 end

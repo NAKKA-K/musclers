@@ -56,7 +56,7 @@ class User < ApplicationRecord
     .limit(number)
     .with_attached_thumbnail 
   }
-  scope :search_recommend_users_by_figure_and_seriousness, ->(figure, seriousness) {
+  scope :search_recommend_users_by_figure_and_seriousness, ->(figure, seriousness,number) {
     where_figures_or_all(figure)
     .or(where_seriousness_or_all(seriousness))
     .order(Arel.sql("RANDOM()"))
@@ -83,7 +83,7 @@ class User < ApplicationRecord
     figure = params[:figure].present? ? params[:figure] : nil
     seriousness = params[:seriousness].present? ? params[:seriousness] : nil
     if figure.present? & seriousness.present?
-      recommend_user_list += User.search_recommend_users_by_figure_and_seriousness(figure,seriousness)
+      recommend_user_list += User.search_recommend_users_by_figure_and_seriousness(figure,seriousness,20)
       fetch_random_users(recommend_user_list)
     elsif figure.present? & seriousness.blank?
       recommend_user_list += User.search_recommend_users_by_figure(figure,20)
