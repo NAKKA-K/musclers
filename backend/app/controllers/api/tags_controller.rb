@@ -10,7 +10,7 @@ class Api::TagsController < ApplicationController
     end
     
     #ユーザーが持っているタグを返す
-    def user_tags_index
+    def user_tags
         @user_tags = current_user.user_tags
         {
             "status": 200,
