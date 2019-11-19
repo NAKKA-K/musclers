@@ -34,7 +34,7 @@ lintfix:
 
 .PHONY: mock/*
 
-mock/run: docs/api_blueprint.md
+mock/run: docs/index.md
 	docker-compose -f document-compose.yml up ${ARG}
 
 mock/down:

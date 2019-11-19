@@ -1,12 +1,8 @@
 module Api
   class UsersController < ApplicationController
-    skip_before_action :authenticate_user_from_token!, only: [:search, :show]
+    skip_before_action :authenticate_user_from_token!, only: [:index, :show]
 
     def index
-      render json: { message:"I'm index." }
-    end
-
-    def search
       search_result_data = User.search_user_in(search_params)
 
       data = ActiveModel::Serializer::CollectionSerializer.new(
@@ -31,10 +27,6 @@ module Api
         data = UserSerializer.new(user_detail).as_json
         success_res(200, message: 'ユーザが見つかりました', data: data) and return
       end
-    end
-
-    def create
-      render json: { message:"I'm create." }
     end
 
     def update
@@ -66,10 +58,6 @@ module Api
         logger.error(e)
         error_res(500, message: '更新に失敗しました',err: '更新に失敗しました') and return
       end
-    end
-
-    def destroy
-      render json: { message:"I'm destroy." }
     end
 
     def recommend
