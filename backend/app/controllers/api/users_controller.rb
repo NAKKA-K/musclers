@@ -60,7 +60,21 @@ module Api
       end
     end
 
+    def recommended_users
+      recommend_user_data = User.fetch_recommend_users_in(recommend_params)
+
+      data = ActiveModel::Serializer::CollectionSerializer.new(
+        recommend_user_data,
+        each_serializer: UserSerializer
+      ).as_json
+      success_res(200, message: 'お勧めユーザが見つかりました', data: data) and return
+    end
+
     private
+
+    def recommend_params
+      params.permit(:figure,:seriousness)
+    end
 
     def search_params
       params.permit(

@@ -24,10 +24,28 @@ thumbnails = [
   'https://pbs.twimg.com/media/DmBHrwCUcAAjbyq.jpg',
   'https://i.pinimg.com/originals/b4/b0/6e/b4b06ef5acf1b5c68b69ee1f19fc5dac.png',
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0uC5WGPcbHE3ZVdjceTtHTHLx9Hj230ki0mSSNYOKlcX2afe8',
+  'https://publicdomainq.net/images/201901/30s/publicdomainq-0030909lrn.jpg',
+  'https://publicdomainq.net/images/201909/18s/publicdomainq-0038379fjs.jpg',
+  'https://publicdomainq.net/images/201706/21s/publicdomainq-0010336luo.jpg',
+  'https://publicdomainq.net/images/201804/17s/publicdomainq-0021100kyq.jpg',
+  'https://publicdomainq.net/images/201707/13s/publicdomainq-0011084zcg.jpg',
+  'https://publicdomainq.net/images/201802/17s/publicdomainq-0018995ela.jpg',
+  'https://publicdomainq.net/images/201911/01s/publicdomainq-0039769xtq.jpg',
+  'https://publicdomainq.net/images/201908/25s/publicdomainq-0037666cog.jpg',
+  'https://publicdomainq.net/images/201908/19s/publicdomainq-0037473uae.jpg',
+  'https://publicdomainq.net/images/201911/01s/publicdomainq-0039774lvj.jpg',
+  'https://publicdomainq.net/images/201911/01s/publicdomainq-0039771zmf.jpg',
+  'https://publicdomainq.net/images/201902/23s/publicdomainq-0031748ava.jpg',
+  'https://publicdomainq.net/images/201612/04s/publicdomainq-0003420xwo.jpg',
+  'https://publicdomainq.net/images/201711/27s/publicdomainq-0016034jhw.jpg',
+  'https://publicdomainq.net/images/201609/20s/publicdomainq-0000816arx.jpg',
+  'https://publicdomainq.net/images/201911/01s/publicdomainq-0039775muz.jpg'
 ]
 
+figures = [0,1,5,10,15,20,25,99]
+
 ActiveRecord::Base.transaction do
-  15.times do |i|
+  30.times do |i|
     user = {
       provider: 'test',
       uid: Faker::Number.unique.leading_zero_number(digits: 15),
@@ -37,7 +55,7 @@ ActiveRecord::Base.transaction do
       gender: Faker::Number.between(from: 0, to: 3),
       height: Faker::Number.number(digits: 3),
       weight: Faker::Number.between(from: 1, to: 120),
-      figure: 5,
+      figure: figures[Random.rand(0 .. 7)],
       seriousness: Faker::Number.between(from: 0, to: 2),
     }
     user_record = User.create!(user)
