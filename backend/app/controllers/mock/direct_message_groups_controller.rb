@@ -67,5 +67,30 @@ module Mock
       }
       success_res(200, message: '[Mock]: 取得しました', data: data) and return
     end
+
+    def create
+      if direct_message_params['message'].blank?
+        error_res(
+          400,
+          message: "不正なリクエストです",
+          err: "不正なリクエストです"
+        ) and return
+      end
+
+      data = {
+        id: 1,
+        body: direct_message_params['message'],
+        send_user_id: current_user.id,
+        created_at: "2019-11-19 04:58:55",
+        updated_at: "2019-11-19 04:58:55"
+      }
+      success_res(200, message: '[Mock]: 作成しました', data: data) and return
+    end
+
+    private
+
+    def direct_message_params
+      params.permit(:message)
+    end
   end
 end
