@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>{{ getUserBy($route.params.id).nickname }}さんとのDM</h1>
+    <h1>{{ nickname }}さんとのDM</h1>
 
-    <v-card max-width="450" class="mx-auto">
+    <v-card max-width="450" class="mx-auto chat-card">
       <template v-for="(item, index) in directMessages">
         <v-list :key="index" three-line class="pa-0">
           <v-list-item>
@@ -24,6 +24,16 @@
           </v-list-item>
         </v-list>
       </template>
+
+      <v-col cols="12" class="mt-12 chat-message-box">
+        <v-text-field
+          v-model="message"
+          outlined
+          label="Message"
+          type="text"
+          append-outer-icon="mdi-send"
+        ></v-text-field>
+      </v-col>
     </v-card>
   </div>
 </template>
@@ -40,7 +50,9 @@ export default {
 
   data: () => ({
     directMessageGroup: null,
-    directMessages: null
+    directMessages: null,
+    message: '',
+    sending: false
   }),
 
   computed: {
@@ -76,3 +88,15 @@ export default {
   }
 }
 </script>
+
+<style>
+.chat-card {
+  height: 74vh;
+  position: relative;
+}
+
+.chat-message-box {
+  position: absolute;
+  bottom: 0;
+}
+</style>
