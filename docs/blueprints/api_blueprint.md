@@ -260,7 +260,7 @@ Muscler'sのAPI仕様書
 
 ## RecommendedUsers [/api/user/recommended_users]
 
-### おすすめユーザーの一覧を取得する [POST]
+### おすすめユーザーの一覧を取得する [GET]
 
 + Request (application/json)
 
