@@ -3,7 +3,7 @@
     <h1>DM一覧</h1>
 
     <v-card max-width="450" class="mx-auto">
-      <template v-for="(item, index) in computed_direct_message_groups">
+      <template v-for="(item, index) in computedDirectMessageGroups">
         <v-list :key="index" three-line>
           <v-list-item :to="`/direct_messages/${item.id}`">
             <v-list-item-avatar>
@@ -41,7 +41,7 @@ export default {
   middleware: 'auth',
 
   data: () => ({
-    direct_message_groups: []
+    directMessageGroups: []
   }),
 
   async asyncData({ $axios }) {
@@ -51,7 +51,7 @@ export default {
       .catch(() => [])
 
     return {
-      direct_message_groups: groups
+      directMessageGroups: groups
     }
   },
 
@@ -59,8 +59,8 @@ export default {
     ...mapGetters({
       currentUser: 'auth/currentUser'
     }),
-    computed_direct_message_groups() {
-      return this.direct_message_groups.reduce((result, current) => {
+    computedDirectMessageGroups() {
+      return this.directMessageGroups.reduce((result, current) => {
         if (current.to_user.id !== this.currentUser.id) {
           current.opponent = current.to_user
         } else {
@@ -74,7 +74,7 @@ export default {
 
   methods: {
     isNotLast(index) {
-      return index + 1 < this.computed_direct_message_groups.length
+      return index + 1 < this.computedDirectMessageGroups.length
     }
   }
 }
