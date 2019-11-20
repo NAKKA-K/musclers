@@ -21,7 +21,8 @@ class Api::TagsController < ApplicationController
         end
 
         #ユーザーが持っているタグがある、ない場合の処理
-        if current_user.user_tags.nil?
+        @user_tags = current_user.user_tags
+        if @user_tags.blank?
             error_res(
                 404,
                 message: 'タグが登録されていません'
@@ -29,14 +30,12 @@ class Api::TagsController < ApplicationController
             ) and return
             
         else
-            @user_tags = current_user.user_tags
             success_res(
                 200, 
                 message: 'ユーザータグ一覧を表示', 
                 data: @user_tags
             ) and return
         end
-            
     end
 
 end
