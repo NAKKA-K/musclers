@@ -23,10 +23,10 @@ class Api::TagsController < ApplicationController
         #ユーザーが持っているタグがある、ない場合の処理
         @user_tags = current_user.user_tags
         if @user_tags.blank?
-            error_res(
-                404,
+            success_res(
+                200,
                 message: 'タグが登録されていません'
-                err: 'タグが登録されていません'
+                data: []
             ) and return
             
         else
