@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :user_tags
   has_many :by_users,
             class_name: "DirectMessageGroup", 
             foreign_key: :by_user_id, 
@@ -50,7 +51,51 @@ class User < ApplicationRecord
   scope :where_between_height_or_all, ->(heightMin, heightMax) {
     where(height: (heightMin ||= 0)...(heightMax ||= 999)) if heightMin.present? || heightMax.present?
   }
+  scope :search_random_users_limit, ->(number) { 
+    order(Arel.sql("RANDOM()"))
+    .limit(number)
+    .with_attached_thumbnail 
+  }
+  scope :search_recommend_users_by_figure_and_seriousness, ->(figure, seriousness,number) {
+    where_figures_or_all(figure)
+    .or(where_seriousness_or_all(seriousness))
+    .order(Arel.sql("RANDOM()"))
+    .limit(number)
+    .with_attached_thumbnail
+  }
 
+  scope :search_recommend_users_by_figure, ->(figure,number) {
+    where_figures_or_all(figure)
+    .order(Arel.sql("RANDOM()"))
+    .limit(number)
+    .with_attached_thumbnail 
+  }
+
+  scope :search_recommend_users_by_seriousness, ->(seriousness,number) {
+    where_seriousness_or_all(seriousness)
+    .order(Arel.sql("RANDOM()"))
+    .limit(number)
+    .with_attached_thumbnail 
+  }
+
+  def self.fetch_recommend_users_in(params)
+    recommend_user_list = []
+    figure = params[:figure].present? ? params[:figure] : nil
+    seriousness = params[:seriousness].present? ? params[:seriousness] : nil
+    if figure.present? & seriousness.present?
+      recommend_user_list += User.search_recommend_users_by_figure_and_seriousness(figure,seriousness,20)
+      fetch_random_users(recommend_user_list)
+    elsif figure.present? & seriousness.blank?
+      recommend_user_list += User.search_recommend_users_by_figure(figure,20)
+      fetch_random_users(recommend_user_list)
+    elsif figure.blank? & seriousness.present?
+      recommend_user_list += User.search_recommend_users_by_seriousness(seriousness,20)
+      fetch_random_users(recommend_user_list)
+    else
+      recommend_user_list += User.search_random_users_limit(20)
+      recommend_user_list
+    end
+  end
 
   def self.fetch_user_detail_from(user_id)
     User.find_by(id: user_id)
@@ -101,7 +146,11 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz')
   end
 
- #　UserTagに使用されるuser_idのFK設定
-    has_many :user_tags
-  
+  def self.fetch_random_users(recommend_user_list)
+    list_count = recommend_user_list.count
+    if list_count < 20
+      recommend_user_list += User.search_random_users_limit(20 - list_count)
+    end
+    recommend_user_list
+  end  
 end

@@ -1,3 +1,5 @@
+figures = [0,1,5,10,15,20,25,99]
+
 FactoryBot.define do
   factory :user do
     provider { 'test' }
@@ -8,7 +10,8 @@ FactoryBot.define do
     gender { Faker::Number.between(from: 0, to: 3) }
     height { Faker::Number.number(digits: 3) }
     weight { Faker::Number.between(from: 1, to: 120) }
-    figure { 5 }
+    figure { figures[Random.rand(0 .. 7)] }
     seriousness { Faker::Number.between(from: 0, to: 2) }
+    access_token { SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz') }
   end
 end
