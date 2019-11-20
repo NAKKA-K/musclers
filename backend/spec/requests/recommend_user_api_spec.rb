@@ -15,36 +15,56 @@ describe 'recommend user api', type: :request do
       }
     end
 
-    context 'ログインしていなければ401が返る' do
+    context 'access token not exist into header' do
       it 'return status code 401' do
         post recommended_users_api_users_path
-        p response.status
         expect(response.status).to eq 401  
       end
     end
 
-    context 'ログインしている' do
-      it '体型のみの場合、体型で検索をして20件取得' do
-        post recommended_users_api_users_path, params: { figure: figures[Random.rand(0 .. 7)] }, headers: @headers
-        p response.status
-        p response
+    context 'access token exist into header' do
+      it 'search recommended users by figures' do
+        post recommended_users_api_users_path,
+              params: { 
+                figure: figures[Random.rand(0 .. 7)] 
+              },
+              headers: @headers
+        recommend_user_list = JSON.parse(response.body)
         expect(response.status).to eq 200  
+        expect(recommend_user_list['data'].count).not_to be > 20
+        expect(recommend_user_list['data'].count).to be <= 20
       end
   
-      it '本気度のみの場合、本気度で検索して20件取得' do
-        post recommended_users_api_users_path, params: { seriousness: Random.rand(0..2) }, headers: @headers
-        p response.status
+      it 'search recommended users by seriousness' do
+        post recommended_users_api_users_path,
+              params: {
+                seriousness: Random.rand(0..2)
+              },
+              headers: @headers
+        recommend_user_list = JSON.parse(response.body)
         expect(response.status).to eq 200
+        expect(recommend_user_list['data'].count).not_to be > 20
+        expect(recommend_user_list['data'].count).to be <= 20
       end
   
-      it '本気度、体型が存在　20件取得' do
-        post recommended_users_api_users_path,params: { figure: figures[Random.rand(0 .. 7)],seriousness: Random.rand(0..2) }, headers: @headers
+      it 'search recommended users by figures and seriousness' do
+        post recommended_users_api_users_path,
+              params: { figure: figures[Random.rand(0 .. 7)],
+                        seriousness: Random.rand(0..2) 
+              },
+              headers: @headers
+        recommend_user_list = JSON.parse(response.body)
         expect(response.status).to eq 200
+        expect(recommend_user_list['data'].count).not_to be > 20
+        expect(recommend_user_list['data'].count).to be <= 20
       end
   
-      it '体型、本気度が送られてこなくてもランダムで20件取得' do
+      it 'search recommended users by nothing value' do
         post recommended_users_api_users_path, headers: @headers
+        recommend_user_list = JSON.parse(response.body)
         expect(response.status).to eq 200
+        expect(recommend_user_list['data'].count).not_to be > 20
+        expect(recommend_user_list['data'].count).to be <= 20
       end        
     end
 
