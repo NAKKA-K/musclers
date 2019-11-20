@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ nickname }}さんとのDM</h1>
+    <h1>さんとのDM</h1>
 
     <v-card max-width="450" class="mx-auto chat-card">
       <template v-for="(item, index) in directMessages">
@@ -31,8 +31,21 @@
           outlined
           label="Message"
           type="text"
-          append-outer-icon="mdi-send"
-        ></v-text-field>
+          required
+          @keydown.enter="sendMessage"
+        >
+          <template v-slot:append-outer>
+            <v-fade-transition leave-absolute>
+              <v-progress-circular
+                v-if="sending"
+                size="24"
+                color="info"
+                indeterminate
+              ></v-progress-circular>
+              <v-icon v-else @click="sendMessage">mdi-send</v-icon>
+            </v-fade-transition>
+          </template>
+        </v-text-field>
       </v-col>
     </v-card>
   </div>
@@ -84,6 +97,27 @@ export default {
     },
     isNotLast(index) {
       return index + 1 < this.directMessages.length
+    },
+    async sendMessage(e) {
+      // 日本語変換でもkeydownが発火してしまうため処理で制御
+      if (e.type !== 'click' && e.keyCode !== 13) return
+
+      this.sending = true
+      await this.$axios
+        .$post(
+          `/mock/api/user/direct_message_groups/${this.$route.params.id}`,
+          { message: this.message }
+        )
+        .then((res) => {
+          const message = res.data
+          console.log(message)
+          this.directMessages.push(message)
+
+          this.sending = false
+        })
+        .catch(() => {
+          this.sending = false
+        })
     }
   }
 }
