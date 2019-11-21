@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>さんとのDM</h1>
+    <h1>{{ getOpponent.nickname }}さんとのDM</h1>
 
     <v-card max-width="450" class="mx-auto chat-card">
       <div class="overflow-y-auto messages">
@@ -74,7 +74,14 @@ export default {
   computed: {
     ...mapGetters({
       currentUser: 'auth/currentUser'
-    })
+    }),
+    getOpponent() {
+      if (this.currentUser.id !== this.directMessageGroup.to_user.id) {
+        return this.directMessageGroup.to_user
+      }
+
+      return this.directMessageGroup.by_user
+    }
   },
 
   async asyncData({ $axios, params }) {
