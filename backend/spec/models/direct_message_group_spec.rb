@@ -58,7 +58,36 @@ RSpec.describe DirectMessageGroup, type: :model do
 
   describe "DirectMessage association" do
     context "has many direct_messages" do
-      it { should have_many(:direct_messages).dependent(:destroy) }      
+      before do
+        create_list(:user,2)
+        @first_user_id = User.first.id
+        @secound_user_id = User.last.id
+
+        DirectMessageGroup.create!(by_user_id:@first_user_id,to_user_id:@secound_user_id)
+        @dm_group_id = DirectMessageGroup.first.id
+
+        DirectMessage.create!(body:"huga",direct_message_group_id:@dm_group_id,send_user_id:@first_user_id)
+        DirectMessage.create!(body:"hoge",direct_message_group_id:@dm_group_id,send_user_id:@secound_user_id)          
+      end
+
+      it { should have_many(:direct_messages).dependent(:destroy) }
+
+      context "when exist direct_message_goup_id and send_user_id into DirectMessageGroup and User table" do  
+        it "confirm direct messages" do
+          dm_list = DirectMessageGroup.first.direct_messages
+          expect( dm_list.count ).to eq 2
+        end  
+      end
+
+      context "when not exest direct_message_group_id or send_user_id into DirectMessageGroup and User tabel" do
+        it "raise error ActiveRecord::RecordInvalid" do
+          @not_exist_dm_group_id = DirectMessageGroup.last.id + 1
+          @not_exist_user_id = @secound_user_id + 1
+
+          expect{ DirectMessage.create!(body:"huga",direct_message_group_id:@dm_group_id,send_user_id:@not_exist_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
+          expect{ DirectMessage.create!(body:"hoge",direct_message_group_id:@not_exist_dm_group_id,send_user_id:@secound_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end  
     end
   end
   
