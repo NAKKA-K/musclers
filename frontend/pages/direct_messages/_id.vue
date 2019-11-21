@@ -1,35 +1,38 @@
 <template>
   <div>
-    <h1>さんとのDM</h1>
+    <h1>{{ getOpponent.nickname }}さんとのDM</h1>
 
     <v-card max-width="450" class="mx-auto chat-card">
-      <template v-for="(item, index) in directMessages">
-        <v-list :key="index" three-line class="pa-0">
-          <v-list-item>
-            <v-list-item-avatar>
-              <v-img :src="getUserBy(item.send_user_id).thumbnail"></v-img>
-            </v-list-item-avatar>
+      <div class="overflow-y-auto messages">
+        <template v-for="(item, index) in directMessages">
+          <v-list :id="`message-${index}`" :key="index" three-line class="pa-0">
+            <v-list-item>
+              <v-list-item-avatar>
+                <v-img :src="getUserBy(item.send_user_id).thumbnail"></v-img>
+              </v-list-item-avatar>
 
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ getUserBy(item.send_user_id).nickname || 'unknown' }}
-                <span class="grey--text text--lighten-1">
-                  {{ item.updated_at }}
-                </span>
-              </v-list-item-title>
-              <v-list-item-subtitle class="d-block">
-                {{ item.body }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </template>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ getUserBy(item.send_user_id).nickname || 'unknown' }}
+                  <span class="grey--text text--lighten-1">
+                    {{ item.updated_at }}
+                  </span>
+                </v-list-item-title>
+                <v-list-item-subtitle class="d-block">
+                  {{ item.body }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </template>
+      </div>
 
       <v-col cols="12" class="mt-12 chat-message-box">
         <v-text-field
           v-model="message"
           outlined
           label="Message"
+          hide-details
           type="text"
           required
           @keydown.enter="sendMessage"
@@ -71,7 +74,14 @@ export default {
   computed: {
     ...mapGetters({
       currentUser: 'auth/currentUser'
-    })
+    }),
+    getOpponent() {
+      if (this.currentUser.id !== this.directMessageGroup.to_user.id) {
+        return this.directMessageGroup.to_user
+      }
+
+      return this.directMessageGroup.by_user
+    }
   },
 
   async asyncData({ $axios, params }) {
@@ -87,6 +97,10 @@ export default {
     }
   },
 
+  updated() {
+    this.scrollToEnd()
+  },
+
   methods: {
     getUserBy(id) {
       if (id === this.directMessageGroup.to_user.id) {
@@ -95,8 +109,13 @@ export default {
 
       return this.directMessageGroup.by_user
     },
-    isNotLast(index) {
-      return index + 1 < this.directMessages.length
+    scrollToEnd() {
+      const chatLog = document.getElementById(
+        `message-${this.directMessages.length - 1}`
+      )
+      if (!chatLog) return
+      // TODO: これではoverflow:scroll表示されている要素に飛べないっぽい
+      chatLog.scrollTop = chatLog.scrollHeight
     },
     async sendMessage(e) {
       // 日本語変換でもkeydownが発火してしまうため処理で制御
@@ -110,7 +129,6 @@ export default {
         )
         .then((res) => {
           const message = res.data
-          console.log(message)
           this.directMessages.push(message)
 
           this.sending = false
@@ -125,12 +143,16 @@ export default {
 
 <style>
 .chat-card {
-  height: 74vh;
+  height: 85vh;
   position: relative;
 }
 
 .chat-message-box {
   position: absolute;
   bottom: 0;
+}
+
+.messages {
+  height: 75vh;
 }
 </style>
