@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h1>グループ一覧</h1>
+    <div class="d-flex">
+      <h1>グループ一覧</h1>
+      <v-spacer></v-spacer>
+      <v-btn fab dark small color="#ffac12" to="/groups/new">
+        <v-icon dark>mdi-plus</v-icon>
+      </v-btn>
+    </div>
 
     <v-list v-if="groups">
       <v-row>
