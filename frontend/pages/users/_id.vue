@@ -269,7 +269,7 @@ export default {
   font-size: 1.4em;
 }
 .friend-request-button {
-  margin-bottom: 16px;
+  margin-bottom: 36px;
   text-align: center;
 }
 /* pc site css */
