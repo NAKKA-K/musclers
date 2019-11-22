@@ -104,7 +104,7 @@ Muscler'sのAPI仕様書
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
-### GroupMessage
+### GroupMessage (object)
 
 + id: 1 (number)
 + body: 今日はみんなで大腿四頭筋を追い込みましょう！！ (string)
@@ -116,6 +116,7 @@ Muscler'sのAPI仕様書
 ### DirectMessageGroup (object)
 
 + id: 1 (number)
++ by_user (User)
 + to_user (User)
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
@@ -124,17 +125,16 @@ Muscler'sのAPI仕様書
 
 + id: 1 (number)
 + body: 君はもうバッチリ筋肉追い込んだかい！！？ (string)
-+ direct_message_group (DirectMessageGroup)
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
 ### MetaPaginator (object)
 
-+ current_page: 1 (number)
++ current_page: 2 (number)
 + is_first_page: true (boolean)
 + is_last_page: false (boolean)
-+ next_page: 2 (number, nullable)
-+ prev_page: null (number, nullable)
++ next_page: 3 (number, nullable)
++ prev_page: 1 (number, nullable)
 + size: 20 (number)
 + total_count: 100 (number)
 + total_pages: 50 (number)
@@ -203,16 +203,439 @@ Muscler'sのAPI仕様書
         + updated_at: `2019-11-19 04:58:55` (string)
 
 
-# Group USERS
+# Group Myself
 
-## Users [/api/users]
+## Myself [/api/auth/user]
 
-### 全ユーザー情報を取得する [GET]
+### ログイン中の自分自身のデータを取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 自分自身のデータ (string)
+        + data (User)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+## Home [/api/user/home]
+
+### 自分のホーム画面に表示されるOverviewを取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 自分自身のデータ (string)
+        + data (object)
+            + users (array[User])
+            + groups (array[Group])
+            + informations (array[Information])
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+## RecommendedUsers [/api/user/recommended_users]
+
+### おすすめユーザーの一覧を取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
+    + Attributes (object)
+        + figure: 0 (number)
+        + seriousness: 1 (number)
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: お勧めユーザーが見つかりました (string)
+        + data (array[User,User])
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+## JoinedGroups [/api/user/groups]
+
+### 参加中のグループ一覧を取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 取得しました (string)
+        + data (array[Group])
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+
+## MyInformations [/api/user/informations]
+
+### 自分の通知一覧を取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
 
 + Response 200 (application/json)
 
-    + Attributes (array[User,User])
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 取得しました (string)
+        + data (array[Information])
 
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+
+### 全ての通知を既読にする [PATCH]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 成功しました (string)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+## DirectMessageGroups [/api/user/direct_message_groups]
+
+### 自分のダイレクトメッセージのグループ一覧を取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 取得しました (string)
+        + data (object)
+            + direct_message_groups (array[object])
+                + (object)
+                    + id: 1 (number)
+                    + by_user (User)
+                    + to_user (User)
+                    + created_at: `2019-11-19 04:58:55` (string)
+                    + updated_at: `2019-11-19 04:58:55` (string)
+                    + latest_message (DirectMessage)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+### ダイレクトメッセージグループを作る [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
+    + Attributes (object)
+        + to_user_id: 2 (number)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 作成しました (string)
+        + data (DirectMessageGroup)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
++ Response 403 (application/json)
+
+        {
+            "code": 403,
+            "message": "相手と友達ではないためDMを許可されていません",
+            "errors": [],
+        }
+
+## DirectMessageGroup [/api/user/direct_message_groups/{direct_group_id}]
+
++ Parameters
+
+    + direct_group_id: 1 (number) - direct_message_groupsテーブルのID(direct_message_group_idだと長すぎて認識してくれなかったのでこの名前に)
+
+### 特定ユーザーとのダイレクトメッセージ一覧を取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 取得しました (string)
+        + data (object)
+            + id: 1 (number)
+            + by_user (User)
+            + to_user (User)
+            + created_at: `2019-11-19 04:58:55` (string)
+            + updated_at: `2019-11-19 04:58:55` (string)
+            + direct_messages (array[DirectMessage])
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+### 特定ユーザーとのダイレクトメッセージに新規メッセージを送信する [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
+    + Attributes (object)
+        + body: サイド!トライセップス！！！ (string)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 投稿しました (string)
+        + data (DirectMessage)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+
+## DirectMessage [/api/user/direct_messages/{direct_message_id}]
+
++ Parameters
+
+    + direct_message_id: 1 (number) - direct_messagesテーブルのID
+
+
+### 特定のダイレクトメッセージを更新する [PATCH]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
+    + Attributes (object)
+        + body: サイド!トライセップス！！！ (string)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 更新しました (string)
+        + data (DirectMessage)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+### 特定のダイレクトメッセージを削除する [DELETE]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 削除しました (string)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+
+## Friends [/api/user/friends]
+
+### 自分の友達一覧を取得する [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 友達一覧です (string)
+        + data (array[User])
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+### 友達申請する [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: ...
+
+    + Attributes (object)
+        + user_id: 2 (number)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + status: 201 (number)
+        + message: 申請しました (string)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
+
+
+# Group USERS
+
+## Users [/api/users?page={page}&per_page={per_page}&keywords={keywords}&seriousness={seriousness}&gender={gender}&figures%5B%5D={figures}&ageMin={ageMin}&ageMax={ageMax}&weightMin={weightMin}&weightMax={weightMax}&heightMin={heightMin}&heightMax={heightMax}]
+
++ Parameters
+
+    + keywords: フィジーク選手 (string, optional) - ユーザの名前と概要から部分一致検索される
+    + page: 1 (number, optional) - ページ番号
+    + per_page: 20 (number, optional) - 1ページの要素数
+    + seriousness: 0 (number, optional) - 本気度のID
+    + gender: 0 (number, optional) - 性別のID
+    + figures: 0 (array[number], optional) - 体格のID配列
+    + ageMin: 20 (number, optional) - 下限年齢
+    + ageMax: 40 (number, optional) - 上限年齢
+    + weightMin: 40 (number, optional) - 下限体重
+    + weightMax: 60 (number, optional) - 上限体重
+    + heightMin: 160 (number, optional) - 下限身長
+    + heightMax: 180 (number, optional) - 上限身長
+
+
+### ユーザの検索結果を取得する [GET]
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: ユーザが見つかりました。 (string)
+        + data (array[User,User])
+        + meta (MetaPaginator)
+
++ Response 404
+
+        {
+            "status": 404,
+            "message": "お探しのユーザは見つかりませんでした・"
+            "errors": [
+                { message: "お探しのユーザが見つかりませんでした。" }
+            ],
+        }
 
 ## Users [/api/users/{user_id}]
 
@@ -239,7 +662,7 @@ Muscler'sのAPI仕様書
             ],
         }
 
-### ユーザ情報更新 [PATCH]
+### 新規ユーザのEmail更新 [PATCH]
 
 + Request (application/json)
 
@@ -286,80 +709,86 @@ Muscler'sのAPI仕様書
             ],
         }
 
-## Users [/api/users/search?page={page}&per_page={per_page}&keywords={keywords}&seriousness={seriousness}&gender={gender}&figures%5B%5D={figures}&ageMin={ageMin}&ageMax={ageMax}&weightMin={weightMin}&weightMax={weightMax}&heightMin={heightMin}&heightMax={heightMax}]
-
-+ Parameters
-
-    + keywords: フィジーク選手 (string, optional) - ユーザの名前と概要から部分一致検索される
-    + page: 1 (number, optional) - ページ番号
-    + per_page: 20 (number, optional) - 1ページの要素数
-    + seriousness: 0 (number, optional) - 本気度のID
-    + gender: 0 (number, optional) - 性別のID
-    + figures: 0 (array[number], optional) - 体格のID配列
-    + ageMin: 20 (number, optional) - 下限年齢
-    + ageMax: 40 (number, optional) - 上限年齢
-    + weightMin: 40 (number, optional) - 下限体重
-    + weightMax: 60 (number, optional) - 上限体重
-    + heightMin: 160 (number, optional) - 下限身長
-    + heightMax: 180 (number, optional) - 上限身長
-
-
-### ユーザの検索結果を取得する [GET]
-
-+ Response 200
-
-    + Attributes (object)
-        + status: 200 (number)
-        + message: ユーザが見つかりました。 (string)
-        + data (array[User,User])
-        + meta (MetaPaginator)
-
-+ Response 404
-
-        {
-            "status": 404,
-            "message": "お探しのユーザは見つかりませんでした・"
-            "errors": [
-                { message: "お探しのユーザが見つかりませんでした。" }
-            ],
-        }
-
-# Group INFORMATIONS
-
-## Informations [/api/users/{user_id}/informations]
+## Users [/api/users/{user_id}/edit]
 
 + Parameters
 
     + user_id: 1 (number) - usersテーブルのID
 
-### 通知一覧を取得する [GET]
+### 既存ユーザのプロフィール情報の更新 [PATCH]
 
-+ Request (application/json)
-
-    + Headers
-
-            Authorization: Barare ...
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Information])
-
-### 全ての通知を既読にする [PATCH]
-
-+ Request (application/json)
++ Request (multipart/form-data)
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
-+ Response 204 (application/json)
+    + Attributes (object)
+        + user (object)
+            + nickname: 範馬勇次郎 (string)
+            + description: 筋友を探しています！ (string)
+            + age: 22 (number)
+            + gender: 1 (enum[number])
+                + Members
+                    + 1 - 男性
+                    + 2 - 女性
+                    + 3 - その他
+            + height: 175 (number)
+            + weight: 65 (number)
+            + figure: 1 (enum[number])
+                + Members
+                    + 1 - 痩せ型筋肉質
+                    + 5 - 普通筋肉質
+                    + 10 - 肥満型筋肉質
+                    + 15 - 痩せ型
+                    + 20 - 普通
+                    + 25 - 肥満型
+                    + 99 - その他
+            + muscle_mass: 44 (number)
+            + body_fat_percentage: 12 (number)
+            + email: sample@example.com (string)
+            + thumbnail: 画像データ
 
-+ Response 401 (application/json)
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: ユーザ情報を更新しました (string)
+
++ Response 404
 
         {
-            "code": 401,
-            "message": "ログインが必要です",
-            "errors": [],
+            "status": 404,
+            "message": "ユーザが存在しません"
+            "errors": [
+                { message: "ユーザが存在しません" }
+            ],
+        }
+
++ Response 422
+
+        {
+            "status": 422,
+            "message": "入力内容が正しくありません"
+            "errors": [
+              {
+                "message":{
+                  "email":["Eメールの形式で入力してください"],
+                  "nickname":["名前が長すぎます。64文字以内で入力してください"],
+                  "description":["文章が長すぎます。1024文字以内で入力してください"]
+                }
+              }
+            ],
+        }
+
++ Response 500
+
+        {
+            "status": 500,
+            "message": "更新に失敗しました"
+            "errors": [
+                { message: "更新に失敗しました" }
+            ],
         }
 
 
@@ -395,7 +824,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + tags (array)
@@ -432,7 +861,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + tag: 2 (number)
@@ -462,7 +891,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + name: 筋肉モンスターたちの集会所 (string)
@@ -508,7 +937,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + name: 筋肉モンスターたちの集会所 (string)
@@ -538,7 +967,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 204 (application/json)
 
@@ -557,12 +986,17 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
-
-    + Attributes (object)
-        + group_id (number)
+            Authorization: ...
 
 + Response 204 (application/json)
+
++ Response 401 (application/json)
+
+        {
+            "code": 401,
+            "message": "ログインが必要です",
+            "errors": [],
+        }
 
 ## Users in Group [/api/groups/{group_id}/users]
 
@@ -591,7 +1025,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 204 (application/json)
 
@@ -610,7 +1044,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 200 (application/json)
 
@@ -624,7 +1058,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + body: 今日はみんなで大腿四頭筋を追い込みましょう！！ (string)
@@ -656,7 +1090,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
     + Attributes (object)
         + body: 今日はみんなで僧帽筋を追い込みましょう！！ (string)
@@ -671,108 +1105,7 @@ Muscler'sのAPI仕様書
 
     + Headers
 
-            Authorization: Barare ...
+            Authorization: ...
 
 + Response 204 (application/json)
 
-
-# Group DIRECT_MESSAGE_GROUPS
-
-## DirectMessageGroups on me [/api/direct_message_groups/me]
-
-### 自分のダイレクトメッセージグループの一覧を取得する [GET]
-
-+ Request (application/json)
-
-    + Headers
-
-            Authorization: Barare ...
-
-+ Response 200 (application/json)
-
-    + Attributes (array[object])
-        + (object)
-            + to_user (User)
-            + latest_messages (array[object])
-                + (object)
-                    + id: 1 (number)
-                    + body: 君はもうバッチリ筋肉追い込んだかい！！？ (string)
-                    + created_at: `2019-11-19 04:58:55` (string)
-                    + updated_at: `2019-11-19 04:58:55` (string)
-
-
-## DirectMessages [/api/direct_message_groups/{direct_group_id}]
-
-+ Parameters
-
-    + direct_group_id: 1 (number) - direct_message_groupsテーブルのID(direct_message_group_idだと長すぎて認識してくれなかったのでこの名前に)
-
-
-### 特定ユーザーとのダイレクトメッセージ一覧を取得する [GET]
-
-+ Request (application/json)
-
-    + Headers
-
-            Authorization: Barare ...
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + to_user (User)
-        + messages (array[object])
-            + (object)
-                + id: 1 (number)
-                + body: 君はもうバッチリ筋肉追い込んだかい！！？ (string)
-                + created_at: `2019-11-19 04:58:55` (string)
-                + updated_at: `2019-11-19 04:58:55` (string)
-
-### 特定ユーザーとのダイレクトメッセージに新規メッセージを送信する [POST]
-
-+ Request (application/json)
-
-    + Headers
-
-            Authorization: Barare ...
-
-    + Attributes (object)
-        + body: サイド!トライセップス！！！ (string)
-
-+ Response 201 (application/json)
-
-    + Attributes (DirectMessage)
-
-
-# Group DIRECT_MESSAGES
-
-## DirectMessage [/api/direct_messages/{direct_message_id}]
-
-+ Parameters
-
-    + direct_message_id: 1 (number) - direct_messagesテーブルのID
-
-
-### 特定のダイレクトメッセージを更新する [PATCH]
-
-+ Request (application/json)
-
-    + Headers
-
-            Authorization: Barare ...
-
-    + Attributes (object)
-        + body: サイド!トライセップス！！！ (string)
-
-+ Response 200 (application/json)
-
-    + Attributes (DirectMessage)
-
-### 特定のダイレクトメッセージを削除する [DELETE]
-
-+ Request (application/json)
-
-    + Headers
-
-            Authorization: Barare ...
-
-+ Response 204 (application/json)

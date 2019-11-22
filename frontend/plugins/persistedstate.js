@@ -1,15 +1,20 @@
 import createPersistedState from 'vuex-persistedstate'
+import * as Cookies from 'js-cookie'
+import cookie from 'cookie'
 
-export default ({ store, isHMR }) => {
-  // In case of HMR, mutation occurs before nuxReady, so previously saved state
-  // gets replaced with original state received from server. So, we've to skip HMR.
-  // Also nuxtReady event fires for HMR as well, which results multiple registration of
-  // vuex-persistedstate plugin
+export default ({ store, req, isHMR, isDev }) => {
   if (isHMR) return
 
-  if (process.client) {
-    window.onNuxtReady((nuxt) => {
-      createPersistedState()(store) // vuex plugins can be connected to store, even after creation
-    })
-  }
+  createPersistedState({
+    key: 'musclers',
+    storage: {
+      getItem: (key) =>
+        process.client
+          ? Cookies.getJSON(key)
+          : cookie.parse(req.headers.cookie || '')[key],
+      setItem: (key, value) =>
+        Cookies.set(key, value, { expires: 30, secure: !isDev }), // 30日間 cookie storage を保持する
+      removeItem: (key) => Cookies.remove(key)
+    }
+  })(store)
 }

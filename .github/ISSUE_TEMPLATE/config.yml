@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Bug report
+    url: https://github.com/NAKKA-K/musclers/issues/new?template=bug_report.md
+    about: Please report bug here.
+  - name: Feature request
+    url: https://github.com/NAKKA-K/musclers/issues/new?template=feature_request.md
+    about: Please request feature here.
+  - name: (Service user) Inquiries and opinions
+    url: https://forms.gle/W55NsQjum3Cym3bE9
+    about: Please inquiries and opinions here.

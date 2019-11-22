@@ -4,7 +4,10 @@ export default function({ $axios, store }) {
     if (token) {
       config.headers.common.Authorization = token
     }
-    config.headers.common['Content-type'] = 'application/json'
+
+    if (!config.headers['Content-Type']) {
+      config.headers.common['Content-Type'] = 'application/json'
+    }
     return config
   })
 }
