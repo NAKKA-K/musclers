@@ -26,29 +26,29 @@ RSpec.describe DirectMessageGroup, type: :model do
     context "when exist by_user_id and to_user_id into User table" do
       before do
         create_list(:user,3)
-        @first_user_id = User.first.id
-        @secound_user_id = User.find(@first_user_id + 1).id
-        @third_user_id = User.find(@secound_user_id + 1).id
+        @first_user = User.first
+        @secound_user = User.find(@first_user.id + 1)
+        @third_user = User.find(@secound_user.id + 1)
       end
 
       it "can create DM group " do
-        expect{ DirectMessageGroup.create!(by_user_id:@first_user_id,to_user_id:@secound_user_id) }.to_not raise_error
-        expect{ DirectMessageGroup.create!(by_user_id:@secound_user_id,to_user_id:@first_user_id) }.to_not raise_error
-        expect{ DirectMessageGroup.create!(by_user_id:@third_user_id,to_user_id:@secound_user_id) }.to_not raise_error
+        expect{ @first_user.by_users.create!(to_user_id:@secound_user.id) }.to_not raise_error
+        expect{ @first_user.by_users.create!(to_user_id:@third_user.id) }.to_not raise_error
+        expect{ @secound_user.by_users.create!(to_user_id:@third_user.id) }.to_not raise_error
         
-        expect( DirectMessageGroup.where(by_user_id:@first_user_id,to_user_id:@secound_user_id) ).to exist
-        expect( DirectMessageGroup.where(by_user_id:@secound_user_id,to_user_id:@first_user_id) ).to exist
-        expect( DirectMessageGroup.where(by_user_id:@third_user_id,to_user_id:@secound_user_id) ).to exist
+        expect( DirectMessageGroup.where(by_user_id:@first_user.id,to_user_id:@secound_user.id) ).to exist
+        expect( DirectMessageGroup.where(by_user_id:@first_user.id,to_user_id:@third_user.id) ).to exist
+        expect( DirectMessageGroup.where(by_user_id:@secound_user.id,to_user_id:@third_user.id) ).to exist
       end
 
       it "confirm DM Group what a specific user has" do
-        DirectMessageGroup.create!(by_user_id:@first_user_id,to_user_id:@secound_user_id)
-        DirectMessageGroup.create!(by_user_id:@first_user_id,to_user_id:@third_user_id)
-        DirectMessageGroup.create!(by_user_id:@third_user_id,to_user_id:@secound_user_id)
+        @first_user.by_users.create!(to_user_id:@secound_user.id)
+        @first_user.by_users.create!(to_user_id:@third_user.id)
+        @secound_user.by_users.create!(to_user_id:@third_user.id)
 
-        dm_group_of_first_user = DirectMessageGroup.where(by_user_id:@first_user_id).or(DirectMessageGroup.where(to_user_id:@first_user_id))
-        dm_group_of_secound_user = DirectMessageGroup.where(by_user_id:@secound_user_id).or(DirectMessageGroup.where(to_user_id:@secound_user_id))
-        dm_group_of_third_user = DirectMessageGroup.where(by_user_id:@third_user_id).or(DirectMessageGroup.where(to_user_id:@third_user_id))
+        dm_group_of_first_user = DirectMessageGroup.where(by_user_id:@first_user.id).or(DirectMessageGroup.where(to_user_id:@first_user.id))
+        dm_group_of_secound_user = DirectMessageGroup.where(by_user_id:@secound_user.id).or(DirectMessageGroup.where(to_user_id:@secound_user.id))
+        dm_group_of_third_user = DirectMessageGroup.where(by_user_id:@third_user.id).or(DirectMessageGroup.where(to_user_id:@third_user.id))
         expect( dm_group_of_first_user.count ).to eq 2
         expect( dm_group_of_secound_user.count ).to eq 2
         expect( dm_group_of_third_user.count ).to eq 2
@@ -58,37 +58,41 @@ RSpec.describe DirectMessageGroup, type: :model do
 
   describe "DirectMessage association" do
     context "has many direct_messages" do
+      it { should have_many(:direct_messages).dependent(:destroy) }
+    end
+
+    context do
       before do
         create_list(:user,2)
-        @first_user_id = User.first.id
-        @secound_user_id = User.last.id
+        @first_user = User.first
+        @secound_user = User.last
 
-        DirectMessageGroup.create!(by_user_id:@first_user_id,to_user_id:@secound_user_id)
+        @first_user.by_users.create!(to_user_id:@secound_user.id)
         @dm_group_id = DirectMessageGroup.first.id
 
-        DirectMessage.create!(body:"huga",direct_message_group_id:@dm_group_id,send_user_id:@first_user_id)
-        DirectMessage.create!(body:"hoge",direct_message_group_id:@dm_group_id,send_user_id:@secound_user_id)          
+        @first_user.send_users.create!(body:"huga",direct_message_group_id:@dm_group_id)
+        @secound_user.send_users.create!(body:"hoge",direct_message_group_id:@dm_group_id)
       end
-
-      it { should have_many(:direct_messages).dependent(:destroy) }
 
       context "when exist direct_message_goup_id and send_user_id into DirectMessageGroup and User table" do  
         it "confirm direct messages" do
           dm_list = DirectMessageGroup.first.direct_messages
-          expect( dm_list.count ).to eq 2
+          dm_count = DirectMessage.where(direct_message_group_id:@dm_group_id).count
+          expect( dm_list.count ).to eq dm_count
         end  
       end
 
       context "when not exest direct_message_group_id or send_user_id into DirectMessageGroup and User tabel" do
         it "raise error ActiveRecord::RecordInvalid" do
           @not_exist_dm_group_id = DirectMessageGroup.last.id + 1
-          @not_exist_user_id = @secound_user_id + 1
+          @not_exist_user_id = @secound_user.id + 1
 
           expect{ DirectMessage.create!(body:"huga",direct_message_group_id:@dm_group_id,send_user_id:@not_exist_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
           expect{ DirectMessage.create!(body:"hoge",direct_message_group_id:@not_exist_dm_group_id,send_user_id:@secound_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
         end
-      end  
+      end
+
     end
   end
-  
+
 end
