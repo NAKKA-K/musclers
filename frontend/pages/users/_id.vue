@@ -21,39 +21,39 @@
             <h3>情報</h3>
           </div>
           <v-row>
-            <v-col cols="4" offset-md="1">
+            <v-col cols="5" offset-md="1">
               <v-img class="profile-image" :src="user.thumbnail"></v-img>
             </v-col>
             <v-col cols="7" class="standard-information">
               <v-row>
-                <v-col cols="4">
+                <v-col cols="5">
                   <p>年齢： {{ user.age }}</p>
                 </v-col>
-                <v-col cols="4">
+                <v-col cols="5">
                   <p>本気度： {{ user.seriousness }}</p>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="4">
+                <v-col cols="5">
                   <p>身長： {{ user.height }}</p>
                 </v-col>
-                <v-col cols="4">
+                <v-col cols="5">
                   <p>体型： {{ user.figure }}</p>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="4">
+                <v-col cols="5">
                   <p>性別： {{ user.gender }}</p>
                 </v-col>
-                <v-col cols="4">
+                <v-col cols="5">
                   <p>筋肉量： {{ user.muscle_mass }}</p>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="4">
+                <v-col cols="5">
                   <p>体重： {{ user.wight }}</p>
                 </v-col>
-                <v-col cols="4">
+                <v-col cols="5">
                   <p>体脂肪率： {{ user.body_fat_percentage }}</p>
                 </v-col>
               </v-row>
@@ -117,46 +117,63 @@
           </div>
           <v-col cols="12" class="sp-standard-information">
             <v-row>
-              <v-col cols="6">
+              <v-col cols="5">
                 年齢：
               </v-col>
-              <v-col cols="6"> {{ user.age }}歳 </v-col>
-              <v-col cols="6">
+              <v-col cols="7"> {{ user.age }}歳 </v-col>
+              <v-col cols="5">
                 身長：
               </v-col>
-              <v-col cols="6"> {{ user.height }}cm </v-col>
-              <v-col cols="6">
+              <v-col cols="7"> {{ user.height }}cm </v-col>
+              <v-col cols="5">
                 性別：
               </v-col>
-              <v-col cols="6">
+              <v-col cols="7">
                 {{ user.gender }}
               </v-col>
-              <v-col cols="6">
+              <v-col cols="5">
                 体重：
               </v-col>
-              <v-col cols="6"> {{ user.wight }}kg </v-col>
-              <v-col cols="6">
+              <v-col cols="7"> {{ user.wight }}kg </v-col>
+              <v-col cols="5">
                 本気度：
               </v-col>
-              <v-col cols="6">
-                {{ user.seriousness }}
+              <v-col cols="7">
+                <v-row>
+                  {{ user.seriousness }}&nbsp;
+                  <div v-if="user.seriousness === '未設定'">
+                    <v-icon color="red">star</v-icon>
+                    <v-icon>star</v-icon>
+                    <v-icon>star</v-icon>
+                  </div>
+                  <div v-else-if="user.seriousness === 'エンジョイ'">
+                    <v-icon color="red">star</v-icon>
+                    <v-icon color="red">star</v-icon>
+                    <v-icon>star</v-icon>
+                  </div>
+                  <div v-else-if="user.seriousness === 'ガチ'">
+                    <v-icon color="red">star</v-icon>
+                    <v-icon color="red">star</v-icon>
+                    <v-icon color="red">star</v-icon>
+                  </div>
+                </v-row>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="5">
                 体型：
               </v-col>
-              <v-col cols="6">
+              <v-col cols="7">
                 {{ user.figure }}
               </v-col>
-              <v-col cols="6">
+              <v-col cols="5">
                 筋肉量：
               </v-col>
-              <v-col cols="6">
+              <v-col cols="7">
                 {{ user.muscle_mass }}
               </v-col>
-              <v-col cols="6">
+              <v-col cols="5">
                 体脂肪率：
               </v-col>
-              <v-col cols="6">
+              <v-col cols="7">
                 {{ user.body_fat_percentage }}
               </v-col>
             </v-row>
@@ -266,7 +283,7 @@ export default {
 }
 .sp-standard-information {
   margin-left: 30px;
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 .friend-request-button {
   margin-bottom: 36px;
