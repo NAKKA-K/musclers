@@ -224,7 +224,7 @@ export default {
 }
 /* sp site css */
 .sp-user-information {
-  height: 90vh;
+  height: 86vh;
   background-size: cover;
   font-size: 1.2em;
   text-align: center;
