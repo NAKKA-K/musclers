@@ -36,7 +36,7 @@ module Api
       end
 
       def auth_params
-        params.permit(:provider, :uid, :email)
+        params.permit(:provider, :uid, :nickname, :email)
       end
     end
   end
