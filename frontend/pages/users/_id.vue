@@ -76,7 +76,17 @@
       </div>
     </div>
     <div class="sp">
-      <a>test</a>
+      <div
+        :style="{ 'background-image': 'url(' + user.thumbnail + ')' }"
+        class="user-information-sp"
+      >
+        <v-col cols="3" offset-md="1">
+          <div class="container bg-rgba-sp">
+            <h2>{{ user.nickname }}</h2>
+            <p>名前： {{ user.age }}歳体型： {{ user.figure }}</p>
+          </div>
+        </v-col>
+      </div>
     </div>
   </div>
 </template>
@@ -130,6 +140,27 @@ export default {
   height: 280px;
   border-radius: 10px;
 }
+.user-information-sp {
+  padding: 100px 0 100px 0;
+  height: 90vh;
+  background-size: cover;
+  font-size: 1.2em;
+  text-align: center;
+}
+.user-information-sp h2 {
+  font-size: 22px;
+  font-weight: 100;
+}
+.user-information-sp p {
+  font-size: 16px;
+  text-align: left;
+}
+.bg-rgba-sp {
+  background-color: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  bottom: 0;
+}
+
 .user-information {
   padding: 100px 0 100px 0;
   height: 90vh;
