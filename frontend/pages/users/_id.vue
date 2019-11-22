@@ -84,11 +84,15 @@
           <div class="container bg-rgba-sp">
             <h2>{{ user.nickname }}</h2>
             <p>
-              名前： {{ user.age }}歳&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              名前：{{ user.age }}歳&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               体型：{{ user.figure }}
             </p>
           </div>
         </v-col>
+      </div>
+      <div class="services-wrapper">
+        <v-img class="slide-image" :src="user.thumbnail"></v-img>
+        <a>test</a>
       </div>
     </div>
   </div>
@@ -143,11 +147,13 @@ export default {
   height: 280px;
   border-radius: 10px;
 }
+/* sp site css */
 .user-information-sp {
   height: 90vh;
   background-size: cover;
   font-size: 1.2em;
   text-align: center;
+  position: relative;
 }
 .user-information-sp h2 {
   font-size: 22px;
@@ -161,10 +167,10 @@ export default {
   height: 80px;
   background-color: rgba(255, 255, 255, 0.8);
   position: absolute;
-  bottom: 0;
   left: 0;
+  bottom: 0;
 }
-
+/* pc site css */
 .user-information {
   padding: 100px 0 100px 0;
   height: 90vh;
