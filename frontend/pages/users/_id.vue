@@ -265,7 +265,7 @@ export default {
   font-size: 1.2em;
 }
 .sp-standard-information {
-  text-align: center;
+  margin-left: 30px;
   font-size: 1.4em;
 }
 .friend-request-button {
