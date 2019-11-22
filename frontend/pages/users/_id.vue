@@ -83,7 +83,10 @@
         <v-col cols="3" offset-md="1">
           <div class="container bg-rgba-sp">
             <h2>{{ user.nickname }}</h2>
-            <p>名前： {{ user.age }}歳体型： {{ user.figure }}</p>
+            <p>
+              名前： {{ user.age }}歳&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              体型：{{ user.figure }}
+            </p>
           </div>
         </v-col>
       </div>
@@ -141,7 +144,6 @@ export default {
   border-radius: 10px;
 }
 .user-information-sp {
-  padding: 0px 0 0 0;
   height: 90vh;
   background-size: cover;
   font-size: 1.2em;
@@ -156,6 +158,7 @@ export default {
   text-align: left;
 }
 .bg-rgba-sp {
+  height: 80px;
   background-color: rgba(255, 255, 255, 0.8);
   position: absolute;
   bottom: 0;
