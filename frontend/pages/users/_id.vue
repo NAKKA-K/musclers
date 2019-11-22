@@ -115,6 +115,64 @@
               <p>{{ user.description }}</p>
             </div>
           </div>
+          <v-col cols="12" class="standard-information">
+            <v-row>
+              <v-col cols="6">
+                年齢：
+              </v-col>
+              <v-col cols="6">
+                {{ user.age }}
+              </v-col>
+              <v-col cols="6">
+                本気度：
+              </v-col>
+              <v-col cols="6">
+                {{ user.seriousness }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                身長：
+              </v-col>
+              <v-col cols="6">
+                {{ user.height }}
+              </v-col>
+              <v-col cols="6">
+                体型：
+              </v-col>
+              <v-col cols="6">
+                {{ user.figure }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                性別：
+              </v-col>
+              <v-col cols="6">
+                {{ user.gender }}
+              </v-col>
+              <v-col cols="6">
+                筋肉量：
+              </v-col>
+              <v-col cols="6">
+                {{ user.muscle_mass }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                体重：
+              </v-col>
+              <v-col cols="6">
+                {{ user.wight }}
+              </v-col>
+              <v-col cols="6">
+                体脂肪率：
+              </v-col>
+              <v-col cols="6">
+                {{ user.body_fat_percentage }}
+              </v-col>
+            </v-row>
+          </v-col>
         </v-tab-item>
         <v-tab-item>
           <!--
@@ -183,14 +241,12 @@ export default {
   font-size: 1.2em;
   text-align: center;
   position: relative;
+  font-size: 16px;
+  text-align: left;
 }
 .sp-user-information h2 {
   font-size: 22px;
   font-weight: 100;
-}
-.sp-user-information p {
-  font-size: 16px;
-  text-align: left;
 }
 .sp-bg-rgba {
   height: 80px;
@@ -212,6 +268,13 @@ export default {
   font-weight: 10;
   margin-top: 16px;
   margin-bottom: 16px;
+}
+.sp-services-wrapper p {
+  margin-bottom: 40px;
+}
+.sp-services-wrapper .user-info {
+  text-align: left;
+  font-size: 1.2em;
 }
 .friend-request-button {
   margin-bottom: 16px;
