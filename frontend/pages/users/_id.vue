@@ -115,20 +115,16 @@
               <p>{{ user.description }}</p>
             </div>
           </div>
-          <v-col cols="12" class="standard-information">
+          <v-col cols="12" class="sp-standard-information">
             <v-row>
               <v-col cols="6">
                 年齢：
               </v-col>
-              <v-col cols="6">
-                {{ user.age }}
-              </v-col>
+              <v-col cols="6"> {{ user.age }}歳 </v-col>
               <v-col cols="6">
                 身長：
               </v-col>
-              <v-col cols="6">
-                {{ user.height }}
-              </v-col>
+              <v-col cols="6"> {{ user.height }}cm </v-col>
               <v-col cols="6">
                 性別：
               </v-col>
@@ -138,9 +134,7 @@
               <v-col cols="6">
                 体重：
               </v-col>
-              <v-col cols="6">
-                {{ user.wight }}
-              </v-col>
+              <v-col cols="6"> {{ user.wight }}kg </v-col>
               <v-col cols="6">
                 本気度：
               </v-col>
@@ -269,6 +263,10 @@ export default {
 .sp-services-wrapper .user-info {
   text-align: left;
   font-size: 1.2em;
+}
+.sp-standard-information {
+  text-align: center;
+  font-size: 1.4em;
 }
 .friend-request-button {
   margin-bottom: 16px;
