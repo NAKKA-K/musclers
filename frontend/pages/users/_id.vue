@@ -141,7 +141,7 @@ export default {
   border-radius: 10px;
 }
 .user-information-sp {
-  padding: 100px 0 100px 0;
+  padding: 0px 0 0 0;
   height: 90vh;
   background-size: cover;
   font-size: 1.2em;
