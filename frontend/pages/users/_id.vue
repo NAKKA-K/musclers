@@ -124,27 +124,11 @@
                 {{ user.age }}
               </v-col>
               <v-col cols="6">
-                本気度：
-              </v-col>
-              <v-col cols="6">
-                {{ user.seriousness }}
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6">
                 身長：
               </v-col>
               <v-col cols="6">
                 {{ user.height }}
               </v-col>
-              <v-col cols="6">
-                体型：
-              </v-col>
-              <v-col cols="6">
-                {{ user.figure }}
-              </v-col>
-            </v-row>
-            <v-row>
               <v-col cols="6">
                 性別：
               </v-col>
@@ -152,18 +136,28 @@
                 {{ user.gender }}
               </v-col>
               <v-col cols="6">
-                筋肉量：
-              </v-col>
-              <v-col cols="6">
-                {{ user.muscle_mass }}
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6">
                 体重：
               </v-col>
               <v-col cols="6">
                 {{ user.wight }}
+              </v-col>
+              <v-col cols="6">
+                本気度：
+              </v-col>
+              <v-col cols="6">
+                {{ user.seriousness }}
+              </v-col>
+              <v-col cols="6">
+                体型：
+              </v-col>
+              <v-col cols="6">
+                {{ user.figure }}
+              </v-col>
+              <v-col cols="6">
+                筋肉量：
+              </v-col>
+              <v-col cols="6">
+                {{ user.muscle_mass }}
               </v-col>
               <v-col cols="6">
                 体脂肪率：
