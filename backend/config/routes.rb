@@ -9,6 +9,7 @@ Rails.application.routes.draw do
           post '/', to: 'direct_message_groups#create'
         end
       end
+      resources :groups, only: [:index, :show]
     end
   end
 
