@@ -78,10 +78,10 @@
     <div class="sp">
       <div
         :style="{ 'background-image': 'url(' + user.thumbnail + ')' }"
-        class="user-information-sp"
+        class="sp-user-information"
       >
         <v-col cols="3" offset-md="1">
-          <div class="container bg-rgba-sp">
+          <div class="container sp-bg-rgba">
             <h2>{{ user.nickname }}</h2>
             <p>
               名前：{{ user.age }}歳&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -90,9 +90,20 @@
           </div>
         </v-col>
       </div>
-      <div class="services-wrapper">
-        <v-img class="slide-image" :src="user.thumbnail"></v-img>
-        <a>test</a>
+      <div class="sp-services-wrapper">
+        <div class="container">
+          <v-img class="sp-slide-image" :src="user.thumbnail"></v-img>
+          <h2>{{ user.nickname }}</h2>
+          <v-btn
+            block
+            outlined
+            class="friend-request-button"
+            color="blue lighten-1"
+          >
+            友達申請をする
+          </v-btn>
+          <p>{{ user.description }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -148,27 +159,45 @@ export default {
   border-radius: 10px;
 }
 /* sp site css */
-.user-information-sp {
+.sp-user-information {
   height: 90vh;
   background-size: cover;
   font-size: 1.2em;
   text-align: center;
   position: relative;
 }
-.user-information-sp h2 {
+.sp-user-information h2 {
   font-size: 22px;
   font-weight: 100;
 }
-.user-information-sp p {
+.sp-user-information p {
   font-size: 16px;
   text-align: left;
 }
-.bg-rgba-sp {
+.sp-bg-rgba {
   height: 80px;
   background-color: rgba(255, 255, 255, 0.8);
   position: absolute;
   left: 0;
   bottom: 0;
+}
+.sp-slide-image {
+  width: 350px;
+  height: 200px;
+  border-radius: 10px;
+}
+.sp-services-wrapper {
+  padding-top: 10px;
+}
+.sp-services-wrapper h2 {
+  font-size: 22px;
+  font-weight: 10;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.friend-request-button {
+  margin-bottom: 16px;
+  text-align: center;
 }
 /* pc site css */
 .user-information {
