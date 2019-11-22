@@ -90,21 +90,39 @@
           </div>
         </v-col>
       </div>
-      <div class="sp-services-wrapper">
-        <div class="container">
-          <v-img class="sp-slide-image" :src="user.thumbnail"></v-img>
-          <h2>{{ user.nickname }}</h2>
-          <v-btn
-            block
-            outlined
-            class="friend-request-button"
-            color="blue lighten-1"
-          >
-            友達申請をする
-          </v-btn>
-          <p>{{ user.description }}</p>
-        </div>
-      </div>
+      <v-tabs v-model="tab" fixed-tabs background-color="#FEBA00">
+        <v-tab>
+          基本情報
+        </v-tab>
+        <v-tab>
+          自慢の部位
+        </v-tab>
+      </v-tabs>
+      <v-tabs-items v-model="tab">
+        <v-tab-item>
+          <div class="sp-services-wrapper">
+            <div class="container">
+              <v-img class="sp-slide-image" :src="user.thumbnail"></v-img>
+              <h2>{{ user.nickname }}</h2>
+              <v-btn
+                block
+                outlined
+                class="friend-request-button"
+                color="blue lighten-1"
+              >
+                友達申請をする
+              </v-btn>
+              <p>{{ user.description }}</p>
+            </div>
+          </div>
+        </v-tab-item>
+        <v-tab-item>
+          <!--
+            TODO: 自慢の部位が登録できるようになった時に
+                  画面をデザインして実装する
+          -->
+        </v-tab-item>
+      </v-tabs-items>
     </div>
   </div>
 </template>
