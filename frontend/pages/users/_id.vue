@@ -82,7 +82,26 @@
       >
         <v-col cols="3" offset-md="1">
           <div class="container sp-bg-rgba">
-            <h2>{{ user.nickname }}</h2>
+            <v-row>
+              <h2>{{ user.nickname }}</h2>
+              <div style="flex-end;">
+                <div v-if="user.seriousness === '未設定'">
+                  <v-icon color="red">star</v-icon>
+                  <v-icon>star</v-icon>
+                  <v-icon>star</v-icon>
+                </div>
+                <div v-else-if="user.seriousness === 'エンジョイ'">
+                  <v-icon color="red">star</v-icon>
+                  <v-icon color="red">star</v-icon>
+                  <v-icon>star</v-icon>
+                </div>
+                <div v-else-if="user.seriousness === 'ガチ'">
+                  <v-icon color="red">star</v-icon>
+                  <v-icon color="red">star</v-icon>
+                  <v-icon color="red">star</v-icon>
+                </div>
+              </div>
+            </v-row>
             <p>
               名前：{{ user.age }}歳&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               体型：{{ user.figure }}
