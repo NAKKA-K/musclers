@@ -13,13 +13,13 @@ RSpec.describe DirectMessageGroup, type: :model do
     context "when not exest by_user_id or to_user_id into User table" do
       before do
         create(:user)
-        @exist_user_id = User.first.id
+        @exist_user = User.first
         @not_exist_user_id = User.last.id + 1
       end
 
       it "raise error ActiveRecord::RecordInvalid" do
-        expect{ DirectMessageGroup.create!(by_user_id:@exist_user_id,to_user_id:@not_exist_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
-        expect{ DirectMessageGroup.create!(by_user_id:@not_exist_user_id,to_user_id:@exist_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
+        expect{ @exist_user.by_users.create!(to_user_id:@not_exist_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
+        expect{ @exist_user.to_users.create!(by_user_id:@not_exist_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
@@ -68,16 +68,16 @@ RSpec.describe DirectMessageGroup, type: :model do
         @secound_user = User.last
 
         @first_user.by_users.create!(to_user_id:@secound_user.id)
-        @dm_group_id = DirectMessageGroup.first.id
+        @first_dm_group = DirectMessageGroup.first
 
-        @first_user.send_users.create!(body:"huga",direct_message_group_id:@dm_group_id)
-        @secound_user.send_users.create!(body:"hoge",direct_message_group_id:@dm_group_id)
+        @first_user.send_users.create!(body:"huga",direct_message_group_id:@first_dm_group.id)
+        @secound_user.send_users.create!(body:"hoge",direct_message_group_id:@first_dm_group.id)
       end
 
       context "when exist direct_message_goup_id and send_user_id into DirectMessageGroup and User table" do  
         it "confirm direct messages" do
           dm_list = DirectMessageGroup.first.direct_messages
-          dm_count = DirectMessage.where(direct_message_group_id:@dm_group_id).count
+          dm_count = DirectMessage.where(direct_message_group_id:@first_dm_group.id).count
           expect( dm_list.count ).to eq dm_count
         end  
       end
@@ -86,9 +86,9 @@ RSpec.describe DirectMessageGroup, type: :model do
         it "raise error ActiveRecord::RecordInvalid" do
           @not_exist_dm_group_id = DirectMessageGroup.last.id + 1
           @not_exist_user_id = @secound_user.id + 1
-
-          expect{ DirectMessage.create!(body:"huga",direct_message_group_id:@dm_group_id,send_user_id:@not_exist_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
-          expect{ DirectMessage.create!(body:"hoge",direct_message_group_id:@not_exist_dm_group_id,send_user_id:@secound_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
+          
+          expect{ @first_dm_group.direct_messages.create!(body:"hugaaaaa",send_user_id:@not_exist_user_id) }.to raise_error(ActiveRecord::RecordInvalid)
+          expect{ @secound_user.send_users.create!(body:"hogeee",direct_message_group_id:@not_exist_dm_group_id) }.to raise_error(ActiveRecord::RecordInvalid)
         end
       end
 
