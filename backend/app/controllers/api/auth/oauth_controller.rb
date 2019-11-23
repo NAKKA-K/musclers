@@ -14,6 +14,7 @@ module Api
 
         status = 200
         if @user.new_record?
+          @user.nickname = auth_params[:nickname].blank? ? "" : auth_params[:nickname]
           @user.email = auth_params[:email].blank? ? "" : auth_params[:email]
           status = 201
 
@@ -35,7 +36,7 @@ module Api
       end
 
       def auth_params
-        params.permit(:provider, :uid, :email)
+        params.permit(:provider, :uid, :nickname, :email)
       end
     end
   end
