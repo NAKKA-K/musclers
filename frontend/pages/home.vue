@@ -14,8 +14,12 @@
             <div align="center">
               <v-container>
                 <v-row>
-                  <v-col cols="6">
-                    <img class="img-size" />
+                  <v-col v-for="group in groups" :key="group.id" cols="6">
+                    <nuxt-link
+                      :to="{ name: 'groups-id', params: { id: group.id } }"
+                    >
+                      <v-img :src="group.thumbnail" class="img-size" />
+                    </nuxt-link>
                     <h4>{{ group.name }}</h4>
                   </v-col>
                   <v-col cols="12">
@@ -146,11 +150,11 @@ export default {
       items: ['トップ', '参加中のグループ', '通知', 'おすすめユーザー']
     }
   },
-  async asyncData({ $axios, params }) {
-    const group = await $axios.$get(`/api/groups`)
+  async asyncData({ $axios }) {
+    const groups = await $axios.$get(`/mock/api/groups`)
 
     return {
-      group
+      groups
     }
   }
 }
