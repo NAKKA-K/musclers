@@ -1,8 +1,10 @@
 class Api::TagsController < ApplicationController
+  skip_before_action :authenticate_user_from_token!, only: [:index]
+
   #Tagすべての一覧を返すアクション
   def index
     @tags = Tag.all
-    succress_res(
+    success_res(
       200,
       message: 'タグ一覧を表示',
       data: @tags,
