@@ -4,22 +4,22 @@
 
     <v-form>
       <v-text-field
-        v-model="group.name"
+        v-model="$v.group.name.$model"
         :error-messages="nameErrors"
         :counter="128"
         label="グループ名"
         required
-        @blur="$v.name.$touch()"
+        @blur="$v.group.name.$touch()"
       >
       </v-text-field>
 
       <v-text-field
-        v-model="group.description"
+        v-model="$v.group.description.$model"
         :error-messages="descriptionErrors"
         :counter="2048"
         label="内容"
         required
-        @blur="$v.description.$touch()"
+        @blur="$v.group.description.$touch()"
       >
       </v-text-field>
 
@@ -28,9 +28,21 @@
       <v-select
         v-model="group.tags"
         :items="tags"
+        item-text="name"
+        item-value="name"
+        chips
         label="タグ"
         multiple
       ></v-select>
+
+      <v-btn
+        type="submit"
+        class="d-flex ml-auto"
+        color="primary"
+        @click.prevent="sendNewGroup"
+      >
+        作成する
+      </v-btn>
     </v-form>
   </div>
 </template>
@@ -52,35 +64,36 @@ export default {
   }),
 
   validations: {
-    name: {
-      required,
-      maxLength: maxLength(128)
-    },
-    description: {
-      required,
-      maxLength: maxLength(2048)
+    group: {
+      name: {
+        required,
+        maxLength: maxLength(128)
+      },
+      description: {
+        required,
+        maxLength: maxLength(2048)
+      }
     }
   },
 
   computed: {
     nameErrors() {
       const errors = []
-      if (!this.$v.name.$dirty) return errors
-      console.log(this.group.name)
-      !this.$v.name.required && errors.push('入力してください')
-      !this.$v.name.maxLength &&
+      if (!this.$v.group.name.$dirty) return errors
+      !this.$v.group.name.required && errors.push('入力してください')
+      !this.$v.group.name.maxLength &&
         errors.push(
-          `${this.$v.name.$params.maxLength.max}文字以内で入力してください`
+          `${this.$v.group.name.$params.maxLength.max}文字以内で入力してください`
         )
       return errors
     },
     descriptionErrors() {
       const errors = []
-      if (!this.$v.description.$dirty) return errors
-      !this.$v.description.required && errors.push('入力してください')
-      !this.$v.description.maxLength &&
+      if (!this.$v.group.description.$dirty) return errors
+      !this.$v.group.description.required && errors.push('入力してください')
+      !this.$v.group.description.maxLength &&
         errors.push(
-          `${this.$v.description.$params.maxLength.max}文字以内で入力してください`
+          `${this.$v.group.description.$params.maxLength.max}文字以内で入力してください`
         )
       return errors
     }
@@ -91,7 +104,6 @@ export default {
       .$get('/api/tags')
       .then((res) => res.data)
       .catch(() => [])
-    console.log(tags)
 
     return {
       tags
@@ -99,7 +111,7 @@ export default {
   },
 
   methods: {
-    sendNewGroup() {
+    sendNewGroup(e) {
       const group = {
         name: this.group.name,
         description: this.group.description,
@@ -109,7 +121,8 @@ export default {
       this.$axios
         .$post('/mock/api/groups', group)
         .then((res) => {
-          this.$route.push(`/groups/${res.data.id}`)
+          console.log(res)
+          this.$router.push(`/groups/${res.data.id}`)
         })
         .catch((err) => {
           // TODO: 戻ってきたエラーを処理したい
