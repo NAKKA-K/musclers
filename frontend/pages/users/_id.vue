@@ -21,10 +21,10 @@
             <h3>情報</h3>
           </div>
           <v-row>
-            <v-col cols="5" offset-md="1">
+            <v-col cols="4" offset-md="1">
               <v-img class="profile-image" :src="user.thumbnail"></v-img>
             </v-col>
-            <v-col cols="7" class="standard-information">
+            <v-col cols="5" class="standard-information">
               <v-row>
                 <v-col cols="5">
                   <p>年齢： {{ user.age }}</p>
