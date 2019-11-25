@@ -32,6 +32,18 @@ module Api
     def update
       begin
         @user = User.find(params[:id])
+
+        #Nicknameの更新
+        @user.update!(nickname: params[:nickname]) 
+          success_res(200, message: 'ニックネームを更新しました') and return
+      rescue ActiveRecord::RecordNotFound
+          error_res(422, message: 'ニックネームは64文字以内にしてください',err: e.record.errors) and return
+      rescue => e
+          logger.error(e)
+        error_res(500, message: '更新に失敗しました',err: '更新に失敗しました') and return
+      end
+        
+      　#Emailの更新
         @user.update!(email: params[:email])
         success_res(200, message: 'Eメールを更新しました') and return
       rescue ActiveRecord::RecordNotFound
