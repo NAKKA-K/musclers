@@ -84,7 +84,7 @@
           <div class="container sp-bg-rgba">
             <v-row>
               <h2>{{ user.nickname }}</h2>
-              <v-layout class="justify-end" style="margin-right: 10px;">
+              <v-layout class="justify-end mr-3">
                 <div v-if="user.seriousness === '未設定'">
                   <v-icon color="red">star</v-icon>
                   <v-icon>star</v-icon>
@@ -203,6 +203,34 @@
             TODO: 自慢の部位が登録できるようになった時に
                   画面をデザインして実装する
           -->
+          <div v-swiper:mySwiper="swiperOption" class="swiper-container">
+            <ul class="swiper-wrapper">
+              <v-img
+                class="slide-image swiper-slide"
+                :src="user.thumbnail"
+              ></v-img>
+              <v-img
+                class="slide-image swiper-slide"
+                :src="user.thumbnail"
+              ></v-img>
+              <v-img
+                class="slide-image swiper-slide"
+                :src="user.thumbnail"
+              ></v-img>
+              <v-img
+                class="slide-image swiper-slide"
+                :src="user.thumbnail"
+              ></v-img>
+              <v-img
+                class="slide-image swiper-slide"
+                :src="user.thumbnail"
+              ></v-img>
+            </ul>
+            <div class="outlined">
+              <button class="swiper-button-prev" type="button"></button>
+              <button class="swiper-button-next" type="button"></button>
+            </div>
+          </div>
         </v-tab-item>
       </v-tabs-items>
     </div>
