@@ -84,21 +84,23 @@
           <div class="container sp-bg-rgba">
             <v-row>
               <h2>{{ user.nickname }}</h2>
-              <div v-if="user.seriousness === '未設定'">
-                <v-icon color="red">star</v-icon>
-                <v-icon>star</v-icon>
-                <v-icon>star</v-icon>
-              </div>
-              <div v-else-if="user.seriousness === 'エンジョイ'">
-                <v-icon color="red">star</v-icon>
-                <v-icon color="red">star</v-icon>
-                <v-icon>star</v-icon>
-              </div>
-              <div v-else-if="user.seriousness === 'ガチ'">
-                <v-icon color="red">star</v-icon>
-                <v-icon color="red">star</v-icon>
-                <v-icon color="red">star</v-icon>
-              </div>
+              <v-layout class="justify-end" style="margin-right: 10px;">
+                <div v-if="user.seriousness === '未設定'">
+                  <v-icon color="red">star</v-icon>
+                  <v-icon>star</v-icon>
+                  <v-icon>star</v-icon>
+                </div>
+                <div v-else-if="user.seriousness === 'エンジョイ'">
+                  <v-icon color="red">star</v-icon>
+                  <v-icon color="red">star</v-icon>
+                  <v-icon>star</v-icon>
+                </div>
+                <div v-else-if="user.seriousness === 'ガチ'">
+                  <v-icon color="red">star</v-icon>
+                  <v-icon color="red">star</v-icon>
+                  <v-icon color="red">star</v-icon>
+                </div>
+              </v-layout>
             </v-row>
             <p>
               名前：{{ user.age }}歳&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
