@@ -30,28 +30,15 @@ module Api
     end
 
     def update
-      #普通の処理
       begin
         @user = User.find(params[:id])
 
-      　#　nicknameとEmailの値をに渡す
         @user.update!(nickaname: params[:nickname], email: params[:email])
-        ##　無事に両方更新できました。returnで抜ける
         success_res(200, message: 'ニックネームとEメールを更新しました') and return
-
-      #　⑴　見つかんねーぞ！！！の場合の処理
       rescue ActiveRecord::RecordNotFound
         error_res(404, message: 'ユーザが存在しません',err: 'ユーザが存在しません') and return
-        
-      #　⑵　想定した値とちゃうぞ！！！！場合の処理
-      #　usersモデルで想定した値か否か判定している。
       rescue ActiveRecord::RecordInvalid => e
-        # 必要なエラー文(２つともだったり片方だけだったり)を受け取る
-        error_res(422, mesage: user.errors.message, err: user.errors.message) and return
-        #error_res(422, message: 'ニックネームは64文字以内にしてください',err: e.record.errors) and return
-        #error_res(422, message: '入力内容が正しくありません',err: e.record.errors) and return
-
-      #　結局更新できへんかったでの失敗しました。
+        error_res(422, message: '入力内容が正しくありません', err: e.record.errors) and return
       rescue => e
         logger.error(e)
         error_res(500, message: '更新に失敗しました',err: '更新に失敗しました') and return
