@@ -46,7 +46,7 @@ export default {
 
   async asyncData({ $axios }) {
     const groups = await $axios
-      .$get('/mock/api/user/direct_message_groups')
+      .$get('api/user/direct_message_groups')
       .then((res) => res.data)
       .catch(() => [])
 
