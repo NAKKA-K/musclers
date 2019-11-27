@@ -5,8 +5,8 @@ class CreateBlogs < ActiveRecord::Migration[5.2]
       t.references :user, foreign_key: {to_table: :users}
       t.string :titile
       t.text :body
-      t.string :thumbnail
-
+      #　ブログサムネのカラム、取り敢えず保留
+      #　t.string :thumbnail
 
       t.timestamps
     end
