@@ -86,6 +86,12 @@ export default {
       group,
       messages
     }
+  },
+
+  mounted() {
+    // BUG: タグが変わりません
+    const tab = this.$route.query.tab
+    this.tab = tab >= 0 && tab <= 2 ? tab : null
   }
 }
 </script>
