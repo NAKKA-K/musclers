@@ -14,7 +14,7 @@
               <v-list-item-title>
                 {{ item.opponent.nickname }}
                 <span
-                  v-if="item.latest_message !== null"
+                  v-if="item.latest_message"
                   class="grey--text text--lighten-1"
                 >
                   {{ item.latest_message.created_at }}
@@ -23,7 +23,7 @@
                   <v-spacer></v-spacer>
                 </span>
               </v-list-item-title>
-              <v-list-item-subtitle v-if="item.latest_message !== null">
+              <v-list-item-subtitle v-if="item.latest_message">
                 {{ item.latest_message.body }}
               </v-list-item-subtitle>
               <v-list-item-subtitle v-else>
