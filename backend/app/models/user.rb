@@ -12,6 +12,7 @@ class User < ApplicationRecord
             class_name: "DirectMessage",
             foreign_key: :send_user_id,
             :dependent => :destroy
+  has_many :information, :dependent => :destroy
   has_one_attached :thumbnail
 
   #モデル側でのNicknameとEmailの正しい値か判定
