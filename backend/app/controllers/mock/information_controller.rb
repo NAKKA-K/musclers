@@ -4,7 +4,7 @@ module Mock
       data = 10.times.map do |i|
         {
           id: i,
-          type: rand(4),
+          type: rand_type,
           by_name: '筋肉モンスターたちの集会所',
           link: '/groups/1',
           is_read: false,
@@ -15,6 +15,12 @@ module Mock
       end
 
       success_res(200, message: '[Mock]: 取得しました', data: data) and return
+    end
+
+    private
+
+    def rand_type
+      Information.types_i18n.to_a[rand(4)][1]
     end
   end
 end
