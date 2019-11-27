@@ -78,6 +78,10 @@ class User < ApplicationRecord
     .with_attached_thumbnail 
   }
 
+  def self.fetch_users(user_ids)
+    where(id: user_ids).with_attached_thumbnail 
+  end
+
   def self.fetch_recommend_users_in(params)
     recommend_user_list = []
     figure = params[:figure].present? ? params[:figure] : nil

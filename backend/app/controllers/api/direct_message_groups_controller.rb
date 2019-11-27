@@ -41,18 +41,18 @@ module Api
     end
 
     def make_user_data_of_dm_list_hash(dm_list)
-      user_id_list = []
+      user_ids = []
       dm_list.each do |item|
-        unless user_id_list.include?(item.by_user_id)
-          user_id_list << item.by_user_id
+        unless user_ids.include?(item.by_user_id)
+          user_ids << item.by_user_id
         end
 
-        unless user_id_list.include?(item.to_user_id)
-          user_id_list << item.to_user_id
+        unless user_ids.include?(item.to_user_id)
+          user_ids << item.to_user_id
         end
       end
 
-      users_data = User.where(id: user_id_list).with_attached_thumbnail 
+      users_data = User.fetch_users(user_ids)
       hash = users_data.map { |user| [user.id, user] }.to_h
 
       hash
