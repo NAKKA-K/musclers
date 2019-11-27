@@ -108,7 +108,6 @@ entity "blogs" {
     # user_id [FK(users,id)]
     title:string
     description:text
-    figure:uint
 }
 users --o{ blogs
 
