@@ -10,11 +10,10 @@ module Api
     private
 
     def make_dm_list_data
-      data = []
       current_user_dm_list = [] + current_user.by_users + current_user.to_users
 
       unless current_user_dm_list.present?
-        nil
+        return nil
       end
 
       users_data = make_user_data_of_dm_list_hash(current_user_dm_list)
@@ -22,7 +21,7 @@ module Api
 
       current_user_dm_list.map do |item|
         latest_message = latest_messages.find { |message| message.direct_message_group_id == item.id }
-        data << {
+        {
           "id": item.id,
           "by_user": UserSerializer.new(users_data.find {|user| user.id == item.by_user_id }).as_json,
           "to_user": UserSerializer.new(users_data.find {|user| user.id == item.to_user_id }).as_json,
@@ -45,16 +44,12 @@ module Api
         end
       end
 
-      users_data = User.fetch_users(user_ids)
-
-      users_data
+      User.fetch_users(user_ids)
     end
 
     def make_latest_messages_hash(dm_list)
       direct_message_group_ids = dm_list.map {|item| item.id }.uniq
-      direct_messages = DirectMessage.fetch_direct_message_data(direct_message_group_ids)
-
-      direct_messages
+      DirectMessage.fetch_direct_message_data(direct_message_group_ids)
     end
 
   end
