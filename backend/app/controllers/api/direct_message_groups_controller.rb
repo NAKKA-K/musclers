@@ -20,20 +20,17 @@ module Api
       users_data = make_user_data_of_dm_list_hash(current_user_dm_list)
       latest_messages = make_latest_messages_hash(current_user_dm_list)
 
-      current_user_dm_list.each do |item|
+      current_user_dm_list.map do |item|
         latest_message = latest_messages.find { |message| message.direct_message_group_id == item.id }
-
         data << {
           "id": item.id,
           "by_user": UserSerializer.new(users_data.find {|user| user.id == item.by_user_id }).as_json,
           "to_user": UserSerializer.new(users_data.find {|user| user.id == item.to_user_id }).as_json,
           "created_at": created_date(item.created_at),
           "updated_at": updated_date(item.updated_at),
-          "latest_message": latest_message.nil? ? LatestMessageSerializer.new(latest_message) : nil
+          "latest_message": latest_message.present? ? LatestMessageSerializer.new(latest_message) : nil
         }
       end
-
-      data
     end
 
     def make_user_data_of_dm_list_hash(dm_list)
