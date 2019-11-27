@@ -102,15 +102,6 @@ entity "friends" {
 users --|{ friends
 users }|-- friends
 
-entity "blog_tags" {
-    + id [PK]
-    ==
-    # tag_id [FK(users,id)]
-    # blog_id [FK(tags,id)]
-}
-tags --o{ tags
-blogs --o{ blogs
-
 entity "blogs" {
     + id [PK]
     ==
