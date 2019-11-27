@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :user_tags
+  has_many :blogs
   has_many :by_users,
             class_name: "DirectMessageGroup", 
             foreign_key: :by_user_id, 
