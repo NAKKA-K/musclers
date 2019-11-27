@@ -21,17 +21,16 @@ module Api
         data
       end
 
-      users_data_hash = fetch_user_data_of_dm_list_hash(current_user_dm_list,current_user.id)
-      current_user_dm_list.each do |item|
-        latest_message = DirectMessage.where(direct_message_group_id:item.id).order(created_at: "DESC").first
+      users_data_hash = make_user_data_of_dm_list_hash(current_user_dm_list)
+      latest_messages_hash = make_latest_messages_hash(current_user_dm_list)
 
-        by_user = users_data_hash[item.by_user_id]
-        to_user = users_data_hash[item.to_user_id]
+      current_user_dm_list.each do |item|
+        latest_message = latest_messages_hash.include?(item.id) ? latest_messages_hash[item.id] : nil
 
         data << {
           "id": item.id,
-          "by_user": UserSerializer.new(by_user).as_json,
-          "to_user": UserSerializer.new(to_user).as_json,
+          "by_user": UserSerializer.new(users_data_hash[item.by_user_id]).as_json,
+          "to_user": UserSerializer.new(users_data_hash[item.to_user_id]).as_json,
           "created_at": created_date(item.created_at),
           "updated_at": updated_date(item.updated_at),
           "latest_message": LatestMessageSerializer.new(latest_message).as_json
@@ -41,7 +40,7 @@ module Api
       data
     end
 
-    def fetch_user_data_of_dm_list_hash(dm_list,current_user_id)
+    def make_user_data_of_dm_list_hash(dm_list)
       user_id_list = []
       dm_list.each do |item|
         unless user_id_list.include?(item.by_user_id)
@@ -55,6 +54,21 @@ module Api
 
       users_data = User.where(id: user_id_list).with_attached_thumbnail 
       hash = users_data.map { |user| [user.id, user] }.to_h
+
+      hash
+    end
+
+    def make_latest_messages_hash(dm_list)
+      direct_message_group_id_list = []
+
+      dm_list.each do |item|
+        unless direct_message_group_id_list.include?(item.id)
+          direct_message_group_id_list << item.id
+        end
+      end
+
+      direct_messages = DirectMessage.fetch_direct_message_data(direct_message_group_id_list)
+      hash = direct_messages.map { |message| [message.direct_message_group_id, message] }.to_h
 
       hash
     end
