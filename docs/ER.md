@@ -21,7 +21,7 @@ entity "users" {
     seriousness:uint
 }
 
-entity "informations" {
+entity "information" {
     + id [PK]
     ==
     type:integer
@@ -30,7 +30,7 @@ entity "informations" {
     is_read:boolean
     # user_id [FK(users,id)]
 }
-users --o{ informations
+users --o{ information
 
 entity "tags" {
     + id [PK]

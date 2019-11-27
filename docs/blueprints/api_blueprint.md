@@ -312,7 +312,7 @@ Muscler'sのAPI仕様書
         }
 
 
-## MyInformations [/api/user/informations]
+## MyInformations [/api/user/information]
 
 ### 自分の通知一覧を取得する [GET]
 
