@@ -12,6 +12,7 @@ module Mock
           "latest_message": {
             "id": 1,
             "body": "君はもうバッチリ筋肉追い込んだかい！！？",
+            "send_user_id": current_user.id,
             "created_at": "2019-11-19 04:58:55",
             "updated_at": "2019-11-19 04:58:55"
           }
