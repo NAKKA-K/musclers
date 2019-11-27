@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         resources :direct_message_groups, only: [:index, :show] do
           post '/', to: 'direct_message_groups#create'
         end
-        get :information, to: 'informations#index'
+        resources :information, only: [:index]
       end
       resources :groups, only: [:index, :show, :create] do
         get '/messages', to: 'group_messages#show'
