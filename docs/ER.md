@@ -102,5 +102,15 @@ entity "friends" {
 users --|{ friends
 users }|-- friends
 
+entity "blogs" {
+    + id [PK]
+    ==
+    # user_id [FK(user,id)]
+    title:string
+    description:text
+    figure:uint
+}
+users --o{ blogs
+
 @enduml
 ```
