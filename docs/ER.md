@@ -105,7 +105,7 @@ users }|-- friends
 entity "blogs" {
     + id [PK]
     ==
-    # user_id [FK(user,id)]
+    # user_id [FK(users,id)]
     title:string
     description:text
     figure:uint
