@@ -1,12 +1,10 @@
 module Mock
   class InformationController < ApplicationController
     def index
-      data = []
-
-      10.times.map do |i|
+      data = 10.times.map do |i|
         {
           id: i,
-          type: random(4),
+          type: rand(4),
           by_name: '筋肉モンスターたちの集会所',
           link: '/groups/1',
           is_read: false,
