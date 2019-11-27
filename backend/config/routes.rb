@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         resources :direct_message_groups, only: [:index, :show] do
           post '/', to: 'direct_message_groups#create'
         end
+        get :information, to: 'informations#index'
       end
       resources :groups, only: [:index, :show, :create] do
         get '/messages', to: 'group_messages#show'
@@ -32,9 +33,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :tags do
-    end
+    resources :tags
 
+    scope :user do
+      resources :information, only: [:index]
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
