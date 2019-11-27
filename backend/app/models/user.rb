@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_many :user_tags
   has_many :by_users,
-            class_name: "DirectMessageGroup", 
-            foreign_key: :by_user_id, 
+            class_name: "DirectMessageGroup",
+            foreign_key: :by_user_id,
             :dependent => :destroy
   has_many :to_users,
             class_name: "DirectMessageGroup",
@@ -53,10 +53,10 @@ class User < ApplicationRecord
   scope :where_between_height_or_all, ->(heightMin, heightMax) {
     where(height: (heightMin ||= 0)...(heightMax ||= 999)) if heightMin.present? || heightMax.present?
   }
-  scope :search_random_users_limit, ->(number) { 
+  scope :search_random_users_limit, ->(number) {
     order(Arel.sql("RANDOM()"))
     .limit(number)
-    .with_attached_thumbnail 
+    .with_attached_thumbnail
   }
   scope :search_recommend_users_by_figure_and_seriousness, ->(figure, seriousness,number) {
     where_figures_or_all(figure)
@@ -70,14 +70,14 @@ class User < ApplicationRecord
     where_figures_or_all(figure)
     .order(Arel.sql("RANDOM()"))
     .limit(number)
-    .with_attached_thumbnail 
+    .with_attached_thumbnail
   }
 
   scope :search_recommend_users_by_seriousness, ->(seriousness,number) {
     where_seriousness_or_all(seriousness)
     .order(Arel.sql("RANDOM()"))
     .limit(number)
-    .with_attached_thumbnail 
+    .with_attached_thumbnail
   }
 
   def self.fetch_recommend_users_in(params)
@@ -154,5 +154,5 @@ class User < ApplicationRecord
       recommend_user_list += User.search_random_users_limit(20 - list_count)
     end
     recommend_user_list
-  end  
+  end
 end
