@@ -111,5 +111,14 @@ entity "blogs" {
 }
 users --o{ blogs
 
+entity "blog_tags" {
+    + id [PK]
+    ==
+    # blog_id [FK(blogs,id)]
+    # tag_id [FK(tags,id)]
+}
+blogs --o{ user_tags
+tags --o{ user_tags
+
 @enduml
 ```
