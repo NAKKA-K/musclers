@@ -11,10 +11,7 @@ module Api
 
     def make_dm_list_data
       data = []
-
-      current_user_dm_list = []
-      current_user_dm_list += current_user.by_users
-      current_user_dm_list += current_user.to_users
+      current_user_dm_list = [] + current_user.by_users + current_user.to_users
 
       unless current_user_dm_list.present?
         nil
