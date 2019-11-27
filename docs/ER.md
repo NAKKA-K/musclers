@@ -24,7 +24,9 @@ entity "users" {
 entity "informations" {
     + id [PK]
     ==
-    body:string
+    type:integer
+    by_name:string
+    link:string
     is_read:boolean
     # user_id [FK(users,id)]
 }
