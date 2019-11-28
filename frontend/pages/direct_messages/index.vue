@@ -13,12 +13,21 @@
             <v-list-item-content>
               <v-list-item-title>
                 {{ item.opponent.nickname }}
-                <span class="grey--text text--lighten-1">
+                <span
+                  v-if="item.latest_message"
+                  class="grey--text text--lighten-1"
+                >
                   {{ item.latest_message.created_at }}
                 </span>
+                <span v-else>
+                  <v-spacer></v-spacer>
+                </span>
               </v-list-item-title>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle v-if="item.latest_message">
                 {{ item.latest_message.body }}
+              </v-list-item-subtitle>
+              <v-list-item-subtitle v-else>
+                <v-spacer></v-spacer>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -46,7 +55,7 @@ export default {
 
   async asyncData({ $axios }) {
     const groups = await $axios
-      .$get('/mock/api/user/direct_message_groups')
+      .$get('api/user/direct_message_groups')
       .then((res) => res.data)
       .catch(() => [])
 

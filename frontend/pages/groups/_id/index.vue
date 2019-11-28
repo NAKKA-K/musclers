@@ -23,9 +23,36 @@
           <h5 class="mb-2">概要</h5>
           {{ group.description }}
         </v-tab-item>
+
         <v-tab-item class="flat-background">
-          グループチャット
+          <template v-for="(item, index) in messages">
+            <v-list
+              :id="`message-${index}`"
+              :key="index"
+              three-line
+              class="pa-0 flat-background"
+            >
+              <v-list-item>
+                <v-list-item-avatar>
+                  <v-img :src="item.send_user.thumbnail"></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ item.send_user.nickname || 'unknown' }}
+                    <span class="grey--text text--lighten-1">
+                      {{ item.updated_at }}
+                    </span>
+                  </v-list-item-title>
+                  <v-list-item-subtitle class="d-block">
+                    {{ item.body }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </template>
         </v-tab-item>
+
         <v-tab-item class="flat-background">
           グループメンバー
         </v-tab-item>
@@ -42,6 +69,7 @@ export default {
 
   data: () => ({
     group: null,
+    messages: null,
     tabs: ['詳細', 'チャット', 'メンバー'],
     tab: null
   }),
@@ -50,10 +78,20 @@ export default {
     const group = await $axios
       .$get(`/mock/api/groups/${params.id}`)
       .then((res) => res.data)
+    const messages = await $axios
+      .$get(`/mock/api/groups/${params.id}/messages`)
+      .then((res) => res.data)
 
     return {
-      group
+      group,
+      messages
     }
+  },
+
+  mounted() {
+    // BUG: タグが変わりません
+    const tab = this.$route.query.tab
+    this.tab = tab >= 0 && tab <= 2 ? tab : null
   }
 }
 </script>
