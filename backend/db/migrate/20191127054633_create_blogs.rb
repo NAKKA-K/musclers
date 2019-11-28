@@ -2,7 +2,7 @@ class CreateBlogs < ActiveRecord::Migration[5.2]
   def change
     create_table :blogs do |t|
       #user_idという名前で外部キー制約
-      t.references :user, foreign_key: {to_table: :users}
+      t.references :user, foreign_key: true
       t.string :title
       t.text :body
       #　ブログサムネのカラム、取り敢えず保留
