@@ -16,12 +16,12 @@
                 <v-row>
                   <v-col v-for="group in groups" :key="group.id" cols="6">
                     <nuxt-link
+                      v-if="group.id <= 2"
                       :to="{ name: 'groups-id', params: { id: group.id } }"
                     >
                       <v-img :src="group.thumbnail" class="img-size" />
                     </nuxt-link>
-                    <h4>{{ group.name }}</h4>
-                    <joingroup />
+                    <h4 v-if="group.id <= 2">{{ group.name }}</h4>
                   </v-col>
                   <v-col cols="12">
                     <a @click="tab++">もっと見る</a>
@@ -173,5 +173,8 @@ h2 {
   width: 121px;
   height: 121px;
   border-radius: 50%;
+}
+.text-position {
+  margin-right: 500px;
 }
 </style>
