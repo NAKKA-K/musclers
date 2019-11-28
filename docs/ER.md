@@ -28,6 +28,7 @@ entity "information" {
     by_name:string
     link:string
     is_read:boolean
+    thumbnail:string
     # user_id [FK(users,id)]
 }
 users --o{ information

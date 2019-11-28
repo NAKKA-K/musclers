@@ -20,5 +20,10 @@ RSpec.describe "Information", type: :request do
       get api_information_index_path, headers: @headers
       expect(response).to have_http_status(200)
     end
+
+    it "mock works! (now write some real specs)" do
+      get mock_information_index_path, headers: @headers
+      expect(response).to have_http_status(200)
+    end
   end
 end
