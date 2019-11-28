@@ -3,7 +3,7 @@ class CreateBlogs < ActiveRecord::Migration[5.2]
     create_table :blogs do |t|
       #user_idという名前で外部キー制約
       t.references :user, foreign_key: {to_table: :users}
-      t.string :titile
+      t.string :title
       t.text :body
       #　ブログサムネのカラム、取り敢えず保留
       #　t.string :thumbnail
