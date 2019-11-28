@@ -9,6 +9,7 @@ module Mock
           link: '/groups/1',
           is_read: false,
           user_id: current_user.id,
+          thumbnail: "https://i2.wp.com/dietlife25.com/wp-content/uploads/2019/12/274122b394996dcc766774e82f1bdf0e_m.jpg?resize=1280%2C720&ssl=1",
           created_at: "2019-11-19 04:58:55",
           updated_at: "2019-11-19 04:58:55",
         }
