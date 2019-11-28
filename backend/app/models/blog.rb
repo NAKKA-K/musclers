@@ -5,5 +5,7 @@ class Blog < ApplicationRecord
     has_many :blog_tags
     #tagsテーブルはblog_tagsを通じて紐づけ
     has_many :tags, through: :blog_tags
+    #サムネ画像
+    has_one_attached :thumbnail
 
 end
