@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_011451) do
+ActiveRecord::Schema.define(version: 2019_11_27_120955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 2019_11_22_011451) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "blog_tags", force: :cascade do |t|
+    t.bigint "blog_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_blog_tags_on_blog_id"
+    t.index ["tag_id"], name: "index_blog_tags_on_tag_id"
+  end
+
+  create_table "blogs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_blogs_on_user_id"
   end
 
   create_table "direct_message_groups", force: :cascade do |t|
@@ -92,6 +110,9 @@ ActiveRecord::Schema.define(version: 2019_11_22_011451) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "blog_tags", "blogs"
+  add_foreign_key "blog_tags", "tags"
+  add_foreign_key "blogs", "users"
   add_foreign_key "direct_message_groups", "users", column: "by_user_id"
   add_foreign_key "direct_message_groups", "users", column: "to_user_id"
   add_foreign_key "direct_messages", "direct_message_groups"
