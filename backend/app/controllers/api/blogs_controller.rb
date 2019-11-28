@@ -6,7 +6,7 @@ class Api::BlogsController < ApplicationController
             200,
             message: 'ブログ一覧を表示',
             data: @blogs,
-        ) 
+        ) and return
     end
 
 end
