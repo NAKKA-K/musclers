@@ -8,7 +8,9 @@ Rails.application.routes.draw do
         resources :direct_message_groups, only: [:index, :show] do
           post '/', to: 'direct_message_groups#create'
         end
+        get '/joined_groups', to: 'joined_groups#index'
       end
+
       resources :groups, only: [:index, :show, :create] do
         get '/messages', to: 'group_messages#show'
       end
@@ -33,6 +35,11 @@ Rails.application.routes.draw do
     end
 
     resources :tags do
+    end
+
+    scope :user do
+      resources :direct_message_groups,only: [:index] do
+      end
     end
 
   end
