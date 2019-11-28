@@ -36,6 +36,24 @@ ActiveRecord::Schema.define(version: 2019_11_27_135225) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "blog_tags", force: :cascade do |t|
+    t.bigint "blog_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_blog_tags_on_blog_id"
+    t.index ["tag_id"], name: "index_blog_tags_on_tag_id"
+  end
+
+  create_table "blogs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_blogs_on_user_id"
+  end
+
   create_table "direct_message_groups", force: :cascade do |t|
     t.bigint "by_user_id"
     t.bigint "to_user_id"
@@ -103,6 +121,9 @@ ActiveRecord::Schema.define(version: 2019_11_27_135225) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "blog_tags", "blogs"
+  add_foreign_key "blog_tags", "tags"
+  add_foreign_key "blogs", "users"
   add_foreign_key "direct_message_groups", "users", column: "by_user_id"
   add_foreign_key "direct_message_groups", "users", column: "to_user_id"
   add_foreign_key "direct_messages", "direct_message_groups"
