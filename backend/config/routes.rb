@@ -5,11 +5,15 @@ Rails.application.routes.draw do
   namespace :mock, defaults: { format: :json } do
     scope :api do
       scope :user do
-        resources :direct_message_groups, only: [:index, :show] do
+        resources :direct_message_groups, only: [:show] do
           post '/', to: 'direct_message_groups#create'
         end
+
         resources :information, only: [:index]
+
+        get '/joined_groups', to: 'joined_groups#index'
       end
+
       resources :groups, only: [:index, :show, :create] do
         get '/messages', to: 'group_messages#show'
       end
