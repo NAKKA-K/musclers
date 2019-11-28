@@ -11,10 +11,9 @@ describe 'direct message list api', type: :request do
 
     context 'access token exist into header' do
       before do
-        create(:user)
-        @first_user = User.first
+        @user = create(:user)
         @headers = {
-          'Authorization' => @first_user.access_token
+          'Authorization' => @user.access_token
         }  
       end
 
@@ -24,12 +23,10 @@ describe 'direct message list api', type: :request do
       end
 
       it 'search direct message list' do
-        create_list(:user,2)
-        second_user = User.find(@first_user.id + 1)
-        third_user = User.find(second_user.id + 1)
+        users = create_list(:user,2)
 
-        @first_user.by_users.create(to_user_id: second_user.id)
-        @first_user.by_users.create(to_user_id: third_user.id)
+        @user.by_users.create(to_user_id: users[0].id)
+        @user.by_users.create(to_user_id: users[1].id)
         
         get api_direct_message_groups_path, headers: @headers
         dm_list = JSON.parse(response.body)
