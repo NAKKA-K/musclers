@@ -22,9 +22,9 @@ ja:
         not_set: "未設定"
         gachi:   "ガチ"
         enjoy:   "エンジョイ"
-        
+
     tag:
-      chubby: "ぽっちゃり" 
+      chubby: "ぽっちゃり"
       normal: "ふつう"
       thin: "やせ"
       macho: "ゴリマッチョ"
@@ -35,6 +35,13 @@ ja:
       job: "仕事"
       short_term: "短期的"
       long_term: "長期的"
+
+    information:
+      type:
+        group_invitation: 'グループ招待'
+        friend_request: '友達申請'
+        direct_message: 'ダイレクトメッセージ'
+        group_message: 'グループメッセージ'
 
   activerecord:
     errors:

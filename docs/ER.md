@@ -21,14 +21,17 @@ entity "users" {
     seriousness:uint
 }
 
-entity "informations" {
+entity "information" {
     + id [PK]
     ==
-    body:string
+    type:integer
+    by_name:string
+    link:string
     is_read:boolean
+    thumbnail:string
     # user_id [FK(users,id)]
 }
-users --o{ informations
+users --o{ information
 
 entity "tags" {
     + id [PK]
