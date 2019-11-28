@@ -73,7 +73,9 @@ Muscler'sのAPI仕様書
 ### Information (object)
 
 + id: 1 (number)
-+ body: 「筋肉モンスターたちの集会所」グループから招待が来ています。 (string)
++ type: 1 (number)
++ by_name: 筋肉モンスターたちの集会所 (string)
++ link: /groups/1 (string)
 + is_read: true (boolean)
 + user_id: 3 (number)
 + created_at: `2019-11-19 04:58:55` (string)
@@ -328,7 +330,7 @@ Muscler'sのAPI仕様書
         }
 
 
-## MyInformations [/api/user/informations]
+## MyInformations [/api/user/information]
 
 ### 自分の通知一覧を取得する [GET]
 
