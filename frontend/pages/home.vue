@@ -3,6 +3,7 @@
     <v-card>
       <v-tabs
         v-model="tab"
+        centered
         background-color="white"
         color="deep-purple accent-4"
         right
@@ -31,33 +32,7 @@
               <h2 align="left">通知</h2>
               <v-container>
                 <v-row>
-                  <v-col cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
-                  </v-col>
-                  <v-col cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
-                  </v-col>
-                  <v-col cols="12">
+                  <v-col v-for="i in 3" :key="i" cols="12">
                     <p>
                       <img
                         class="img-small"
@@ -85,8 +60,12 @@
                     :key="recommend.id"
                     cols="6"
                   >
-                    <v-img :src="recommend.thumbnail" class="img-size" />
-                    <h4>{{ recommend.nickname }}</h4>
+                    <v-img
+                      v-if="recommend.id <= 2"
+                      :src="recommend.thumbnail"
+                      class="img-size"
+                    />
+                    <h4 v-if="recommend.id <= 2">{{ recommend.nickname }}</h4>
                   </v-col>
                   <v-col cols="12">
                     <a @click="tab += 3">もっと見る</a>
@@ -97,50 +76,40 @@
           </div>
         </v-tab-item>
         <v-tab-item>
-          <div align="center">
-            <v-container>
-              <v-row>
-                <v-col v-for="group in groups" :key="group.id" cols="6">
-                  <nuxt-link
-                    :to="{ name: 'groups-id', params: { id: group.id } }"
-                  >
-                    <v-img :src="group.thumbnail" class="img-size" />
-                  </nuxt-link>
-                  <h4>{{ group.name }}</h4>
-                </v-col>
-              </v-row>
-            </v-container>
-          </div>
+          <TheJoingroup :joingroup="groups" />
         </v-tab-item>
         <v-tab-item>
-          <TheNotification />
+          <v-container>
+            <v-row>
+              <v-col v-for="i in 3" :key="i" cols="12">
+                <p>
+                  <img
+                    class="img-small"
+                    src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
+                    alt="Avatar"
+                    align="middle"
+                  />
+                  <font size="2">呉屋省吾さんからメッセージが届きました。</font>
+                </p>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-tab-item>
         <v-tab-item>
-          <div align="center">
-            <v-container>
-              <v-row>
-                <v-col
-                  v-for="recommend in recommended"
-                  :key="recommend.id"
-                  cols="6"
-                >
-                  <v-img :src="recommend.thumbnail" class="img-size" />
-                  <h4>{{ recommend.nickname }}</h4>
-                </v-col>
-              </v-row>
-            </v-container>
-          </div>
+          <TheRecommenduser :recommended="recommended" />
         </v-tab-item>
       </v-tabs>
     </v-card>
   </div>
 </template>
 <script>
-import TheNotification from './TheNotification.vue'
+import TheJoingroup from './TheJoingroup.vue'
+import TheRecommenduser from './TheRecommenduser.vue'
 export default {
   middleware: 'auth',
   components: {
-    TheNotification
+    TheJoingroup,
+    TheRecommenduser
   },
   data() {
     return {
@@ -153,6 +122,9 @@ export default {
     const recommended = await $axios
       .$get(`/api/users/recommended_users`)
       .then((res) => res.data)
+    /* const information = await $axios
+      .$get(`/mock/api/information`)
+      .then((res) => res.data) */
     return {
       groups,
       recommended
@@ -173,8 +145,5 @@ h2 {
   width: 121px;
   height: 121px;
   border-radius: 50%;
-}
-.text-position {
-  margin-right: 500px;
 }
 </style>
