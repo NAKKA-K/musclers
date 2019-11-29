@@ -1,0 +1,78 @@
+/* pc site css */
+.user-information {
+    padding: 100px 0 100px 0;
+    height: 90vh;
+    background-size: cover;
+    font-size: 1.2em;
+    text-align: center;
+  }
+  .user-information h2 {
+    font-size: 22px;
+    font-weight: 100;
+    margin-top: 16px;
+  }
+  .user-information p {
+    font-size: 12px;
+    text-align: left;
+    margin-top: 16px;
+  }
+  
+  .standard-information {
+    text-align: left;
+    font-size: 1.2em;
+  }
+  .bg-rgba {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+  }
+  
+  .swiper-container {
+    margin-top: 30px;
+    width: 70%;
+    height: 400px;
+  }
+  .my-swiper {
+    height: 300px;
+    width: 100%;
+  }
+  .swiper-slide {
+    text-align: center;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .swiper-pagination-bullet {
+    background-color: red;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: absolute;
+    top: 70%;
+    width: 27px;
+    height: 44px;
+    background-size: 27px 44px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .swiper-button-prev {
+    background-image: url('~@/assets/images/prev.png');
+    margin-left: 40%;
+    background-size: 100px 100px;
+  }
+  .swiper-button-next {
+    background-image: url('~@/assets/images/next.png');
+    margin-right: 40%;
+    background-size: 100px 100px;
+  }
+  .slide-image {
+    width: 220px;
+    height: 200px;
+    border-radius: 10px;
+  }
+  .profile-image {
+    width: 280px;
+    height: 280px;
+    border-radius: 10px;
+  }
+    
