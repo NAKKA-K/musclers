@@ -8,6 +8,9 @@
         <nuxt-link to="/terms_of_service" class="mr-4">
           利用規約
         </nuxt-link>
+        <nuxt-link to="/user_blogs" class="mr-4">
+          ブログ
+        </nuxt-link>
         <a
           href="https://forms.gle/W55NsQjum3Cym3bE9"
           target="_blank"
