@@ -252,14 +252,8 @@
               class="swiper-slide sp-slide-image"
               :src="user.thumbnail"
             ></v-img>
-            <div
-              slot="button-next"
-              class="swiper-button-next swiper-button-white"
-            ></div>
-            <div
-              slot="button-prev"
-              class="swiper-button-prev swiper-button-white"
-            ></div>
+            <div slot="button-next" class="swiper-button-next"></div>
+            <div slot="button-prev" class="swiper-button-prev"></div>
           </swiper>
         </v-tab-item>
       </v-tabs-items>
@@ -286,6 +280,8 @@ export default {
       },
       swiperOptionTop: {
         spaceBetween: 10,
+        loop: true,
+        loopedSlides: 5,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
@@ -293,9 +289,10 @@ export default {
       },
       swiperOptionThumbs: {
         spaceBetween: 10,
-        centeredSlides: true,
-        slidesPerView: 'auto',
+        slidesPerView: 4,
         touchRatio: 0.2,
+        loop: true,
+        loopedSlides: 5,
         slideToClickedSlide: true
       }
     }
