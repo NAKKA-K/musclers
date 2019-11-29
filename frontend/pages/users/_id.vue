@@ -393,7 +393,6 @@ export default {
 }
 
 .sp-slide-big-image {
-  width: 70px;
   margin-right: 10px;
   border-radius: 10px;
 }
@@ -429,12 +428,14 @@ export default {
   background-position: center;
 }
 .gallery-top {
-  width: 100%;
+  width: 90%;
+  border-radius: 10px;
 }
 .gallery-thumbs {
   box-sizing: border-box;
+  width: 90%;
   padding: 10px 0;
-  height: 90px;
+  height: 100px;
 }
 .gallery-thumbs .swiper-slide {
   width: 25%;
