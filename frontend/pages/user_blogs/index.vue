@@ -79,21 +79,6 @@ export default {
 <style scoped>
 @import '@/assets/css/index.css';
 
-.blog-list {
-  margin: 16px;
-}
-
-.card-body-overflow {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  min-height: 3em;
-}
-.sub-info-text {
-  font-size: 14px;
-}
-
 .headline {
   line-height: 1.3rem;
   font-size: 20px !important;
