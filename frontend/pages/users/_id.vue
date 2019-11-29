@@ -121,7 +121,7 @@
         <v-tab-item>
           <div class="sp-services-wrapper">
             <div class="container">
-              <v-img class="sp-slide-image" :src="user.thumbnail"></v-img>
+              <v-img class="sp-user-image" :src="user.thumbnail"></v-img>
               <h2>{{ user.nickname }}</h2>
               <v-btn
                 block
@@ -206,29 +206,29 @@
           <div v-swiper:mySwiper="swiperOption" class="swiper-container">
             <ul class="swiper-wrapper">
               <v-img
-                class="slide-image swiper-slide"
+                class="sp-slide-image sp-swiper-slide"
                 :src="user.thumbnail"
               ></v-img>
               <v-img
-                class="slide-image swiper-slide"
+                class="sp-slide-image sp-swiper-slide"
                 :src="user.thumbnail"
               ></v-img>
               <v-img
-                class="slide-image swiper-slide"
+                class="sp-slide-image sp-swiper-slide"
                 :src="user.thumbnail"
               ></v-img>
               <v-img
-                class="slide-image swiper-slide"
+                class="sp-slide-image sp-swiper-slide"
                 :src="user.thumbnail"
               ></v-img>
               <v-img
-                class="slide-image swiper-slide"
+                class="sp-slide-image sp-swiper-slide"
                 :src="user.thumbnail"
               ></v-img>
             </ul>
             <div class="outlined">
-              <button class="swiper-button-prev" type="button"></button>
-              <button class="swiper-button-next" type="button"></button>
+              <button class="sp-swiper-button-prev" type="button"></button>
+              <button class="sp-swiper-button-next" type="button"></button>
             </div>
           </div>
         </v-tab-item>
@@ -306,7 +306,7 @@ export default {
   left: 0;
   bottom: 0;
 }
-.sp-slide-image {
+.sp-user-image {
   width: 350px;
   height: 200px;
   border-radius: 10px;
@@ -334,6 +334,48 @@ export default {
 .friend-request-button {
   margin-bottom: 36px;
   text-align: center;
+}
+
+.sp-swiper-container {
+  margin-top: 30px;
+  width: 70%;
+  height: 400px;
+}
+.sp-my-swiper {
+  height: 300px;
+  width: 100%;
+}
+.sp-swiper-slide {
+  text-align: center;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sp-slide-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+}
+.sp-swiper-button-prev,
+.sp-swiper-button-next {
+  position: absolute;
+  top: 70%;
+  width: 27px;
+  height: 44px;
+  background-size: 15px 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.sp-swiper-button-prev {
+  background-image: url('~@/assets/images/prev.png');
+  margin-left: 30%;
+  background-size: 100px 100px;
+}
+.sp-swiper-button-next {
+  background-image: url('~@/assets/images/next.png');
+  margin-left: 60%;
+  background-size: 100px 100px;
 }
 /* pc site css */
 .user-information {
