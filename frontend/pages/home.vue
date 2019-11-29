@@ -21,8 +21,8 @@
                       :to="{ name: 'groups-id', params: { id: group.id } }"
                     >
                       <v-img :src="group.thumbnail" class="img-size" />
+                      <h4 v-if="group.id <= 2">{{ group.name }}</h4>
                     </nuxt-link>
-                    <h4 v-if="group.id <= 2">{{ group.name }}</h4>
                   </v-col>
                   <v-col cols="12">
                     <a @click="tab++">もっと見る</a>
@@ -33,17 +33,27 @@
               <v-container>
                 <v-row v-for="info in infos" :key="info.id">
                   <v-col v-if="info.id <= 2" cols="3">
-                    <v-img
-                      class="img-small"
-                      :src="info.thumbnail"
-                      alt="Avatar"
-                      align="middle"
-                    />
+                    <nuxt-link
+                      :to="{ name: 'infos-id', params: { id: info.id } }"
+                    >
+                      <v-img
+                        class="img-small"
+                        :src="info.thumbnail"
+                        alt="Avatar"
+                        align="middle"
+                      />
+                    </nuxt-link>
                   </v-col>
                   <v-col v-if="info.id <= 2" cols="9">
-                    <font size="3"
-                      >{{ info.by_name }}から{{ info.type }}が届きました。</font
+                    <nuxt-link
+                      :to="{ name: 'infos-id', params: { id: info.id } }"
                     >
+                      <font size="3"
+                        >{{ info.by_name }}から{{
+                          info.type
+                        }}が届きました。</font
+                      >
+                    </nuxt-link>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -62,12 +72,16 @@
                     :key="recommend.id"
                     cols="6"
                   >
-                    <v-img
-                      v-if="recommend.id <= 2"
-                      :src="recommend.thumbnail"
-                      class="img-size"
-                    />
-                    <h4 v-if="recommend.id <= 2">{{ recommend.nickname }}</h4>
+                    <nuxt-link
+                      v-if="recommend <= 2"
+                      :to="{
+                        name: 'recommended-id',
+                        params: { id: recommend.id }
+                      }"
+                    >
+                      <v-img :src="recommend.thumbnail" class="img-size" />
+                      <h4 v-if="recommend.id <= 2">{{ recommend.nickname }}</h4>
+                    </nuxt-link>
                   </v-col>
                   <v-col cols="12">
                     <a @click="tab += 3">もっと見る</a>

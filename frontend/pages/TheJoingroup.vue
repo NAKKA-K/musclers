@@ -4,8 +4,10 @@
     <v-container>
       <v-row>
         <v-col v-for="group in joingroup" :key="group.id" cols="6">
-          <v-img :src="group.thumbnail" class="img-size" />
-          <h4>{{ group.name }}</h4>
+          <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
+            <v-img :src="group.thumbnail" class="img-size" />
+            <h4>{{ group.name }}</h4>
+          </nuxt-link>
         </v-col>
       </v-row>
     </v-container>
