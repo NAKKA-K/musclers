@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'ブログのAPI', type: :request do
   describe 'すべてのブログの一覧表示機能' do
     context 'ブログが1件もない場合' do
-        it 'ブログの表示が0件であることを返す' do
-            expect(page).to have_content '0件のブログ'
+        it 'ブログの件であることを表示する' do
+            expect(page).to have_content 'ブログ0件'
         end
     end
 
