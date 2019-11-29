@@ -21,14 +21,17 @@ entity "users" {
     seriousness:uint
 }
 
-entity "informations" {
+entity "information" {
     + id [PK]
     ==
-    body:string
+    type:integer
+    by_name:string
+    link:string
     is_read:boolean
+    thumbnail:string
     # user_id [FK(users,id)]
 }
-users --o{ informations
+users --o{ information
 
 entity "tags" {
     + id [PK]
@@ -101,6 +104,25 @@ entity "friends" {
 }
 users --|{ friends
 users }|-- friends
+
+entity "blogs" {
+    + id [PK]
+    ==
+    # user_id [FK(users,id)]
+    title:string
+    body:text
+    thumbnail:string
+}
+users --o{ blogs
+
+entity "blog_tags" {
+    + id [PK]
+    ==
+    # blog_id [FK(blogs,id)]
+    # tag_id [FK(tags,id)]
+}
+blogs --o{ blog_tags
+tags --o{ blog_tags
 
 @enduml
 ```

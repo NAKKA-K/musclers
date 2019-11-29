@@ -5,9 +5,17 @@ Rails.application.routes.draw do
   namespace :mock, defaults: { format: :json } do
     scope :api do
       scope :user do
-        resources :direct_message_groups, only: [:index, :show] do
+        resources :direct_message_groups, only: [:show] do
           post '/', to: 'direct_message_groups#create'
         end
+
+        resources :information, only: [:index]
+
+        get '/joined_groups', to: 'joined_groups#index'
+      end
+
+      resources :groups, only: [:index, :show, :create] do
+        get '/messages', to: 'group_messages#show'
       end
     end
   end
@@ -29,9 +37,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :tags do
-    end
+    resources :tags
 
+    scope :user do
+      resources :information, only: [:index]
+
+      resources :direct_message_groups,only: [:index]
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

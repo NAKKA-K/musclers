@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_002854) do
+ActiveRecord::Schema.define(version: 2019_11_27_123511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,24 @@ ActiveRecord::Schema.define(version: 2019_11_18_002854) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "blog_tags", force: :cascade do |t|
+    t.bigint "blog_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_blog_tags_on_blog_id"
+    t.index ["tag_id"], name: "index_blog_tags_on_tag_id"
+  end
+
+  create_table "blogs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_blogs_on_user_id"
+  end
+
   create_table "direct_message_groups", force: :cascade do |t|
     t.bigint "by_user_id"
     t.bigint "to_user_id"
@@ -55,6 +73,17 @@ ActiveRecord::Schema.define(version: 2019_11_18_002854) do
     t.index ["send_user_id"], name: "index_direct_messages_on_send_user_id"
   end
 
+  create_table "information", force: :cascade do |t|
+    t.integer "type"
+    t.string "by_name"
+    t.string "link"
+    t.boolean "is_read", default: false, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_information_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -71,7 +100,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_002854) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "nickname"
+    t.string "nickname", default: "", null: false
     t.text "description"
     t.integer "age"
     t.integer "gender", default: 0, null: false
@@ -92,10 +121,14 @@ ActiveRecord::Schema.define(version: 2019_11_18_002854) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "blog_tags", "blogs"
+  add_foreign_key "blog_tags", "tags"
+  add_foreign_key "blogs", "users"
   add_foreign_key "direct_message_groups", "users", column: "by_user_id"
   add_foreign_key "direct_message_groups", "users", column: "to_user_id"
   add_foreign_key "direct_messages", "direct_message_groups"
   add_foreign_key "direct_messages", "users", column: "send_user_id"
+  add_foreign_key "information", "users"
   add_foreign_key "user_tags", "tags"
   add_foreign_key "user_tags", "users"
 end

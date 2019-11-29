@@ -73,7 +73,9 @@ Muscler'sのAPI仕様書
 ### Information (object)
 
 + id: 1 (number)
-+ body: 「筋肉モンスターたちの集会所」グループから招待が来ています。 (string)
++ type: 1 (number)
++ by_name: 筋肉モンスターたちの集会所 (string)
++ link: /groups/1 (string)
 + is_read: true (boolean)
 + user_id: 3 (number)
 + created_at: `2019-11-19 04:58:55` (string)
@@ -104,14 +106,29 @@ Muscler'sのAPI仕様書
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
+### JoinedGroup (object)
+
++ id: 1 (number)
++ name: 筋肉モンスターの集会所 (string)
++ description: 筋肉は全てを解決してくれる！ (string)
++ is_public: true (boolean)
++ tags (array[Tag])
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
++ latest_message (object)
+    + id: 1 (number)
+    + body: 今日はみんなで大腿四頭筋を追い込みましょう！！ (string)
+    + created_at: `2019-11-19 04:58:55` (string)
+    + updated_at: `2019-11-19 04:58:55` (string)
+    + send_user_id: 1 (number)
+
 ### GroupMessage (object)
 
 + id: 1 (number)
 + body: 今日はみんなで大腿四頭筋を追い込みましょう！！ (string)
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
-+ user (User)
-+ group (Group)
++ send_user (User)
 
 ### DirectMessageGroup (object)
 
@@ -287,7 +304,7 @@ Muscler'sのAPI仕様書
             "errors": [],
         }
 
-## JoinedGroups [/api/user/groups]
+## JoinedGroups [/api/user/joined_groups]
 
 ### 参加中のグループ一覧を取得する [GET]
 
@@ -302,7 +319,7 @@ Muscler'sのAPI仕様書
     + Attributes (object)
         + status: 200 (number)
         + message: 取得しました (string)
-        + data (array[Group])
+        + data (array[JoinedGroup])
 
 + Response 401 (application/json)
 
@@ -313,7 +330,7 @@ Muscler'sのAPI仕様書
         }
 
 
-## MyInformations [/api/user/informations]
+## MyInformations [/api/user/information]
 
 ### 自分の通知一覧を取得する [GET]
 
