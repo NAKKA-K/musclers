@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2019_11_27_123511) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "nickname", null: false
+    t.string "nickname", default: "", null: false
     t.text "description"
     t.integer "age"
     t.integer "gender", default: 0, null: false
