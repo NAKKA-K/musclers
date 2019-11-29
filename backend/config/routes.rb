@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       resources :groups, only: [:index, :show, :create] do
         get '/messages', to: 'group_messages#show'
       end
+
+      resources :blogs, only: [:index]
     end
   end
 
