@@ -31,20 +31,22 @@
               </v-container>
               <h2 align="left">通知</h2>
               <v-container>
-                <v-row>
-                  <v-col v-for="i in 3" :key="i" cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
+                <v-row v-for="info in infos" :key="info.id">
+                  <v-col v-if="info.id <= 2" cols="3">
+                    <v-img
+                      class="img-small"
+                      :src="info.thumbnail"
+                      alt="Avatar"
+                      align="middle"
+                    />
                   </v-col>
+                  <v-col v-if="info.id <= 2" cols="9">
+                    <font size="3"
+                      >{{ info.by_name }}から{{ info.type }}が届きました。</font
+                    >
+                  </v-col>
+                </v-row>
+                <v-row>
                   <v-col cols="12">
                     <a @click="tab += 2">もっと見る</a>
                   </v-col>
@@ -79,21 +81,7 @@
           <TheJoingroup :joingroup="groups" />
         </v-tab-item>
         <v-tab-item>
-          <v-container>
-            <v-row>
-              <v-col v-for="i in 3" :key="i" cols="12">
-                <p>
-                  <img
-                    class="img-small"
-                    src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                    alt="Avatar"
-                    align="middle"
-                  />
-                  <font size="2">呉屋省吾さんからメッセージが届きました。</font>
-                </p>
-              </v-col>
-            </v-row>
-          </v-container>
+          <TheNotification :infos="infos" />
         </v-tab-item>
         <v-tab-item>
           <TheRecommenduser :recommended="recommended" />
@@ -105,11 +93,13 @@
 <script>
 import TheJoingroup from './TheJoingroup.vue'
 import TheRecommenduser from './TheRecommenduser.vue'
+import TheNotification from './TheNotification.vue'
 export default {
   middleware: 'auth',
   components: {
     TheJoingroup,
-    TheRecommenduser
+    TheRecommenduser,
+    TheNotification
   },
   data() {
     return {
@@ -122,12 +112,13 @@ export default {
     const recommended = await $axios
       .$get(`/api/users/recommended_users`)
       .then((res) => res.data)
-    /* const information = await $axios
-      .$get(`/mock/api/information`)
-      .then((res) => res.data) */
+    const infos = await $axios
+      .$get(`/mock/api/user/information`)
+      .then((res) => res.data)
     return {
       groups,
-      recommended
+      recommended,
+      infos
     }
   }
 }

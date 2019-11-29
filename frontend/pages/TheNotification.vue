@@ -1,43 +1,28 @@
 <!-- 通知 -->
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <p>
-          <img
-            class="img-small"
-            src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-            alt="Avatar"
-            align="middle"
-          />
-          <font size="2">呉屋省吾さんからメッセージが届きました。</font>
-        </p>
+    <v-row v-for="info in infos" :key="info.id">
+      <v-col cols="3">
+        <v-img
+          class="img-small"
+          :src="info.thumbnail"
+          alt="Avatar"
+          align="middle"
+        />
       </v-col>
-      <v-col cols="12">
-        <p>
-          <img
-            class="img-small"
-            src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-            alt="Avatar"
-            align="middle"
-          />
-          <font size="2">呉屋省吾さんからメッセージが届きました。</font>
-        </p>
-      </v-col>
-      <v-col cols="12">
-        <p>
-          <img
-            class="img-small"
-            src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-            alt="Avatar"
-            align="middle"
-          />
-          <font size="2">呉屋省吾さんからメッセージが届きました。</font>
-        </p>
+      <v-col cols="9">
+        <font size="3"
+          >{{ info.by_name }}から{{ info.type }}が届きました。</font
+        >
       </v-col>
     </v-row>
   </v-container>
 </template>
+<script>
+export default {
+  props: ['infos']
+}
+</script>
 <style>
 .img-small {
   width: 60px;
