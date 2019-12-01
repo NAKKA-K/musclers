@@ -51,11 +51,10 @@ export default {
   },
   data: () => ({
     items: [
-      { link: '/auth/mypage', icon: 'account_circle', title: 'マイページ' },
-      { link: '/home', icon: 'star', title: 'おすすめユーザー' },
+      { link: '/home', icon: 'account_circle', title: 'マイページ' },
       { link: '/direct_messages', icon: 'message', title: 'DM一覧' },
-      { link: '/groups', icon: 'group', title: 'グループ' },
-      { link: '/users', icon: 'search', title: '検索' }
+      { link: '/search', icon: 'search', title: '検索' },
+      { link: '/auth/setting', icon: 'build', title: '設定' }
     ]
   }),
 
