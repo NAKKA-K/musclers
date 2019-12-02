@@ -7,6 +7,9 @@
         </nuxt-link>
         <nuxt-link v-else to="/" class="header-title">Muscler's</nuxt-link>
       </v-toolbar-title>
+      <v-toolbar-items>
+        <dropdown-home-links></dropdown-home-links>
+      </v-toolbar-items>
 
       <v-col class="col-5 col-xs-4">
         <v-text-field
@@ -38,11 +41,13 @@
 import { mapGetters } from 'vuex'
 import GroupSelector from '../components/GroupSelector.vue'
 import TheRightSideOrTheHeader from '~/components/organisms/TheRightSideOrTheHeader.vue'
+import DropdownHomeLinks from '~/components/organisms/DropdownHomeLinks.vue'
 
 export default {
   components: {
     GroupSelector,
-    TheRightSideOrTheHeader
+    TheRightSideOrTheHeader,
+    DropdownHomeLinks
   },
 
   data: () => ({
