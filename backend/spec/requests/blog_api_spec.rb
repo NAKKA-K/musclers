@@ -14,15 +14,15 @@ describe 'ブログのAPI', type: :request do
 
         context 'ブログが存在している場合' do
             before do
-                @blogs.create!(blog_id: blog.id)
+                create(:blog)
             end
-        end
         
             it 'すべてのブログが表示される' do
                 get api_blogs_path
                 blogs = JSON.parse(response.body)
-                expect(blogs['message']).to eq 'ユーザータグ一覧を表示'
-                expect(blogs['data'].count).to_not 0
+                expect(blogs['message']).to eq 'ブログ一覧を表示'
+                expect(blogs['data'].count).to be > 0
             end
+        end
     end
 end
