@@ -18,7 +18,7 @@ Rails.application.routes.draw do
         get '/messages', to: 'group_messages#show'
       end
 
-      resources :blogs, only: [:index]
+      resources :blogs, only: [:index, :show]
     end
   end
 
