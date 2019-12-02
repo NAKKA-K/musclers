@@ -5,7 +5,7 @@
       <v-row>
         <v-col v-for="recommend in recommended" :key="recommend.id" cols="6">
           <nuxt-link
-            :to="{ name: 'recommended-id', params: { id: recommend.id } }"
+            :to="{ name: 'recommended-id', params: { id: recommed.id } }"
           >
             <v-img :src="recommend.thumbnail" class="img-size" />
             <h4>{{ recommend.nickname }}</h4>

@@ -15,13 +15,16 @@
             <div align="center">
               <v-container>
                 <v-row>
-                  <v-col v-for="group in groups" :key="group.id" cols="6">
+                  <v-col
+                    v-for="group in groups.slice(0, 2)"
+                    :key="group.id"
+                    cols="6"
+                  >
                     <nuxt-link
-                      v-if="group.id <= 2"
                       :to="{ name: 'groups-id', params: { id: group.id } }"
                     >
                       <v-img :src="group.thumbnail" class="img-size" />
-                      <h4 v-if="group.id <= 2">{{ group.name }}</h4>
+                      <h4>{{ group.name }}</h4>
                     </nuxt-link>
                   </v-col>
                   <v-col cols="12">
@@ -31,8 +34,8 @@
               </v-container>
               <h2 align="left">通知</h2>
               <v-container>
-                <v-row v-for="info in infos" :key="info.id">
-                  <v-col v-if="info.id <= 2" cols="3">
+                <v-row v-for="info in infos.slice(0, 3)" :key="info.id">
+                  <v-col cols="3">
                     <nuxt-link
                       :to="{ name: 'infos-id', params: { id: info.id } }"
                     >
@@ -44,14 +47,13 @@
                       />
                     </nuxt-link>
                   </v-col>
-                  <v-col v-if="info.id <= 2" cols="9">
+                  <v-col cols="9">
                     <nuxt-link
                       :to="{ name: 'infos-id', params: { id: info.id } }"
                     >
                       <font size="3"
-                        >{{ info.by_name }}から{{
-                          info.type
-                        }}が届きました。</font
+                        >{{ info.by_name }}から
+                        {{ info.type }}が届きました。</font
                       >
                     </nuxt-link>
                   </v-col>
@@ -68,19 +70,18 @@
               <v-container>
                 <v-row>
                   <v-col
-                    v-for="recommend in recommended"
+                    v-for="recommend in recommended.slice(0, 2)"
                     :key="recommend.id"
                     cols="6"
                   >
                     <nuxt-link
-                      v-if="recommend <= 2"
                       :to="{
                         name: 'recommended-id',
                         params: { id: recommend.id }
                       }"
                     >
                       <v-img :src="recommend.thumbnail" class="img-size" />
-                      <h4 v-if="recommend.id <= 2">{{ recommend.nickname }}</h4>
+                      <h4>{{ recommend.nickname }}</h4>
                     </nuxt-link>
                   </v-col>
                   <v-col cols="12">
@@ -95,7 +96,7 @@
           <TheJoingroup :joingroup="groups" />
         </v-tab-item>
         <v-tab-item>
-          <TheNotification :infos="infos" />
+          <TheInformation :infos="infos" />
         </v-tab-item>
         <v-tab-item>
           <TheRecommenduser :recommended="recommended" />
@@ -106,14 +107,14 @@
 </template>
 <script>
 import TheJoingroup from './TheJoingroup.vue'
+import TheInformation from './TheInformation.vue'
 import TheRecommenduser from './TheRecommenduser.vue'
-import TheNotification from './TheNotification.vue'
 export default {
   middleware: 'auth',
   components: {
     TheJoingroup,
     TheRecommenduser,
-    TheNotification
+    TheInformation
   },
   data() {
     return {

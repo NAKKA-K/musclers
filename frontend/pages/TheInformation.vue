@@ -14,8 +14,8 @@
       </v-col>
       <v-col cols="9">
         <nuxt-link :to="{ name: 'infos-id', params: { id: info.id } }">
-          <font size="3"
-            >{{ info.by_name }}から{{ info.type }}が届きました。</font
+          <font size="3">
+            {{ info.by_name }}から {{ info.type }}が届きました。</font
           >
         </nuxt-link>
       </v-col>
