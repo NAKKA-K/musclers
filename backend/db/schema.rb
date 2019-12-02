@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2019_12_02_041828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["target_id"], name: "index_friends_on_target_id"
+    t.index ["user_id", "target_id"], name: "index_friends_on_user_id_and_target_id", unique: true
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 

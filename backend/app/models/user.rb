@@ -1,13 +1,20 @@
 class User < ApplicationRecord
-  has_many :group_users
+  has_many :group_users, :dependent => :destroy
   has_many :groups,through: :group_users, :dependent => :destroy
   has_many :group_messages, :dependent => :destroy
   has_many :user_tags
-  has_many :blogs 
-  has_many :friends, :dependent => :destroy
-  has_many :targets,
+  has_many :blogs
+  has_many :friends
+  has_many :target_friends,
             class_name: "Friend",
-            foreign_key: :target_id,
+            foreign_key: :target_id
+  has_many :followings,
+            through: :friends,
+            source: :target,
+            :dependent => :destroy
+  has_many :followers,
+            through: :target_friends,
+            source: :user,
             :dependent => :destroy
   has_many :by_users,
             class_name: "DirectMessageGroup",

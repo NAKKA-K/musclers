@@ -6,6 +6,8 @@ class CreateFriends < ActiveRecord::Migration[5.2]
       t.boolean :is_pending, default: false, null: false
 
       t.timestamps
+
+      t.index [:user_id, :target_id], unique: true
     end
   end
 end
