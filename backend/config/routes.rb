@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
     resources :tags
 
+    resources :blogs
+
     scope :user do
       resources :information, only: [:index]
 
