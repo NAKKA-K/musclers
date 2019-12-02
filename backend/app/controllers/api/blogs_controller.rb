@@ -1,4 +1,6 @@
 class Api::BlogsController < ApplicationController
+    skip_before_action :before_action :authenticate_user_from_token!
+    
     #すべてのブログの一覧を返すアクション
     def index
         @blogs = Blog.order(created_at: :desc).all
