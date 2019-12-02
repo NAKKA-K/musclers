@@ -34,7 +34,7 @@ describe 'search user api', type: :request do
     context 'when search user not exists' do
       it 'return empty data' do
         get api_users_path, params:{ keywords: "I am GOD" }
-        expect(JSON.parse(response.body)['data']).to eq 0
+        expect(JSON.parse(response.body)['data'].count).to eq 0
       end
     end
   end
