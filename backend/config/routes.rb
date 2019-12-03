@@ -18,7 +18,7 @@ Rails.application.routes.draw do
         get '/messages', to: 'group_messages#show'
       end
 
-      resources :blogs, only: [:index]
+      resources :blogs, only: [:index, :show]
     end
   end
 
@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     end
 
     resources :tags
+
+    resources :blogs
 
     scope :user do
       resources :information, only: [:index]

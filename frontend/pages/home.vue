@@ -3,6 +3,7 @@
     <v-card>
       <v-tabs
         v-model="tab"
+        centered
         background-color="white"
         color="deep-purple accent-4"
         right
@@ -14,19 +15,17 @@
             <div align="center">
               <v-container>
                 <v-row>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://cdn.vuetifyjs.com/images/john.png"
-                      class="img-size"
-                    />
-                    <h4>筋肉同好会</h4>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://image.flaticon.com/icons/png/512/30/30924.png"
-                      class="img-size"
-                    />
-                    <h4>I❤️筋肉</h4>
+                  <v-col
+                    v-for="group in limitedGroups"
+                    :key="group.id"
+                    cols="6"
+                  >
+                    <nuxt-link
+                      :to="{ name: 'groups-id', params: { id: group.id } }"
+                    >
+                      <v-img :src="group.thumbnail" class="img-size" />
+                      <h4>{{ group.name }}</h4>
+                    </nuxt-link>
                   </v-col>
                   <v-col cols="12">
                     <a @click="tab++">もっと見る</a>
@@ -35,46 +34,31 @@
               </v-container>
               <h2 align="left">通知</h2>
               <v-container>
+                <v-row v-for="info in limitedInformation" :key="info.id">
+                  <v-col cols="3">
+                    <nuxt-link
+                      :to="{ name: 'infos-id', params: { id: info.id } }"
+                    >
+                      <v-img
+                        class="img-small"
+                        :src="info.thumbnail"
+                        alt="Avatar"
+                        align="middle"
+                      />
+                    </nuxt-link>
+                  </v-col>
+                  <v-col cols="9">
+                    <nuxt-link
+                      :to="{ name: 'infos-id', params: { id: info.id } }"
+                    >
+                      <font size="3"
+                        >{{ info.by_name }}から
+                        {{ info.type }}が届きました。</font
+                      >
+                    </nuxt-link>
+                  </v-col>
+                </v-row>
                 <v-row>
-                  <v-col cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
-                  </v-col>
-                  <v-col cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
-                  </v-col>
-                  <v-col cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
-                  </v-col>
                   <v-col cols="12">
                     <a @click="tab += 2">もっと見る</a>
                   </v-col>
@@ -85,37 +69,20 @@
             <div align="center">
               <v-container>
                 <v-row>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://diamond.jp/mwimgs/c/2/600/img_c256d0b5bc611ba415623c0428dffe262112487.jpg"
-                      class="img-size"
-                      alt="Avatar"
-                    />
-                    <h4>最戸 たける</h4>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://gaishishukatsu.com/wp-content/uploads/2018/07/muscle.jpg"
-                      class="img-size"
-                      alt="Avatar"
-                    />
-                    <h4>内田 真智雄</h4>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://watch-monster.com/system/item_getties/images/000/205/406/medium/4380bf06-a23d-4a70-9dd1-2f4bbde0302a.jpg?1537371756"
-                      class="img-size"
-                      alt="Avatar"
-                    />
-                    <h4>朝田 和樹</h4>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                      class="img-size"
-                      alt="Avatar"
-                    />
-                    <h4>呉屋 省吾</h4>
+                  <v-col
+                    v-for="recommend in limitedRecommendusers"
+                    :key="recommend.id"
+                    cols="6"
+                  >
+                    <nuxt-link
+                      :to="{
+                        name: 'recommended-id',
+                        params: { id: recommend.id }
+                      }"
+                    >
+                      <v-img :src="recommend.thumbnail" class="img-size" />
+                      <h4>{{ recommend.nickname }}</h4>
+                    </nuxt-link>
                   </v-col>
                   <v-col cols="12">
                     <a @click="tab += 3">もっと見る</a>
@@ -126,13 +93,13 @@
           </div>
         </v-tab-item>
         <v-tab-item>
-          <TheJoingroup />
+          <TheJoingroup :joingroup="groups" />
         </v-tab-item>
         <v-tab-item>
-          <TheNotification />
+          <TheInformation :infos="infos" />
         </v-tab-item>
         <v-tab-item>
-          <TheRecommenduser />
+          <TheRecommenduser :recommended="recommended" />
         </v-tab-item>
       </v-tabs>
     </v-card>
@@ -140,20 +107,44 @@
 </template>
 <script>
 import TheJoingroup from './TheJoingroup.vue'
-import TheNotification from './TheNotification.vue'
+import TheInformation from './TheInformation.vue'
 import TheRecommenduser from './TheRecommenduser.vue'
 export default {
   middleware: 'auth',
-  name: 'App',
   components: {
     TheJoingroup,
-    TheNotification,
-    TheRecommenduser
+    TheRecommenduser,
+    TheInformation
   },
   data() {
     return {
       tab: null,
       items: ['トップ', '参加中のグループ', '通知', 'おすすめユーザー']
+    }
+  },
+  computed: {
+    limitedGroups() {
+      return this.groups.slice(0, 2)
+    },
+    limitedInformation() {
+      return this.infos.slice(0, 3)
+    },
+    limitedRecommendusers() {
+      return this.recommended.slice(0, 2)
+    }
+  },
+  async asyncData({ $axios, store }) {
+    const groups = await $axios.$get('/mock/api/groups').then((res) => res.data)
+    const recommended = await $axios
+      .$get(`/api/users/recommended_users`)
+      .then((res) => res.data)
+    const infos = await $axios
+      .$get(`/mock/api/user/information`)
+      .then((res) => res.data)
+    return {
+      groups,
+      recommended,
+      infos
     }
   }
 }
