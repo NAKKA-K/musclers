@@ -73,7 +73,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <nuxt-link to="/groups" class="d-block my-4 search-text">
+    <nuxt-link to="/groups" class="d-block search-text">
       グループをもっと見る
       <v-icon class="blue--text">chevron_right</v-icon>
     </nuxt-link>
