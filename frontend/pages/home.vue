@@ -34,6 +34,10 @@
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
     </div>
+    <nuxt-link to="/user_blogs" class="d-block my-4 search-text">
+      ユーザーブログをもっと見る
+      <v-icon class="blue--text">chevron_right</v-icon>
+    </nuxt-link>
 
     <h2 class="mt-12 ml-0">新着グループ</h2>
     <v-row>
@@ -69,6 +73,10 @@
         </v-card>
       </v-col>
     </v-row>
+    <nuxt-link to="/groups" class="d-block my-4 search-text">
+      グループをもっと見る
+      <v-icon class="blue--text">chevron_right</v-icon>
+    </nuxt-link>
 
     <h2 class="mt-12 ml-0">タグ</h2>
     <v-row>
