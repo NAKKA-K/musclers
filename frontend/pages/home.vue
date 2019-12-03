@@ -6,9 +6,9 @@
         label="ユーザー検索"
         placeholder="キーワードでユーザーを検索"
         hide-details
-        prepend-inner-icon="search"
         single-line
         outlined
+        class="search-placeholder"
         @keyup.enter="onSubmitSearch()"
       ></v-text-field>
       <v-btn class="ml-2" large color="primary" @click="onSubmitSearch()">
@@ -155,6 +155,10 @@ export default {
 </script>
 
 <style scoped>
+.search-placeholder {
+  font-size: 85%;
+}
+
 .undecoration-link {
   text-decoration: none;
 }
