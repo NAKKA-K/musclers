@@ -35,9 +35,42 @@
       <div slot="button-next" class="swiper-button-next"></div>
     </div>
 
-    <h2>新着グループ</h2>
+    <h2 class="mt-12 ml-0">新着グループ</h2>
+    <v-row>
+      <v-col v-for="group in groups" :key="group.id" cols="12" sm="6" lg="3">
+        <v-card>
+          <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
+            <v-img height="200" :src="group.thumbnail"></v-img>
+          </nuxt-link>
 
-    <h2>タグ</h2>
+          <v-card-title class="title pb-0">
+            <nuxt-link
+              :to="{ name: 'groups-id', params: { id: group.id } }"
+              class="undecoration-link black--text font-weight-bold"
+            >
+              {{ group.name }}
+            </nuxt-link>
+          </v-card-title>
+
+          <v-card-text>
+            <v-chip-group column>
+              <v-chip v-for="tag in group.tags" :key="tag.id" label small>
+                {{ tag.name }}
+              </v-chip>
+            </v-chip-group>
+            <div class="mb-4 grey--text text--lighten-1">
+              {{ group.created_at }}
+            </div>
+            <div
+              class="card-body-overflow"
+              v-text="group.description.slice(0, 100)"
+            ></div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <h2 class="mt-12 ml-0">タグ</h2>
     <v-row>
       <v-col
         v-for="tag in tags"
@@ -97,10 +130,14 @@ export default {
   async asyncData({ $axios }) {
     const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
     const tags = await $axios.$get('/api/tags').then((res) => res.data)
+    const groups = await $axios
+      .$get('/mock/api/groups')
+      .then((res) => res.data.slice(0, 4))
 
     return {
       blogs,
-      tags
+      tags,
+      groups
     }
   },
 
