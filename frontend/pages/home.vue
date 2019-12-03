@@ -38,6 +38,22 @@
     <h2>新着グループ</h2>
 
     <h2>タグ</h2>
+    <v-row>
+      <v-col
+        v-for="tag in tags"
+        :key="tag.id"
+        cols="6"
+        md="3"
+        class="pa-2 cell-wrapper"
+        :to="`/home?tag=${tag.name}`"
+      >
+        <nuxt-link :to="`/home?tag=${tag.name}`" class="undecoration-link">
+          <span class="cell-body">
+            {{ tag.name }}
+          </span>
+        </nuxt-link>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -80,9 +96,11 @@ export default {
 
   async asyncData({ $axios }) {
     const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
+    const tags = await $axios.$get('/api/tags').then((res) => res.data)
 
     return {
-      blogs
+      blogs,
+      tags
     }
   },
 
@@ -100,10 +118,36 @@ export default {
 </script>
 
 <style scoped>
+.undecoration-link {
+  text-decoration: none;
+}
+
 .search-text {
   font-weight: bold;
   font-size: 77%;
   text-decoration: none;
+}
+
+.cell-wrapper {
+  width: 25%;
+  width: -webkit-calc(25% - 10px);
+  width: calc(25% - 10px);
+  min-height: 80px;
+}
+.cell-body {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: white;
+  border: solid 2px #eaeaea;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 110%;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .slide-box {
