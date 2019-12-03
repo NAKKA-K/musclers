@@ -6,7 +6,7 @@
         label="ユーザー検索"
         placeholder="キーワードでユーザーを検索"
         hide-details
-        prepend-icon="search"
+        prepend-inner-icon="search"
         single-line
         outlined
         @keyup.enter="onSubmitSearch()"
