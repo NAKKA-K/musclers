@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>利用規約</h1>
+    <h1>退会ページ</h1>
 
     <in-development-card></in-development-card>
   </div>
