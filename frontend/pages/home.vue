@@ -1,166 +1,154 @@
 <template>
   <div>
-    <v-card>
-      <v-tabs
-        v-model="tab"
-        centered
-        background-color="white"
-        color="deep-purple accent-4"
-        right
-      >
-        <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
-        <v-tab-item>
-          <div>
-            <h2>参加中のグループ</h2>
-            <div align="center">
-              <v-container>
-                <v-row>
-                  <v-col
-                    v-for="group in limitedGroups"
-                    :key="group.id"
-                    cols="6"
-                  >
-                    <nuxt-link
-                      :to="{ name: 'groups-id', params: { id: group.id } }"
-                    >
-                      <v-img :src="group.thumbnail" class="img-size" />
-                      <h4>{{ group.name }}</h4>
-                    </nuxt-link>
-                  </v-col>
-                  <v-col cols="12">
-                    <a @click="tab++">もっと見る</a>
-                  </v-col>
-                </v-row>
-              </v-container>
-              <h2 align="left">通知</h2>
-              <v-container>
-                <v-row v-for="info in limitedInformation" :key="info.id">
-                  <v-col cols="3">
-                    <nuxt-link
-                      :to="{ name: 'infos-id', params: { id: info.id } }"
-                    >
-                      <v-img
-                        class="img-small"
-                        :src="info.thumbnail"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                    </nuxt-link>
-                  </v-col>
-                  <v-col cols="9">
-                    <nuxt-link
-                      :to="{ name: 'infos-id', params: { id: info.id } }"
-                    >
-                      <font size="3"
-                        >{{ info.by_name }}から
-                        {{ info.type }}が届きました。</font
-                      >
-                    </nuxt-link>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12">
-                    <a @click="tab += 2">もっと見る</a>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </div>
-            <h2>おすすめユーザー</h2>
-            <div align="center">
-              <v-container>
-                <v-row>
-                  <v-col
-                    v-for="recommend in limitedRecommendusers"
-                    :key="recommend.id"
-                    cols="6"
-                  >
-                    <nuxt-link
-                      :to="{
-                        name: 'recommended-id',
-                        params: { id: recommend.id }
-                      }"
-                    >
-                      <v-img :src="recommend.thumbnail" class="img-size" />
-                      <h4>{{ recommend.nickname }}</h4>
-                    </nuxt-link>
-                  </v-col>
-                  <v-col cols="12">
-                    <a @click="tab += 3">もっと見る</a>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </div>
+    <div class="d-flex align-center">
+      <v-text-field
+        v-model="searchQuery"
+        label="ユーザー検索"
+        placeholder="キーワードでユーザーを検索"
+        hide-details
+        prepend-icon="search"
+        single-line
+        outlined
+        @keyup.enter="onSubmitSearch()"
+      ></v-text-field>
+      <v-btn class="ml-2" large color="primary" @click="onSubmitSearch()">
+        検索
+      </v-btn>
+      <nuxt-link to="/search" class="ml-2 px-2 search-text">
+        もっと詳しく
+      </nuxt-link>
+    </div>
+
+    <div v-swiper:mySwiper="swiperOption" class="mt-4 swiper-container">
+      <div class="swiper-wrapper">
+        <div v-for="(blog, key) in recentBlogs" :key="key" class="swiper-slide">
+          <v-img class="slide-image" :src="blog.thumbnail"></v-img>
+          <div class="slide-box">
+            <p class="slide-box-title">
+              {{ blog.title }}
+            </p>
           </div>
-        </v-tab-item>
-        <v-tab-item>
-          <TheJoingroup :joingroup="groups" />
-        </v-tab-item>
-        <v-tab-item>
-          <TheInformation :infos="infos" />
-        </v-tab-item>
-        <v-tab-item>
-          <TheRecommenduser :recommended="recommended" />
-        </v-tab-item>
-      </v-tabs>
-    </v-card>
+        </div>
+      </div>
+
+      <div slot="button-prev" class="swiper-button-prev"></div>
+      <div slot="button-next" class="swiper-button-next"></div>
+    </div>
+
+    <h2>新着グループ</h2>
+
+    <h2>タグ</h2>
   </div>
 </template>
+
 <script>
-import TheJoingroup from './TheJoingroup.vue'
-import TheInformation from './TheInformation.vue'
-import TheRecommenduser from './TheRecommenduser.vue'
+import { mapGetters } from 'vuex'
+
 export default {
-  middleware: 'auth',
-  components: {
-    TheJoingroup,
-    TheRecommenduser,
-    TheInformation
-  },
-  data() {
-    return {
-      tab: null,
-      items: ['トップ', '参加中のグループ', '通知', 'おすすめユーザー']
+  data: () => ({
+    searchQuery: '',
+    blogs: [],
+    swiperOption: {
+      slidesPerView: 'auto',
+      spaceBetween: 0,
+      loopedSlides: 4,
+      loop: true,
+      backgroundUrl: '~/assets/images/next.png',
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
     }
-  },
+  }),
+
   computed: {
-    limitedGroups() {
-      return this.groups.slice(0, 2)
+    recentBlogs() {
+      return this.blogs.slice(0, 5)
     },
-    limitedInformation() {
-      return this.infos.slice(0, 3)
-    },
-    limitedRecommendusers() {
-      return this.recommended.slice(0, 2)
+    ...mapGetters({
+      shapedSearchParameters: 'users/shapedSearchParameters'
+    })
+  },
+
+  async asyncData({ $axios }) {
+    const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
+
+    return {
+      blogs
     }
   },
-  async asyncData({ $axios, store }) {
-    const groups = await $axios.$get('/mock/api/groups').then((res) => res.data)
-    const recommended = await $axios
-      .$get(`/api/users/recommended_users`)
-      .then((res) => res.data)
-    const infos = await $axios
-      .$get(`/mock/api/user/information`)
-      .then((res) => res.data)
-    return {
-      groups,
-      recommended,
-      infos
+
+  methods: {
+    onSubmitSearch() {
+      const parameters = { keywords: this.searchQuery }
+      this.$store.commit('users/setSearchParameters', { parameters })
+      this.$router.push({
+        path: '/users',
+        query: this.shapedSearchParameters
+      })
     }
   }
 }
 </script>
-<style>
-h2 {
-  margin-left: 20px;
+
+<style scoped>
+.search-text {
+  font-weight: bold;
+  font-size: 77%;
+  text-decoration: none;
 }
-.img-small {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+
+.slide-box {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.2) 100%);
+  padding: 16px;
+  box-sizing: border-box;
 }
-.img-size {
-  width: 121px;
-  height: 121px;
-  border-radius: 50%;
+.slide-box > .slide-box-title {
+  color: white;
+  width: 100%;
+}
+
+.swiper-container {
+  width: 100%;
+}
+.swiper-slide {
+  position: relative;
+  text-align: center;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  width: 27px;
+  height: 44px;
+  background-size: 27px 44px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.swiper-button-prev {
+  background-image: url('~@/assets/images/prev.png');
+  background-size: 100px 100px;
+}
+.swiper-button-next {
+  background-image: url('~@/assets/images/next.png');
+  background-size: 100px 100px;
+}
+.slide-image {
+  width: 375px;
+  height: 232px;
 }
 </style>
