@@ -1,5 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe GroupMessage, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "User association" do
+    context "belongs to user" do
+      it { should belong_to(:user) }
+    end
+  end
+
+  describe " Group association" do
+    context "belongs to group" do
+      it { should belong_to(:group) }
+    end
+  end
 end

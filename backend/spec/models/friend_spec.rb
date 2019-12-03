@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Friend, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "User association" do
+    context "belongs to user" do
+      it { should belong_to(:user) }
+    end
+
+    context "belongs to target" do
+      it { should belong_to(:target).class_name('User') }
+    end
+  end
 end
