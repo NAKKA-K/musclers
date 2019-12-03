@@ -695,7 +695,7 @@ Muscler'sのAPI仕様書
 
     + Attributes (object)
         + status: 200 (number)
-        + message: Eメールを更新しました (string)
+        + message: ニックネームとEメールを更新しました (string)
 
 + Response 400
 
