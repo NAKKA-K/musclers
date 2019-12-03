@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>privacy policy</h1>
+    <h1>プライバシーポリシー</h1>
 
     <in-development-card></in-development-card>
   </div>
