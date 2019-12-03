@@ -106,9 +106,10 @@
   </div>
 </template>
 <script>
-import TheJoingroup from './TheJoingroup.vue'
-import TheInformation from './TheInformation.vue'
-import TheRecommenduser from './TheRecommenduser.vue'
+import TheJoingroup from '~/pages/TheJoingroup.vue'
+import TheInformation from '~/pages/TheInformation.vue'
+import TheRecommenduser from '~/pages/TheRecommenduser.vue'
+
 export default {
   middleware: 'auth',
   components: {
