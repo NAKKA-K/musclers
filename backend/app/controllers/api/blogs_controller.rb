@@ -1,5 +1,5 @@
 class Api::BlogsController < ApplicationController
-    skip_before_action :authenticate_user_from_token!
+    skip_before_action :authenticate_user_from_token!, only: [:index, :show]
 
     #すべてのブログの一覧を返すアクション
     def index
