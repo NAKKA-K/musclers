@@ -8,6 +8,25 @@
       </v-btn>
     </div>
 
+    <div class="d-flex align-center mt-6">
+      <v-text-field
+        v-model="searchQuery"
+        label="グループ検索"
+        placeholder="キーワードでグループを検索"
+        hide-details
+        prepend-inner-icon="search"
+        single-line
+        outlined
+        @keyup.enter="onSubmitSearch"
+      ></v-text-field>
+      <v-btn class="ml-2" large color="primary" @click="onSubmitSearch">
+        検索
+      </v-btn>
+      <nuxt-link to="/groups/search" class="ml-2 px-2 search-text">
+        もっと詳しく
+      </nuxt-link>
+    </div>
+
     <v-list v-if="groups">
       <v-row>
         <v-col
@@ -63,10 +82,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: () => ({
+    searchQuery: '',
     groups: []
   }),
+
+  computed: {
+    ...mapGetters({
+      shapedSearchParameters: 'groups/shapedSearchParameters'
+    })
+  },
 
   async asyncData({ $axios }) {
     const groups = await $axios.$get('/mock/api/groups').then((res) => res.data)
@@ -74,11 +102,31 @@ export default {
     return {
       groups
     }
+  },
+
+  methods: {
+    onSubmitSearch(e) {
+      // 日本語変換でもkeydownが発火してしまうため処理で制御
+      if (e.type !== 'click' && e.keyCode !== 13) return
+
+      const parameters = { keywords: this.searchQuery }
+      this.$store.commit('groups/setSearchParameters', { parameters })
+      this.$router.push({
+        path: '/groups',
+        query: this.shapedSearchParameters
+      })
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.search-text {
+  font-weight: bold;
+  font-size: 77%;
+  text-decoration: none;
+}
+
 .card-body-overflow {
   display: -webkit-box;
   -webkit-box-orient: vertical;
