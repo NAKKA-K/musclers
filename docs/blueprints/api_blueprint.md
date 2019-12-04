@@ -783,6 +783,16 @@ Muscler'sのAPI仕様書
         + status: 200 (number)
         + message: ユーザ情報を更新しました (string)
 
++ Response 400
+
+        {
+            "status": 400,
+            "message": "値を入力してください"
+            "errors": [
+                { message: "値を入力してください" }
+            ],
+        }
+
 + Response 404
 
         {
