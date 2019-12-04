@@ -24,9 +24,11 @@
         <div v-for="(blog, key) in recentBlogs" :key="key" class="swiper-slide">
           <v-img class="slide-image" :src="blog.thumbnail"></v-img>
           <div class="slide-box">
-            <p class="slide-box-title">
-              {{ blog.title }}
-            </p>
+            <nuxt-link :to="`/user_blogs/${blog.id}`" class="undecoration-link">
+              <p class="slide-box-title">
+                {{ blog.title }}
+              </p>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -34,7 +36,7 @@
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
     </div>
-    <nuxt-link to="/user_blogs" class="d-block my-4 search-text">
+    <nuxt-link to="/user_blogs" class="d-inline-block mt-4 search-text">
       ユーザーブログをもっと見る
       <v-icon class="blue--text">chevron_right</v-icon>
     </nuxt-link>
@@ -73,7 +75,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <nuxt-link to="/groups" class="d-block search-text">
+    <nuxt-link to="/groups" class="d-inline-block search-text">
       グループをもっと見る
       <v-icon class="blue--text">chevron_right</v-icon>
     </nuxt-link>
@@ -208,7 +210,7 @@ export default {
   padding: 16px;
   box-sizing: border-box;
 }
-.slide-box > .slide-box-title {
+.slide-box .slide-box-title {
   color: white;
   width: 100%;
 }
