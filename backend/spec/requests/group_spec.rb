@@ -28,7 +28,10 @@ RSpec.describe "Group", type: :request do
 
   describe "GET /groups/:id/join" do
     context 'when not logged in user' do
-      it 'return status code 401'
+      it 'return status code 401' do
+        post join_api_group_path(0)
+        expect(response).to have_http_status(401)
+      end
     end
 
     context 'when logged in user' do
@@ -39,7 +42,23 @@ RSpec.describe "Group", type: :request do
         }
       end
 
-      it 'return status code 200'
+      context 'when not exists the group' do
+        it 'return status code 404' do
+          post join_api_group_path(0), headers: @headers
+          expect(response).to have_http_status(404)
+        end
+      end
+
+      context 'when not exists the group' do
+        before do
+          @group = create(:group)
+        end
+
+        it 'return status code 200' do
+          post join_api_group_path(@group.id), headers: @headers
+          expect(response).to have_http_status(200)
+        end
+      end
     end
   end
 end
