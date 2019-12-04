@@ -91,10 +91,9 @@ def create_dummy_users
 end
 
 def create_tags
-  tag = ["chubby", "normal", "thin", "macho", "lean", "slim", "health", "hobby", "job", "short_term", "long_term"]
-  tag.each do |item|
-    p "create tag name #{item}"
-    Tag.create(name: item)
+  11.times do |number|
+    p "create tag name number #{number}"
+    Tag.create(name: number)
   end
 end
 
