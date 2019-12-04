@@ -10,5 +10,14 @@ class Api::GroupsController < ApplicationController
     ) and return
   end
 
-end
+  def join
+    @group = Group.find(params[:id])
 
+    @group.group_users.create(user_id: current_user.id)
+    success_res(
+        200,
+        message: '参加しました',
+        data: nil,
+    ) and return
+  end
+end
