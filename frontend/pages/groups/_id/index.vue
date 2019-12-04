@@ -114,7 +114,6 @@ export default {
 
   methods: {
     async requestGroupJoin(group) {
-      // TODO: reuqest group join
       await this.$axios
         .$post(`/api/groups/${group.id}/join`)
         .then(() => {
