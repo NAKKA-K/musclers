@@ -30,7 +30,7 @@ describe 'ブログのAPI', type: :request do
             it 'ブログが存在しません' do
                 get api_blog_path(0)
                 expect(response).to have_http_status(404)
-                expect(JSON.parse(response.body)['message']).to ep '指定したブログは存在しません'
+                expect(JSON.parse(response.body)['message']).to eq '指定したブログは存在しません'
             end
         end
 

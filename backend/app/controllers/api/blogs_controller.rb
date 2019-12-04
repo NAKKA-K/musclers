@@ -21,18 +21,19 @@ class Api::BlogsController < ApplicationController
 
     #ブログの詳細を返すアクション
     def show
-        @blog = Blog.find(params[:id])
-        if @blog.blank?
-            error_res(
-                404,
-                message: '指定したブログは存在しません',
-                err: '指定したブログは存在しません',
-            ) and return
-        else
+        begin
+            @blog = Blog.find(params[:id])
             success_res(
                 200,
                 message: 'ブログ詳細を表示',
                 data: @blog,
+            ) and return
+        
+        rescue ActiveRecord::RecordNotFound
+            error_res(
+                404,
+                message: '指定したブログは存在しません',
+                err: '指定したブログは存在しません',
             ) and return
         end
     end
