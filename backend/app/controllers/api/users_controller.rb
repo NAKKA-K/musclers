@@ -52,6 +52,8 @@ module Api
         @user = User.find(params[:id])
         @user.update!(edit_data)
         success_res(200, message: 'ユーザ情報を更新しました') and return
+      rescue ActiveRecord::NotNullViolation => e
+        error_res(400, message: '値を入力してください', err: '値を入力してください') and return
       rescue ActiveRecord::RecordNotFound
         error_res(404, message: 'ユーザが存在しません',err: 'ユーザが存在しません') and return
       rescue ActiveRecord::RecordInvalid => e
