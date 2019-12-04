@@ -927,6 +927,44 @@ Muscler'sのAPI仕様書
 
     + Attributes (array[Tag])
 
+# Group BLOGS
+
+
+# BLOGS [api/blogs]
+
+
+### すべてのブログ一覧を取得する
++ Request (application/json)
+
++ Response 200 
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: ブログ一覧を表示 (string)
+        + data (array[Blog])
+
+### ブログの詳細を取得する
++ Request (application/json)
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: ブログ詳細を表示 (string)
+        + data (array[Blog])
+
++ Response 404
+
+        {
+            "status": 404,
+            "message": "指定したブログは存在しません。"
+            "errors": [
+                { message: "指定したブログは存在しません。" }
+            ],
+        }
+
+
+
 # Group GROUPS
 
 ## Groups [/api/groups]
