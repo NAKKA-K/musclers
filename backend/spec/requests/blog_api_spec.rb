@@ -28,7 +28,7 @@ describe 'ブログのAPI', type: :request do
     describe 'ブログの詳細表示機能' do
         context 'ブログが存在しない場合' do
             it 'ブログが存在しません' do
-                get api_blog_path
+                get api_blog_path(0)
                 expect(response).to have_http_status(404)
                 expect(JSON.parse(response.body)['message']).to ep '指定したブログは存在しません'
             end
@@ -42,7 +42,7 @@ describe 'ブログのAPI', type: :request do
             it 'ブログの詳細が表示される' do
                 get api_blog_path(@blog.id)
                 expect(response).to have_http_status(200)
-                expect(JSON.parse(response.body)['message']).to eq 'ブログ詳細を表'
+                expect(JSON.parse(response.body)['message']).to eq 'ブログ詳細を表示'
             end
         end
     end
