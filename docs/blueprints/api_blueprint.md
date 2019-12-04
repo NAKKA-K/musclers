@@ -930,7 +930,7 @@ Muscler'sのAPI仕様書
 # Group BLOGS
 
 
-# BLOGS [api/blogs]
+## BLOGS [api/blogs]
 
 
 ### すべてのブログ一覧を取得する
@@ -942,6 +942,8 @@ Muscler'sのAPI仕様書
         + status: 200 (number)
         + message: ブログ一覧を表示 (string)
         + data (array[Blog])
+
+## BLOGS [api/blogs/{id}]
 
 ### ブログの詳細を取得する
 + Request (application/json)
