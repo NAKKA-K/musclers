@@ -724,7 +724,7 @@ blogs = [
 
 ]
 
-blogs.each do |val|
-  blog = Blog.create(val)
-  p "create Blog: #{blog.id}"
-end
+blogs.each do |data|
+    blog = Blog.create.where(data)
+    p "create blog: #{blog.id}"
+  end
