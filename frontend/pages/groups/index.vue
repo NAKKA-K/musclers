@@ -38,15 +38,10 @@
           md="3"
           sm="3"
         >
-          <v-card
-            class="mx-auto my-4"
-            max-width="374"
-            max-height="550"
-            min-height="550"
-          >
+          <v-card class="mx-auto my-4" max-width="374" max-height="550">
             <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
               <v-img
-                height="300"
+                height="200"
                 :src="
                   group.thumbnail ||
                     'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
