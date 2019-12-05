@@ -38,7 +38,7 @@ ja:
         long_term: "長期的"
 
     information:
-      type:
+      genre:
         group_invitation: 'グループ招待'
         friend_request: '友達申請'
         direct_message: 'ダイレクトメッセージ'
