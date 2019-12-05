@@ -48,7 +48,7 @@
                 color="#1CA1F1"
                 rounded
                 outlined
-                @click.prevent="() => sendFriendRequest(user.id)"
+                @click.prevent="() => sendFriendRequest(user)"
               >
                 友達申請する
               </v-btn>
@@ -60,6 +60,17 @@
     <div v-else>
       ユーザーが存在しません
     </div>
+
+    <v-snackbar
+      v-model="requestFriend"
+      :color="resultRequestType"
+      top
+      vertical
+      :timeout="2500"
+    >
+      {{ resultRequestMessage }}
+      <v-btn dark text @click="requestFriend = false">CLOSE</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -85,7 +96,10 @@ export default {
 
   data: () => ({
     searchQuery: '',
-    users: null
+    users: null,
+    requestFriend: false,
+    resultRequestType: null,
+    resultRequestMessage: null
   }),
 
   computed: {
@@ -127,9 +141,18 @@ export default {
   },
 
   methods: {
-    sendFriendRequest(userId) {
-      // TODO: 友達申請APIを呼び出す
-      console.log(userId)
+    async sendFriendRequest(user) {
+      await this.$axios
+        .$post(`/api/user/frineds`, { user_id: user.id })
+        .then(() => {
+          this.resultRequestMessage = `${user.nickname}さんに友達申請しました`
+          this.resultRequestType = 'info'
+        })
+        .catch(() => {
+          this.resultRequestMessage = `友達申請に失敗しました`
+          this.resultRequestType = 'error'
+        })
+      this.requestFriend = true
     },
     updateUsersPage(page) {
       // pageの変更をURLのクエリパラメータに反映
