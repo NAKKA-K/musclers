@@ -90,13 +90,6 @@ def create_dummy_users
   end
 end
 
-def create_tags
-  11.times do |number|
-    p "create tag name number #{number}"
-    Tag.create(name: number)
-  end
-end
-
 def create_dm_list
   ActiveRecord::Base.transaction do
     test_user = User.first
@@ -122,12 +115,11 @@ end
 
 create_test_user
 create_dummy_users
-create_tags
 create_dm_list
 create_direct_messages
 
 # 読み込みたい順番で全`db/seeds/*.rb`のbasenameを配列を定義する
-seeds = %w(groups)
+seeds = %w(tags groups)
 
 Rails.logger.info "Load all seed files 'db/seeds/*.rb'."
 seeds.each do |seed|
