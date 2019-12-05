@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{ getOpponent.nickname }}さんとのDM</h1>
-
+    <h1>{{ this.dm }}</h1>
     <v-card max-width="450" class="mx-auto chat-card">
       <div class="overflow-y-auto messages">
         <template v-for="(item, index) in directMessages">
@@ -68,8 +68,28 @@ export default {
     directMessageGroup: null,
     directMessages: null,
     message: '',
-    sending: false
+    sending: false,
+    directMessageChannel: null,
+    dm: 'aaaaaa'
   }),
+
+  channels: {
+    DirectMessageChannel: {
+      connected: () => {
+        console.log('connect')
+      },
+      received: (data) => {
+        console.log(this.directMessages)
+      },
+      disconnected: () => {}
+    }
+  },
+
+  mounted() {
+    this.$cable.subscribe({
+      channel: 'DirectMessageChannel'
+    })
+  },
 
   computed: {
     ...mapGetters({
@@ -117,25 +137,19 @@ export default {
       // TODO: これではoverflow:scroll表示されている要素に飛べないっぽい
       chatLog.scrollTop = chatLog.scrollHeight
     },
-    async sendMessage(e) {
+    sendMessage(e) {
       // 日本語変換でもkeydownが発火してしまうため処理で制御
       if (e.type !== 'click' && e.keyCode !== 13) return
 
-      this.sending = true
-      await this.$axios
-        .$post(
-          `/mock/api/user/direct_message_groups/${this.$route.params.id}`,
-          { message: this.message }
-        )
-        .then((res) => {
-          const message = res.data
-          this.directMessages.push(message)
-
-          this.sending = false
-        })
-        .catch(() => {
-          this.sending = false
-        })
+      // this.sending = true
+      this.$cable.perform({
+        channel: 'DirectMessageChannel',
+        action: 'direct_message',
+        data: {
+          message: this.message
+        }
+      })
+      // this.sending = false
     }
   }
 }
