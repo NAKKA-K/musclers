@@ -281,7 +281,7 @@ export default {
       swiperOptionTop: {
         spaceBetween: 10,
         loop: true,
-        loopedSlides: 5,
+        loopedSlides: 4,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
@@ -292,7 +292,7 @@ export default {
         slidesPerView: 4,
         touchRatio: 0.2,
         loop: true,
-        loopedSlides: 5,
+        loopedSlides: 4,
         slideToClickedSlide: true
       }
     }
