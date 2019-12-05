@@ -2,7 +2,11 @@ class Api::GroupsController < ApplicationController
   skip_before_action :authenticate_user_from_token!, only: [:index]
 
   def index
-    @groups = Group.order(created_at: :desc)
+    @groups = ActiveModel::Serializer::CollectionSerializer.new(
+      Group.order(created_at: :desc),
+      each_serializer: GroupSerializer
+    ).as_json
+
     success_res(
         200,
         message: '取得しました',
