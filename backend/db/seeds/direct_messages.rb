@@ -1,7 +1,7 @@
-messages = [
+direct_messages = [
   {
-    group_id:1
-    message: [
+    group_id:1,
+    body: [
       {
         send_user:1,
         message: "こんにちは！！一緒に筋肉ライフを楽しみましょう"
@@ -17,8 +17,8 @@ messages = [
     ]
   },
   {
-    group_id:2
-    message: [
+    group_id:2,
+    body: [
       {
         send_user:3,
         message: "トレーニングやりましょー"
@@ -38,8 +38,8 @@ messages = [
     ]
   },
   {
-    group_id:3
-    message: [
+    group_id:3,
+    body: [
       {
         send_user:1,
         message: "来週ボディビルの大会があるのですが一緒にみに行きません？"
@@ -59,14 +59,11 @@ messages = [
     ]
   }
 ]
-ActiveRecord::Base.transaction do
-  test_user = User.first
-  DirectMessageGroup.where(by_user_id: test_user.id).each do |dm_group|
-    p "create direct message direct_message_group_id: #{dm_group.id}"
-    DirectMessage.create(send_user_id:?,body: ?,direct_message_group_id:?)
-    test_user.send_users.create!(
-      body: Faker::Lorem.sentence(word_count: Faker::Number.number(digits: 2)),
-      direct_message_group_id: dm_group.id
-    )
+
+direct_messages.each do |item|
+  dm_group_id = item[:group_id]
+  item[:body].each do |message|
+    DirectMessage.create(send_user_id: message[:send_user],body: message[:message],direct_message_group_id:dm_group_id)
+    p "create direct message send_user_id:#{message[:send_user]},direct_message_group_id: #{dm_group_id}"
   end
 end
