@@ -3,7 +3,7 @@ class Tag < ApplicationRecord
      has_many :blog_tags
      has_many :blogs, through: :blog_tags
 
-     enum name: { 
+     enum name: {
           chubby: 0,
           normal: 1,
           thin: 2,
