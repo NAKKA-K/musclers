@@ -125,3 +125,11 @@ create_dummy_users
 create_tags
 create_dm_list
 create_direct_messages
+
+# 読み込みたい順番で全`db/seeds/*.rb`のbasenameを配列を定義する
+seeds = %w(groups)
+
+Rails.logger.info "Load all seed files 'db/seeds/*.rb'."
+seeds.each do |seed|
+  load(Rails.root.join('db/seeds/', "#{seed}.rb"))
+end
