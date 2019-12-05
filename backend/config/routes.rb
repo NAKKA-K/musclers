@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       resources :direct_message_groups,only: [:index]
     end
 
-    resources :groups, only: [:index] do
+    resources :groups, only: [:index, :show] do
       member do
         post :join
       end
