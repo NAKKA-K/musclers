@@ -7,11 +7,33 @@
       <div v-if="!group.is_public"><v-icon>lock</v-icon></div>
     </v-flex>
 
-    <template v-for="tag in group.tags">
-      <v-btn :key="tag.id" color="darkgray" class="mr-2 mb-1" depressed small>
-        {{ tag.name }}
+    <v-chip-group v-if="group.tags" column>
+      <v-chip v-for="tag in group.tags.split(' ')" :key="tag" label small>
+        {{ tag }}
+      </v-chip>
+    </v-chip-group>
+
+    <div class="ma-2 mb-10">
+      <v-btn
+        color="#1CA1F1"
+        rounded
+        outlined
+        @click.prevent="() => requestGroupJoin(group)"
+      >
+        グループに参加する
       </v-btn>
-    </template>
+
+      <v-snackbar
+        v-model="join"
+        :color="resultJoinType"
+        top
+        vertical
+        :timeout="2500"
+      >
+        {{ resultJoinMessage }}
+        <v-btn dark text @click="join = false">CLOSE</v-btn>
+      </v-snackbar>
+    </div>
 
     <v-tabs v-model="tab" class="mt-6" background-color="transparent">
       <v-tab v-for="(item, index) in tabs" :key="index">
@@ -21,9 +43,8 @@
       <v-tabs-items v-model="tab" class="mt-6">
         <v-tab-item class="flat-background">
           <h5 class="mb-2">概要</h5>
-          {{ group.description }}
+          <p style="white-space: pre-wrap;">{{ group.description }}</p>
         </v-tab-item>
-
         <v-tab-item class="flat-background">
           <template v-for="(item, index) in messages">
             <v-list
@@ -71,12 +92,15 @@ export default {
     group: null,
     messages: null,
     tabs: ['詳細', 'チャット', 'メンバー'],
-    tab: null
+    tab: null,
+    join: false,
+    resultJoinType: null,
+    resultJoinMessage: null
   }),
 
   async asyncData({ $axios, params }) {
     const group = await $axios
-      .$get(`/mock/api/groups/${params.id}`)
+      .$get(`/api/groups/${params.id}`)
       .then((res) => res.data)
     const messages = await $axios
       .$get(`/mock/api/groups/${params.id}/messages`)
@@ -88,10 +112,20 @@ export default {
     }
   },
 
-  mounted() {
-    // BUG: タグが変わりません
-    const tab = this.$route.query.tab
-    this.tab = tab >= 0 && tab <= 2 ? tab : null
+  methods: {
+    async requestGroupJoin(group) {
+      await this.$axios
+        .$post(`/api/groups/${group.id}/join`)
+        .then(() => {
+          this.resultJoinMessage = `「${group.name}」グループに参加しました`
+          this.resultJoinType = 'info'
+        })
+        .catch(() => {
+          this.resultJoinMessage = `グループに参加失敗しました`
+          this.resultJoinType = 'error'
+        })
+      this.join = true
+    }
   }
 }
 </script>

@@ -1081,7 +1081,11 @@ Muscler'sのAPI仕様書
 
             Authorization: ...
 
-+ Response 204 (application/json)
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 参加しました (string)
 
 + Response 401 (application/json)
 
