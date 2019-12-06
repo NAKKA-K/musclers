@@ -24,20 +24,21 @@ ja:
         enjoy:   "エンジョイ"
 
     tag:
-      chubby: "ぽっちゃり"
-      normal: "ふつう"
-      thin: "やせ"
-      macho: "ゴリマッチョ"
-      lean: "細マッチョ"
-      slim: "筋肉質"
-      health: "健康"
-      hobby: "趣味"
-      job: "仕事"
-      short_term: "短期的"
-      long_term: "長期的"
+      name:
+        chubby: "ぽっちゃり"
+        normal: "ふつう"
+        thin: "やせ"
+        macho: "ゴリマッチョ"
+        lean: "細マッチョ"
+        slim: "筋肉質"
+        health: "健康"
+        hobby: "趣味"
+        job: "仕事"
+        short_term: "短期的"
+        long_term: "長期的"
 
     information:
-      type:
+      genre:
         group_invitation: 'グループ招待'
         friend_request: '友達申請'
         direct_message: 'ダイレクトメッセージ'

@@ -294,9 +294,13 @@ export default {
         loop: true,
         loopedSlides: 4,
         slideToClickedSlide: true
-      }
+      },
+      requestFriend: false,
+      resultRequestType: null,
+      resultRequestMessage: null
     }
   },
+
   async asyncData({ $axios, params, error }) {
     const response = await $axios
       .get(`/api/users/${params.id}`)
@@ -316,6 +320,22 @@ export default {
 
     return {
       user: response.data.data
+    }
+  },
+
+  methods: {
+    async sendFriendRequest() {
+      await this.$axios
+        .$post(`/api/user/frineds`, { user_id: this.user.id })
+        .then(() => {
+          this.resultRequestMessage = `友達申請しました`
+          this.resultRequestType = 'info'
+        })
+        .catch(() => {
+          this.resultRequestMessage = `友達申請に失敗しました`
+          this.resultRequestType = 'error'
+        })
+      this.requestFriend = true
     }
   }
 }

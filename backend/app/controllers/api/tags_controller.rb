@@ -4,10 +4,15 @@ class Api::TagsController < ApplicationController
   #Tagすべての一覧を返すアクション
   def index
     @tags = Tag.all
+    data = ActiveModel::Serializer::CollectionSerializer.new(
+      @tags,
+      each_serializer: TagSerializer
+    ).as_json
+
     success_res(
       200,
       message: 'タグ一覧を表示',
-      data: @tags,
+      data: data,
     )
   end
 

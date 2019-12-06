@@ -1,346 +1,167 @@
 <template>
   <div>
-    <h2>マイページ</h2>
-
-    <v-layout class="justify-end">
-      <v-btn class="my-4" tile outlined color="success" @click="enableEdit">
-        <v-icon small>edit</v-icon>編集
-      </v-btn>
-      <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
-        <v-icon small>edit</v-icon>保存
-      </v-btn>
-    </v-layout>
-
-    <div class="mb-5">
-      <img
-        v-if="thumbnailSrc"
-        :src="thumbnailSrc"
-        height="150"
-        @click="pickFile"
-      />
-      <input
-        ref="image"
-        type="file"
-        style="display: none"
-        accept="image/*"
-        :disabled="disabled"
-        @change="onPickedFile"
-      />
-    </div>
-
-    <v-text-field
-      v-model="$v.email.$model"
-      :error-messages="emailErrors"
-      label="Eメール"
-      :disabled="disabled"
-    ></v-text-field>
-
-    <v-text-field
-      v-model="$v.nickname.$model"
-      :error-messages="nicknameErrors"
-      counter="64"
-      label="ニックネーム"
-      :disabled="disabled"
-    ></v-text-field>
-
-    <v-textarea
-      v-model="$v.description.$model"
-      :error-messages="descriptionErrors"
-      counter="1024"
-      label="自己紹介"
-      outlined
-      rows="5"
-      :disabled="disabled"
-    ></v-textarea>
-
-    <v-text-field
-      v-model="age"
-      label="年齢"
-      type="number"
-      :disabled="disabled"
-    ></v-text-field>
-
-    <v-radio-group v-model="gender" label="性別" :disabled="disabled">
-      <v-radio
-        v-for="hash in gendersArray"
-        :key="hash.value"
-        :label="hash.label"
-        :value="hash.value"
-      ></v-radio>
-    </v-radio-group>
-
-    <v-text-field
-      v-model="height"
-      label="身長"
-      type="number"
-      :disabled="disabled"
-    ></v-text-field>
-
-    <v-text-field
-      v-model="weight"
-      label="体重"
-      type="number"
-      :disabled="disabled"
-    ></v-text-field>
-
-    <v-radio-group v-model="seriousness" label="本気度" :disabled="disabled">
-      <v-radio
-        v-for="hash in seriousnessArray"
-        :key="hash.value"
-        :label="hash.label"
-        :value="hash.value"
-      ></v-radio>
-    </v-radio-group>
-
-    <v-select
-      v-model="figure"
-      :items="figuresArray"
-      item-text="label"
-      item-value="value"
-      label="体系"
-      :disabled="disabled"
-    ></v-select>
-
-    <v-text-field
-      v-model="muscle_mass"
-      type="number"
-      label="筋肉量"
-      :disabled="disabled"
-    ></v-text-field>
-
-    <v-text-field
-      v-model="body_fat_percentage"
-      type="number"
-      label="体脂肪率"
-      :disabled="disabled"
-    ></v-text-field>
+    <v-card>
+      <v-tabs
+        v-model="tab"
+        centered
+        background-color="white"
+        color="deep-purple accent-4"
+        right
+      >
+        <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
+        <v-tab-item>
+          <div>
+            <h2>参加中のグループ</h2>
+            <div align="center">
+              <v-container>
+                <v-row>
+                  <v-col
+                    v-for="group in limitedGroups"
+                    :key="group.id"
+                    cols="6"
+                  >
+                    <nuxt-link
+                      :to="{ name: 'groups-id', params: { id: group.id } }"
+                    >
+                      <v-img :src="group.thumbnail" class="img-size" />
+                      <h4>{{ group.name }}</h4>
+                    </nuxt-link>
+                  </v-col>
+                  <v-col cols="12">
+                    <a @click="tab++">もっと見る</a>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <h2 align="left">通知</h2>
+              <v-container>
+                <v-row v-for="info in limitedInformation" :key="info.id">
+                  <v-col cols="3">
+                    <nuxt-link
+                      :to="{ name: 'infos-id', params: { id: info.id } }"
+                    >
+                      <v-img
+                        class="img-small"
+                        :src="info.thumbnail"
+                        alt="Avatar"
+                        align="middle"
+                      />
+                    </nuxt-link>
+                  </v-col>
+                  <v-col cols="9">
+                    <nuxt-link
+                      :to="{ name: 'infos-id', params: { id: info.id } }"
+                    >
+                      <font size="3"
+                        >{{ info.by_name }}から
+                        {{ info.type }}が届きました。</font
+                      >
+                    </nuxt-link>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
+                    <a @click="tab += 2">もっと見る</a>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </div>
+            <h2>おすすめユーザー</h2>
+            <div align="center">
+              <v-container>
+                <v-row>
+                  <v-col
+                    v-for="recommend in limitedRecommendusers"
+                    :key="recommend.id"
+                    cols="6"
+                  >
+                    <nuxt-link
+                      :to="{
+                        name: 'recommended-id',
+                        params: { id: recommend.id }
+                      }"
+                    >
+                      <v-img :src="recommend.thumbnail" class="img-size" />
+                      <h4>{{ recommend.nickname }}</h4>
+                    </nuxt-link>
+                  </v-col>
+                  <v-col cols="12">
+                    <a @click="tab += 3">もっと見る</a>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </div>
+          </div>
+        </v-tab-item>
+        <v-tab-item>
+          <TheJoingroup :joingroup="groups" />
+        </v-tab-item>
+        <v-tab-item>
+          <TheInformation :infos="infos" />
+        </v-tab-item>
+        <v-tab-item>
+          <TheRecommenduser :recommended="recommended" />
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
   </div>
 </template>
-
 <script>
-import { required, email, maxLength } from 'vuelidate/lib/validators'
-import {
-  validateEmail,
-  validateNickname,
-  validateDescription
-} from '~/validations'
+import TheJoingroup from '~/pages/TheJoingroup.vue'
+import TheInformation from '~/pages/TheInformation.vue'
+import TheRecommenduser from '~/pages/TheRecommenduser.vue'
 
 export default {
   middleware: 'auth',
-  data: () => ({
-    disabled: true,
-    user: {},
-    seriousnessArray: [
-      { label: '未設定', value: 0 },
-      { label: 'エンジョイ', value: 2 },
-      { label: 'ガチ', value: 1 }
-    ],
-    gendersArray: [
-      { label: '未設定', value: 0 },
-      { label: '男性', value: 1 },
-      { label: '女性', value: 2 },
-      { label: 'その他', value: 3 }
-    ],
-    figuresArray: [
-      { label: '未設定', value: 0 },
-      { label: '痩せ型筋肉質', value: 1 },
-      { label: '普通筋肉質', value: 5 },
-      { label: '肥満型筋肉質', value: 10 },
-      { label: '痩せ型', value: 15 },
-      { label: '普通', value: 20 },
-      { label: '肥満型', value: 25 },
-      { label: 'その他', value: 99 }
-    ],
-    thumbnailSrc: ''
-  }),
-
-  validations: {
-    email: {
-      required,
-      email
-    },
-    nickname: {
-      required,
-      maxLength: maxLength(64)
-    },
-    description: {
-      maxLength: maxLength(1024)
+  components: {
+    TheJoingroup,
+    TheRecommenduser,
+    TheInformation
+  },
+  data() {
+    return {
+      tab: null,
+      items: ['トップ', '参加中のグループ', '通知', 'おすすめユーザー']
     }
   },
-
   computed: {
-    email: {
-      get: (vm) => (vm.user ? vm.user.email : null),
-      set(val) {
-        this.setUserPartial('email', val)
-      }
+    limitedGroups() {
+      return this.groups.slice(0, 2)
     },
-    nickname: {
-      get: (vm) => (vm.user ? vm.user.nickname : null),
-      set(val) {
-        this.setUserPartial('nickname', val)
-      }
+    limitedInformation() {
+      return this.infos.slice(0, 3)
     },
-    description: {
-      get: (vm) => (vm.user ? vm.user.description : null),
-      set(val) {
-        this.setUserPartial('description', val)
-      }
-    },
-    age: {
-      get: (vm) => (vm.user ? vm.user.age : null),
-      set(val) {
-        this.setUserPartial('age', val)
-      }
-    },
-    gender: {
-      get() {
-        const item = this.gendersArray.find((item) => {
-          return item.label === this.user.gender
-        })
-        return item.value
-      },
-      set(val) {
-        const item = this.gendersArray.find((item) => {
-          return item.value === val
-        })
-        this.setUserPartial('gender', item.label)
-      }
-    },
-    height: {
-      get: (vm) => (vm.user ? vm.user.height : null),
-      set(val) {
-        this.setUserPartial('height', val)
-      }
-    },
-    weight: {
-      get: (vm) => (vm.user ? vm.user.weight : null),
-      set(val) {
-        this.setUserPartial('weight', val)
-      }
-    },
-    seriousness: {
-      get() {
-        const item = this.seriousnessArray.find((item) => {
-          return item.label === this.user.seriousness
-        })
-        return item.value
-      },
-      set(val) {
-        const item = this.seriousnessArray.find((item) => {
-          return item.value === val
-        })
-        this.setUserPartial('seriousness', item.label)
-      }
-    },
-    figure: {
-      get() {
-        const item = this.figuresArray.find((item) => {
-          return item.label === this.user.figure
-        })
-        return item.value
-      },
-      set(val) {
-        const item = this.figuresArray.find((item) => {
-          return item.value === val
-        })
-        this.setUserPartial('figure', item.label)
-      }
-    },
-    muscle_mass: {
-      get: (vm) => (vm.user ? vm.user.muscle_mass : null),
-      set(val) {
-        this.setUserPartial('muscle_mass', val)
-      }
-    },
-    body_fat_percentage: {
-      get: (vm) => (vm.user ? vm.user.body_fat_percentage : null),
-      set(val) {
-        this.setUserPartial('body_fat_percentage', val)
-      }
-    },
-    emailErrors: (vm) => validateEmail(vm.$v.email),
-    nicknameErrors: (vm) => validateNickname(vm.$v.nickname),
-    descriptionErrors: (vm) => validateDescription(vm.$v.description)
+    limitedRecommendusers() {
+      return this.recommended.slice(0, 2)
+    }
   },
-
-  asyncData({ store }) {
-    const user = store.getters['auth/currentUser']
-    if (!user) return
-
-    const data = { user }
-    if (user.thumbnail) data.thumbnailSrc = user.thumbnail
-    console.log(user)
-
-    return data
-  },
-
-  methods: {
-    enableEdit() {
-      this.disabled = false
-    },
-    setUserPartial(key, value) {
-      this.user = { ...this.user, [key]: value }
-    },
-    pickFile() {
-      this.$refs.image.click()
-    },
-    onPickedFile(e) {
-      const file = e.target.files[0]
-      if (typeof file !== 'undefined') {
-        if (file.name.lastIndexOf('.') <= 0) {
-          return
-        }
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.addEventListener('load', () => {
-          this.thumbnailSrc = reader.result
-          this.setUserPartial('thumbnail', file)
-        })
-      }
-    },
-    async submitUserEdit() {
-      const formData = new FormData()
-      for (const key of Object.keys(this.user)) {
-        switch (key) {
-          case 'nickname':
-          case 'description':
-          case 'age':
-          case 'height':
-          case 'weight':
-          case 'muscle_mass':
-          case 'body_fat_percentage':
-          case 'email':
-            formData.append(`user[${key}]`, this.user[key])
-            break
-          case 'gender':
-            formData.append(`user[${key}]`, this.gender)
-            break
-          case 'figure':
-            formData.append(`user[${key}]`, this.figure)
-            break
-          case 'seriousness':
-            formData.append(`user[${key}]`, this.seriousness)
-            break
-          case 'thumbnail':
-            if (typeof this.user.thumbnail !== 'string') {
-              formData.append(`user[${key}]`, this.user[key])
-            }
-            break
-        }
-      }
-
-      await this.$axios.$patch(`/api/users/${this.user.id}/edit`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-
-      const currentUser = await this.$axios
-        .$get('/api/auth/user')
-        .then((res) => res.data)
-      this.$store.dispatch('auth/setCurrentUser', { user: currentUser })
+  async asyncData({ $axios, store }) {
+    const groups = await $axios.$get('/mock/api/groups').then((res) => res.data)
+    const recommended = await $axios
+      .$get(`/api/users/recommended_users`)
+      .then((res) => res.data)
+    const infos = await $axios
+      .$get(`/mock/api/user/information`)
+      .then((res) => res.data)
+    return {
+      groups,
+      recommended,
+      infos
     }
   }
 }
 </script>
+<style>
+h2 {
+  margin-left: 20px;
+}
+.img-small {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.img-size {
+  width: 121px;
+  height: 121px;
+  border-radius: 50%;
+}
+</style>

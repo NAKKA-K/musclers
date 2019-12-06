@@ -1,175 +1,249 @@
 <template>
   <div>
-    <v-card>
-      <v-tabs
-        v-model="tab"
-        background-color="white"
-        color="deep-purple accent-4"
-        right
-      >
-        <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
-        <v-tab-item>
-          <div>
-            <h2>参加中のグループ</h2>
-            <div align="center">
-              <v-container>
-                <v-row>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://cdn.vuetifyjs.com/images/john.png"
-                      class="img-size"
-                    />
-                    <h4>筋肉同好会</h4>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://image.flaticon.com/icons/png/512/30/30924.png"
-                      class="img-size"
-                    />
-                    <h4>I❤️筋肉</h4>
-                  </v-col>
-                  <v-col cols="12">
-                    <a @click="tab++">もっと見る</a>
-                  </v-col>
-                </v-row>
-              </v-container>
-              <h2 align="left">通知</h2>
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
-                  </v-col>
-                  <v-col cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
-                  </v-col>
-                  <v-col cols="12">
-                    <p>
-                      <img
-                        class="img-small"
-                        src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                      <font size="2"
-                        >呉屋省吾さんからメッセージが届きました。</font
-                      >
-                    </p>
-                  </v-col>
-                  <v-col cols="12">
-                    <a @click="tab += 2">もっと見る</a>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </div>
-            <h2>おすすめユーザー</h2>
-            <div align="center">
-              <v-container>
-                <v-row>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://diamond.jp/mwimgs/c/2/600/img_c256d0b5bc611ba415623c0428dffe262112487.jpg"
-                      class="img-size"
-                      alt="Avatar"
-                    />
-                    <h4>最戸 たける</h4>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://gaishishukatsu.com/wp-content/uploads/2018/07/muscle.jpg"
-                      class="img-size"
-                      alt="Avatar"
-                    />
-                    <h4>内田 真智雄</h4>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      src="https://watch-monster.com/system/item_getties/images/000/205/406/medium/4380bf06-a23d-4a70-9dd1-2f4bbde0302a.jpg?1537371756"
-                      class="img-size"
-                      alt="Avatar"
-                    />
-                    <h4>朝田 和樹</h4>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      src="http://cache.img.gmo.jp/gmobb/april2014/main_massuru.png"
-                      class="img-size"
-                      alt="Avatar"
-                    />
-                    <h4>呉屋 省吾</h4>
-                  </v-col>
-                  <v-col cols="12">
-                    <a @click="tab += 3">もっと見る</a>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </div>
+    <div class="d-flex align-center">
+      <v-text-field
+        v-model="searchQuery"
+        label="ユーザー検索"
+        placeholder="キーワードでユーザーを検索"
+        hide-details
+        single-line
+        outlined
+        class="search-placeholder"
+        @keyup.enter="onSubmitSearch()"
+      ></v-text-field>
+      <v-btn class="ml-2" large color="primary" @click="onSubmitSearch()">
+        検索
+      </v-btn>
+      <nuxt-link to="/search" class="ml-2 px-2 search-text">
+        もっと詳しく
+      </nuxt-link>
+    </div>
+
+    <div v-swiper:mySwiper="swiperOption" class="mt-4 swiper-container">
+      <div class="swiper-wrapper">
+        <div v-for="(blog, key) in recentBlogs" :key="key" class="swiper-slide">
+          <v-img class="slide-image" :src="blog.thumbnail"></v-img>
+          <div class="slide-box">
+            <nuxt-link :to="`/user_blogs/${blog.id}`" class="undecoration-link">
+              <p class="slide-box-title">
+                {{ blog.title }}
+              </p>
+            </nuxt-link>
           </div>
-        </v-tab-item>
-        <v-tab-item>
-          <TheJoingroup />
-        </v-tab-item>
-        <v-tab-item>
-          <TheNotification />
-        </v-tab-item>
-        <v-tab-item>
-          <TheRecommenduser />
-        </v-tab-item>
-      </v-tabs>
-    </v-card>
+        </div>
+      </div>
+
+      <div slot="button-prev" class="swiper-button-prev"></div>
+      <div slot="button-next" class="swiper-button-next"></div>
+    </div>
+    <nuxt-link to="/user_blogs" class="d-inline-block mt-4 search-text">
+      ユーザーブログをもっと見る
+      <v-icon class="blue--text">chevron_right</v-icon>
+    </nuxt-link>
+
+    <h2 class="mt-12 ml-0">新着グループ</h2>
+    <v-row>
+      <v-col v-for="group in groups" :key="group.id" cols="12" sm="6" lg="3">
+        <v-card>
+          <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
+            <v-img height="200" :src="group.thumbnail"></v-img>
+          </nuxt-link>
+
+          <v-card-title class="title pb-0">
+            <nuxt-link
+              :to="{ name: 'groups-id', params: { id: group.id } }"
+              class="undecoration-link black--text font-weight-bold"
+            >
+              {{ group.name }}
+            </nuxt-link>
+          </v-card-title>
+
+          <v-card-text>
+            <v-chip-group column>
+              <v-chip v-for="tag in group.tags" :key="tag.id" label small>
+                {{ tag.name }}
+              </v-chip>
+            </v-chip-group>
+            <div class="mb-4 grey--text text--lighten-1">
+              {{ group.created_at }}
+            </div>
+            <div
+              class="card-body-overflow"
+              v-text="group.description.slice(0, 100)"
+            ></div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <nuxt-link to="/groups" class="d-inline-block search-text">
+      グループをもっと見る
+      <v-icon class="blue--text">chevron_right</v-icon>
+    </nuxt-link>
+
+    <h2 class="mt-12 ml-0">タグ</h2>
+    <v-row>
+      <v-col
+        v-for="tag in tags"
+        :key="tag.id"
+        cols="6"
+        md="3"
+        class="pa-2 cell-wrapper"
+        :to="`/home?tag=${tag.name}`"
+      >
+        <nuxt-link :to="`/home?tag=${tag.name}`" class="undecoration-link">
+          <span class="cell-body">
+            {{ tag.name }}
+          </span>
+        </nuxt-link>
+      </v-col>
+    </v-row>
   </div>
 </template>
+
 <script>
-import TheJoingroup from './TheJoingroup.vue'
-import TheNotification from './TheNotification.vue'
-import TheRecommenduser from './TheRecommenduser.vue'
+import { mapGetters } from 'vuex'
+
 export default {
-  middleware: 'auth',
-  name: 'App',
-  components: {
-    TheJoingroup,
-    TheNotification,
-    TheRecommenduser
+  data: () => ({
+    searchQuery: '',
+    blogs: [],
+    swiperOption: {
+      slidesPerView: 'auto',
+      spaceBetween: 0,
+      loopedSlides: 4,
+      loop: true,
+      backgroundUrl: '~/assets/images/next.png',
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    }
+  }),
+
+  computed: {
+    recentBlogs() {
+      return this.blogs.slice(0, 5)
+    },
+    ...mapGetters({
+      shapedSearchParameters: 'users/shapedSearchParameters'
+    })
   },
-  data() {
+
+  async asyncData({ $axios }) {
+    const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
+    const tags = await $axios.$get('/api/tags').then((res) => res.data)
+    const groups = await $axios
+      .$get('/mock/api/groups')
+      .then((res) => res.data.slice(0, 4))
+
     return {
-      tab: null,
-      items: ['トップ', '参加中のグループ', '通知', 'おすすめユーザー']
+      blogs,
+      tags,
+      groups
+    }
+  },
+
+  methods: {
+    onSubmitSearch() {
+      const parameters = { keywords: this.searchQuery }
+      this.$store.commit('users/setSearchParameters', { parameters })
+      this.$router.push({
+        path: '/users',
+        query: this.shapedSearchParameters
+      })
     }
   }
 }
 </script>
-<style>
-h2 {
-  margin-left: 20px;
+
+<style scoped>
+.search-placeholder {
+  font-size: 85%;
 }
-.img-small {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+
+.undecoration-link {
+  text-decoration: none;
 }
-.img-size {
-  width: 121px;
-  height: 121px;
-  border-radius: 50%;
+
+.search-text {
+  font-weight: bold;
+  font-size: 77%;
+  text-decoration: none;
+}
+
+.cell-wrapper {
+  width: 25%;
+  width: -webkit-calc(25% - 10px);
+  width: calc(25% - 10px);
+  min-height: 80px;
+}
+.cell-body {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: white;
+  border: solid 2px #eaeaea;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 110%;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-box {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.2) 100%);
+  padding: 16px;
+  box-sizing: border-box;
+}
+.slide-box .slide-box-title {
+  color: white;
+  width: 100%;
+}
+
+.swiper-container {
+  width: 100%;
+}
+.swiper-slide {
+  position: relative;
+  text-align: center;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  width: 27px;
+  height: 44px;
+  background-size: 27px 44px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.swiper-button-prev {
+  background-image: url('~@/assets/images/prev.png');
+  background-size: 100px 100px;
+}
+.swiper-button-next {
+  background-image: url('~@/assets/images/next.png');
+  background-size: 100px 100px;
+}
+.slide-image {
+  width: 375px;
+  height: 232px;
 }
 </style>

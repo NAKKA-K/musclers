@@ -679,7 +679,7 @@ Muscler'sのAPI仕様書
             ],
         }
 
-### 新規ユーザのEmail更新 [PATCH]
+### 新規ユーザのnicknameとEmail更新 [PATCH]
 
 + Request (application/json)
 
@@ -689,12 +689,23 @@ Muscler'sのAPI仕様書
 
     + Attributes (object)
         + email: sample@example.com (string)
+        + nickname: huga (string)
 
 + Response 200
 
     + Attributes (object)
         + status: 200 (number)
-        + message: Eメールを更新しました (string)
+        + message: ニックネームとEメールを更新しました (string)
+
++ Response 400
+
+        {
+            "status": 400,
+            "message": "値を入力してください"
+            "errors": [
+                { message: "値を入力してください" }
+            ],
+        }
 
 + Response 404
 
@@ -771,6 +782,16 @@ Muscler'sのAPI仕様書
     + Attributes (object)
         + status: 200 (number)
         + message: ユーザ情報を更新しました (string)
+
++ Response 400
+
+        {
+            "status": 400,
+            "message": "値を入力してください"
+            "errors": [
+                { message: "値を入力してください" }
+            ],
+        }
 
 + Response 404
 
@@ -1005,7 +1026,11 @@ Muscler'sのAPI仕様書
 
             Authorization: ...
 
-+ Response 204 (application/json)
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: 参加しました (string)
 
 + Response 401 (application/json)
 

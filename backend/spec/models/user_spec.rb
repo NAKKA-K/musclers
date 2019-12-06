@@ -62,5 +62,33 @@ RSpec.describe User, type: :model do
         expect{ @secound_user.send_users.create!(body:"hogeee",direct_message_group_id:@not_exist_dm_group_id) }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
-  end  
+  end
+  
+  describe "Friend association" do
+    context "has many fridends" do
+      it { should have_many(:friends) }
+    end
+
+    context "has many followings" do
+      it { should have_many(:followings).through(:friends).source(:target).dependent(:destroy) }
+    end
+  end
+
+  describe "GroupUser association" do
+    context "has many group users" do
+      it { should have_many(:group_users).dependent(:destroy) }
+    end
+  end
+
+  describe "Group association" do
+    context "has many groups" do
+      it { should have_many(:groups).through(:group_users).dependent(:destroy) }
+    end
+  end
+
+  describe "GroupMessage association" do
+    context "has many group_messages" do
+      it { should have_many(:group_messages).dependent(:destroy) }
+    end
+  end
 end
