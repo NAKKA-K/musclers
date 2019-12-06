@@ -198,7 +198,7 @@
             </v-row>
           </v-col>
         </v-tab-item>
-        <v-tab-item>
+        <v-tab-item style="height: 90vh;">
           <!-- swiper1 -->
           <swiper
             ref="swiperTop"
@@ -252,8 +252,8 @@
               class="swiper-slide sp-slide-image"
               :src="user.thumbnail"
             ></v-img>
-            <div slot="button-next" class="swiper-button-next"></div>
-            <div slot="button-prev" class="swiper-button-prev"></div>
+            <div slot="button-next" class="sp-swiper-button-next"></div>
+            <div slot="button-prev" class="sp-swiper-button-prev"></div>
           </swiper>
         </v-tab-item>
       </v-tabs-items>
@@ -279,20 +279,24 @@ export default {
         }
       },
       swiperOptionTop: {
-        spaceBetween: 10,
+        spaceBetween: 4,
         loop: true,
         loopedSlides: 4,
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
+          nextEl: '.sp-swiper-button-next',
+          prevEl: '.sp-swiper-button-prev'
         }
       },
       swiperOptionThumbs: {
-        spaceBetween: 10,
+        spaceBetween: 4,
         slidesPerView: 4,
         touchRatio: 0.2,
         loop: true,
         loopedSlides: 4,
+        navigation: {
+          nextEl: '.sp-swiper-button-next',
+          prevEl: '.sp-swiper-button-prev'
+        },
         slideToClickedSlide: true
       },
       requestFriend: false,
@@ -343,126 +347,12 @@ export default {
 
 <style scoped>
 @import '~/assets/css/pc_details.css';
-/* @import '~/assets/css/sp_details.css'; */
-
-/* sp site css */
-.sp-user-information {
-  height: 86vh;
-  background-size: cover;
-  text-align: center;
-  position: relative;
-  font-size: 16px;
-  text-align: left;
-}
-.sp-user-information h2 {
-  font-size: 22px;
-  font-weight: 100;
-}
-.sp-bg-rgba {
-  height: 80px;
-  background-color: rgba(255, 255, 255, 0.8);
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-.sp-user-image {
-  width: 350px;
-  height: 200px;
-  border-radius: 10px;
-}
-.sp-services-wrapper {
-  padding-top: 10px;
-}
-.sp-services-wrapper h2 {
-  font-size: 22px;
-  font-weight: 10;
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-.sp-services-wrapper p {
-  margin-bottom: 40px;
-}
-.sp-services-wrapper .user-info {
-  text-align: left;
-  font-size: 1.2em;
-}
-.sp-standard-information {
-  margin-left: 30px;
-  font-size: 1.2em;
-}
-.friend-request-button {
-  margin-bottom: 36px;
-  text-align: center;
-}
-
-/* swiper */
-.sp-swiper-container {
-  margin-top: 30px;
-  width: 90%;
-  height: 400px;
-}
-.sp-swiper-slide {
-  text-align: center;
-  background-color: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sp-slide-big-image {
-  margin-right: 10px;
-  border-radius: 10px;
-}
-.sp-slide-image {
-  width: 100px;
-  height: 50px;
-  margin-right: 10px;
-  border-radius: 10px;
-}
-.sp-swiper-button-prev,
-.sp-swiper-button-next {
-  position: absolute;
-  bottom: 10px;
-  width: 27px;
-  height: 44px;
-  background-size: 27px 44px;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.sp-swiper-button-prev {
-  background-image: url('~@/assets/images/prev.png');
-  margin-left: 30%;
-  background-size: 70px 70px;
-}
-.sp-swiper-button-next {
-  background-image: url('~@/assets/images/next.png');
-  margin-left: 60%;
-  background-size: 70px 70px;
-}
+@import '~/assets/css/sp_details.scss';
 
 .swiper-slide {
   background-size: cover;
   background-position: center;
 }
-.gallery-top {
-  width: 90%;
-  border-radius: 10px;
-}
-.gallery-thumbs {
-  box-sizing: border-box;
-  width: 90%;
-  padding: 10px 0;
-  height: 100px;
-}
-.gallery-thumbs .swiper-slide {
-  width: 25%;
-  height: 100%;
-  opacity: 0.4;
-}
-.gallery-thumbs .swiper-slide-active {
-  opacity: 1;
-}
-
 .pc {
   display: block !important;
 }

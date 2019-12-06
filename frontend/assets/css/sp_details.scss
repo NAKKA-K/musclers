@@ -67,10 +67,8 @@
   }
 
   .sp-slide-big-image {
-    width: 80px;
-    height: 80px;
     margin-right: 10px;
-    border-radius: 60px;
+    border-radius: 10px;
   }
   .sp-slide-image {
     width: 80px;
@@ -81,9 +79,9 @@
   .sp-swiper-button-prev,
   .sp-swiper-button-next {
     position: absolute;
-    bottom: 10px;
+    top: 10px;
     width: 27px;
-    height: 44px;
+    height: 160px;
     background-size: 27px 44px;
     background-position: center;
     background-repeat: no-repeat;
@@ -104,11 +102,14 @@
     background-position: center;
   }
   .gallery-top {
-    width: 100%;
+    width: 90%;
+    border-radius: 10px;
   }
   .gallery-thumbs {
     box-sizing: border-box;
+    width: 90%;
     padding: 10px 0;
+    height: 100px;
   }
   .gallery-thumbs .swiper-slide {
     width: 25%;
