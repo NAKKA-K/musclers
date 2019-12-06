@@ -38,15 +38,10 @@
           md="3"
           sm="3"
         >
-          <v-card
-            class="mx-auto my-4"
-            max-width="374"
-            max-height="530"
-            min-height="530"
-          >
+          <v-card class="mx-auto my-4" max-width="374" max-height="550">
             <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
               <v-img
-                height="300"
+                height="200"
                 :src="
                   group.thumbnail ||
                     'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
@@ -60,12 +55,17 @@
             </v-card-title>
 
             <v-card-text class="pb-1">
-              <div class="black--text sub-info-text">
+              <v-chip-group v-if="group.tags" column>
                 タグ:&nbsp;
-                <template v-for="tag in group.tags">
-                  {{ tag.name + ' ' }}
-                </template>
-              </div>
+                <v-chip
+                  v-for="tag in group.tags.split(' ')"
+                  :key="tag"
+                  label
+                  x-small
+                >
+                  {{ tag }}
+                </v-chip>
+              </v-chip-group>
               <div class="mb-4 grey--text text--lighten-1">
                 {{ group.created_at }}結成
               </div>
@@ -97,7 +97,7 @@ export default {
   },
 
   async asyncData({ $axios }) {
-    const groups = await $axios.$get('/mock/api/groups').then((res) => res.data)
+    const groups = await $axios.$get('/api/groups').then((res) => res.data)
 
     return {
       groups
