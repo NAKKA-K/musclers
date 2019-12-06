@@ -1,5 +1,6 @@
 blogs = [
   {
+    user_id: 1,
     title: '筋トレとジョギングをすると「筋トレの効果が減少する」',
     body: <<~EOS,
     「筋トレとジョギングをすると筋トレの効果が減ってしまうのは本当ですか？」
@@ -61,10 +62,10 @@ blogs = [
         第１回はここまで、第２回までしばしお待ちを！
 
     EOS
-    tags: 3,
   },
   
   {
+    user_id: 1,
     title: '太ると筋トレの効果が減ってしまう！？',
     body: <<~EOS,
     　筋トレでぽっちゃりしたお腹をムキムキのシックスパックにしたい！
@@ -175,10 +176,10 @@ blogs = [
         
             Xia Z, et al. Targeting Inflammation and Downstream Protein Metabolism in Sarcopenia: A Brief Up-Dated Description of Concurrent Exercise and Leucine-Based Multimodal Intervention. Front Physiol. 2017 Jun 22;8:434.
     EOS
-    tags: 0,
   },
 
   {
+    user_id: 1,
     title: '【牛乳vs牛肉　筋トレの効果を最大限にする食品について知っておこう！',
     body: <<~EOS,
     　筋トレのあとはプロテイン。
@@ -229,10 +230,10 @@ blogs = [
         
             Buffière C, et al. In the elderly, meat protein assimilation from rare meat is lower than that from meat that is well done. Am J Clin Nutr. 2017 Nov;106(5):1257-1266.
     EOS
-    tags: 6,
   },
 
   {
+    user_id: 2,
     title: '筋トレ後の水風呂が禁肥大の効果を減少させる？',
     body: <<~EOS,
     　筋トレをしたあとの火照った体を水風呂で冷やすと気持ちいいですよね。
@@ -263,10 +264,10 @@ blogs = [
         　筋トレ後の水風呂は短時間にとどめて、マッサージかフォームローラーを使用したアフターケアを行っても良いかもれませんね。
         　
     EOS
-    tags: 4,
   },
 
   {
+    user_id: 2,
     title: 'スクワットで「膝を爪先より前より出し手はいけない」という間違え',
     body: <<~EOS,
     　スクワットでは「膝をつま先より前に出さない」ということが現在でも常識とされています。
@@ -313,10 +314,10 @@ blogs = [
         　そこに「膝をつま先より前に出してはいけない」ということは関係ないのです。
 
     EOS
-    tags: 3,
   },
 
   {
+    user_id: 2,
     title: 'コーヒーはダイエット効果がある？',
     body: <<~EOS,
  　   コーヒーは健康に良い飲みものなのでしょうか？
@@ -364,10 +365,10 @@ blogs = [
         　そして今回、世界で初めてコーヒー摂取によるダイエット効果のエビデンスが報告されました。まだまだ知見が少なく、今後の再検証や最適な摂取量などの検証を見守っていく必要はありますが、コーヒー好きにとっては嬉しいニュースになりますね。
 
     EOS
-    tags: 6,
   },
 
   {
+    user_id: 3,
     title: 'テレビをつけたままだと太る',
     body: <<~EOS,
     　「寝るときは部屋を暗くしていますか？」
@@ -442,10 +443,10 @@ blogs = [
 
 
     EOS
-    tags: 6,
   },
 
   {
+    user_id: 3,
     title: '筋トレは病気による死亡率を減らしてくれる',
     body: <<~EOS,
     　効率的で効果的な健康法はありますか？
@@ -515,10 +516,10 @@ blogs = [
         　この答えは、筋トレが病気による死亡率を2割減らすという明確なエビデンスにもとづいているのです。
 
     EOS
-    tags: 6,
   },
 
   {
+    user_id: 3,
     title: 'イケメン出ない僕たちが筋トレをすべき理由',
     body: <<~EOS,
     　なぜ、「筋トレをするとモテる」と言われるのでしょうか？
@@ -628,10 +629,10 @@ blogs = [
 
 
     EOS
-    tags: 0,
   },
 
   {
+    user_id: 4,
     title: '筋トレをすると「頭がよくなる」',
     body: <<~EOS,
     　「なぜ、世界のエグゼクティブは仕事の前に筋トレをするのでしょうか？」
@@ -719,12 +720,11 @@ blogs = [
         　大事な仕事やプライベートの用事の前に、筋トレをして認知機能を高めておくのも良いかもしれません
 
     EOS
-    tags: 8,
   },
 
 ]
 
 blogs.each do |data|
-    blog = Blog.create.where(data)
-    p "create blog: #{blog.id}"
-  end
+    Blog.create(data)
+    p "create blog user_id:#{data[:user_id]}"
+end  
