@@ -156,6 +156,21 @@ Muscler'sのAPI仕様書
 + total_count: 100 (number)
 + total_pages: 50 (number)
 
+### Blog (object)
++ id: 1 (number)
++ user_id: 1 (number)
++ title: テストのブログ (string)
++ body: ブログに書かれている実際の内容がここに記述されます。 (text)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
+### BlogTag (object)
++ id: 1 (number)
++ blog_id: 1 (number)
++ tag_id: 1 (number)
++ created_at: `2019-11-19 04:58:55` (string)
++ updated_at: `2019-11-19 04:58:55` (string)
+
 # Group AUTH
 
 認証周りはライブラリ等に大きく影響される可能性があるので一旦未定
@@ -911,6 +926,46 @@ Muscler'sのAPI仕様書
             Location: http://localhost:8080/api/users/{userId}/user_tags
 
     + Attributes (array[Tag])
+
+# Group BLOGS
+
+
+## BLOGS [api/blogs]
+
+
+### すべてのブログ一覧を取得する
++ Request (application/json)
+
++ Response 200 
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: ブログ一覧を表示 (string)
+        + data (array[Blog])
+
+## BLOGS [api/blogs/{id}]
+
+### ブログの詳細を取得する
++ Request (application/json)
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200 (number)
+        + message: ブログ詳細を表示 (string)
+        + data (array[Blog])
+
++ Response 404
+
+        {
+            "status": 404,
+            "message": "指定したブログは存在しません。"
+            "errors": [
+                { message: "指定したブログは存在しません。" }
+            ],
+        }
+
+
 
 # Group GROUPS
 
