@@ -932,7 +932,6 @@ Muscler'sのAPI仕様書
 
 ## BLOGS [api/blogs]
 
-
 ### すべてのブログ一覧を取得する
 + Request (application/json)
 
@@ -964,6 +963,8 @@ Muscler'sのAPI仕様書
                 { message: "指定したブログは存在しません。" }
             ],
         }
+
+## BLOGS [api/blogs]
 
 ###　ブログの新規作成を行う
 + Request (application/json)
