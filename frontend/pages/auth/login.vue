@@ -50,7 +50,6 @@ export default {
       this.$axios
         .$get('/api/debug')
         .then((response) => {
-          this.$auth.$state = response.data
           this.$store.dispatch('auth/setCurrentUser', { user: response.data })
           this.$auth.$state.loggedIn = true
           this.$router.push('/home')
