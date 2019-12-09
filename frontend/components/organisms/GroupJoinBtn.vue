@@ -45,9 +45,15 @@ export default {
           this.resultJoinMessage = `「${group.name}」グループに参加しました`
           this.resultJoinType = 'info'
         })
-        .catch(() => {
-          this.resultJoinMessage = `グループに参加失敗しました`
+        .catch((err) => {
           this.resultJoinType = 'error'
+
+          if (err.response.status === 409) {
+            this.resultJoinMessage = err.response.data.message
+            return
+          }
+
+          this.resultJoinMessage = `グループに参加失敗しました`
         })
       this.join = true
     }
