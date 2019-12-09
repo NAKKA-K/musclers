@@ -965,6 +965,25 @@ Muscler'sのAPI仕様書
             ],
         }
 
+###　ブログの新規作成を行う
++ Request (application/json)
+
++ Response 200
+
+    + Attributes (object)
+        + status: 200(number)
+        + message: ブログを新規作成しました (string)
+        + data (array[Blog])
+
++ Response 500
+
+    {
+        "status": 500,
+        "message": "新規作成に失敗しました。",
+        "errors": [
+            { message: "新規作成に失敗しました。" }
+        ],
+    }
 
 
 # Group GROUPS
