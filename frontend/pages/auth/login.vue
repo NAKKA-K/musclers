@@ -21,7 +21,11 @@
                   >Facebookでログイン</v-btn
                 >
               </v-card-actions>
-              <v-card-actions primary-title class="justify-center">
+              <v-card-actions
+                v-if="debugMode"
+                primary-title
+                class="justify-center"
+              >
                 <v-btn
                   primary
                   color="light-blue darken-2"
@@ -31,6 +35,7 @@
                   >デバッグログイン</v-btn
                 >
               </v-card-actions>
+              <span v-else></span>
             </v-card>
           </v-flex>
         </v-layout>
@@ -42,6 +47,14 @@
 <script>
 export default {
   layout: 'login',
+  data: () => ({
+    debugMode: false
+  }),
+  mounted() {
+    if (process.env.NODE_ENV === 'development') {
+      this.debugMode = true
+    }
+  },
   methods: {
     login() {
       this.$auth.loginWith('facebook')
