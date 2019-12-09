@@ -21,6 +21,16 @@
                   >Facebookでログイン</v-btn
                 >
               </v-card-actions>
+              <v-card-actions primary-title class="justify-center">
+                <v-btn
+                  primary
+                  color="light-blue darken-2"
+                  class="white--text button-size"
+                  style="min-width: 60%;"
+                  @click="debug"
+                  >デバッグログイン</v-btn
+                >
+              </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
@@ -35,6 +45,19 @@ export default {
   methods: {
     login() {
       this.$auth.loginWith('facebook')
+    },
+    debug() {
+      this.$axios
+        .$get('/api/debug')
+        .then((response) => {
+          this.$auth.$state = response.data
+          this.$store.dispatch('auth/setCurrentUser', { user: response.data })
+          this.$auth.$state.loggedIn = true
+          this.$router.push('/home')
+        })
+        .catch((error) => {
+          console.log('response error', error)
+        })
     }
   }
 }
