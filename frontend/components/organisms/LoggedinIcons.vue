@@ -1,12 +1,33 @@
 <template>
   <div>
-    <v-badge color="red" overlap class="badge-position">
-      <i class="material-icons">notifications</i>
-      <!--TODO:通知きた時用の分岐<v-if>-->
-      <template v-slot:badge>
-        <span>1</span>
+    <v-menu offset-y>
+      <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on">
+          <v-badge color="red" overlap class="badge-position">
+            <v-icon color="black">notifications</v-icon>
+            <template v-slot:badge>
+              <span>1</span>
+            </template>
+          </v-badge>
+        </v-btn>
       </template>
-    </v-badge>
+      <v-card>
+        <h4 class="font-weight-thin title-position">通知</h4>
+        <div v-for="i in 5" :key="i">
+          <span class="font-weight-thin">
+            <v-avatar class="img-small">
+              <v-img
+                src="https://i2.wp.com/dietlife25.com/wp-content/uploads/2019/12/274122b394996dcc766774e82f1bdf0e_m.jpg?resize=1280%2C720&ssl=1"
+              />
+            </v-avatar>
+            筋肉同好会からダイレクトメッセージが届きました
+          </span>
+          <p class="text-right">2019-12-06 13:10:29</p>
+          <v-divider inset></v-divider>
+        </div>
+        <h5 class="foot-position font-weight-thin text-center">通知一覧</h5>
+      </v-card>
+    </v-menu>
 
     <v-menu offset-y>
       <template v-slot:activator="{ on }">
@@ -72,5 +93,24 @@ export default {
 .badge-position {
   margin: 0px 10px 0px 0px;
   vertical-align: middle;
+}
+.text-position {
+  margin: 5px 0px;
+}
+.img-small {
+  width: 30px;
+  height: 30px;
+}
+.card-size {
+  width: 150%;
+  height: 150%;
+}
+.title-position {
+  background-color: #ededed;
+  margin-bottom: 5px;
+}
+.foot-position {
+  background-color: #ededed;
+  margin-top: 5px;
 }
 </style>
