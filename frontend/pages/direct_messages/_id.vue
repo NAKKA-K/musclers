@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>{{ getOpponent.nickname }}さんとのDM</h1>
-    <h1>{{ this.dm }}</h1>
+    <h2>{{ message }}</h2>
+    <h3>{{ dm }}</h3>
     <v-card max-width="450" class="mx-auto chat-card">
       <div class="overflow-y-auto messages">
         <template v-for="(item, index) in directMessages">
@@ -70,25 +71,24 @@ export default {
     message: '',
     sending: false,
     directMessageChannel: null,
-    dm: 'aaaaaa'
+    dm: []
   }),
 
-  channels: {
-    DirectMessageChannel: {
-      connected: () => {
-        console.log('connect')
-      },
-      received: (data) => {
-        console.log(this.directMessages)
-      },
-      disconnected: () => {}
-    }
-  },
-
   mounted() {
-    this.$cable.subscribe({
-      channel: 'DirectMessageChannel'
-    })
+    this.directMessageChannel = this.$cable.subscriptions.create(
+      {
+        channel: 'DirectMessageChannel',
+        room: this.$route.params.id
+      },
+      {
+        connected: () => {
+          console.log('connected')
+        },
+        received: (data) => {
+          this.dm.push(data)
+        }
+      }
+    )
   },
 
   computed: {
@@ -141,15 +141,13 @@ export default {
       // 日本語変換でもkeydownが発火してしまうため処理で制御
       if (e.type !== 'click' && e.keyCode !== 13) return
 
-      // this.sending = true
-      this.$cable.perform({
-        channel: 'DirectMessageChannel',
-        action: 'direct_message',
-        data: {
-          message: this.message
-        }
+      this.sending = true
+      this.directMessageChannel.perform('direct_message', {
+        message: this.message,
+        dmId: this.$route.params.id
       })
-      // this.sending = false
+      this.sending = false
+      this.message = ''
     }
   }
 }

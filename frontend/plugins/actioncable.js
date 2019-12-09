@@ -1,11 +1,5 @@
 import Vue from 'vue'
-import ActionCableVue from 'actioncable-vue'
+import ActionCable from 'actioncable'
 
-if (process.client) {
-  Vue.use(ActionCableVue, {
-    debug: true,
-    debugLevel: 'all',
-    connectionUrl: 'ws://localhost:8080/cable',
-    connectImmediately: true
-  })
-}
+const cable = ActionCable.createConsumer('ws:localhost:8080/cable')
+Vue.prototype.$cable = cable
