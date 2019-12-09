@@ -35,7 +35,6 @@
                   >デバッグログイン</v-btn
                 >
               </v-card-actions>
-              <span v-else></span>
             </v-card>
           </v-flex>
         </v-layout>
@@ -61,7 +60,7 @@ export default {
     },
     debug() {
       this.$axios
-        .$get('/api/debug')
+        .$get('/api/debug_login')
         .then((response) => {
           this.$store.dispatch('auth/setCurrentUser', { user: response.data })
           this.$auth.$state.loggedIn = true
