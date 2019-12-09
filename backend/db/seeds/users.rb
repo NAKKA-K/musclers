@@ -15,7 +15,16 @@ def create_test_user
     access_token: SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz')
   }
   p "create user #{user}"
-  User.create!(user)
+  user_record = User.create!(user)
+  thumbnail = 'https://publicdomainq.net/images/201911/01s/publicdomainq-0039771zmf.jpg'
+  open(thumbnail) do |file|
+    p "fetching image data from #{thumbnail}"
+    if file.content_type == "image/jpeg"
+      user_record.thumbnail.attach(io: file, filename: "testuser.jpg")
+    else
+      user_record.thumbnail.attach(io: file, filename: "testuser.png")
+    end
+  end
 end
 
 def create_dummy_users
