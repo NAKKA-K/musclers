@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_04_022847) do
+ActiveRecord::Schema.define(version: 2019_12_09_054959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2019_12_04_022847) do
   create_table "friends", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "target_id"
-    t.boolean "is_pending", default: false, null: false
+    t.boolean "is_pending", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["target_id"], name: "index_friends_on_target_id"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2019_12_04_022847) do
     t.bigint "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id", "user_id"], name: "index_group_users_on_group_id_and_user_id", unique: true
     t.index ["group_id"], name: "index_group_users_on_group_id"
     t.index ["user_id"], name: "index_group_users_on_user_id"
   end
@@ -113,7 +114,7 @@ ActiveRecord::Schema.define(version: 2019_12_04_022847) do
   end
 
   create_table "information", force: :cascade do |t|
-    t.integer "type"
+    t.integer "genre"
     t.string "by_name"
     t.string "link"
     t.boolean "is_read", default: false, null: false

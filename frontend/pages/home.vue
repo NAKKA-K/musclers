@@ -6,9 +6,9 @@
         label="ユーザー検索"
         placeholder="キーワードでユーザーを検索"
         hide-details
-        prepend-inner-icon="search"
         single-line
         outlined
+        class="search-placeholder"
         @keyup.enter="onSubmitSearch()"
       ></v-text-field>
       <v-btn class="ml-2" large color="primary" @click="onSubmitSearch()">
@@ -24,9 +24,11 @@
         <div v-for="(blog, key) in recentBlogs" :key="key" class="swiper-slide">
           <v-img class="slide-image" :src="blog.thumbnail"></v-img>
           <div class="slide-box">
-            <p class="slide-box-title">
-              {{ blog.title }}
-            </p>
+            <nuxt-link :to="`/user_blogs/${blog.id}`" class="undecoration-link">
+              <p class="slide-box-title">
+                {{ blog.title }}
+              </p>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -34,10 +36,72 @@
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
     </div>
+    <nuxt-link to="/user_blogs" class="d-inline-block mt-4 search-text">
+      ユーザーブログをもっと見る
+      <v-icon class="blue--text">chevron_right</v-icon>
+    </nuxt-link>
 
-    <h2>新着グループ</h2>
+    <h2 class="mt-12 ml-0">新着グループ</h2>
+    <v-row>
+      <v-col v-for="group in groups" :key="group.id" cols="12" sm="6" lg="3">
+        <v-card max-height="500">
+          <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
+            <v-img height="200" :src="group.thumbnail"></v-img>
+          </nuxt-link>
 
-    <h2>タグ</h2>
+          <v-card-title class="title pb-0">
+            <nuxt-link
+              :to="{ name: 'groups-id', params: { id: group.id } }"
+              class="undecoration-link black--text font-weight-bold"
+            >
+              {{ group.name }}
+            </nuxt-link>
+          </v-card-title>
+
+          <v-card-text>
+            <v-chip-group v-if="group.tags" column>
+              <v-chip
+                v-for="tag in group.tags.split(' ')"
+                :key="tag.id"
+                label
+                small
+              >
+                {{ tag }}
+              </v-chip>
+            </v-chip-group>
+            <div class="mb-4 grey--text text--lighten-1">
+              {{ group.created_at }}
+            </div>
+            <div
+              class="card-body-overflow"
+              v-text="group.description.slice(0, 100)"
+            ></div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <nuxt-link to="/groups" class="d-inline-block search-text">
+      グループをもっと見る
+      <v-icon class="blue--text">chevron_right</v-icon>
+    </nuxt-link>
+
+    <h2 class="mt-12 ml-0">タグ</h2>
+    <v-row>
+      <v-col
+        v-for="tag in tags"
+        :key="tag.id"
+        cols="6"
+        md="3"
+        class="pa-2 cell-wrapper"
+        :to="`/home?tag=${tag.name}`"
+      >
+        <nuxt-link :to="`/home?tag=${tag.name}`" class="undecoration-link">
+          <span class="cell-body">
+            {{ tag.name }}
+          </span>
+        </nuxt-link>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -80,9 +144,15 @@ export default {
 
   async asyncData({ $axios }) {
     const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
+    const tags = await $axios.$get('/api/tags').then((res) => res.data)
+    const groups = await $axios
+      .$get('/api/groups')
+      .then((res) => res.data.slice(0, 4))
 
     return {
-      blogs
+      blogs,
+      tags,
+      groups
     }
   },
 
@@ -100,10 +170,40 @@ export default {
 </script>
 
 <style scoped>
+.search-placeholder {
+  font-size: 85%;
+}
+
+.undecoration-link {
+  text-decoration: none;
+}
+
 .search-text {
   font-weight: bold;
   font-size: 77%;
   text-decoration: none;
+}
+
+.cell-wrapper {
+  width: 25%;
+  width: -webkit-calc(25% - 10px);
+  width: calc(25% - 10px);
+  min-height: 80px;
+}
+.cell-body {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: white;
+  border: solid 2px #eaeaea;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 110%;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .slide-box {
@@ -115,7 +215,7 @@ export default {
   padding: 16px;
   box-sizing: border-box;
 }
-.slide-box > .slide-box-title {
+.slide-box .slide-box-title {
   color: white;
   width: 100%;
 }

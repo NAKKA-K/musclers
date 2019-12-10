@@ -7,11 +7,13 @@
       <div v-if="!group.is_public"><v-icon>lock</v-icon></div>
     </v-flex>
 
-    <template v-for="tag in group.tags">
-      <v-btn :key="tag.id" color="darkgray" class="mr-2 mb-1" depressed small>
-        {{ tag.name }}
-      </v-btn>
-    </template>
+    <v-chip-group v-if="group.tags" column>
+      <v-chip v-for="tag in group.tags.split(' ')" :key="tag" label small>
+        {{ tag }}
+      </v-chip>
+    </v-chip-group>
+
+    <group-join-btn :group="group" class="ma-2 mb-10"></group-join-btn>
 
     <v-tabs v-model="tab" class="mt-6" background-color="transparent">
       <v-tab v-for="(item, index) in tabs" :key="index">
@@ -21,9 +23,8 @@
       <v-tabs-items v-model="tab" class="mt-6">
         <v-tab-item class="flat-background">
           <h5 class="mb-2">概要</h5>
-          {{ group.description }}
+          <p style="white-space: pre-wrap;">{{ group.description }}</p>
         </v-tab-item>
-
         <v-tab-item class="flat-background">
           <template v-for="(item, index) in messages">
             <v-list
@@ -62,9 +63,15 @@
 </template>
 
 <script>
+import GroupJoinBtn from '~/components/organisms/GroupJoinBtn.vue'
+
 export default {
   validate({ params }) {
     return /^\d+$/.test(params.id)
+  },
+
+  components: {
+    GroupJoinBtn
   },
 
   data: () => ({
@@ -76,7 +83,7 @@ export default {
 
   async asyncData({ $axios, params }) {
     const group = await $axios
-      .$get(`/mock/api/groups/${params.id}`)
+      .$get(`/api/groups/${params.id}`)
       .then((res) => res.data)
     const messages = await $axios
       .$get(`/mock/api/groups/${params.id}/messages`)
@@ -86,12 +93,6 @@ export default {
       group,
       messages
     }
-  },
-
-  mounted() {
-    // BUG: タグが変わりません
-    const tab = this.$route.query.tab
-    this.tab = tab >= 0 && tab <= 2 ? tab : null
   }
 }
 </script>

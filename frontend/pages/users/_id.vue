@@ -8,9 +8,7 @@
         <div class="container bg-rgba">
           <h2>{{ user.nickname }}</h2>
           <p>{{ user.description }}</p>
-          <v-btn to="" class="mt-10" outlined color="blue lighten-1">
-            友達申請をする
-          </v-btn>
+          <friend-request-btn class="mt-10"></friend-request-btn>
         </div>
       </v-col>
     </div>
@@ -77,24 +75,30 @@
 </template>
 
 <script>
+import FriendRequestBtn from '~/components/organisms/FriendRequestBtn.vue'
+
 export default {
   layout: 'index',
-  data() {
-    return {
-      tab: null,
-      swiperOption: {
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        spaceBetween: 50,
-        loop: true,
-        backgroundUrl: '~/assets/images/next.png',
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        }
+
+  components: {
+    FriendRequestBtn
+  },
+
+  data: () => ({
+    tab: null,
+    swiperOption: {
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      spaceBetween: 50,
+      loop: true,
+      backgroundUrl: '~/assets/images/next.png',
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
       }
     }
-  },
+  }),
+
   async asyncData({ $axios, params, error }) {
     const response = await $axios
       .get(`/api/users/${params.id}`)
