@@ -1,7 +1,18 @@
 <template>
   <div>
     <h1>{{ getOpponent.nickname }}さんとのDM</h1>
-    <h2>{{ errMsg }}</h2>
+    <v-snackbar
+      v-model="disconnectedChannel"
+      :color="errMsgType"
+      top
+      vertical
+      :timeout="2500"
+    >
+      {{ errMsg }}
+      <v-btn dark text @click="disconnectedChannel = false">CLOSE</v-btn>
+    </v-snackbar>
+
+    <v-btn to="/direct_messages" class="mb-4" text small>戻る</v-btn>
     <v-card max-width="450" class="mx-auto chat-card">
       <div class="overflow-y-auto messages">
         <template v-for="(item, index) in directMessages">
@@ -70,7 +81,9 @@ export default {
     message: '',
     sending: false,
     directMessageChannel: null,
-    errMsg: ''
+    errMsg: '',
+    errMsgType: null,
+    disconnectedChannel: false
   }),
 
   computed: {
@@ -114,9 +127,13 @@ export default {
         },
         rejected: () => {
           console.log('rejected')
-          this.errMsg = 'チャンネルとの接続が切れました'
+          this.disconnectedChannel = true
+          this.errMsgType = 'error'
+          this.errMsg = 'メッセージの送信に失敗しました'
         },
         disconnected: () => {
+          this.disconnectedChannel = true
+          this.errMsgType = 'error'
           this.errMsg = 'チャンネルとの接続が切れました'
         }
       }
