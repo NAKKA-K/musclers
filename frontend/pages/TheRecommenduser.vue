@@ -15,7 +15,12 @@
 </template>
 <script>
 export default {
-  props: ['recommended']
+  props: {
+    recommended: {
+      type: Object,
+      default: null
+    }
+  }
 }
 </script>
 <style>

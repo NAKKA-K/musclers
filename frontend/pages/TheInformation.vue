@@ -24,7 +24,12 @@
 </template>
 <script>
 export default {
-  props: ['infos']
+  props: {
+    infos: {
+      type: Object,
+      default: null
+    }
+  }
 }
 </script>
 <style>
