@@ -1,8 +1,7 @@
 <template>
   <div>
     <h1>{{ getOpponent.nickname }}さんとのDM</h1>
-    <h2>{{ message }}</h2>
-    <h3>{{ dm }}</h3>
+    <h2>{{ errMsg }}</h2>
     <v-card max-width="450" class="mx-auto chat-card">
       <div class="overflow-y-auto messages">
         <template v-for="(item, index) in directMessages">
@@ -71,25 +70,8 @@ export default {
     message: '',
     sending: false,
     directMessageChannel: null,
-    dm: []
+    errMsg: ''
   }),
-
-  mounted() {
-    this.directMessageChannel = this.$cable.subscriptions.create(
-      {
-        channel: 'DirectMessageChannel',
-        room: this.$route.params.id
-      },
-      {
-        connected: () => {
-          console.log('connected')
-        },
-        received: (data) => {
-          this.dm.push(data)
-        }
-      }
-    )
-  },
 
   computed: {
     ...mapGetters({
@@ -115,6 +97,30 @@ export default {
       directMessageGroup: dmGroup,
       directMessages
     }
+  },
+
+  mounted() {
+    this.directMessageChannel = this.$cable.subscriptions.create(
+      {
+        channel: 'DirectMessageChannel',
+        room: this.$route.params.id
+      },
+      {
+        connected: () => {
+          console.log('connected')
+        },
+        received: (data) => {
+          this.directMessages.push(data)
+        },
+        rejected: () => {
+          console.log('rejected')
+          this.errMsg = 'チャンネルとの接続が切れました'
+        },
+        disconnected: () => {
+          this.errMsg = 'チャンネルとの接続が切れました'
+        }
+      }
+    )
   },
 
   updated() {
