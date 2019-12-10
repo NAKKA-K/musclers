@@ -43,10 +43,13 @@ Rails.application.routes.draw do
 
     resources :blogs
 
+    # ユーザー固有のAPI
     scope :user do
       resources :information, only: [:index]
 
       resources :direct_message_groups,only: [:index]
+
+      post '/friends', to: 'friends#requestFriend'
     end
 
     resources :groups, only: [:index, :show] do
