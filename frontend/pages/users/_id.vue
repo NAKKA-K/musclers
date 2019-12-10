@@ -8,25 +8,7 @@
         <div class="container bg-rgba">
           <h2>{{ user.nickname }}</h2>
           <p>{{ user.description }}</p>
-          <v-btn
-            class="mt-10"
-            outlined
-            color="blue lighten-1"
-            @click="sendFriendRequest"
-          >
-            友達申請をする
-          </v-btn>
-
-          <v-snackbar
-            v-model="requestFriend"
-            :color="resultRequestType"
-            top
-            vertical
-            :timeout="2500"
-          >
-            {{ resultRequestMessage }}
-            <v-btn dark text @click="requestFriend = false">CLOSE</v-btn>
-          </v-snackbar>
+          <friend-request-btn class="mt-10"></friend-request-btn>
         </div>
       </v-col>
     </div>
@@ -93,8 +75,14 @@
 </template>
 
 <script>
+import FriendRequestBtn from '~/components/organisms/FriendRequestBtn.vue'
+
 export default {
   layout: 'index',
+
+  components: {
+    FriendRequestBtn
+  },
 
   data: () => ({
     tab: null,
@@ -108,10 +96,7 @@ export default {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev'
       }
-    },
-    requestFriend: false,
-    resultRequestType: null,
-    resultRequestMessage: null
+    }
   }),
 
   async asyncData({ $axios, params, error }) {
@@ -133,22 +118,6 @@ export default {
 
     return {
       user: response.data.data
-    }
-  },
-
-  methods: {
-    async sendFriendRequest() {
-      await this.$axios
-        .$post(`/api/user/frineds`, { user_id: this.user.id })
-        .then(() => {
-          this.resultRequestMessage = `友達申請しました`
-          this.resultRequestType = 'info'
-        })
-        .catch(() => {
-          this.resultRequestMessage = `友達申請に失敗しました`
-          this.resultRequestType = 'error'
-        })
-      this.requestFriend = true
     }
   }
 }

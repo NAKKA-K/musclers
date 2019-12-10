@@ -43,7 +43,16 @@ class Api::GroupsController < ApplicationController
       ) and return
     end
 
-    @group.group_users.create(user_id: current_user.id)
+    begin
+      @group.group_users.create(user_id: current_user.id)
+    rescue ActiveRecord::RecordNotUnique
+      error_res(
+        409,
+        message: "すでに参加しています",
+        err: "すでに参加しています"
+      ) and return
+    end
+
     success_res(
         200,
         message: '参加しました',
