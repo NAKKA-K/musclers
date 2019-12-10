@@ -30,6 +30,9 @@ export default {
     ]
   },
 
+  env: {
+    wsURL: process.env.WS_URL
+  },
   /*
    ** Customize the progress-bar color
    */
