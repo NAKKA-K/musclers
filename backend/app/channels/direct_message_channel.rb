@@ -8,13 +8,6 @@ class DirectMessageChannel < ApplicationCable::Channel
   end
 
   def direct_message(data)
-    begin
-      DirectMessage.create!(body: data['message'],send_user_id: current_user.id,direct_message_group_id: data['dmId'])
-    rescue ActiveRecord::RecordInvalid
-      ActionCable.server.broadcast("dm_#{params[:room]}",'メッセージの送信に失敗しました')
-    rescue => e
-      #送信したユーザのみに返したい
-      ActionCable.server.broadcast("dm_#{params[:room]}",'メッセージの送信に失敗しました')
-    end
+    DirectMessage.create!(body: data['message'],send_user_id: current_user.id,direct_message_group_id: data['dmId'])
   end
 end

@@ -1,5 +1,6 @@
 class DirectMessagesJob < ApplicationJob
   def perform(message)
-    ActionCable.server.broadcast("dm_#{message.direct_message_group_id}",message.body)
+    data = SendMessageSerializer.new(message).as_json
+    ActionCable.server.broadcast("dm_#{message.direct_message_group_id}",data)
   end
 end
