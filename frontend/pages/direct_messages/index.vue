@@ -53,17 +53,6 @@ export default {
     directMessageGroups: []
   }),
 
-  async asyncData({ $axios }) {
-    const groups = await $axios
-      .$get('api/user/direct_message_groups')
-      .then((res) => res.data)
-      .catch(() => [])
-
-    return {
-      directMessageGroups: groups
-    }
-  },
-
   computed: {
     ...mapGetters({
       currentUser: 'auth/currentUser'
@@ -78,6 +67,17 @@ export default {
         result.push(current)
         return result
       }, [])
+    }
+  },
+
+  async asyncData({ $axios }) {
+    const groups = await $axios
+      .$get('api/user/direct_message_groups')
+      .then((res) => res.data)
+      .catch(() => [])
+
+    return {
+      directMessageGroups: groups
     }
   },
 
