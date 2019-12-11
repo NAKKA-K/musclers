@@ -2,7 +2,7 @@
   <div>
     <h1>DM一覧</h1>
 
-    <v-card max-width="450" class="mx-auto">
+    <v-card max-width="450" min-height="720" class="mx-auto">
       <template v-for="(item, index) in computedDirectMessageGroups">
         <v-list :key="index" three-line>
           <v-list-item :to="`/direct_messages/${item.id}`">
@@ -75,7 +75,7 @@ export default {
       .$get('/api/user/direct_message_groups')
       .then((res) => {
         console.log(res)
-        return res.data
+        return res.data !== null ? res.data : []
       })
       .catch(() => [])
 
