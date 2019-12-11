@@ -11,7 +11,7 @@ class Api::FriendsController < ApplicationController
     end
 
     begin
-      @from_user.friends.create(target: @target_user)
+      @from_user.friends.create(from_user: @from_user, target: @target_user)
     rescue ActiveRecord::RecordNotUnique
       error_res(
         409,
