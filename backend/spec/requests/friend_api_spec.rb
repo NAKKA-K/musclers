@@ -29,9 +29,16 @@ RSpec.describe "Friend", type: :request do
           @target = create(:user)
         end
 
-        it 'return status code 200' do
+        it 'return status code 201' do
           post api_friends_path, headers: @headers, params: { user_id: @target.id }
           expect(response).to have_http_status(201)
+        end
+
+        it 'conflict second and subsequent request' do
+          post api_friends_path, headers: @headers, params: { user_id: @target.id }
+          expect(response).to have_http_status(201)
+          post api_friends_path, headers: @headers, params: { user_id: @target.id }
+          expect(response).to have_http_status(409)
         end
       end
     end
