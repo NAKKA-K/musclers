@@ -14,6 +14,9 @@ export const mutations = {
   },
   setToken(state, { token }) {
     state.token = token
+  },
+  setDebugLoggedIn(state, { flag }) {
+    state.loggedIn = flag
   }
 }
 
@@ -21,6 +24,9 @@ export const actions = {
   setCurrentUser({ commit }, { user }) {
     commit('setCurrentUser', { user })
     commit('setToken', { token: user.access_token })
+  },
+  setDebugLoggedIn({ commit }, { flag }) {
+    commit('setDebugLoggedIn', { flag })
   },
   logout({ commit }) {
     commit('setCurrentUser', { user: null })

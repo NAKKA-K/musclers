@@ -63,7 +63,7 @@ export default {
         .$get('/api/debug_login')
         .then((response) => {
           this.$store.dispatch('auth/setCurrentUser', { user: response.data })
-          this.$auth.$state.loggedIn = true
+          this.$store.dispatch('auth/setDebugLoggedIn', { flag: true })
           this.$router.push('/home')
         })
         .catch((error) => {
