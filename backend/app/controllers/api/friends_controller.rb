@@ -1,7 +1,8 @@
 class Api::FriendsController < ApplicationController
   def requestFriend
-    @user = User.find_by_id(params[:user_id])
-    if @user.nil?
+    @from_user = current_user
+    @target_user = User.find_by_id(params[:user_id])
+    if @target_user.nil?
       error_res(
         404,
         message: "指定したユーザーは存在しません",
@@ -10,7 +11,7 @@ class Api::FriendsController < ApplicationController
     end
 
     begin
-      current_user.friends.create(target: @user)
+      @from_user.friends.create(target: @target_user)
     rescue ActiveRecord::RecordNotUnique
       error_res(
         409,
