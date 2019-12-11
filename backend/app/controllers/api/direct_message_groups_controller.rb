@@ -7,6 +7,15 @@ module Api
       success_res(200, message: '取得しました', data: data) and return
     end
 
+    def show
+      data = DirectMessageGroup.preload(:direct_messages, :by_user, :to_user).find(params[:id])
+      success_res(
+        200,
+        message: '取得しました',
+        data: DirectMessageGroupSerializer.new(data).as_json
+      ) and return
+    end
+
     private
 
     def make_dm_list_data
@@ -54,4 +63,4 @@ module Api
 
   end
 end
-  
+

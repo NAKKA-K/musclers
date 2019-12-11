@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     scope :user do
       resources :information, only: [:index]
 
-      resources :direct_message_groups,only: [:index]
+      resources :direct_message_groups,only: [:index, :show]
 
       post '/friends', to: 'friends#requestFriend'
     end

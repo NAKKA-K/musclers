@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h1>{{ getOpponent.nickname }}さんとのDM</h1>
+    <v-btn to="/direct_messages" class="mb-2" text>
+      <v-icon>keyboard_arrow_left</v-icon>
+      戻る
+    </v-btn>
+    <h1 class="mb-6">{{ getOpponent.nickname }}さん</h1>
     <v-snackbar
       v-model="disconnectedChannel"
       :color="errMsgType"
@@ -12,7 +16,6 @@
       <v-btn dark text @click="disconnectedChannel = false">CLOSE</v-btn>
     </v-snackbar>
 
-    <v-btn to="/direct_messages" class="mb-4" text small>戻る</v-btn>
     <v-card max-width="450" class="mx-auto chat-card">
       <div class="overflow-y-auto messages">
         <template v-for="(item, index) in directMessages">
@@ -101,7 +104,7 @@ export default {
 
   async asyncData({ $axios, params }) {
     const dmGroup = await $axios
-      .$get(`/mock/api/user/direct_message_groups/${params.id}`)
+      .$get(`/api/user/direct_message_groups/${params.id}`)
       .then((res) => res.data)
       .catch(() => null)
     const directMessages = dmGroup ? dmGroup.direct_messages : null
