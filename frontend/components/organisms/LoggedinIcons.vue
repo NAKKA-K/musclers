@@ -63,7 +63,7 @@ export default {
       if (this.currentUser.provider === 'facebook') {
         this.$auth.logout()
       } else {
-        this.$auth.$state.loggedIn = false
+        this.$store.dispatch('auth/setDebugLoggedIn', { flag: false })
       }
       this.$store.dispatch('auth/logout')
       this.$router.push('/')
