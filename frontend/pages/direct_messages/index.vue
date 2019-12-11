@@ -72,8 +72,11 @@ export default {
 
   async asyncData({ $axios }) {
     const groups = await $axios
-      .$get('api/user/direct_message_groups')
-      .then((res) => res.data)
+      .$get('/api/user/direct_message_groups')
+      .then((res) => {
+        console.log(res)
+        return res.data
+      })
       .catch(() => [])
 
     return {
