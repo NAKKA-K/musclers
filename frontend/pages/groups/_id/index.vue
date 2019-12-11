@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-btn to="/groups" class="mb-4" text small>戻る</v-btn>
+    <v-btn to="/groups" class="mb-4" text>
+      <v-icon>keyboard_arrow_left</v-icon>
+      戻る
+    </v-btn>
     <p class="grey--text text--lighten-1">{{ group.created_at }}作成</p>
     <v-flex>
       <h1>「{{ group.name }}」グループ</h1>
