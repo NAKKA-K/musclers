@@ -19,6 +19,13 @@
 
 <script>
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+
   data: () => ({
     requestFriend: false,
     resultRequestType: null,
@@ -28,14 +35,20 @@ export default {
   methods: {
     async sendFriendRequest() {
       await this.$axios
-        .$post(`/api/user/frineds`, { user_id: this.user.id })
+        .$post(`/api/user/friends`, { user_id: this.user.id })
         .then(() => {
           this.resultRequestMessage = `友達申請しました`
           this.resultRequestType = 'info'
         })
-        .catch(() => {
-          this.resultRequestMessage = `友達申請に失敗しました`
+        .catch((err) => {
           this.resultRequestType = 'error'
+
+          if (err.response.status === 409) {
+            this.resultRequestMessage = err.response.data.message
+            return
+          }
+
+          this.resultRequestMessage = `友達申請に失敗しました`
         })
       this.requestFriend = true
     }

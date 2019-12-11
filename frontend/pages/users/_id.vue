@@ -8,7 +8,7 @@
         <div class="container bg-rgba">
           <h2>{{ user.nickname }}</h2>
           <p>{{ user.description }}</p>
-          <friend-request-btn class="mt-10"></friend-request-btn>
+          <friend-request-btn :user="user" class="mt-10"></friend-request-btn>
         </div>
       </v-col>
     </div>
