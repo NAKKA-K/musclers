@@ -101,7 +101,7 @@ export default {
 
   async asyncData({ $axios, params }) {
     const dmGroup = await $axios
-      .$get(`/mock/api/user/direct_message_groups/${params.id}`)
+      .$get(`/api/user/direct_message_groups/${params.id}`)
       .then((res) => res.data)
       .catch(() => null)
     const directMessages = dmGroup ? dmGroup.direct_messages : null
