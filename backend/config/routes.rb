@@ -43,10 +43,13 @@ Rails.application.routes.draw do
 
     resources :blogs
 
+    # ユーザー固有のAPI
     scope :user do
       resources :information, only: [:index]
 
       resources :direct_message_groups,only: [:index]
+
+      post '/friends', to: 'friends#requestFriend'
     end
 
     resources :groups, only: [:index, :show] do
@@ -54,6 +57,8 @@ Rails.application.routes.draw do
         post :join
       end
     end
+
+    get '/debug_login', to:'debug#index'
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

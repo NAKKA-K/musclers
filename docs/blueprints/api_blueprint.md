@@ -628,6 +628,22 @@ Muscler'sのAPI仕様書
             "errors": [],
         }
 
++ Response 404 (application/json)
+
+        {
+            "code": 404,
+            "message": "指定したユーザーは存在しません",
+            "errors": [],
+        }
+
++ Response 409 (application/json)
+
+        {
+            "code": 409,
+            "message": "すでに申請しています",
+            "errors": [],
+        }
+
 
 # Group USERS
 
@@ -935,7 +951,7 @@ Muscler'sのAPI仕様書
 ### すべてのブログ一覧を取得する
 + Request (application/json)
 
-+ Response 200 
++ Response 200
 
     + Attributes (object)
         + status: 200 (number)
