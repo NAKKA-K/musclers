@@ -34,6 +34,12 @@ RSpec.describe "Friend", type: :request do
           expect(response).to have_http_status(201)
         end
 
+        it 'create information from friend request' do
+          expect {
+            post api_friends_path, headers: @headers, params: { user_id: @target.id }
+          }.to change{ Information.count }.by(1)
+        end
+
         it 'conflict second and subsequent request' do
           post api_friends_path, headers: @headers, params: { user_id: @target.id }
           expect(response).to have_http_status(201)
