@@ -3,7 +3,10 @@ class Api::BlogsController < ApplicationController
 
     #すべてのブログの一覧を返すアクション
     def index
-        @blogs = Blog.order(created_at: :desc).all
+        @blogs = ActiveModel::Serializer::CollectionSerializer.new(
+          Blog.preload(:tags).order(created_at: :desc).all,
+          each_serializer: BlogSerializer
+        ).as_json
         if @blogs.blank?
             success_res(
               200,
@@ -22,13 +25,13 @@ class Api::BlogsController < ApplicationController
     #ブログの詳細を返すアクション
     def show
         begin
-            @blog = Blog.find(params[:id])
+            @blog = Blog.preload(:tags).find(params[:id])
             success_res(
                 200,
                 message: 'ブログ詳細を表示',
-                data: @blog,
+                data: BlogSerializer.new(@blog).as_json,
             ) and return
-        
+
         rescue ActiveRecord::RecordNotFound
             error_res(
                 404,

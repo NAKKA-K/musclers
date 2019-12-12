@@ -15,7 +15,7 @@ describe 'ブログのAPI', type: :request do
             before do
                 create(:blog)
             end
-        
+
             it 'すべてのブログが表示される' do
                 get api_blogs_path
                 blogs = JSON.parse(response.body)

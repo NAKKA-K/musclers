@@ -17,8 +17,6 @@ RSpec.describe "DirectMessage", type: :request do
       it 'return direct_messaegs in direct_message_group' do
         get api_direct_message_group_path(direct_message_group.id), headers: headers
         expect(response).to have_http_status(200)
-        body = JSON.parse(response.body)
-        p body
       end
 
       it 'return direct messages' do
