@@ -27,7 +27,7 @@ describe 'group members api', type: :request do
         expect(response).to have_http_status(200)
         data = JSON.parse(response.body)
         expect(data['message']).to eq 'グループメンバーが見つかりました'
-        expect(data['data'].count).to eq 3
+        expect(data['data']['users'].count).to eq 3
       end
     end
   end
