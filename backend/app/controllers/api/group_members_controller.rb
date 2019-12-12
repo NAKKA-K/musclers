@@ -1,6 +1,6 @@
 class Api::GroupMembersController < ApplicationController
   def show
-    group_members = Group.find(params[:id]).users
+    group_members = Group.find(params[:group_id]).users
     data = ActiveModel::Serializer::CollectionSerializer.new(
       group_members,
       each_serializer: UserSerializer

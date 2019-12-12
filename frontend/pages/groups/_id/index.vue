@@ -112,7 +112,7 @@ export default {
       .$get(`/mock/api/groups/${params.id}/messages`)
       .then((res) => res.data)
     const members = await $axios
-      .$get(`/api/group_members/${params.id}`)
+      .$get(`/api/groups/${params.id}/users`)
       .then((res) => res.data)
     console.log(members)
     return {

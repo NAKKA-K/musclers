@@ -4,7 +4,7 @@ describe 'group members api', type: :request do
   describe 'GET #show' do
     context 'not logged in user' do
       it 'return status code 401' do
-        get api_group_member_path(0)
+        get api_group_users_path(0)
         expect(response.status).to eq 401
       end
     end
@@ -23,7 +23,7 @@ describe 'group members api', type: :request do
       end  
 
       it 'return group members data' do
-        get api_group_member_path(@group.id),headers: @headers
+        get api_group_users_path(@group.id),headers: @headers
         expect(response).to have_http_status(200)
         data = JSON.parse(response.body)
         expect(data['message']).to eq 'グループメンバーが見つかりました'
