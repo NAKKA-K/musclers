@@ -58,6 +58,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :group_members, only: [:show]
+
     get '/debug_login', to:'debug#index'
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
