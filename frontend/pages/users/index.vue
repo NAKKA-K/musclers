@@ -31,7 +31,10 @@
                 "
               ></v-img>
             </nuxt-link>
-            <v-card-title class="pb-0">
+            <v-card-title
+              class="pb-0 body-2 d-inline-block text-truncate"
+              style="max-width: 100%;"
+            >
               <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
                 {{ user.nickname || 'No name' }}
               </nuxt-link>
@@ -143,14 +146,20 @@ export default {
   methods: {
     async sendFriendRequest(user) {
       await this.$axios
-        .$post(`/api/user/frineds`, { user_id: user.id })
+        .$post(`/api/user/friends`, { user_id: user.id })
         .then(() => {
           this.resultRequestMessage = `${user.nickname}さんに友達申請しました`
           this.resultRequestType = 'info'
         })
-        .catch(() => {
-          this.resultRequestMessage = `友達申請に失敗しました`
+        .catch((err) => {
           this.resultRequestType = 'error'
+
+          if (err.response.status === 409) {
+            this.resultRequestMessage = err.response.data.message
+            return
+          }
+
+          this.resultRequestMessage = `友達申請に失敗しました`
         })
       this.requestFriend = true
     },

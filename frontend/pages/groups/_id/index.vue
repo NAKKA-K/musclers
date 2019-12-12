@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-btn to="/groups" class="mb-4" text small>戻る</v-btn>
+    <v-btn to="/groups" class="mb-4" text>
+      <v-icon>keyboard_arrow_left</v-icon>
+      戻る
+    </v-btn>
     <p class="grey--text text--lighten-1">{{ group.created_at }}作成</p>
     <v-flex>
       <h1>「{{ group.name }}」グループ</h1>
@@ -13,27 +16,7 @@
       </v-chip>
     </v-chip-group>
 
-    <div class="ma-2 mb-10">
-      <v-btn
-        color="#1CA1F1"
-        rounded
-        outlined
-        @click.prevent="() => requestGroupJoin(group)"
-      >
-        グループに参加する
-      </v-btn>
-
-      <v-snackbar
-        v-model="join"
-        :color="resultJoinType"
-        top
-        vertical
-        :timeout="2500"
-      >
-        {{ resultJoinMessage }}
-        <v-btn dark text @click="join = false">CLOSE</v-btn>
-      </v-snackbar>
-    </div>
+    <group-join-btn :group="group" class="ma-2 mb-10"></group-join-btn>
 
     <v-tabs v-model="tab" class="mt-6" background-color="transparent">
       <v-tab v-for="(item, index) in tabs" :key="index">
@@ -83,19 +66,22 @@
 </template>
 
 <script>
+import GroupJoinBtn from '~/components/organisms/GroupJoinBtn.vue'
+
 export default {
   validate({ params }) {
     return /^\d+$/.test(params.id)
+  },
+
+  components: {
+    GroupJoinBtn
   },
 
   data: () => ({
     group: null,
     messages: null,
     tabs: ['詳細', 'チャット', 'メンバー'],
-    tab: null,
-    join: false,
-    resultJoinType: null,
-    resultJoinMessage: null
+    tab: null
   }),
 
   async asyncData({ $axios, params }) {
@@ -109,22 +95,6 @@ export default {
     return {
       group,
       messages
-    }
-  },
-
-  methods: {
-    async requestGroupJoin(group) {
-      await this.$axios
-        .$post(`/api/groups/${group.id}/join`)
-        .then(() => {
-          this.resultJoinMessage = `「${group.name}」グループに参加しました`
-          this.resultJoinType = 'info'
-        })
-        .catch(() => {
-          this.resultJoinMessage = `グループに参加失敗しました`
-          this.resultJoinType = 'error'
-        })
-      this.join = true
     }
   }
 }

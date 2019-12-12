@@ -15,6 +15,7 @@ class LoggedinUserSerializer < ActiveModel::Serializer
     :muscle_mass,
     :body_fat_percentage,
     :seriousness,
+    :provider,
     :created_at,
     :updated_at
   )

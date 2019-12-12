@@ -76,7 +76,7 @@
                   >
                     <nuxt-link
                       :to="{
-                        name: 'recommended-id',
+                        name: 'users-id',
                         params: { id: recommend.id }
                       }"
                     >

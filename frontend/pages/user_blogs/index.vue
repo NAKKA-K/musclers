@@ -61,7 +61,7 @@ export default {
   }),
 
   async asyncData({ $axios }) {
-    const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
+    const blogs = await $axios.$get('/api/blogs').then((res) => res.data)
 
     return {
       blogs

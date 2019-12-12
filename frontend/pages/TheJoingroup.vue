@@ -15,7 +15,12 @@
 </template>
 <script>
 export default {
-  props: ['joingroup']
+  props: {
+    joingroup: {
+      type: Object,
+      default: null
+    }
+  }
 }
 </script>
 <style>
