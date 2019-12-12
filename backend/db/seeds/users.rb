@@ -4,15 +4,15 @@ users = [
     data:{
       provider: 'test',
       nickname: '野間 守@最近筋トレ始めました',
-      description: '自分のだらしない体を引き締めたいと思い筋トレを始めました。よろしくお願いしますー',
+      description: '某アニメを見て筋トレを始めました。よろしくお願いしますー',
       age: 21,
       gender: 1,
       height: 178,
       weight: 70,
-      figure: 25,
+      figure: 20,
       seriousness: 2,
     },
-    thumbnail: 'https://www.pakutaso.com/shared/img/thumb/LGTM_dandast20_TP_V.jpg'
+    thumbnail: 'https://www.pakutaso.com/shared/img/thumb/PAKU6319_TP_V.jpg'
   },
   {
     data:{
@@ -31,7 +31,7 @@ users = [
   {
     data:{
       provider: 'test',
-      nickname: '今福 貴洋@メンズフィジークで優勝したい',
+      nickname: 'ジェームズ@メンズフィジークで優勝したい',
       description: 'フィジークの大会で優勝するため日々体を鍛えてます。食生活でも食事制限をかけています。つらいよー；；',
       age: 24,
       gender: 1,
@@ -54,7 +54,7 @@ users = [
       figure: 1,
       seriousness: 2,
     },
-    thumbnail: 'http://www.premium-fit.co.jp/wp-content/uploads/2019/07/A1A16F49-4AA5-4A12-BDD6-90F4AF9082F8.jpeg'
+    thumbnail: 'https://pbs.twimg.com/media/DmBHrwCUcAAjbyq.jpg'
   },
   {
     data:{
@@ -152,35 +152,49 @@ users = [
       figure: 5,
       seriousness: 1,
     },
-    thumbnail: 'https://contents.oricon.co.jp/photo/img/4000/4756/detail/img660/1560129877598.jpg'
+    thumbnail: 'https://publicdomainq.net/images/201707/13s/publicdomainq-0011084zcg.jpg'
   },
   {
     data:{
       provider: 'test',
-      nickname: '永島 里佳',
-      description: '体のラインを綺麗に見せたい！！',
+      nickname: 'トーマス',
+      description: '筋トレ初心者です。目指せシックスパック',
       age: 21,
-      gender: 2,
+      gender: 1,
       height: 165,
       weight: 53,
       figure: 20,
       seriousness: 2,
     },
-    thumbnail: 'https://pbs.twimg.com/media/DmBHrwCUcAAjbyq.jpg',
+    thumbnail: 'https://www.pakutaso.com/shared/img/thumb/N811_shadowbox_TP_V4.jpg'
   },
   {
     data:{
       provider: 'test',
-      nickname: '椎名 弘子@体引き締めたい',
-      description: '来年の夏までにお腹引き締める！！モチベ上げるために一緒にトレーニングしませんか？',
+      nickname: 'マッスルグリル',
+      description: '暇な時にジムに行ってトレーニングしてますー',
+      age: 21,
+      gender: 1,
+      height: 175,
+      weight: 65,
+      figure: 5,
+      seriousness: 2,
+    },
+    thumbnail: 'https://publicdomainq.net/images/201901/30s/publicdomainq-0030909lrn.jpg'
+  },
+  {
+    data:{
+      provider: 'test',
+      nickname: '椎名 弘子@週4でジム通ってます^^',
+      description: '趣味でトレーニングしています！！モチベ上げるために一緒にトレーニングしませんか？',
       age: 21,
       gender: 2,
       height: 161,
       weight: 52,
-      figure: 20,
+      figure: 5,
       seriousness: 2,
     },
-    thumbnail: 'https://i.pinimg.com/originals/b4/b0/6e/b4b06ef5acf1b5c68b69ee1f19fc5dac.png'
+    thumbnail: 'https://cdn.pixabay.com/photo/2016/11/29/06/15/adult-1867743_1280.jpg'
   },
   {
     data:{
@@ -194,21 +208,8 @@ users = [
       figure: 5,
       seriousness: 1,
     },
-    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0uC5WGPcbHE3ZVdjceTtHTHLx9Hj230ki0mSSNYOKlcX2afe8'
-  },
-  {
-    data:{
-      provider: 'test',
-      nickname: '則近 友海',
-      description: '友達にデブと言われたので絶対に痩せてやる！！',
-      age: 21,
-      gender: 2,
-      height: 158,
-      weight: 55,
-      figure: 25,
-      seriousness: 2,
-    },
-    thumbnail: 'https://publicdomainq.net/images/201901/30s/publicdomainq-0030909lrn.jpg'
+    thumbnail:
+    'https://contents.oricon.co.jp/photo/img/4000/4756/detail/img660/1560129877598.jpg'
   },
   {
     data:{
@@ -222,7 +223,7 @@ users = [
       figure: 20,
       seriousness: 2,
     },
-    thumbnail: 'https://publicdomainq.net/images/201909/18s/publicdomainq-0038379fjs.jpg'
+    thumbnail: 'https://www.pakutaso.com/shared/img/thumb/kawamura1029IMGL4424_TP_V4.jpg'
   },
   {
     data:{
@@ -236,13 +237,13 @@ users = [
       figure: 25,
       seriousness: 2,
     },
-    thumbnail: 'https://publicdomainq.net/images/201706/21s/publicdomainq-0010336luo.jpg'
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0uC5WGPcbHE3ZVdjceTtHTHLx9Hj230ki0mSSNYOKlcX2afe8'
   },
   {
     data:{
       provider: 'test',
       nickname: 'さな',
-      description: 'ガリガリだから筋肉つけたいー',
+      description: 'ダイエットのためジムに通ってます',
       age: 25,
       gender: 2,
       height: 170,
@@ -250,7 +251,7 @@ users = [
       figure: 15,
       seriousness: 2,
     },
-    thumbnail: 'https://publicdomainq.net/images/201804/17s/publicdomainq-0021100kyq.jpg'
+    thumbnail: 'https://publicdomainq.net/images/201803/08s/publicdomainq-0019680qzy.jpg'
   },
   {
     data:{
@@ -264,7 +265,7 @@ users = [
       figure: 25,
       seriousness: 1,
     },
-    thumbnail: 'https://publicdomainq.net/images/201707/13s/publicdomainq-0011084zcg.jpg'
+    thumbnail: 'https://www.pakutaso.com/shared/img/thumb/161007-188_TP_V.jpg'
   },
   {
     data:{
@@ -278,7 +279,7 @@ users = [
       figure: 25,
       seriousness: 1,
     },
-    thumbnail: 'https://publicdomainq.net/images/201802/17s/publicdomainq-0018995ela.jpg'
+    thumbnail: 'https://publicdomainq.net/images/201803/08s/publicdomainq-0019681inb.jpg'
   },
   {
     data:{
@@ -292,7 +293,7 @@ users = [
       figure: 15,
       seriousness: 1,
     },
-    thumbnail: 'https://publicdomainq.net/images/201911/01s/publicdomainq-0039769xtq.jpg'
+    thumbnail: 'https://publicdomainq.net/images/201911/01s/publicdomainq-0039780bnm.jpg'
   }
 ]
 ActiveRecord::Base.transaction do
