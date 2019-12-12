@@ -113,7 +113,7 @@ export default {
       .then((res) => res.data)
     const members = await $axios
       .$get(`/api/groups/${params.id}/users`)
-      .then((res) => res.data)
+      .then((res) => res.data.users)
     console.log(members)
     return {
       group,
