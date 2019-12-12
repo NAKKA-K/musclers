@@ -1,5 +1,6 @@
 blogs = [
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20191126/20191126164819.png',
     user_id: 1,
     title: '筋トレとジョギングをすると「筋トレの効果が減少する」',
     body: <<~EOS,
@@ -65,6 +66,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20191007/20191007115825.png',
     user_id: 1,
     title: '太ると筋トレの効果が減ってしまう！？',
     body: <<~EOS,
@@ -179,6 +181,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190930/20190930005528.png',
     user_id: 1,
     title: '【牛乳vs牛肉　筋トレの効果を最大限にする食品について知っておこう！',
     body: <<~EOS,
@@ -233,6 +236,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190922/20190922145739.png',
     user_id: 2,
     title: '筋トレ後の水風呂が禁肥大の効果を減少させる？',
     body: <<~EOS,
@@ -267,6 +271,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190912/20190912231111.png',
     user_id: 2,
     title: 'スクワットで「膝を爪先より前より出し手はいけない」という間違え',
     body: <<~EOS,
@@ -317,6 +322,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190801/20190801125359.png',
     user_id: 2,
     title: 'コーヒーはダイエット効果がある？',
     body: <<~EOS,
@@ -368,6 +374,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190718/20190718132926.png',
     user_id: 3,
     title: 'テレビをつけたままだと太る',
     body: <<~EOS,
@@ -446,6 +453,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20171116/20171116141802.png',
     user_id: 3,
     title: '筋トレは病気による死亡率を減らしてくれる',
     body: <<~EOS,
@@ -519,6 +527,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190603/20190603114933.png',
     user_id: 3,
     title: 'イケメン出ない僕たちが筋トレをすべき理由',
     body: <<~EOS,
@@ -632,6 +641,7 @@ blogs = [
   },
 
   {
+    thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190328/20190328142531.png',
     user_id: 4,
     title: '筋トレをすると「頭がよくなる」',
     body: <<~EOS,
@@ -724,7 +734,20 @@ blogs = [
 
 ]
 
-blogs.each do |data|
-    Blog.create(data)
-    p "create blog user_id:#{data[:user_id]}"
+blogs.each_with_index do |data, i|
+  thumbnail = data[:thumbnail]
+  data = data.except(:thumbnail)
+
+  blog = Blog.create(data)
+  p "create blog user_id:#{data[:user_id]}"
+
+  next if thumbnail.blank?
+  open(thumbnail) do |file|
+    p "fetching blog image data from #{thumbnail}"
+    if file.content_type == "image/jpeg"
+      blog.thumbnail.attach(io: file, filename: "blog_thumbnail_#{i}.jpg")
+    else
+      blog.thumbnail.attach(io: file, filename: "blog_thumbnail_#{i}.png")
+    end
+  end
 end
