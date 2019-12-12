@@ -1,7 +1,7 @@
 class InformationSerializer < ActiveModel::Serializer
-  attributes :id, :type, :by_name, :link
+  attributes :id, :genre, :by_name, :link
 
-  def type
-    object.type_i18n
+  def genre
+    object.genre_i18n
   end
 end
