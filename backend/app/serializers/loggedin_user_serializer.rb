@@ -20,6 +20,18 @@ class LoggedinUserSerializer < ActiveModel::Serializer
     :updated_at
   )
 
+  def gender
+    object.gender_i18n
+  end
+
+  def figure
+    object.figure_i18n
+  end
+
+  def seriousness
+    object.seriousness_i18n
+  end
+
   def thumbnail
     if object.thumbnail.attached?
       url_for(object.thumbnail)
