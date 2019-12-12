@@ -13,19 +13,21 @@
       </template>
       <v-card>
         <h4 class="font-weight-thin title-position">通知</h4>
-        <div v-for="i in 5" :key="i">
+        <div v-for="i in informations" :key="i.id">
           <span class="font-weight-thin">
             <v-avatar class="img-small">
               <v-img
-                src="https://i2.wp.com/dietlife25.com/wp-content/uploads/2019/12/274122b394996dcc766774e82f1bdf0e_m.jpg?resize=1280%2C720&ssl=1"
+                src="https://icon-library.net/images/icon-muscle/icon-muscle-29.jpg"
               />
             </v-avatar>
-            筋肉同好会からダイレクトメッセージが届きました
+            {{ i.by_name }}から{{ i.type }}が届きました。
           </span>
-          <p class="text-right">2019-12-06 13:10:29</p>
+          <p class="text-right">{{ i.created_at }}</p>
           <v-divider inset></v-divider>
         </div>
-        <h5 class="foot-position font-weight-thin text-center">通知一覧</h5>
+        <h5 class="foot-position font-weight-thin text-center">
+          通知一覧を見る
+        </h5>
       </v-card>
     </v-menu>
 
@@ -70,15 +72,23 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    items: [
-      { link: '/auth/mypage', icon: 'account_circle', title: 'マイページ' },
-      { link: '/direct_messages', icon: 'message', title: 'DM一覧' },
-      { link: '/search', icon: 'search', title: '検索' },
-      { link: '/auth/setting', icon: 'build', title: '設定' }
-    ]
-  }),
-
+  data() {
+    return {
+      items: [
+        { link: '/auth/mypage', icon: 'account_circle', title: 'マイページ' },
+        { link: '/direct_messages', icon: 'message', title: 'DM一覧' },
+        { link: '/search', icon: 'search', title: '検索' },
+        { link: '/auth/setting', icon: 'build', title: '設定' }
+      ],
+      informations: []
+    }
+  },
+  async mounted() {
+    this.informations = await this.$axios
+      .$get('/api/user/information')
+      .then((res) => res.data)
+    console.log(this.informations)
+  },
   methods: {
     logout() {
       if (this.currentUser.provider === 'facebook') {
