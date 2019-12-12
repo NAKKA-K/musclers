@@ -28,7 +28,7 @@ class Api::BlogsController < ApplicationController
                 message: 'ブログ詳細を表示',
                 data: @blog,
             ) and return
-        
+
         rescue ActiveRecord::RecordNotFound
             error_res(
                 404,
