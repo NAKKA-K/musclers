@@ -68,11 +68,11 @@ class Api::BlogsController < ApplicationController
         end
     end
 
-private
+    private
 
     #送られてきたデータを正しく受け取るためのメソッド
     def blog_params
-        params.require(:blog).permit(:title, :body)
+        params.permit(:title, :body, :thumbnail)
     end
 
 

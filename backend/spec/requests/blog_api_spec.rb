@@ -61,25 +61,20 @@ describe 'ブログのAPI', type: :request do
                 expect(response).to have_http_status(401)
             end
         end
-    
-        before do
-            @blog = create(:blog)
-        end
-
+  
         context 'ブログの内容が空白、空文字の場合' do
             it 'ブログの内容が空です' do
-                get api_blog_path(@blog.id)
+                post api_blogs_path, headers: @headers
                 expect(response).to have_http_status(422)
-                expect(err_data['message']).to eq '入力内容が正しくありません'
+                expect(JSON.parse(response.body)['message']).to eq '入力内容が正しくありません'
             end
         end
 
         context 'ブログが新規作成された場合' do
             it 'ブログの新規作成に成功' do
-                get api_blog_path(@blog.id),headers: @headers
+                post api_blogs_path, headers: @headers
                 expect(response).to have_http_status(200)
                 expect(JSON.parse(response.body)['message']).to eq 'ブログを新規作成しました'
-        
             end
         end
 
