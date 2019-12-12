@@ -20,7 +20,7 @@
                 src="https://icon-library.net/images/icon-muscle/icon-muscle-29.jpg"
               />
             </v-avatar>
-            {{ i.by_name }}から{{ i.type }}が届きました。
+            {{ i.by_name }}から{{ i.genre }}が届きました。
           </span>
           <p class="text-right">{{ i.created_at }}</p>
           <v-divider inset></v-divider>
