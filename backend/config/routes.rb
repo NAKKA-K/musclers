@@ -53,9 +53,12 @@ Rails.application.routes.draw do
     end
 
     resources :groups, only: [:index, :show] do
+      get '/users', to:'group_members#show'
+
       member do
         post :join
       end
+
     end
 
     get '/debug_login', to:'debug#index'
