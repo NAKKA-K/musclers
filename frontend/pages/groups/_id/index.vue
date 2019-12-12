@@ -58,7 +58,26 @@
         </v-tab-item>
 
         <v-tab-item class="flat-background">
-          グループメンバー
+          <template v-for="(item, index) in members">
+            <v-list
+              :id="`member-${index}`"
+              :key="index"
+              three-line
+              class="pa-0 flat-background"
+            >
+              <v-list-item :to="{ name: 'users-id', params: { id: item.id } }">
+                <v-list-item-avatar>
+                  <v-img :src="item.thumbnail"></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ item.nickname || 'unknown' }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </template>
         </v-tab-item>
       </v-tabs-items>
     </v-tabs>
@@ -80,6 +99,7 @@ export default {
   data: () => ({
     group: null,
     messages: null,
+    members: null,
     tabs: ['詳細', 'チャット', 'メンバー'],
     tab: null
   }),
@@ -91,10 +111,14 @@ export default {
     const messages = await $axios
       .$get(`/mock/api/groups/${params.id}/messages`)
       .then((res) => res.data)
-
+    const members = await $axios
+      .$get(`/api/group_members/${params.id}`)
+      .then((res) => res.data)
+    console.log(members)
     return {
       group,
-      messages
+      messages,
+      members
     }
   }
 }
