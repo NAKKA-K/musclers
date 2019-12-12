@@ -3,7 +3,7 @@ module Api
     def index
       data = ActiveModel::Serializer::CollectionSerializer.new(
         Information.where(user_id: current_user.id),
-        each_serializer: UserSerializer
+        each_serializer: InformationSerializer
       ).as_json
 
       p data
