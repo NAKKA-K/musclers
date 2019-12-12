@@ -1,9 +1,14 @@
 module Api
   class InformationController < ApplicationController
     def index
-      @information = Information.where(user_id: current_user.id)
+      data = ActiveModel::Serializer::CollectionSerializer.new(
+        Information.where(user_id: current_user.id),
+        each_serializer: UserSerializer
+      ).as_json
 
-      success_res(200, message: '取得しました', data: @information) and return
+      p data
+
+      success_res(200, message: '取得しました', data: data) and return
     end
   end
 end
