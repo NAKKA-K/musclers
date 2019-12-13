@@ -64,6 +64,8 @@
       ユーザーが存在しません
     </div>
 
+    <paginator :meta="meta" @click="updateUsersPage"></paginator>
+
     <v-snackbar
       v-model="requestFriend"
       :color="resultRequestType"
