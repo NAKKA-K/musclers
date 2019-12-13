@@ -26,6 +26,26 @@ RSpec.describe "Group", type: :request do
     end
   end
 
+  describe "GET /groups/:id" do
+    context 'when not created group' do
+      it 'return 404' do
+        get api_group_path(0)
+        expect(response.status).to eq 404
+      end
+    end
+
+    context 'when created group' do
+      before do
+        @group = create(:group)
+      end
+
+      it "return created group" do
+        get api_group_path(@group.id)
+        expect(response).to have_http_status(200)
+      end
+    end
+  end
+
   describe "GET /groups/:id/join" do
     context 'when not logged in user' do
       it 'return status code 401' do

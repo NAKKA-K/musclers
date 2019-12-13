@@ -15,17 +15,10 @@ class LoggedinUserSerializer < ActiveModel::Serializer
     :muscle_mass,
     :body_fat_percentage,
     :seriousness,
+    :provider,
     :created_at,
     :updated_at
   )
-
-  def thumbnail
-    if object.thumbnail.attached?
-      url_for(object.thumbnail)
-    else
-      root_url + "images/noimage.png"
-    end
-  end
 
   def gender
     object.gender_i18n
@@ -37,5 +30,13 @@ class LoggedinUserSerializer < ActiveModel::Serializer
 
   def seriousness
     object.seriousness_i18n
+  end
+
+  def thumbnail
+    if object.thumbnail.attached?
+      url_for(object.thumbnail)
+    else
+      root_url + "images/noimage.png"
+    end
   end
 end

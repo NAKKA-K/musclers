@@ -1,6 +1,20 @@
 <template>
   <div>
-    <h1>{{ getOpponent.nickname }}さんとのDM</h1>
+    <v-btn to="/direct_messages" class="mb-2" text>
+      <v-icon>keyboard_arrow_left</v-icon>
+      戻る
+    </v-btn>
+    <h1 class="mb-6">{{ getOpponent.nickname }}さん</h1>
+    <v-snackbar
+      v-model="disconnectedChannel"
+      :color="errMsgType"
+      top
+      vertical
+      :timeout="2500"
+    >
+      {{ errMsg }}
+      <v-btn dark text @click="disconnectedChannel = false">CLOSE</v-btn>
+    </v-snackbar>
 
     <v-card max-width="450" class="mx-auto chat-card">
       <div class="overflow-y-auto messages">
@@ -68,7 +82,11 @@ export default {
     directMessageGroup: null,
     directMessages: null,
     message: '',
-    sending: false
+    sending: false,
+    directMessageChannel: null,
+    errMsg: '',
+    errMsgType: null,
+    disconnectedChannel: false
   }),
 
   computed: {
@@ -86,7 +104,7 @@ export default {
 
   async asyncData({ $axios, params }) {
     const dmGroup = await $axios
-      .$get(`/mock/api/user/direct_message_groups/${params.id}`)
+      .$get(`/api/user/direct_message_groups/${params.id}`)
       .then((res) => res.data)
       .catch(() => null)
     const directMessages = dmGroup ? dmGroup.direct_messages : null
@@ -95,6 +113,34 @@ export default {
       directMessageGroup: dmGroup,
       directMessages
     }
+  },
+
+  mounted() {
+    this.directMessageChannel = this.$cable.subscriptions.create(
+      {
+        channel: 'DirectMessageChannel',
+        room: this.$route.params.id
+      },
+      {
+        connected: () => {
+          console.log('connected')
+        },
+        received: (data) => {
+          this.directMessages.push(data)
+        },
+        rejected: () => {
+          console.log('rejected')
+          this.disconnectedChannel = true
+          this.errMsgType = 'error'
+          this.errMsg = 'メッセージの送信に失敗しました'
+        },
+        disconnected: () => {
+          this.disconnectedChannel = true
+          this.errMsgType = 'error'
+          this.errMsg = 'チャンネルとの接続が切れました'
+        }
+      }
+    )
   },
 
   updated() {
@@ -117,25 +163,17 @@ export default {
       // TODO: これではoverflow:scroll表示されている要素に飛べないっぽい
       chatLog.scrollTop = chatLog.scrollHeight
     },
-    async sendMessage(e) {
+    sendMessage(e) {
       // 日本語変換でもkeydownが発火してしまうため処理で制御
       if (e.type !== 'click' && e.keyCode !== 13) return
 
       this.sending = true
-      await this.$axios
-        .$post(
-          `/mock/api/user/direct_message_groups/${this.$route.params.id}`,
-          { message: this.message }
-        )
-        .then((res) => {
-          const message = res.data
-          this.directMessages.push(message)
-
-          this.sending = false
-        })
-        .catch(() => {
-          this.sending = false
-        })
+      this.directMessageChannel.perform('direct_message', {
+        message: this.message,
+        dmId: this.$route.params.id
+      })
+      this.sending = false
+      this.message = ''
     }
   }
 }

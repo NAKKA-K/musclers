@@ -44,7 +44,7 @@
     <h2 class="mt-12 ml-0">新着グループ</h2>
     <v-row>
       <v-col v-for="group in groups" :key="group.id" cols="12" sm="6" lg="3">
-        <v-card>
+        <v-card max-height="500">
           <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
             <v-img height="200" :src="group.thumbnail"></v-img>
           </nuxt-link>
@@ -59,9 +59,14 @@
           </v-card-title>
 
           <v-card-text>
-            <v-chip-group column>
-              <v-chip v-for="tag in group.tags" :key="tag.id" label small>
-                {{ tag.name }}
+            <v-chip-group v-if="group.tags" column>
+              <v-chip
+                v-for="tag in group.tags.split(' ')"
+                :key="tag.id"
+                label
+                small
+              >
+                {{ tag }}
               </v-chip>
             </v-chip-group>
             <div class="mb-4 grey--text text--lighten-1">
@@ -141,7 +146,7 @@ export default {
     const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
     const tags = await $axios.$get('/api/tags').then((res) => res.data)
     const groups = await $axios
-      .$get('/mock/api/groups')
+      .$get('/api/groups')
       .then((res) => res.data.slice(0, 4))
 
     return {

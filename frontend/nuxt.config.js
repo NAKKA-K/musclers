@@ -30,6 +30,9 @@ export default {
     ]
   },
 
+  env: {
+    wsURL: process.env.WS_URL
+  },
   /*
    ** Customize the progress-bar color
    */
@@ -43,7 +46,8 @@ export default {
     '~/plugins/axios.js',
     '~/plugins/vuelidate.js',
     '~/plugins/queryParamsUpdater.js',
-    { src: '~/plugins/swiper.js', ssr: false }
+    { src: '~/plugins/swiper.js', ssr: false },
+    { src: '~/plugins/actioncable.js', ssr: false }
   ],
 
   /*
