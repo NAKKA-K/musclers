@@ -80,7 +80,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <nuxt-link to="/groups" class="d-inline-block search-text">
+    <nuxt-link to="/groups" class="d-inline-block search-text subtitle-1">
       グループをもっと見る
       <v-icon class="blue--text">chevron_right</v-icon>
     </nuxt-link>
