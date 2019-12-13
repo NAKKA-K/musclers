@@ -10,7 +10,6 @@
         <v-icon small>edit</v-icon>保存
       </v-btn>
     </v-layout>
-
     <div class="mb-5">
       <img
         v-if="thumbnailSrc"
@@ -114,6 +113,11 @@
       label="体脂肪率"
       :disabled="disabled"
     ></v-text-field>
+    <v-layout class="justify-center">
+      <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
+        <v-icon small>edit</v-icon>保存
+      </v-btn>
+    </v-layout>
   </div>
 </template>
 
