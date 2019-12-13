@@ -196,7 +196,7 @@
             </v-row>
           </v-col>
         </v-tab-item>
-        <v-tab-item style="height: 90vh;">
+        <v-tab-item>
           <!-- swiper1 -->
           <swiper
             ref="swiperTop"
@@ -231,23 +231,23 @@
             class="gallery-thumbs"
           >
             <v-img
-              class="swiper-slide sp-slide-image"
+              class="sp-slide-image swiper-slide"
               :src="user.thumbnail"
             ></v-img>
             <v-img
-              class="swiper-slide sp-slide-image"
+              class="sp-slide-image swiper-slide"
               :src="user.thumbnail"
             ></v-img>
             <v-img
-              class="swiper-slide sp-slide-image"
+              class="sp-slide-image swiper-slide"
               :src="user.thumbnail"
             ></v-img>
             <v-img
-              class="swiper-slide sp-slide-image"
+              class="sp-slide-image swiper-slide"
               :src="user.thumbnail"
             ></v-img>
             <v-img
-              class="swiper-slide sp-slide-image"
+              class="sp-slide-image swiper-slide"
               :src="user.thumbnail"
             ></v-img>
             <div slot="button-next" class="sp-swiper-button-next"></div>
