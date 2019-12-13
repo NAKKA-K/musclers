@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn to="/groups" class="mb-4" text>
+    <v-btn to="/home" class="mb-4" text>
       <v-icon>keyboard_arrow_left</v-icon>
       戻る
     </v-btn>
