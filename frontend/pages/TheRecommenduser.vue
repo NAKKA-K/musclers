@@ -3,7 +3,12 @@
   <div align="center">
     <v-container>
       <v-row>
-        <v-col v-for="recommend in recommended" :key="recommend.id" cols="6">
+        <v-col
+          v-for="recommend in recommended"
+          :key="recommend.id"
+          class="link-color"
+          cols="6"
+        >
           <nuxt-link :to="{ name: 'users-id', params: { id: recommend.id } }">
             <v-img :src="recommend.thumbnail" class="img-size" />
             <h4>{{ recommend.nickname }}</h4>

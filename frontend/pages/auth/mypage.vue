@@ -19,7 +19,9 @@
                   <v-col
                     v-for="group in limitedGroups"
                     :key="group.id"
-                    cols="3"
+                    cols="6"
+                    xs="3"
+                    sm="3"
                     class="link-color"
                   >
                     <nuxt-link
@@ -67,7 +69,9 @@
                   <v-col
                     v-for="recommend in limitedRecommendusers"
                     :key="recommend.id"
-                    cols="3"
+                    cols="6"
+                    xs="3"
+                    sm="3"
                     class="link-color"
                   >
                     <nuxt-link
@@ -89,10 +93,10 @@
           </div>
         </v-tab-item>
         <v-tab-item>
-          <TheJoingroup :joingroup="groups" />
+          <TheJoingroup :groups="groups" />
         </v-tab-item>
         <v-tab-item>
-          <TheInformation :infos="infos" />
+          <TheInformation :notification="notification" />
         </v-tab-item>
         <v-tab-item>
           <TheRecommenduser :recommended="recommended" />
@@ -124,7 +128,7 @@ export default {
       return this.groups.slice(0, 4)
     },
     limitedInformation() {
-      return this.infos.slice(0, 3)
+      return this.notification.slice(0, 3)
     },
     limitedRecommendusers() {
       return this.recommended.slice(0, 4)
@@ -136,13 +140,13 @@ export default {
     const recommended = await $axios
       .$get(`/api/users/recommended_users`)
       .then((res) => res.data)
-    const infos = await $axios
+    const notification = await $axios
       .$get(`/mock/api/user/information`)
       .then((res) => res.data)
     return {
       groups,
       recommended,
-      infos
+      notification
     }
   }
 }
