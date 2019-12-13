@@ -3,12 +3,16 @@
     <h2>マイページ</h2>
 
     <v-layout class="justify-end">
-      <v-btn class="my-4" tile outlined color="success" @click="enableEdit">
-        <v-icon small>edit</v-icon>編集
-      </v-btn>
-      <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
-        <v-icon small>edit</v-icon>保存
-      </v-btn>
+      <div v-if="disabled">
+        <v-btn class="my-4" tile outlined color="success" @click="enableEdit">
+          <v-icon small>edit</v-icon>編集
+        </v-btn>
+      </div>
+      <div v-else>
+        <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
+          <v-icon small>edit</v-icon>保存
+        </v-btn>
+      </div>
     </v-layout>
     <div class="mb-5">
       <img
@@ -114,9 +118,11 @@
       :disabled="disabled"
     ></v-text-field>
     <v-layout class="justify-center">
-      <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
-        <v-icon small>edit</v-icon>保存
-      </v-btn>
+      <div v-if="!disabled">
+        <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
+          <v-icon small>edit</v-icon>保存
+        </v-btn>
+      </div>
     </v-layout>
   </div>
 </template>
@@ -344,6 +350,8 @@ export default {
         .$get('/api/auth/user')
         .then((res) => res.data)
       this.$store.dispatch('auth/setCurrentUser', { user: currentUser })
+
+      this.disabled = true
     }
   }
 }
