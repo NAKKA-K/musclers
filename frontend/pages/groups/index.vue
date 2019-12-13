@@ -3,8 +3,9 @@
     <div class="d-flex">
       <h1>グループ一覧</h1>
       <v-spacer></v-spacer>
-      <v-btn fab dark small color="#ffac12" to="/groups/new">
+      <v-btn rounded small color="#ffac12" dark to="/groups/new">
         <v-icon dark>mdi-plus</v-icon>
+        グループ作成
       </v-btn>
     </div>
 
