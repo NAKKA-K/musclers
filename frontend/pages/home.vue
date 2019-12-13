@@ -36,7 +36,7 @@
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
     </div>
-    <nuxt-link to="/groups" class="d-inline-block search-text subtitle-1">
+    <nuxt-link to="/user_blogs" class="d-inline-block search-text subtitle-1">
       ユーザーブログをもっと見る
       <v-icon class="blue--text">chevron_right</v-icon>
     </nuxt-link>
