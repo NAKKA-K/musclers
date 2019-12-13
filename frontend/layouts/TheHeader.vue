@@ -7,21 +7,7 @@
         </nuxt-link>
         <nuxt-link v-else to="/" class="header-title">Muscler's</nuxt-link>
       </v-toolbar-title>
-      <v-toolbar-items>
-        <dropdown-home-links></dropdown-home-links>
-        <v-btn to="/home" class="header-title">
-          <v-icon v-text="home"></v-icon>
-          Link 1
-        </v-btn>
-        <v-btn to="/groups" class="header-title">
-          <v-icon v-text="group"></v-icon>
-          Link 2
-        </v-btn>
-        <v-btn to="/user_blogs" class="header-title">
-          <v-icon v-text="menu_book"></v-icon>
-          Link 3
-        </v-btn>
-      </v-toolbar-items>
+      <dropdown-home-links></dropdown-home-links>
 
       <v-spacer></v-spacer>
 
