@@ -8,6 +8,7 @@
         color="#ff9d00"
         right
       >
+        <!-- TODO: レスポンシブに対応する -->
         <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
         <v-tab-item>
           <div>
@@ -50,28 +51,6 @@
                         </h4>
                       </span>
                     </nuxt-link>
-                    <!-- <nuxt-link
-                      :to="{ name: 'infos-id', params: { id: info.id } }"
-                    >
-                      <v-img
-                        class="img-small"
-                        :src="info.thumbnail"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                    </nuxt-link>
-                  </v-col>
-                  <v-col cols="9">
-                    <nuxt-link
-                      :to="{ name: 'infos-id', params: { id: info.id } }"
-                    >
-                      <div align="left">
-                        <font size="3"
-                          >{{ info.by_name }}から
-                          {{ info.type }}が届きました。</font
-                        >
-                      </div>
-                    </nuxt-link> -->
                   </v-col>
                 </v-row>
                 <v-row>
@@ -151,6 +130,7 @@ export default {
       return this.recommended.slice(0, 4)
     }
   },
+  /* TODO: APIを帰る */
   async asyncData({ $axios, store }) {
     const groups = await $axios.$get('/mock/api/groups').then((res) => res.data)
     const recommended = await $axios
