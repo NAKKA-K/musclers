@@ -5,7 +5,7 @@
         v-model="tab"
         centered
         background-color="white"
-        color="deep-purple accent-4"
+        color="#ff9d00"
         right
       >
         <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
@@ -18,7 +18,8 @@
                   <v-col
                     v-for="group in limitedGroups"
                     :key="group.id"
-                    cols="6"
+                    cols="3"
+                    class="link-color"
                   >
                     <nuxt-link
                       :to="{ name: 'groups-id', params: { id: group.id } }"
@@ -35,8 +36,21 @@
               <h2 align="left">通知</h2>
               <v-container>
                 <v-row v-for="info in limitedInformation" :key="info.id">
-                  <v-col cols="3">
+                  <v-col cols="12" class="link-color">
                     <nuxt-link
+                      :to="{ name: 'infos-id', params: { id: info.id } }"
+                    >
+                      <span>
+                        <v-img
+                          class="img-small no-wrap"
+                          :src="info.thumbnail"
+                        />
+                        <h4 align="left" class="text-position">
+                          {{ info.by_name }}から{{ info.type }}が届きました。
+                        </h4>
+                      </span>
+                    </nuxt-link>
+                    <!-- <nuxt-link
                       :to="{ name: 'infos-id', params: { id: info.id } }"
                     >
                       <v-img
@@ -51,11 +65,13 @@
                     <nuxt-link
                       :to="{ name: 'infos-id', params: { id: info.id } }"
                     >
-                      <font size="3"
-                        >{{ info.by_name }}から
-                        {{ info.type }}が届きました。</font
-                      >
-                    </nuxt-link>
+                      <div align="left">
+                        <font size="3"
+                          >{{ info.by_name }}から
+                          {{ info.type }}が届きました。</font
+                        >
+                      </div>
+                    </nuxt-link> -->
                   </v-col>
                 </v-row>
                 <v-row>
@@ -72,7 +88,8 @@
                   <v-col
                     v-for="recommend in limitedRecommendusers"
                     :key="recommend.id"
-                    cols="6"
+                    cols="3"
+                    class="link-color"
                   >
                     <nuxt-link
                       :to="{
@@ -125,13 +142,13 @@ export default {
   },
   computed: {
     limitedGroups() {
-      return this.groups.slice(0, 2)
+      return this.groups.slice(0, 4)
     },
     limitedInformation() {
       return this.infos.slice(0, 3)
     },
     limitedRecommendusers() {
-      return this.recommended.slice(0, 2)
+      return this.recommended.slice(0, 4)
     }
   },
   async asyncData({ $axios, store }) {
@@ -162,6 +179,22 @@ h2 {
 .img-size {
   width: 121px;
   height: 121px;
-  border-radius: 50%;
+  border-radius: 4px;
+}
+a:link {
+  text-decoration: none;
+  color: black;
+}
+.link-color:hover {
+  background-color: #eeeeee;
+  border-radius: 15px;
+}
+.no-wrap {
+  float: left;
+}
+.text-position {
+  margin-left: 80px;
+  margin-top: 20px;
+  color: black;
 }
 </style>
