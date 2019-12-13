@@ -25,22 +25,3 @@ export default {
   }
 }
 </script>
-<style>
-.img-small {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-.no-wrap {
-  float: left;
-}
-.text-position {
-  margin-left: 80px;
-  margin-top: 20px;
-  color: black;
-}
-.link-color:hover {
-  background-color: #eeeeee;
-  border-radius: 15px;
-}
-</style>
