@@ -1,5 +1,9 @@
 <template>
   <div>
+    <v-btn to="/home" class="mb-4" text>
+      <v-icon>keyboard_arrow_left</v-icon>
+      戻る
+    </v-btn>
     <v-layout justify-center>
       <v-form>
         <div class="container">
