@@ -144,10 +144,10 @@ export default {
     figuresArray: [
       { label: '未設定', value: 0 },
       { label: '痩せ型筋肉質', value: 1 },
-      { label: '普通筋肉質', value: 5 },
+      { label: '普通型筋肉質', value: 5 },
       { label: '肥満型筋肉質', value: 10 },
       { label: '痩せ型', value: 15 },
-      { label: '普通', value: 20 },
+      { label: '普通型', value: 20 },
       { label: '肥満型', value: 25 },
       { label: 'その他', value: 99 }
     ],
