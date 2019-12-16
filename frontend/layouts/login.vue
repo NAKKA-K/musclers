@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" style="background-color: #ffb74d;">
+  <v-app id="inspire">
     <TheHeader />
     <v-content>
       <v-container>
@@ -22,3 +22,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+#inspire {
+  background-color: $main-color;
+}
+</style>
