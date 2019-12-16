@@ -1,7 +1,10 @@
+user = User.first
+last_user = User.last
+
 blogs = [
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20191126/20191126164819.png',
-    user_id: 1,
+    user_id: user.id,
     title: '筋トレとジョギングをすると「筋トレの効果が減少する」',
     body: <<~EOS,
     「筋トレとジョギングをすると筋トレの効果が減ってしまうのは本当ですか？」
@@ -67,7 +70,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20191007/20191007115825.png',
-    user_id: 1,
+    user_id: user.id,
     title: '太ると筋トレの効果が減ってしまう！？',
     body: <<~EOS,
     　筋トレでぽっちゃりしたお腹をムキムキのシックスパックにしたい！
@@ -182,7 +185,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190930/20190930005528.png',
-    user_id: 1,
+    user_id: user.id,
     title: '【牛乳vs牛肉　筋トレの効果を最大限にする食品について知っておこう！',
     body: <<~EOS,
     　筋トレのあとはプロテイン。
@@ -237,7 +240,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190922/20190922145739.png',
-    user_id: 2,
+    user_id: last_user.id,
     title: '筋トレ後の水風呂が禁肥大の効果を減少させる？',
     body: <<~EOS,
     　筋トレをしたあとの火照った体を水風呂で冷やすと気持ちいいですよね。
@@ -272,7 +275,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190912/20190912231111.png',
-    user_id: 2,
+    user_id: last_user.id,
     title: 'スクワットで「膝を爪先より前より出し手はいけない」という間違え',
     body: <<~EOS,
     　スクワットでは「膝をつま先より前に出さない」ということが現在でも常識とされています。
@@ -323,7 +326,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190801/20190801125359.png',
-    user_id: 2,
+    user_id: last_user.id,
     title: 'コーヒーはダイエット効果がある？',
     body: <<~EOS,
  　   コーヒーは健康に良い飲みものなのでしょうか？
@@ -375,7 +378,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190718/20190718132926.png',
-    user_id: 3,
+    user_id: last_user.id,
     title: 'テレビをつけたままだと太る',
     body: <<~EOS,
     　「寝るときは部屋を暗くしていますか？」
@@ -454,7 +457,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20171116/20171116141802.png',
-    user_id: 3,
+    user_id: last_user.id,
     title: '筋トレは病気による死亡率を減らしてくれる',
     body: <<~EOS,
     　効率的で効果的な健康法はありますか？
@@ -528,7 +531,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190603/20190603114933.png',
-    user_id: 3,
+    user_id: last_user.id,
     title: 'イケメン出ない僕たちが筋トレをすべき理由',
     body: <<~EOS,
     　なぜ、「筋トレをするとモテる」と言われるのでしょうか？
@@ -642,7 +645,7 @@ blogs = [
 
   {
     thumbnail: 'https://cdn-ak.f.st-hatena.com/images/fotolife/t/takumasa39/20190328/20190328142531.png',
-    user_id: 4,
+    user_id: user.id,
     title: '筋トレをすると「頭がよくなる」',
     body: <<~EOS,
     　「なぜ、世界のエグゼクティブは仕事の前に筋トレをするのでしょうか？」
@@ -738,7 +741,7 @@ blogs.each_with_index do |data, i|
   thumbnail = data[:thumbnail]
   data = data.except(:thumbnail)
 
-  blog = Blog.create(data)
+  blog = Blog.create!(data)
   p "create blog user_id:#{data[:user_id]}"
 
   next if thumbnail.blank?
