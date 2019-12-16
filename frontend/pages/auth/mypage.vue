@@ -99,7 +99,7 @@
           <TheInformation :notification="notification" />
         </v-tab-item>
         <v-tab-item>
-          <TheRecommenduser :recommended="recommended" />
+          <TheRecommenduser :recommends="recommends" />
         </v-tab-item>
       </v-tabs>
     </v-card>
@@ -131,12 +131,12 @@ export default {
       return this.notification.slice(0, 3)
     },
     limitedRecommendusers() {
-      return this.recommended.slice(0, 4)
+      return this.recommends.slice(0, 4)
     }
   },
   async asyncData({ $axios, store }) {
     const groups = await $axios.$get('/api/groups').then((res) => res.data)
-    const recommended = await $axios
+    const recommends = await $axios
       .$get(`/api/users/recommended_users`)
       .then((res) => res.data)
     const notification = await $axios
@@ -144,7 +144,7 @@ export default {
       .then((res) => res.data)
     return {
       groups,
-      recommended,
+      recommends,
       notification
     }
   }

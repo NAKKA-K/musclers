@@ -33,4 +33,12 @@ export default {
   width: 121px;
   height: 121px;
 }
+a:link {
+  text-decoration: none;
+  color: black;
+}
+.link-color:hover {
+  background-color: #eeeeee;
+  border-radius: 15px;
+}
 </style>

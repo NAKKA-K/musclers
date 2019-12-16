@@ -4,7 +4,7 @@
     <v-container>
       <v-row>
         <v-col
-          v-for="recommend in recommended"
+          v-for="recommend in recommends"
           :key="recommend.id"
           class="link-color"
           cols="6"
@@ -21,7 +21,7 @@
 <script>
 export default {
   props: {
-    recommended: {
+    recommends: {
       type: Object,
       default: null
     }
@@ -29,9 +29,17 @@ export default {
 }
 </script>
 <style scoped>
-.img-small {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.img-size {
+  width: 121px;
+  height: 121px;
+  border-radius: 4px;
+}
+a:link {
+  text-decoration: none;
+  color: black;
+}
+.link-color:hover {
+  background-color: #eeeeee;
+  border-radius: 15px;
 }
 </style>
