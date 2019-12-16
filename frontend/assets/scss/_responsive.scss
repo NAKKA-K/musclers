@@ -1,0 +1,48 @@
+$smart-vertical-or-less: 479px;
+$smart-horizontal: 480px;
+$tablet: 600px;
+$small-pc: 960px;
+$normal-pc: 1280px;
+
+
+@mixin smart-vertical {
+  @media screen and (max-width: $smart-vertical-or-less) {
+    @content;
+  }
+}
+
+@mixin smart-horizontal {
+  @media screen and (min-width: $smart-horizontal) and (max-width: 599px){
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: $tablet) and (max-width: 959px){
+    @content;
+  }
+}
+
+@mixin small-pc {
+  @media screen and (min-width: $small-pc) and (max-width: 1279px){
+    @content;
+  }
+}
+
+@mixin normal-pc {
+  @media screen and (min-width: $normal-pc) {
+    @content;
+  }
+}
+
+
+/* === 簡易的なレスポンシブ対応 === */
+
+/* smart-horizontal ~ small-pc */
+@mixin middle-screen {
+  @media screen and (min-width: $smart-horizontal) and (max-width: 1279px){
+    @content;
+  }
+}
+
+/* ===== */

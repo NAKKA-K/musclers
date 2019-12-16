@@ -178,7 +178,7 @@
             </v-col>
 
             <v-flex text-center>
-              <v-btn color="#ffac12" dark large @click="submitSearch">
+              <v-btn class="submit-btn" dark large @click="submitSearch">
                 検索する
               </v-btn>
             </v-flex>
@@ -263,11 +263,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .minimum-text-field {
   transform: scale(0.8);
 }
 .table-element {
   align-items: center;
+}
+button.submit-btn {
+  background-color: $main-color !important;
 }
 </style>
