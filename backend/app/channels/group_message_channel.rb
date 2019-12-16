@@ -10,6 +10,5 @@ class GroupMessageChannel < ApplicationCable::Channel
 
   def group_message(data)
     GroupMessage.create!(body: data['message'],user_id: current_user.id,group_id: data['groupId'])
-    #ActionCable.server.broadcast("group_#{params[:room]}",'yaaaaaaaa')
   end
 end
