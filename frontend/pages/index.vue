@@ -90,6 +90,6 @@ export default {
   layout: 'index'
 }
 </script>
-<style>
-@import '@/assets/css/index.css';
+<style lang="scss" scoped>
+@import '@/assets/scss/lp.scss';
 </style>
