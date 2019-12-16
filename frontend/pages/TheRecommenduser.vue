@@ -28,7 +28,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .img-small {
   width: 60px;
   height: 60px;

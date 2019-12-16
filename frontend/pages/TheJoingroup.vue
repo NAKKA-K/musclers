@@ -28,7 +28,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .img-size {
   width: 121px;
   height: 121px;
