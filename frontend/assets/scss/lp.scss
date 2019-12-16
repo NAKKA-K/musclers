@@ -54,8 +54,11 @@
   }
 
   .service-icon {
-    color: $main-color;
+    i {
+      color: $main-color;
+    }
     p {
+      color: $main-color;
       margin-top: 5px;
     }
   }
@@ -82,6 +85,10 @@
     @include smart-vertical {
       width: 100%;
     }
+  }
+
+  a.register-btn-primary {
+    background-color: $main-color !important;
   }
 }
 

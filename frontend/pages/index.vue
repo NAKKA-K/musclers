@@ -20,7 +20,7 @@
         <div class="services">
           <div class="service-box">
             <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">emoji_people</v-icon>
+              <v-icon size="90">emoji_people</v-icon>
               <p>マッチング</p>
             </div>
             <p class="service-text">
@@ -29,7 +29,7 @@
           </div>
           <div class="service-box">
             <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">person_add</v-icon>
+              <v-icon size="90">person_add</v-icon>
               <p>友達申請</p>
             </div>
             <p class="service-text">
@@ -38,7 +38,7 @@
           </div>
           <div class="service-box">
             <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">message</v-icon>
+              <v-icon size="90">message</v-icon>
               <p>メッセージ</p>
             </div>
             <p class="service-text">
@@ -47,7 +47,7 @@
           </div>
           <div class="service-box">
             <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">search</v-icon>
+              <v-icon size="90">search</v-icon>
               <p>検索</p>
             </div>
             <p class="service-text">
@@ -56,7 +56,7 @@
           </div>
           <div class="service-box">
             <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">group</v-icon>
+              <v-icon size="90">group</v-icon>
               <p>グループ</p>
             </div>
             <p class="service-text">
@@ -65,7 +65,7 @@
           </div>
           <div class="service-box">
             <div class="service-icon">
-              <v-icon color="#FEBA00" size="90">fitness_center</v-icon>
+              <v-icon size="90">fitness_center</v-icon>
               <p>筋肉</p>
             </div>
             <p class="service-text">
@@ -76,8 +76,13 @@
         </div>
       </div>
     </div>
-    <div class="register-wrapper my-12 px-4">
-      <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
+    <div class="register-wrapper register-wrapper-bottom my-12 px-4">
+      <v-btn
+        to="/auth/login"
+        class="register-btn register-btn-primary"
+        dark
+        nuxt
+      >
         Muscler'sを始める
       </v-btn>
     </div>
