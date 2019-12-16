@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :groups,through: :group_users, :dependent => :destroy
   has_many :group_messages, :dependent => :destroy
   has_many :user_tags
-  has_many :blogs
+  has_many :blogs, :dependent => :destroy
   has_many :friends
   has_many :followings,
             through: :friends,
@@ -91,7 +91,7 @@ class User < ApplicationRecord
   }
 
   def self.fetch_users(user_ids)
-    where(id: user_ids).with_attached_thumbnail 
+    where(id: user_ids).with_attached_thumbnail
   end
 
   def self.fetch_recommend_users_in(params)
