@@ -6,8 +6,8 @@
         <p>筋肉大好き人間が集まるマッチングアプリです。</p>
         <p>他人が投稿した筋肉を見たり、筋トレをしましょう。</p>
         <div class="register-wrapper mt-5">
-          <v-btn to="/auth/login" class="register-btn" color="#FFAC12" nuxt>
-            Musclersを始める
+          <v-btn to="/auth/login" class="register-btn" dark nuxt>
+            Muscler'sを始める
           </v-btn>
         </div>
       </div>
@@ -76,12 +76,10 @@
         </div>
       </div>
     </div>
-    <div class="register-wrapper">
-      <div class="container">
-        <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
-          Muscler'sを始める
-        </v-btn>
-      </div>
+    <div class="register-wrapper my-12 px-4">
+      <v-btn to="/auth/login" class="register-btn" color="#FFAC12" dark nuxt>
+        Muscler'sを始める
+      </v-btn>
     </div>
   </div>
 </template>
