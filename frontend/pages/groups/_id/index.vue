@@ -55,6 +55,39 @@
               </v-list-item>
             </v-list>
           </template>
+          <v-col cols="12" class="mt-12 chat-message-box">
+            <v-text-field
+              v-model="message"
+              outlined
+              label="Message"
+              hide-details
+              type="text"
+              required
+              @keydown.enter="sendMessage"
+            >
+              <template v-slot:append-outer>
+                <v-fade-transition leave-absolute>
+                  <v-progress-circular
+                    v-if="sending"
+                    size="24"
+                    color="info"
+                    indeterminate
+                  ></v-progress-circular>
+                  <v-icon v-else @click="sendMessage">mdi-send</v-icon>
+                </v-fade-transition>
+              </template>
+            </v-text-field>
+          </v-col>
+          <v-snackbar
+            v-model="disconnectedChannel"
+            :color="errMsgType"
+            top
+            vertical
+            :timeout="2500"
+          >
+            {{ errMsg }}
+            <v-btn dark text @click="disconnectedChannel = false">CLOSE</v-btn>
+          </v-snackbar>
         </v-tab-item>
 
         <v-tab-item class="flat-background">
@@ -101,7 +134,14 @@ export default {
     messages: null,
     members: null,
     tabs: ['詳細', 'チャット', 'メンバー'],
-    tab: null
+    tab: null,
+    message: '',
+    groupMsgs: null,
+    sending: false,
+    groupMessageChannel: null,
+    disconnectedChannel: false,
+    errMsgType: 'error',
+    errMsg: null
   }),
 
   async asyncData({ $axios, params }) {
@@ -114,11 +154,52 @@ export default {
     const members = await $axios
       .$get(`/api/groups/${params.id}/users`)
       .then((res) => res.data.users)
-    console.log(members)
     return {
       group,
       messages,
       members
+    }
+  },
+  mounted() {
+    this.groupMessageChannel = this.$cable.subscriptions.create(
+      {
+        channel: 'GroupMessageChannel',
+        room: this.$route.params.id
+      },
+      {
+        connected: () => {
+          console.log('connected')
+        },
+        received: (data) => {
+          this.messages.push(data)
+        },
+        rejected: () => {
+          console.log('rejected')
+          this.disconnectedChannel = true
+          this.errMsgType = 'error'
+          this.errMsg = 'メッセージの送信に失敗しました'
+        },
+        disconnected: () => {
+          this.disconnectedChannel = true
+          this.errMsgType = 'error'
+          this.errMsg = 'チャンネルとの接続が切れました'
+        }
+      }
+    )
+
+    // this.groupMessageChannel.unsubscribe()
+  },
+  methods: {
+    sendMessage(e) {
+      // 日本語変換でもkeydownが発火してしまうため処理で制御
+      if (e.type !== 'click' && e.keyCode !== 13) return
+      this.sending = true
+      this.groupMessageChannel.perform('group_message', {
+        message: this.message,
+        groupId: this.$route.params.id
+      })
+      this.sending = false
+      this.message = ''
     }
   }
 }
