@@ -91,5 +91,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/lp.scss';
+@import '~/assets/scss/lp.scss';
 </style>
