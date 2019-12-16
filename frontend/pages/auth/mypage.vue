@@ -8,7 +8,6 @@
         color="#ff9d00"
         right
       >
-        <!-- TODO: レスポンシブに対応する -->
         <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
         <v-tab-item>
           <div>
