@@ -1,10 +1,11 @@
 class GroupMessagesJob < ApplicationJob
   include Rails.application.routes.url_helpers
+  include ThumbnailHelper
 
   def perform(message)
     begin
-      group = Group.find(message.group_id)
-      group_thumbnail = url_for(group.thumbnail)
+      group = message.group
+      group_thumbnail = make_thumbnail_url(group.thumbnail)
       user_ids = group.users.pluck(:id).map {|item| item if item != message['user_id']}.compact
       ActiveRecord::Base.transaction do
         user_ids.each do |user_id|
@@ -29,5 +30,11 @@ class GroupMessagesJob < ApplicationJob
       logger.error(e)
       ActionCable.server.broadcast("group_#{message.group_id}",'メッセージの送信に失敗しました')
     end
+  end
+
+  protected
+
+  def default_url_options
+    Rails.application.config.active_job.default_url_options
   end
 end

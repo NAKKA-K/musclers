@@ -60,5 +60,10 @@ module Backend
     end
 
     ActiveModelSerializers.config.adapter = :json_api
+
+    if Rails.env === 'development'
+      host = 'localhost:8080'
+      config.active_job.default_url_options = { host: host }
+    end
   end
 end
