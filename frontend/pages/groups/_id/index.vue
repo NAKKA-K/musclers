@@ -189,6 +189,10 @@ export default {
 
     // this.groupMessageChannel.unsubscribe()
   },
+  destroyed() {
+    this.groupMessageChannel.unsubscribe()
+    this.$cable.disconnect()
+  },
   methods: {
     sendMessage(e) {
       // 日本語変換でもkeydownが発火してしまうため処理で制御
