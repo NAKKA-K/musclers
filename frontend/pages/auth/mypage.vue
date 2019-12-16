@@ -41,7 +41,7 @@
                 <v-row v-for="info in limitedInformation" :key="info.id">
                   <v-col cols="12" class="link-color">
                     <nuxt-link
-                      :to="{ name: 'infos-id', params: { id: info.id } }"
+                      :to="{ name: 'notification-id', params: { id: info.id } }"
                     >
                       <span>
                         <v-img
@@ -49,7 +49,7 @@
                           :src="info.thumbnail"
                         />
                         <h4 align="left" class="text-position">
-                          {{ info.by_name }}から{{ info.type }}が届きました。
+                          {{ info.by_name }}から{{ info.genre }}が届きました。
                         </h4>
                       </span>
                     </nuxt-link>
@@ -134,14 +134,13 @@ export default {
       return this.recommended.slice(0, 4)
     }
   },
-  /* TODO: APIを帰る */
   async asyncData({ $axios, store }) {
-    const groups = await $axios.$get('/mock/api/groups').then((res) => res.data)
+    const groups = await $axios.$get('/api/groups').then((res) => res.data)
     const recommended = await $axios
       .$get(`/api/users/recommended_users`)
       .then((res) => res.data)
     const notification = await $axios
-      .$get(`/mock/api/user/information`)
+      .$get(`/api/user/information`)
       .then((res) => res.data)
     return {
       groups,

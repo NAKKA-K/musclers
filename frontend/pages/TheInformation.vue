@@ -7,7 +7,7 @@
           <span>
             <v-img class="img-small no-wrap" :src="info.thumbnail" />
             <h4 align="left" class="text-position">
-              {{ info.by_name }}から{{ info.type }}が届きました。
+              {{ info.by_name }}から{{ info.genre }}が届きました。
             </h4>
           </span>
         </nuxt-link>
