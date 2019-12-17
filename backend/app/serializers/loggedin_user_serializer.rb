@@ -1,5 +1,6 @@
 class LoggedinUserSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
+  include ThumbnailHelper
   attributes(
     :id,
     :access_token,
@@ -33,10 +34,6 @@ class LoggedinUserSerializer < ActiveModel::Serializer
   end
 
   def thumbnail
-    if object.thumbnail.attached?
-      url_for(object.thumbnail)
-    else
-      root_url + "images/noimage.png"
-    end
+    make_thumbnail_url(object.thumbnail)
   end
 end
