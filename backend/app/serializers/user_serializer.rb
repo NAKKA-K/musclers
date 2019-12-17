@@ -1,5 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
+  include ThumbnailHelper
   attributes(
     :id,
     :nickname,
@@ -18,11 +19,7 @@ class UserSerializer < ActiveModel::Serializer
   )
 
   def thumbnail
-    if object.thumbnail.attached?
-      url_for(object.thumbnail)
-    else
-      root_url + "images/noimage.png"
-    end
+    make_thumbnail_url(object.thumbnail)
   end
 
   def gender
