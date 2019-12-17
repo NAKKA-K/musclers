@@ -1,76 +1,74 @@
+direct_message_groups = DirectMessageGroup.limit(3)
+
 direct_messages = [
   {
+    direct_message_group_id: direct_message_groups[0].id,
     messages: [
       {
-        send_user_id:1,
+        send_user_id: direct_message_groups[0].by_user_id,
         body: "こんにちは！！一緒に筋肉ライフを楽しみましょう",
-        direct_message_group_id:1
       },
       {
-        send_user_id:2,
+        send_user_id: direct_message_groups[0].to_user_id,
         body: "初めまして、よろしくお願いします！！",
-        direct_message_group_id:1
       },
       {
-        send_user_id:1,
+        send_user_id: direct_message_groups[0].by_user_id,
         body: "普段からどれくらい筋トレ等されていますか？",
-        direct_message_group_id:1
       }
     ]
   },
   {
+    direct_message_group_id: direct_message_groups[1].id,
     messages: [
       {
-        send_user_id:3,
+        send_user_id: direct_message_groups[1].to_user_id,
         body: "トレーニングやりましょー",
-        direct_message_group_id:2
       },
       {
-        send_user_id:1,
+        send_user_id: direct_message_groups[1].by_user_id,
         body: "良いですよ、今週の土曜日とか空いてますか？",
-        direct_message_group_id:2
       },
       {
-        send_user_id:3,
+        send_user_id: direct_message_groups[1].to_user_id,
         body: "空いてます、いつもの場所に朝10時に集まりましょう",
-        direct_message_group_id:2
       },
       {
-        send_user_id:1,
+        send_user_id: direct_message_groups[1].by_user_id,
         body: "わかりましたー",
-        direct_message_group_id:2
       }
     ]
   },
   {
+    direct_message_group_id: direct_message_groups[2].id,
     messages: [
       {
-        send_user_id:1,
+        send_user_id: direct_message_groups[2].by_user_id,
         body: "来週ボディビルの大会があるのですが一緒にみに行きません？",
-        direct_message_group_id:3
       },
       {
-        send_user_id:4,
+        send_user_id: direct_message_groups[2].to_user_id,
         body: "ごめんなさい、来週は予定が入ってるので行けないです",
-        direct_message_group_id:3
       },
       {
-        send_user_id:1,
+        send_user_id: direct_message_groups[2].by_user_id,
         body: "そうですか、残念です",
-        direct_message_group_id:3
       },
       {
-        send_user_id:1,
+        send_user_id: direct_message_groups[2].by_user_id,
         body: "また別日に一緒に行きましょう",
-        direct_message_group_id:3
       }
     ]
   }
 ]
 
-direct_messages.each do |item|
-  item[:messages].each do |message|
-    DirectMessage.create(message)
-    p "create direct message send_user_id:#{message[:send_user_id]},direct_message_group_id: #{message[:direct_message_group_id]}"
+ActiveRecord::Base.transaction do
+  direct_messages.each do |dm|
+    direct_message_group_id = dm[:direct_message_group_id]
+    dm[:messages].each do |msg|
+      msg.store(:direct_message_group_id, direct_message_group_id)
+      obj = DirectMessage.create!(msg)
+      p "create direct message group_id: #{direct_message_group_id}, id: #{obj.id}"
+    end
   end
 end

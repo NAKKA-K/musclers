@@ -5,7 +5,7 @@
         v-model="tab"
         centered
         background-color="white"
-        color="deep-purple accent-4"
+        color="#ff9d00"
         right
       >
         <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
@@ -19,6 +19,9 @@
                     v-for="group in limitedGroups"
                     :key="group.id"
                     cols="6"
+                    xs="3"
+                    sm="3"
+                    class="link-color"
                   >
                     <nuxt-link
                       :to="{ name: 'groups-id', params: { id: group.id } }"
@@ -35,26 +38,19 @@
               <h2 align="left">通知</h2>
               <v-container>
                 <v-row v-for="info in limitedInformation" :key="info.id">
-                  <v-col cols="3">
+                  <v-col cols="12" class="link-color">
                     <nuxt-link
-                      :to="{ name: 'infos-id', params: { id: info.id } }"
+                      :to="{ name: 'notification-id', params: { id: info.id } }"
                     >
-                      <v-img
-                        class="img-small"
-                        :src="info.thumbnail"
-                        alt="Avatar"
-                        align="middle"
-                      />
-                    </nuxt-link>
-                  </v-col>
-                  <v-col cols="9">
-                    <nuxt-link
-                      :to="{ name: 'infos-id', params: { id: info.id } }"
-                    >
-                      <font size="3"
-                        >{{ info.by_name }}から
-                        {{ info.type }}が届きました。</font
-                      >
+                      <span>
+                        <v-img
+                          class="img-small no-wrap"
+                          :src="info.thumbnail"
+                        />
+                        <h4 align="left" class="text-position">
+                          {{ info.by_name }}から{{ info.genre }}が届きました。
+                        </h4>
+                      </span>
                     </nuxt-link>
                   </v-col>
                 </v-row>
@@ -73,6 +69,9 @@
                     v-for="recommend in limitedRecommendusers"
                     :key="recommend.id"
                     cols="6"
+                    xs="3"
+                    sm="3"
+                    class="link-color"
                   >
                     <nuxt-link
                       :to="{
@@ -93,13 +92,13 @@
           </div>
         </v-tab-item>
         <v-tab-item>
-          <TheJoingroup :joingroup="groups" />
+          <TheJoingroup :groups="groups" />
         </v-tab-item>
         <v-tab-item>
-          <TheInformation :infos="infos" />
+          <TheInformation :notification="notification" />
         </v-tab-item>
         <v-tab-item>
-          <TheRecommenduser :recommended="recommended" />
+          <TheRecommenduser :recommends="recommends" />
         </v-tab-item>
       </v-tabs>
     </v-card>
@@ -125,32 +124,32 @@ export default {
   },
   computed: {
     limitedGroups() {
-      return this.groups.slice(0, 2)
+      return this.groups.slice(0, 4)
     },
     limitedInformation() {
-      return this.infos.slice(0, 3)
+      return this.notification.slice(0, 3)
     },
     limitedRecommendusers() {
-      return this.recommended.slice(0, 2)
+      return this.recommends.slice(0, 4)
     }
   },
   async asyncData({ $axios, store }) {
-    const groups = await $axios.$get('/mock/api/groups').then((res) => res.data)
-    const recommended = await $axios
+    const groups = await $axios.$get('/api/groups').then((res) => res.data)
+    const recommends = await $axios
       .$get(`/api/users/recommended_users`)
       .then((res) => res.data)
-    const infos = await $axios
-      .$get(`/mock/api/user/information`)
+    const notification = await $axios
+      .$get(`/api/user/information`)
       .then((res) => res.data)
     return {
       groups,
-      recommended,
-      infos
+      recommends,
+      notification
     }
   }
 }
 </script>
-<style>
+<style scoped>
 h2 {
   margin-left: 20px;
 }
@@ -162,6 +161,22 @@ h2 {
 .img-size {
   width: 121px;
   height: 121px;
-  border-radius: 50%;
+  border-radius: 4px;
+}
+a:link {
+  text-decoration: none;
+  color: black;
+}
+.link-color:hover {
+  background-color: #eeeeee;
+  border-radius: 15px;
+}
+.no-wrap {
+  float: left;
+}
+.text-position {
+  margin-left: 80px;
+  margin-top: 20px;
+  color: black;
 }
 </style>

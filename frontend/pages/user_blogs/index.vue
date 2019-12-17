@@ -61,7 +61,7 @@ export default {
   }),
 
   async asyncData({ $axios }) {
-    const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
+    const blogs = await $axios.$get('/api/blogs').then((res) => res.data)
 
     return {
       blogs
@@ -77,8 +77,6 @@ export default {
 </script>
 
 <style scoped>
-@import '@/assets/css/index.css';
-
 .headline {
   line-height: 1.3rem;
   font-size: 20px !important;

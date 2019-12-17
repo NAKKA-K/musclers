@@ -1,3 +1,4 @@
+include Rails.application.routes.url_helpers
 genre_number = Information.genres.values
 first_user = User.first
 send_messages = DirectMessage.where.not(send_user_id:first_user.id)
@@ -10,6 +11,7 @@ information = send_messages.map do |item|
     link: "/direct_messages/#{item.direct_message_group_id}",
     is_read: false,
     user_id: first_user.id,
+    thumbnail: url_for(users.find {|user| user.id === item.send_user_id}.thumbnail)
   }
 end
 

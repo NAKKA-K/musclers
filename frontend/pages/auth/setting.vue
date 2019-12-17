@@ -3,14 +3,17 @@
     <h2>マイページ</h2>
 
     <v-layout class="justify-end">
-      <v-btn class="my-4" tile outlined color="success" @click="enableEdit">
-        <v-icon small>edit</v-icon>編集
-      </v-btn>
-      <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
-        <v-icon small>edit</v-icon>保存
-      </v-btn>
+      <div v-if="disabled">
+        <v-btn class="my-4" tile outlined color="success" @click="enableEdit">
+          <v-icon small>edit</v-icon>編集
+        </v-btn>
+      </div>
+      <div v-else>
+        <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
+          <v-icon small>edit</v-icon>保存
+        </v-btn>
+      </div>
     </v-layout>
-
     <div class="mb-5">
       <img
         v-if="thumbnailSrc"
@@ -114,6 +117,13 @@
       label="体脂肪率"
       :disabled="disabled"
     ></v-text-field>
+    <v-layout class="justify-center">
+      <div v-if="!disabled">
+        <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
+          <v-icon small>edit</v-icon>保存
+        </v-btn>
+      </div>
+    </v-layout>
   </div>
 </template>
 
@@ -144,10 +154,10 @@ export default {
     figuresArray: [
       { label: '未設定', value: 0 },
       { label: '痩せ型筋肉質', value: 1 },
-      { label: '普通筋肉質', value: 5 },
+      { label: '普通型筋肉質', value: 5 },
       { label: '肥満型筋肉質', value: 10 },
       { label: '痩せ型', value: 15 },
-      { label: '普通', value: 20 },
+      { label: '普通型', value: 20 },
       { label: '肥満型', value: 25 },
       { label: 'その他', value: 99 }
     ],
@@ -340,6 +350,8 @@ export default {
         .$get('/api/auth/user')
         .then((res) => res.data)
       this.$store.dispatch('auth/setCurrentUser', { user: currentUser })
+
+      this.disabled = true
     }
   }
 }

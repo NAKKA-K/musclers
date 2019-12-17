@@ -31,7 +31,10 @@
                 "
               ></v-img>
             </nuxt-link>
-            <v-card-title class="pb-0">
+            <v-card-title
+              class="pb-0 body-2 d-inline-block text-truncate"
+              style="max-width: 100%;"
+            >
               <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
                 {{ user.nickname || 'No name' }}
               </nuxt-link>
@@ -60,6 +63,8 @@
     <div v-else>
       ユーザーが存在しません
     </div>
+
+    <paginator :meta="meta" @click="updateUsersPage"></paginator>
 
     <v-snackbar
       v-model="requestFriend"
