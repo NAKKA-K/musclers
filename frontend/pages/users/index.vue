@@ -21,38 +21,44 @@
             :to="{ name: 'users-id', params: { id: user.id } }"
             class="_no-decoration"
           >
-            <v-card
-              class="user-card"
-              max-width="374"
-              max-height="530"
-              min-height="530"
-            >
-              <v-img
-                class="user-image"
-                :src="
-                  user.thumbnail ||
-                    'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
-                "
-              ></v-img>
-              <v-card-title class="user-name pb-0" style="max-width: 100%;">
-                {{ user.nickname || 'No name' }}
-              </v-card-title>
-              <v-card-text class="pb-1">
-                <div class="mb-4 black--text sub-info-text">
-                  友達: 9000人<br />本気度: {{ user.seriousness || 'none' }}
-                </div>
-                <div class="card-body-overflow" v-text="user.description"></div>
-              </v-card-text>
-
-              <v-btn
-                class="user-request-btn"
-                rounded
-                outlined
-                @click.prevent="() => sendFriendRequest(user)"
+            <v-hover v-slot:default="{ hover }">
+              <v-card
+                class="user-card"
+                :elevation="hover ? 4 : 2"
+                max-width="374"
+                max-height="530"
+                min-height="530"
               >
-                友達申請する
-              </v-btn>
-            </v-card>
+                <v-img
+                  class="user-image"
+                  :src="
+                    user.thumbnail ||
+                      'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
+                  "
+                ></v-img>
+                <v-card-title class="user-name pb-0" style="max-width: 100%;">
+                  {{ user.nickname || 'No name' }}
+                </v-card-title>
+                <v-card-text class="pb-1">
+                  <div class="mb-4 black--text sub-info-text">
+                    友達: 9000人<br />本気度: {{ user.seriousness || 'none' }}
+                  </div>
+                  <div
+                    class="card-body-overflow"
+                    v-text="user.description"
+                  ></div>
+                </v-card-text>
+
+                <v-btn
+                  class="user-request-btn"
+                  rounded
+                  outlined
+                  @click.prevent="() => sendFriendRequest(user)"
+                >
+                  友達申請する
+                </v-btn>
+              </v-card>
+            </v-hover>
           </nuxt-link>
         </v-col>
       </v-row>
@@ -197,9 +203,6 @@ export default {
   }
 }
 .user-card:hover {
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-  // もっと浮いた感じにする
   > .user-name {
     color: $main-color;
   }
