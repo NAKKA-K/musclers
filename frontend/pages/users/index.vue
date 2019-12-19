@@ -22,21 +22,16 @@
             class="_no-decoration"
           >
             <v-hover v-slot:default="{ hover }">
-              <v-card
-                class="user-card"
-                :elevation="hover ? 4 : 2"
-                max-width="374"
-                max-height="530"
-                min-height="530"
-              >
+              <v-card class="user-card" :elevation="hover ? 4 : 2">
                 <v-img
                   class="user-image"
+                  alt="サムネイル"
                   :src="
                     user.thumbnail ||
                       'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
                   "
                 ></v-img>
-                <v-card-title class="user-name pb-0" style="max-width: 100%;">
+                <v-card-title class="user-name pb-0">
                   {{ user.nickname || 'No name' }}
                 </v-card-title>
                 <v-card-text class="pb-1">
@@ -50,7 +45,7 @@
                 </v-card-text>
 
                 <v-btn
-                  class="user-request-btn"
+                  class="mt-4 user-request-btn"
                   rounded
                   outlined
                   @click.prevent="() => sendFriendRequest(user)"
@@ -178,14 +173,18 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 ._no-decoration {
   text-decoration: none;
 }
 
 .user-card {
+  max-width: 374px;
+  max-height: 500px;
+  min-height: 500px;
+
   > .user-image {
-    height: 300px;
+    height: 250px;
   }
   > .user-name {
     white-space: nowrap;
@@ -193,6 +192,7 @@ export default {
     text-overflow: ellipsis;
     display: inline-block;
     font-size: 1.1rem;
+    max-width: 100%;
   }
   > .user-request-btn {
     color: $main-color;
