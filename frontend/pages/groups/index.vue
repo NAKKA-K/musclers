@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="d-flex">
+    <div class="group-page-header">
       <h1>グループ一覧</h1>
       <v-spacer></v-spacer>
-      <v-btn small color="#ffac12" class="pa-5" dark to="/groups/new">
+      <v-btn class="group-create-btn" to="/groups/new" nuxt>
         <v-icon dark>mdi-plus</v-icon>
         グループ作成
       </v-btn>
     </div>
 
-    <div class="d-flex align-center mt-6">
+    <div class="group-search-form mt-12">
       <v-text-field
         v-model="searchQuery"
         label="グループ検索"
@@ -121,7 +121,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .search-text {
   font-weight: bold;
   font-size: 77%;
@@ -137,5 +137,19 @@ export default {
 }
 .sub-info-text {
   font-size: 14px;
+}
+
+.group-page-header {
+  display: flex;
+
+  > .v-btn.v-btn--contained.group-create-btn {
+    background-color: $main-color;
+    color: white;
+  }
+}
+
+.group-search-form {
+  display: flex;
+  align-items: center;
 }
 </style>
