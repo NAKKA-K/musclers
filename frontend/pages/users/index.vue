@@ -173,10 +173,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-._no-decoration {
-  text-decoration: none;
-}
-
 .user-card {
   max-width: 374px;
   max-height: 500px;
