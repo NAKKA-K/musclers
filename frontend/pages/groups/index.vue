@@ -11,68 +11,81 @@
 
     <div class="group-search-form mt-12">
       <v-text-field
+        slot="activator"
         v-model="searchQuery"
         label="グループ検索"
         placeholder="キーワードでグループを検索"
+        class="search-box"
         hide-details
-        prepend-inner-icon="search"
         single-line
         outlined
         @keyup.enter="onSubmitSearch"
-      ></v-text-field>
-      <v-btn class="ml-2" large color="primary" @click="onSubmitSearch">
+      >
+        <v-icon slot="prepend-inner" class="search-icon">
+          search
+        </v-icon>
+      </v-text-field>
+      <v-btn outlined class="ml-2 search-btn" large @click="onSubmitSearch">
         検索
       </v-btn>
-      <nuxt-link to="/groups/search" class="ml-2 px-2 search-text">
+      <nuxt-link to="/groups/search" class="ml-2 px-2 search-text" nuxt>
         もっと詳しく
       </nuxt-link>
     </div>
 
-    <v-list v-if="groups">
+    <v-list v-if="groups" class="mt-6">
       <v-row>
         <v-col
           v-for="group in groups"
           :key="group.id"
+          class="mb-2"
           cols="12"
           xl="3"
           lg="3"
           md="3"
           sm="3"
         >
-          <v-card class="mx-auto my-4" max-width="374" max-height="550">
-            <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
-              <v-img
-                height="200"
-                :src="
-                  group.thumbnail ||
-                    'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
-                "
-              ></v-img>
-            </nuxt-link>
-            <v-card-title class="pb-0">
-              <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
-                {{ group.name }}
-              </nuxt-link>
-            </v-card-title>
+          <nuxt-link
+            :to="{ name: 'groups-id', params: { id: group.id } }"
+            class="_no-decoration"
+          >
+            <v-hover v-slot:default="{ hover }">
+              <v-card class="group-card" :elevation="hover ? 4 : 2">
+                <v-img
+                  alt="サムネイル"
+                  class="group-image"
+                  :src="
+                    group.thumbnail ||
+                      'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
+                  "
+                ></v-img>
+                <v-card-title class="pb-0 group-name">
+                  {{ group.name }}
+                </v-card-title>
 
-            <v-card-text class="pb-1">
-              <v-chip-group v-if="group.tags" column>
-                タグ:&nbsp;
-                <v-chip
-                  v-for="tag in group.tags.split(' ')"
-                  :key="tag"
-                  label
-                  x-small
-                >
-                  {{ tag }}
-                </v-chip>
-              </v-chip-group>
-              <div class="mb-4 grey--text text--lighten-1">
-                {{ group.created_at }}結成
-              </div>
-              <div class="card-body-overflow" v-text="group.description"></div>
-            </v-card-text>
-          </v-card>
+                <v-card-text class="pb-1">
+                  <v-chip-group v-if="group.tags" column>
+                    タグ:&nbsp;
+                    <v-chip
+                      v-for="tag in group.tags.split(' ')"
+                      :key="tag"
+                      label
+                      x-small
+                    >
+                      {{ tag }}
+                    </v-chip>
+                  </v-chip-group>
+                  <div class="mb-4 grey--text text--lighten-1">
+                    {{ group.created_at }}結成
+                  </div>
+                  <div
+                    class="card-body-overflow"
+                    v-text="group.description"
+                  ></div>
+                </v-card-text>
+              </v-card>
+            </v-hover>
+          </nuxt-link>
         </v-col>
       </v-row>
     </v-list>
@@ -122,12 +135,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.search-text {
-  font-weight: bold;
-  font-size: 77%;
-  text-decoration: none;
-}
-
 .card-body-overflow {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -143,7 +150,7 @@ export default {
   display: flex;
 
   > .v-btn.v-btn--contained.group-create-btn {
-    background-color: $main-color;
+    background-color: $main-color-deep;
     color: white;
   }
 }
@@ -151,5 +158,35 @@ export default {
 .group-search-form {
   display: flex;
   align-items: center;
+
+  > .v-input--is-focused.search-box {
+    color: $main-color-deep !important;
+    caret-color: $main-color-deep !important;
+  }
+
+  > .search-btn {
+    color: $main-color-deep !important;
+  }
+
+  > .search-text {
+    font-weight: bold;
+    font-size: 77%;
+    text-decoration: none;
+    color: $main-color-deep;
+  }
+}
+
+.group-card {
+  max-width: 374px;
+  max-height: 550px;
+
+  > .group-image {
+    height: 200px;
+  }
+}
+.group-card:hover {
+  > .group-name {
+    color: $main-color;
+  }
 }
 </style>
