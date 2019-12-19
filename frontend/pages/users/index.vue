@@ -46,7 +46,6 @@
 
                 <v-btn
                   class="mt-4 user-request-btn"
-                  rounded
                   outlined
                   @click.prevent="() => sendFriendRequest(user)"
                 >

@@ -152,7 +152,7 @@ export default {
   font-size: 1.2em;
 }
 .bg-rgba {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn outlined color="blue lighten-1" @click="sendFriendRequest">
+    <v-btn outlined large class="user-request-btn" @click="sendFriendRequest">
       友達申請をする
     </v-btn>
 
@@ -55,3 +55,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.user-request-btn {
+  color: $main-color;
+  caret-color: $main-color;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 1);
+}
+</style>
