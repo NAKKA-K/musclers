@@ -4,6 +4,7 @@
       v-model="currentPage"
       :length="meta.total_pages"
       :total-visible="7"
+      class="list-paginator"
     ></v-pagination>
   </div>
 </template>
@@ -32,3 +33,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.list-paginator {
+  button.v-pagination__item--active {
+    background-color: $main-color !important;
+    border-color: $main-color !important;
+  }
+}
+</style>
