@@ -179,9 +179,13 @@ export default {
 .group-card {
   max-width: 374px;
   max-height: 550px;
+  min-height: 450px;
 
   > .group-image {
     height: 200px;
+  }
+  > .group-name {
+    font-size: 1.1rem;
   }
 }
 .group-card:hover {
