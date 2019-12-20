@@ -60,9 +60,6 @@ export default {
 .user-request-btn {
   color: $main-color;
   caret-color: $main-color;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
   font-weight: bold;
   font-size: 16px;
   background-color: rgba(255, 255, 255, 1);
