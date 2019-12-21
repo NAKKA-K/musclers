@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar flat :color="'#ffac12'">
+    <v-toolbar flat class="musclers-header">
       <v-toolbar-title>
         <nuxt-link v-if="currentUser" to="/auth/mypage" class="header-title">
           Muscler's
@@ -37,7 +37,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.musclers-header {
+  background-color: $main-color;
+}
+
 .header-title {
   margin-right: 0.8em;
   color: black !important;

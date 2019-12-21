@@ -1,5 +1,9 @@
 <template>
   <div>
+    <v-btn to="/home" class="mb-4" text>
+      <v-icon>keyboard_arrow_left</v-icon>
+      戻る
+    </v-btn>
     <v-layout justify-center>
       <v-form>
         <div class="container">
@@ -174,7 +178,7 @@
             </v-col>
 
             <v-flex text-center>
-              <v-btn color="#ffac12" dark large @click="submitSearch">
+              <v-btn class="submit-btn" dark large @click="submitSearch">
                 検索する
               </v-btn>
             </v-flex>
@@ -259,11 +263,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .minimum-text-field {
   transform: scale(0.8);
 }
 .table-element {
   align-items: center;
+}
+button.submit-btn {
+  background-color: $main-color !important;
 }
 </style>

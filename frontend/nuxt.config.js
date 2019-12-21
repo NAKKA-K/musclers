@@ -53,14 +53,18 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@/assets/css/index.css', 'swiper/dist/css/swiper.css'],
+  css: ['swiper/dist/css/swiper.css'],
+  styleResources: {
+    scss: ['~/assets/scss/app.scss']
+  },
 
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
 
   /*

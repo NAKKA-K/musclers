@@ -3,7 +3,12 @@
   <div align="center">
     <v-container>
       <v-row>
-        <v-col v-for="group in joingroup" :key="group.id" cols="6">
+        <v-col
+          v-for="group in groups"
+          :key="group.id"
+          class="link-color"
+          cols="6"
+        >
           <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
             <v-img :src="group.thumbnail" class="img-size" />
             <h4>{{ group.name }}</h4>
@@ -16,17 +21,24 @@
 <script>
 export default {
   props: {
-    joingroup: {
+    groups: {
       type: Object,
       default: null
     }
   }
 }
 </script>
-<style>
+<style scoped>
 .img-size {
   width: 121px;
   height: 121px;
-  border-radius: 50%;
+}
+a:link {
+  text-decoration: none;
+  color: black;
+}
+.link-color:hover {
+  background-color: #eeeeee;
+  border-radius: 15px;
 }
 </style>
