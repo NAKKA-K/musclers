@@ -13,16 +13,14 @@
       </template>
       <v-card>
         <h4 class="font-weight-thin title-position">通知</h4>
-        <div v-for="i in informations" :key="i.id">
+        <div v-for="information in limitedInformation" :key="information.id">
           <span class="font-weight-thin">
             <v-avatar class="img-small">
-              <v-img
-                src="https://icon-library.net/images/icon-muscle/icon-muscle-29.jpg"
-              />
+              <v-img :src="information.thumbnail" />
             </v-avatar>
-            {{ i.by_name }}から{{ i.genre }}が届きました。
+            {{ information.by_name }}から{{ information.genre }}が届きました。
           </span>
-          <p class="text-right">{{ i.created_at }}</p>
+          <p class="text-right">{{ information.created_at }}</p>
           <v-divider inset></v-divider>
         </div>
         <h5 class="foot-position font-weight-thin text-center">
@@ -81,6 +79,11 @@ export default {
         { link: '/auth/setting', icon: 'build', title: '設定' }
       ],
       informations: []
+    }
+  },
+  computed: {
+    limitedInformation() {
+      return this.informations.slice(0, 5)
     }
   },
   async mounted() {
