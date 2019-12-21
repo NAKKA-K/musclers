@@ -1,13 +1,14 @@
 <template>
-  <div>
+  <v-toolbar-items>
+    <!-- pc site -->
     <div class="hidden-md-and-down hidden-xl-only">
-      <v-toolbar-items>
-        <v-btn v-for="(item, i) in items" :key="i" :to="item.link" text>
-          <v-icon left v-text="item.icon"></v-icon>
-          {{ item.title }}
-        </v-btn>
-      </v-toolbar-items>
+      <v-btn v-for="(item, i) in items" :key="i" :to="item.link" text>
+        <v-icon left v-text="item.icon"></v-icon>
+        {{ item.title }}
+      </v-btn>
     </div>
+
+    <!-- sp site -->
     <div class="hidden-sm-and-up">
       <v-menu class="hidden-sm-and-up" bottom>
         <template v-slot:activator="{ on }">
@@ -35,7 +36,7 @@
         </v-list>
       </v-menu>
     </div>
-  </div>
+  </v-toolbar-items>
 </template>
 
 <script>
