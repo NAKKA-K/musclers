@@ -5,7 +5,7 @@
         <nuxt-link v-if="currentUser" to="/auth/mypage" class="header-title">
           Muscler's
         </nuxt-link>
-        <nuxt-link v-else to="/home" class="header-title">Muscler's</nuxt-link>
+        <nuxt-link v-else to="/" class="header-title">Muscler's</nuxt-link>
       </v-toolbar-title>
       <dropdown-home-links></dropdown-home-links>
 
