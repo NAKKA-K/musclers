@@ -6,9 +6,6 @@
           <v-list-item-title class="title">
             Muscler's
           </v-list-item-title>
-          <v-list-item-subtitle>
-            マッスラーズ
-          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
