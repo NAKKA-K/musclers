@@ -76,7 +76,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.musclers-header {
+  background-color: $main-color;
+}
+
 .header-title {
   margin-right: 0.8em;
   color: black !important;

@@ -41,7 +41,7 @@ ja:
       genre:
         group_invitation: 'グループ招待'
         friend_request: '友達申請'
-        direct_message: 'ダイレクトメッセージ'
+        direct_message: 'DM'
         group_message: 'グループメッセージ'
 
   activerecord:

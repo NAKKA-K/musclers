@@ -77,8 +77,6 @@ export default {
 </script>
 
 <style scoped>
-@import '@/assets/css/index.css';
-
 .headline {
   line-height: 1.3rem;
   font-size: 20px !important;
