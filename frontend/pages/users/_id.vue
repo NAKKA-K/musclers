@@ -1,23 +1,23 @@
 <template>
   <div>
     <div class="pc">
-      <PcDetails :user="user" />
+      <PcView :user="user" />
     </div>
     <div class="sp">
-      <SpDetails :user="user" />
+      <SpView :user="user" />
     </div>
   </div>
 </template>
 
 <script>
-import PcDetails from '~/layouts/PcDetails.vue'
-import SpDetails from '~/layouts/SpDetails.vue'
+import PcView from '~/layouts/user_details/PcView.vue'
+import SpView from '~/layouts/user_details/SpView.vue'
 
 export default {
   layout: 'index',
   components: {
-    PcDetails,
-    SpDetails
+    PcView,
+    SpView
   },
   data() {
     return {
