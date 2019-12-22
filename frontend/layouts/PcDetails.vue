@@ -106,6 +106,6 @@ export default {
   }
 }
 </script>
-<style scoped>
-@import '~/assets/css/pc_details.css';
+<style lang="scss" scoped>
+@import '~/assets/scss/pc_details.scss';
 </style>

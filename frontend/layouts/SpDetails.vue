@@ -221,6 +221,6 @@ export default {
   }
 }
 </script>
-<style scoped>
-@import '~/assets/css/sp_details.scss';
+<style lang="scss" scoped>
+@import '~/assets/scss/sp_details.scss';
 </style>
