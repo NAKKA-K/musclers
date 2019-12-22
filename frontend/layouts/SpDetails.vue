@@ -48,7 +48,12 @@
           <div class="container">
             <v-img class="sp-user-image" :src="user.thumbnail"></v-img>
             <h2>{{ user.nickname }}</h2>
-            <friend-request-btn :user="user" class="mt-10"></friend-request-btn>
+            <friend-request-btn
+              block
+              outlined
+              class="friend-request-button"
+              :user="user"
+            ></friend-request-btn>
             <p>{{ user.description }}</p>
           </div>
         </div>
