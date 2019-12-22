@@ -47,12 +47,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import TheRightSideOrTheHeader from '~/components/organisms/TheRightSideOrTheHeader.vue'
-// import DropdownHomeLinks from '~/components/organisms/DropdownHomeLinks.vue'
 
 export default {
   components: {
     TheRightSideOrTheHeader
-    // DropdownHomeLinks
   },
   computed: {
     ...mapGetters({
