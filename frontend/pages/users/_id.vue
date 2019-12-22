@@ -1,31 +1,78 @@
 <template>
   <div>
     <div class="pc">
-      <PcDetails />
+      <PcDetails :user="user" />
     </div>
     <div class="sp">
-      <SpDetails />
+      <SpDetails :user="user" />
     </div>
   </div>
 </template>
 
 <script>
-import SpDetails from '~/components/SpDetails.vue'
-import PcDetails from '~/components/PcDetails.vue'
+import PcDetails from '~/layouts/PcDetails.vue'
+import SpDetails from '~/layouts/SpDetails.vue'
 
 export default {
   layout: 'index',
   components: {
-    SpDetails,
-    PcDetails
+    PcDetails,
+    SpDetails
+  },
+  data() {
+    return {
+      tab: null,
+      swiperOptionTop: {
+        spaceBetween: 4,
+        loop: true,
+        loopedSlides: 4,
+        navigation: {
+          nextEl: '.sp-swiper-button-next',
+          prevEl: '.sp-swiper-button-prev'
+        }
+      },
+      swiperOptionThumbs: {
+        spaceBetween: 4,
+        slidesPerView: 4,
+        touchRatio: 0.2,
+        loop: true,
+        loopedSlides: 4,
+        navigation: {
+          nextEl: '.sp-swiper-button-next',
+          prevEl: '.sp-swiper-button-prev'
+        },
+        slideToClickedSlide: true
+      },
+      requestFriend: false,
+      resultRequestType: null,
+      resultRequestMessage: null
+    }
+  },
+  async asyncData({ $axios, params, error }) {
+    const response = await $axios
+      .get(`/api/users/${params.id}`)
+      .catch((err) => {
+        console.log(err)
+        console.log(err.response)
+        return err.response
+      })
+
+    if (!response) {
+      throw new Error('ネットワークに接続できませんでした')
+      // TODO: もう少し何とかする。toastとか出す?
+    } else if (response.status !== 200) {
+      error({ status: response.status, message: response.data.message })
+      return
+    }
+
+    return {
+      user: response.data.data
+    }
   }
 }
 </script>
 
 <style scoped>
-@import '~/assets/css/pc_details.css';
-@import '~/assets/css/sp_details.scss';
-
 .pc {
   display: block !important;
 }
