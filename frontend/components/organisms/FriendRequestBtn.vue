@@ -1,8 +1,12 @@
 <template>
   <div>
-    <v-btn outlined large class="user-request-btn" @click="sendFriendRequest">
+    <primary-outline-btn
+      large
+      class="user-request-btn"
+      @click="sendFriendRequest"
+    >
       友達申請をする
-    </v-btn>
+    </primary-outline-btn>
 
     <v-snackbar
       v-model="requestFriend"
@@ -18,7 +22,13 @@
 </template>
 
 <script>
+import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
+
 export default {
+  components: {
+    PrimaryOutlineBtn
+  },
+
   props: {
     user: {
       type: Object,
@@ -58,8 +68,6 @@ export default {
 
 <style lang="scss" scoped>
 .user-request-btn {
-  color: $main-color;
-  caret-color: $main-color;
   font-weight: bold;
   font-size: 16px;
   background-color: rgba(255, 255, 255, 1);
