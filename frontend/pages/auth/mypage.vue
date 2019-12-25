@@ -5,7 +5,7 @@
         v-model="tab"
         centered
         background-color="white"
-        color="#ff9d00"
+        color="#f48009"
         right
       >
         <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
