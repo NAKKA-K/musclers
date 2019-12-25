@@ -191,8 +191,6 @@ export default {
     max-width: 100%;
   }
   > .user-request-btn {
-    color: $main-color;
-    caret-color: $main-color;
     display: block;
     margin-right: auto;
     margin-left: auto;
