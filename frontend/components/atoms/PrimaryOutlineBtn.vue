@@ -41,7 +41,7 @@ export default {
 
 <style lang="scss" scoped>
 .primary-outline-btn {
-  color: $main-color;
-  caret-color: $main-color;
+  color: $main-color-deep;
+  caret-color: $main-color-deep;
 }
 </style>
