@@ -3,10 +3,10 @@
     <div class="group-page-header">
       <h1>グループ一覧</h1>
       <v-spacer></v-spacer>
-      <v-btn class="group-create-btn" to="/groups/new" nuxt>
+      <primary-btn to="/groups/new">
         <v-icon dark>mdi-plus</v-icon>
         グループ作成
-      </v-btn>
+      </primary-btn>
     </div>
 
     <div class="group-search-form mt-12">
@@ -102,10 +102,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
 
 export default {
   components: {
-    PrimaryOutlineBtn
+    PrimaryOutlineBtn,
+    PrimaryBtn
   },
 
   data: () => ({
@@ -157,11 +159,6 @@ export default {
 
 .group-page-header {
   display: flex;
-
-  > .v-btn.v-btn--contained.group-create-btn {
-    background-color: $main-color-deep;
-    color: white;
-  }
 }
 
 .group-search-form {
