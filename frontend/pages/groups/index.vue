@@ -25,9 +25,13 @@
           search
         </v-icon>
       </v-text-field>
-      <v-btn outlined class="ml-2 search-btn" large @click="onSubmitSearch">
+      <primary-outline-btn
+        large
+        class="ml-2 search-btn"
+        @click.prevent="onSubmitSearch"
+      >
         検索
-      </v-btn>
+      </primary-outline-btn>
       <nuxt-link to="/groups/search" class="ml-2 px-2 search-text" nuxt>
         もっと詳しく
       </nuxt-link>
@@ -97,8 +101,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
 
 export default {
+  components: {
+    PrimaryOutlineBtn
+  },
+
   data: () => ({
     searchQuery: '',
     groups: []
@@ -162,10 +171,6 @@ export default {
   > .v-input--is-focused.search-box {
     color: $main-color-deep !important;
     caret-color: $main-color-deep !important;
-  }
-
-  > .search-btn {
-    color: $main-color-deep !important;
   }
 
   > .search-text {
