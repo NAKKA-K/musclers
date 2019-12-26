@@ -44,14 +44,12 @@
                   ></div>
                 </v-card-text>
 
-                <v-btn
+                <primary-outline-btn
                   class="mt-4 user-request-btn"
-                  rounded
-                  outlined
-                  @click.prevent="() => sendFriendRequest(user)"
+                  @click.prevent="sendFriendRequest(user)"
                 >
                   友達申請する
-                </v-btn>
+                </primary-outline-btn>
               </v-card>
             </v-hover>
           </nuxt-link>
@@ -80,6 +78,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Paginator from '../../components/Paginator'
+import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
 
 function fetchSearchedUsers({ fetcher, params }) {
   return fetcher.$get(`/api/users`, { params }).catch((err) => {
@@ -94,7 +93,8 @@ function fetchSearchedUsers({ fetcher, params }) {
 
 export default {
   components: {
-    Paginator
+    Paginator,
+    PrimaryOutlineBtn
   },
 
   data: () => ({
@@ -174,10 +174,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-._no-decoration {
-  text-decoration: none;
-}
-
 .user-card {
   max-width: 374px;
   max-height: 500px;
@@ -195,8 +191,6 @@ export default {
     max-width: 100%;
   }
   > .user-request-btn {
-    color: $main-color;
-    caret-color: $main-color;
     display: block;
     margin-right: auto;
     margin-left: auto;

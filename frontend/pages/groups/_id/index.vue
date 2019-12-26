@@ -18,7 +18,12 @@
 
     <group-join-btn :group="group" class="ma-2 mb-10"></group-join-btn>
 
-    <v-tabs v-model="tab" class="mt-6" background-color="transparent">
+    <v-tabs
+      v-model="tab"
+      class="mt-6"
+      background-color="transparent"
+      color="#f48009"
+    >
       <v-tab v-for="(item, index) in tabs" :key="index">
         {{ item }}
       </v-tab>
