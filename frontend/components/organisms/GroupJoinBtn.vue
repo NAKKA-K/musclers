@@ -1,13 +1,8 @@
 <template>
   <div>
-    <v-btn
-      color="#1CA1F1"
-      rounded
-      outlined
-      @click.prevent="() => requestGroupJoin(group)"
-    >
+    <primary-outline-btn @click.prevent="requestGroupJoin(group)">
       グループに参加する
-    </v-btn>
+    </primary-outline-btn>
 
     <v-snackbar
       v-model="join"
@@ -23,7 +18,13 @@
 </template>
 
 <script>
+import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
+
 export default {
+  components: {
+    PrimaryOutlineBtn
+  },
+
   props: {
     group: {
       type: Object,

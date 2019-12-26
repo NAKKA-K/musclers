@@ -5,7 +5,7 @@
         v-model="tab"
         centered
         background-color="white"
-        color="#ff9d00"
+        color="#f48009"
         right
       >
         <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
@@ -21,46 +21,50 @@
                     cols="6"
                     xs="3"
                     sm="3"
-                    class="link-color"
+                    class="link-box"
                   >
                     <nuxt-link
                       :to="{ name: 'groups-id', params: { id: group.id } }"
+                      class="link-title"
                     >
-                      <v-img :src="group.thumbnail" class="img-size" />
-                      <h4>{{ group.name }}</h4>
+                      <v-img :src="group.thumbnail" class="img-size"></v-img>
+                      <p>{{ group.name }}</p>
                     </nuxt-link>
                   </v-col>
                   <v-col cols="12">
-                    <a @click="tab++">もっと見る</a>
+                    <a class="more-link" @click="tab++">もっと見る</a>
                   </v-col>
                 </v-row>
               </v-container>
-              <h2 align="left">通知</h2>
+            </div>
+
+            <h2 align="left">通知</h2>
+            <div align="center">
               <v-container>
                 <v-row v-for="info in limitedInformation" :key="info.id">
-                  <v-col cols="12" class="link-color">
+                  <v-col cols="12" class="link-box">
                     <nuxt-link
                       :to="{ name: 'notification-id', params: { id: info.id } }"
+                      class="link-title"
                     >
-                      <span>
-                        <v-img
-                          class="img-small no-wrap"
-                          :src="info.thumbnail"
-                        />
-                        <h4 align="left" class="text-position">
-                          {{ info.by_name }}から{{ info.genre }}が届きました。
-                        </h4>
-                      </span>
+                      <v-img
+                        class="img-small no-wrap"
+                        :src="info.thumbnail"
+                      ></v-img>
+                      <p align="left" class="text-position">
+                        {{ info.by_name }}から{{ info.genre }}が届きました。
+                      </p>
                     </nuxt-link>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="12">
-                    <a @click="tab += 2">もっと見る</a>
+                    <a class="more-link" @click="tab += 2">もっと見る</a>
                   </v-col>
                 </v-row>
               </v-container>
             </div>
+
             <h2>おすすめユーザー</h2>
             <div align="center">
               <v-container>
@@ -71,20 +75,21 @@
                     cols="6"
                     xs="3"
                     sm="3"
-                    class="link-color"
+                    class="link-box"
                   >
                     <nuxt-link
-                      :to="{
-                        name: 'users-id',
-                        params: { id: recommend.id }
-                      }"
+                      :to="{ name: 'users-id', params: { id: recommend.id } }"
+                      class="link-title"
                     >
-                      <v-img :src="recommend.thumbnail" class="img-size" />
-                      <h4>{{ recommend.nickname }}</h4>
+                      <v-img
+                        :src="recommend.thumbnail"
+                        class="img-size"
+                      ></v-img>
+                      <p>{{ recommend.nickname || 'No name' }}</p>
                     </nuxt-link>
                   </v-col>
                   <v-col cols="12">
-                    <a @click="tab += 3">もっと見る</a>
+                    <a class="more-link" @click="tab += 3">もっと見る</a>
                   </v-col>
                 </v-row>
               </v-container>
@@ -149,7 +154,8 @@ export default {
   }
 }
 </script>
-<style scoped>
+
+<style lang="scss" scoped>
 h2 {
   margin-left: 20px;
 }
@@ -163,20 +169,31 @@ h2 {
   height: 121px;
   border-radius: 4px;
 }
-a:link {
-  text-decoration: none;
-  color: black;
+.link-box {
+  &:hover {
+    background-color: #eeeeee;
+    border-radius: 15px;
+  }
+
+  .link-title {
+    @extend ._no-decoration;
+    color: black;
+
+    &:hover {
+      @extend ._text-hover;
+    }
+  }
 }
-.link-color:hover {
-  background-color: #eeeeee;
-  border-radius: 15px;
+.more-link {
+  color: $main-color-deep;
+  font-weight: bold;
 }
+
 .no-wrap {
   float: left;
 }
 .text-position {
   margin-left: 80px;
   margin-top: 20px;
-  color: black;
 }
 </style>
