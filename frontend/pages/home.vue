@@ -11,9 +11,14 @@
         class="search-placeholder"
         @keyup.enter="onSubmitSearch()"
       ></v-text-field>
-      <v-btn class="ml-2" large color="primary" @click="onSubmitSearch()">
+      <primary-btn
+        class="ml-2"
+        large
+        to="/groups/new"
+        @click="onSubmitSearch()"
+      >
         検索
-      </v-btn>
+      </primary-btn>
       <nuxt-link to="/search" class="ml-2 px-2 search-text">
         もっと詳しく
       </nuxt-link>
@@ -107,8 +112,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
 
 export default {
+  components: {
+    PrimaryBtn
+  },
+
   data: () => ({
     searchQuery: '',
     blogs: [],
