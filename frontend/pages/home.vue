@@ -179,7 +179,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .search-placeholder {
   font-size: 85%;
 }
@@ -192,6 +192,7 @@ export default {
   font-weight: bold;
   font-size: 77%;
   text-decoration: none;
+  color: $main-color-deep;
 }
 
 .cell-wrapper {
