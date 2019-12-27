@@ -280,7 +280,6 @@ export default {
 
     const data = { user }
     if (user.thumbnail) data.thumbnailSrc = user.thumbnail
-    console.log(user)
 
     return data
   },
