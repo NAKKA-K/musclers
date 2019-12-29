@@ -23,7 +23,7 @@ describe 'group members api', type: :request do
       end
 
       it 'return group members data' do
-        get api_group_users_path(@group.id),headers: @headers
+        get api_group_users_path(@group.id)
         expect(response).to have_http_status(200)
         data = JSON.parse(response.body)
         expect(data['message']).to eq 'グループメンバーが見つかりました'
