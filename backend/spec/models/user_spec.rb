@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe "confirmable module" do
+    it "compare access token" do
+      user = create(:user)
+      user.update_access_token!
+
+      expect(user.secure_token_compare(user.access_token)).to be_truthy
+    end
+  end
+
   describe "DirectMessageGroup association" do
     context "has many by_users" do
       it { should have_many(:by_users).class_name('DirectMessageGroup').dependent(:destroy) }
