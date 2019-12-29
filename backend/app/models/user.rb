@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Confirmable
+
   has_many :group_users, :dependent => :destroy
   has_many :groups,through: :group_users, :dependent => :destroy
   has_many :group_messages, :dependent => :destroy
@@ -136,31 +138,7 @@ class User < ApplicationRecord
     User.where_unique_user(uid: auth[:uid], provider: auth[:provider]).first_or_initialize
   end
 
-
-  def update_access_token!
-    self.access_token = generate_friendly_token
-    self.save!
-  end
-
-  # (by devise gem) constant-time comparison algorithm to prevent timing attacks
-  def secure_token_compare(token)
-    a = self.access_token
-    b = token
-
-    return false if a.blank? || b.blank? || a.bytesize != b.bytesize
-    l = a.unpack "C#{a.bytesize}"
-
-    res = 0
-    b.each_byte { |byte| res |= byte ^ l.shift }
-    res == 0
-  end
-
   private
-
-  # トークンに使用されるランダムな文字列を生成する
-  def generate_friendly_token
-    SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz')
-  end
 
   def self.fetch_random_users(recommend_user_list)
     list_count = recommend_user_list.count
