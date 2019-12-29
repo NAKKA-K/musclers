@@ -1,4 +1,4 @@
-.PHONY: setenv reinit init run down ps migrate lintfix railsc
+.PHONY: setenv reinit init run down ps migrate lintfix railsc test
 
 setenv: environments
 	cp environments/.env ./
@@ -33,6 +33,9 @@ lintfix:
 
 railsc:
 	docker-compose exec api bundle exec rails c
+
+test:
+	docker-compose exec api bundle exec rspec
 
 .PHONY: mock/*
 
