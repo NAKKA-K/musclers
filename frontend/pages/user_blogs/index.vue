@@ -76,10 +76,34 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .headline {
   line-height: 1.3rem;
   font-size: 20px !important;
   font-weight: 700;
+}
+
+.top-wrapper {
+  padding: 100px 0 100px 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('https://publicdomainq.net/images/201707/17s/publicdomainq-0011229ofc.jpg');
+  background-size: cover;
+  color: white;
+  font-size: 1.2em;
+  text-shadow: 0px 0px 5px #000;
+
+  h1 {
+    opacity: 0.9;
+    letter-spacing: 5px;
+  }
+  p {
+    opacity: 0.9;
+  }
+  @include smart-vertical {
+    font-size: 1em;
+    h1 {
+      font-size: 24px;
+    }
+  }
 }
 </style>
