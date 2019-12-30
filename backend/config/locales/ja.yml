@@ -44,6 +44,10 @@ ja:
         direct_message: 'DM'
         group_message: 'グループメッセージ'
 
+  exceptions:
+    authentication_error: "認証に失敗しました"
+    record_not_found: "'id'=%{id}の%{model_name}は存在しません"
+
   activerecord:
     errors:
       models:
