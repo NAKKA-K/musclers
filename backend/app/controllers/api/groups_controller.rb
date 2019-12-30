@@ -15,15 +15,7 @@ class Api::GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find_by_id(params[:id])
-
-    if @group.nil?
-      error_res(
-        404,
-        message: "指定したグループは存在しません",
-        err: "指定したグループは存在しません"
-      ) and return
-    end
+    @group = Group.find(params[:id])
 
     success_res(
         200,

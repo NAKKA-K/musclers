@@ -1,15 +1,12 @@
 class ApplicationController < ActionController::API
   include Authenticatable
+  include ErrorResponseHandleable
 
   before_action :authenticate_user!
 
   # トークン生成済みのユーザーのみ認証する
   def authenticate_user!
-    begin
-      authenticate_user_from_token!
-    rescue Exceptions::AuthenticationError
-      error_res(401, message: '認証失敗しました')
-    end
+    authenticate_user_from_token!
   end
 
   def success_res(status, message: nil, data: nil, meta: nil)
