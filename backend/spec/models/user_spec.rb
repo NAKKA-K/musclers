@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe "confirmable module" do
+    it "compare access token" do
+      user = create(:user)
+      user.update_access_token!
+
+      expect(user.secure_token_compare(user.access_token)).to be_truthy
+    end
+  end
+
   describe "DirectMessageGroup association" do
     context "has many by_users" do
       it { should have_many(:by_users).class_name('DirectMessageGroup').dependent(:destroy) }
@@ -35,7 +44,7 @@ RSpec.describe User, type: :model do
         expect{ @first_user.by_users.create!(to_user_id:@secound_user.id) }.to_not raise_error
         expect{ @first_user.by_users.create!(to_user_id:@third_user.id) }.to_not raise_error
         expect{ @secound_user.by_users.create!(to_user_id:@third_user.id) }.to_not raise_error
-        
+
         expect( DirectMessageGroup.where(by_user_id:@first_user.id,to_user_id:@secound_user.id) ).to exist
         expect( DirectMessageGroup.where(by_user_id:@first_user.id,to_user_id:@third_user.id) ).to exist
         expect( DirectMessageGroup.where(by_user_id:@secound_user.id,to_user_id:@third_user.id) ).to exist
@@ -45,7 +54,7 @@ RSpec.describe User, type: :model do
 
   describe "DirectMessage association" do
     context "has many send_users" do
-      it { should have_many(:send_users).class_name('DirectMessage').dependent(:destroy) }       
+      it { should have_many(:send_users).class_name('DirectMessage').dependent(:destroy) }
     end
 
     context "when creating a direct message with a not exist direct_message_group_id" do
@@ -58,12 +67,12 @@ RSpec.describe User, type: :model do
         @not_exist_dm_group_id = DirectMessageGroup.last.id + 1
       end
 
-      it "raise error ActiveRecord::RecordInvalid" do        
+      it "raise error ActiveRecord::RecordInvalid" do
         expect{ @secound_user.send_users.create!(body:"hogeee",direct_message_group_id:@not_exist_dm_group_id) }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
-  
+
   describe "Friend association" do
     context "has many fridends" do
       it { should have_many(:friends) }
