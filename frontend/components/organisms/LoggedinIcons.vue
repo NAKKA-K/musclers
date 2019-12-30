@@ -90,7 +90,6 @@ export default {
     this.informations = await this.$axios
       .$get('/api/user/information')
       .then((res) => res.data)
-    console.log(this.informations)
   },
   methods: {
     logout() {

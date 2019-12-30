@@ -4,14 +4,14 @@
 
     <v-layout class="justify-end">
       <div v-if="disabled">
-        <v-btn class="my-4" tile outlined color="success" @click="enableEdit">
+        <primary-outline-btn class="my-4" @click="enableEdit">
           <v-icon small>edit</v-icon>編集
-        </v-btn>
+        </primary-outline-btn>
       </div>
       <div v-else>
-        <v-btn class="my-4 ml-2" tile color="primary" @click="submitUserEdit">
+        <primary-btn class="my-4 ml-2" @click="submitUserEdit">
           <v-icon small>edit</v-icon>保存
-        </v-btn>
+        </primary-btn>
       </div>
     </v-layout>
     <div class="mb-5">
@@ -134,9 +134,17 @@ import {
   validateNickname,
   validateDescription
 } from '~/validations'
+import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
 
 export default {
   middleware: 'auth',
+
+  components: {
+    PrimaryOutlineBtn,
+    PrimaryBtn
+  },
+
   data: () => ({
     disabled: true,
     user: {},
@@ -280,7 +288,6 @@ export default {
 
     const data = { user }
     if (user.thumbnail) data.thumbnailSrc = user.thumbnail
-    console.log(user)
 
     return data
   },
