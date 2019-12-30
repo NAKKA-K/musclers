@@ -1,5 +1,5 @@
 class Api::GroupsController < ApplicationController
-  skip_before_action :authenticate_user_from_token!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     @groups = ActiveModel::Serializer::CollectionSerializer.new(

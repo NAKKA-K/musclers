@@ -1,14 +1,13 @@
 class ApplicationController < ActionController::API
   include Authenticatable
 
-  before_action :authenticate_user_from_token!
+  before_action :authenticate_user!
 
   # トークン生成済みのユーザーのみ認証する
-  def authenticate_user_from_token!
-    user = authenticate_user_from_token
-    if user
-      @current_user = user
-    else
+  def authenticate_user!
+    begin
+      authenticate_user_from_token!
+    rescue Exceptions::AuthenticationError
       error_res(401, message: '認証失敗しました')
     end
   end

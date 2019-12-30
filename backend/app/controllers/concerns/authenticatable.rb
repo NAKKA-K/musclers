@@ -1,6 +1,16 @@
 module Authenticatable
   extend ActiveSupport::Concern
 
+  # トークン生成済みのユーザーのみ認証する
+  def authenticate_user_from_token!
+    user = authenticate_user_from_token
+    if user
+      @current_user = user
+    else
+      raise Exceptions::AuthenticationError
+    end
+  end
+
   def authenticate_user_from_token
     token = request.headers['Authorization']
     # TODO: 今後、トークンの失効期限をもうけたい場合、トークン生成時を記録し、以下のユーザー取得時に時間の比較をする
