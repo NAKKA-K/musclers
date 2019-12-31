@@ -156,7 +156,7 @@ export default {
   },
 
   async asyncData({ $axios }) {
-    const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
+    const blogs = await $axios.$get('/api/blogs').then((res) => res.data)
     const tags = await $axios.$get('/api/tags').then((res) => res.data)
     const groups = await $axios
       .$get('/api/groups')
