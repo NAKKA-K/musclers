@@ -26,11 +26,32 @@ RSpec.describe Group, type: :model do
       expect(group.errors[:name].present?).to be_truthy
     end
 
+    it "is invalid due to long name" do
+      group = Group.new(name: 'a'*128)
+      group.valid?
+      expect(group.errors[:name].present?).to be_falsey
+
+      group = Group.new(name: 'a'*129)
+      group.valid?
+      expect(group.errors[:name].present?).to be_truthy
+    end
+
     it "is invalid without a description" do
       group = Group.new(description: nil)
       group.valid?
       expect(group.errors[:description].present?).to be_truthy
     end
+
+    it "is invalid due to long description" do
+      group = Group.new(description: 'a'*4096)
+      group.valid?
+      expect(group.errors[:description].present?).to be_falsey
+
+      group = Group.new(description: 'a'*4097)
+      group.valid?
+      expect(group.errors[:description].present?).to be_truthy
+    end
+
     it "is invalid without a is_public" do
       group = Group.new(is_public: nil)
       group.valid?
