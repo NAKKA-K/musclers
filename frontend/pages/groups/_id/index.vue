@@ -5,6 +5,11 @@
       戻る
     </v-btn>
     <p class="grey--text text--lighten-1">{{ group.created_at }}作成</p>
+    <v-img
+      :src="group.thumbnail"
+      class="group-thumbnail d-inline-block"
+      contain
+    ></v-img>
     <v-flex>
       <h1>「{{ group.name }}」グループ</h1>
       <div v-if="!group.is_public"><v-icon>lock</v-icon></div>
@@ -215,6 +220,11 @@ export default {
 </script>
 
 <style>
+.group-thumbnail {
+  min-height: 200px;
+  max-height: 400px;
+}
+
 .theme--light.v-btn--active::before {
   opacity: 0;
 }
