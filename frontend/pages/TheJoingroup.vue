@@ -26,7 +26,7 @@
 export default {
   props: {
     groups: {
-      type: Object,
+      type: Array,
       default: null
     }
   }
