@@ -25,7 +25,7 @@
 export default {
   props: {
     recommends: {
-      type: Object,
+      type: Array,
       default: null
     }
   }

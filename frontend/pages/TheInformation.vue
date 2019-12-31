@@ -23,7 +23,7 @@
 export default {
   props: {
     notification: {
-      type: Object,
+      type: Array,
       default: null
     }
   }
