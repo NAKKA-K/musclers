@@ -35,23 +35,27 @@
         multiple
       ></v-select>
 
-      <v-btn
+      <primary-btn
         type="submit"
         class="d-flex ml-auto"
-        color="primary"
         @click.prevent="sendNewGroup"
       >
         作成する
-      </v-btn>
+      </primary-btn>
     </v-form>
   </div>
 </template>
 
 <script>
 import { required, maxLength } from 'vuelidate/lib/validators'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
 
 export default {
   middleware: 'auth',
+
+  components: {
+    PrimaryBtn
+  },
 
   data: () => ({
     group: {
