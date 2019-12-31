@@ -119,7 +119,7 @@ export default {
         tags: this.group.tags
       }
       this.$axios
-        .$post('/mock/api/groups', group)
+        .$post('/api/groups', group)
         .then((res) => {
           console.log(res)
           this.$router.push(`/groups/${res.data.id}`)
