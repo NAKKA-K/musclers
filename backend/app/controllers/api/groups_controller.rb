@@ -24,6 +24,21 @@ class Api::GroupsController < ApplicationController
     ) and return
   end
 
+  def create
+    builded_params = group_params
+    builded_params[:tags] = builded_params[:tags].join(' ') if builded_params[:tags].present?
+    group = Group.new(builded_params)
+    if group.save
+      success_res(
+        201,
+        message: '作成しました',
+        data: GroupSerializer.new(group).as_json,
+      ) and return
+    else
+      error_res(422, message: '入力が正しくありません', err: group.errors.messages) and return
+    end
+  end
+
   def join
     @group = Group.find_by_id(params[:id])
 
@@ -50,5 +65,11 @@ class Api::GroupsController < ApplicationController
         message: '参加しました',
         data: nil,
     ) and return
+  end
+
+  private
+
+  def group_params
+    params.permit(:name, :description, :thumbnail, :is_public, tags: [])
   end
 end

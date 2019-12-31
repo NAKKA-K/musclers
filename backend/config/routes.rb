@@ -52,13 +52,12 @@ Rails.application.routes.draw do
       post '/friends', to: 'friends#requestFriend'
     end
 
-    resources :groups, only: [:index, :show] do
+    resources :groups, only: [:index, :show, :create] do
       get '/users', to:'group_members#show'
 
       member do
         post :join
       end
-
     end
 
     get '/debug_login', to:'debug#index'

@@ -51,6 +51,14 @@ ja:
   activerecord:
     errors:
       models:
+        group:
+          attributes:
+            name:
+              blank: '名前を入力してください'
+            description:
+              blank: '概要を入力してください'
+            is_public:
+              blank: '公開設定をしてください'
         user:
           attributes:
             email:
