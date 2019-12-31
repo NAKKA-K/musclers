@@ -5,6 +5,9 @@
     :small="small"
     :large="large"
     :x-large="xlarge"
+    :to="to ? to : null"
+    :nuxt="to ? true : false"
+    :type="type"
     class="primary-outline-btn"
     @click="(e) => $emit('click', e)"
   >
@@ -34,6 +37,16 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    to: {
+      type: String,
+      required: false,
+      default: null
+    },
+    type: {
+      type: String,
+      required: false,
+      default: 'button'
     }
   }
 }
