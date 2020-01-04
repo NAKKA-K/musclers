@@ -125,6 +125,8 @@ export default {
   data: () => ({
     searchQuery: '',
     blogs: [],
+    groups: [],
+    tags: [],
     swiperOption: {
       slidesPerView: 'auto',
       spaceBetween: 0,
