@@ -142,6 +142,10 @@ export default {
       }
     )
   },
+  destroyed() {
+    this.directMessageChannel.unsubscribe()
+    this.$cable.disconnect()
+  },
 
   updated() {
     this.scrollToEnd()

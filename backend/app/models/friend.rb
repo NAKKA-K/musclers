@@ -1,5 +1,6 @@
 class Friend < ApplicationRecord
   include Rails.application.routes.url_helpers
+  include ThumbnailHelper
 
   belongs_to :user
   belongs_to :target ,class_name: "User", foreign_key: "target_id"
@@ -16,7 +17,7 @@ class Friend < ApplicationRecord
       link: "/users/#{from_user.id}",
       is_read: false,
       user_id: self.target_id,
-      thumbnail: url_for(from_user.thumbnail)
+      thumbnail: make_thumbnail_url(from_user.thumbnail)
     )
   end
 end

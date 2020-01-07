@@ -6,12 +6,15 @@
         <v-col
           v-for="recommend in recommends"
           :key="recommend.id"
-          class="link-color"
+          class="link-box"
           cols="6"
         >
-          <nuxt-link :to="{ name: 'users-id', params: { id: recommend.id } }">
+          <nuxt-link
+            :to="{ name: 'users-id', params: { id: recommend.id } }"
+            class="link-title"
+          >
             <v-img :src="recommend.thumbnail" class="img-size" />
-            <h4>{{ recommend.nickname }}</h4>
+            <p>{{ recommend.nickname || 'No name' }}</p>
           </nuxt-link>
         </v-col>
       </v-row>
@@ -22,24 +25,31 @@
 export default {
   props: {
     recommends: {
-      type: Object,
+      type: Array,
       default: null
     }
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .img-size {
   width: 121px;
   height: 121px;
   border-radius: 4px;
 }
-a:link {
-  text-decoration: none;
-  color: black;
-}
-.link-color:hover {
-  background-color: #eeeeee;
-  border-radius: 15px;
+.link-box {
+  &:hover {
+    background-color: #eeeeee;
+    border-radius: 15px;
+  }
+
+  .link-title {
+    @extend ._no-decoration;
+    color: black;
+
+    &:hover {
+      @extend ._text-hover;
+    }
+  }
 }
 </style>

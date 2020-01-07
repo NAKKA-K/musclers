@@ -35,23 +35,27 @@
         multiple
       ></v-select>
 
-      <v-btn
+      <primary-btn
         type="submit"
         class="d-flex ml-auto"
-        color="primary"
         @click.prevent="sendNewGroup"
       >
         作成する
-      </v-btn>
+      </primary-btn>
     </v-form>
   </div>
 </template>
 
 <script>
 import { required, maxLength } from 'vuelidate/lib/validators'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
 
 export default {
   middleware: 'auth',
+
+  components: {
+    PrimaryBtn
+  },
 
   data: () => ({
     group: {
@@ -119,7 +123,7 @@ export default {
         tags: this.group.tags
       }
       this.$axios
-        .$post('/mock/api/groups', group)
+        .$post('/api/groups', group)
         .then((res) => {
           console.log(res)
           this.$router.push(`/groups/${res.data.id}`)

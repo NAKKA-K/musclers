@@ -60,5 +60,7 @@ module Backend
     end
 
     ActiveModelSerializers.config.adapter = :json_api
+
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
   end
 end

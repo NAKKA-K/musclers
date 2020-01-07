@@ -46,6 +46,42 @@ RSpec.describe "Group", type: :request do
     end
   end
 
+  describe "POST /groups" do
+    context 'when not logged in user' do
+      it 'return status code 401' do
+        post api_groups_path
+        expect(response).to have_http_status(401)
+      end
+    end
+
+    context 'when logged in user' do
+      before do
+        access_token = create(:user).access_token
+        @headers = {
+          'Authorization' => access_token,
+          'Content-Type' => 'multipart/form-data'
+        }
+      end
+
+      it 'create group from params' do
+        params = {
+          name: 'test',
+          description: 'test',
+          is_public: true,
+          thumbnail: Rack::Test::UploadedFile.new('public/images/noimage.png'),
+          tags: ['筋肉質', '趣味'],
+        }
+        post api_groups_path, params: params, headers: @headers
+        expect(response).to have_http_status(201)
+      end
+
+      it 'dose not create group from params' do
+        post api_groups_path, params: nil, headers: @headers
+        expect(response).to have_http_status(422)
+      end
+    end
+  end
+
   describe "GET /groups/:id/join" do
     context 'when not logged in user' do
       it 'return status code 401' do
