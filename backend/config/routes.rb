@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
     resources :groups, only: [:index, :show, :create] do
       get '/users', to:'group_members#show'
+      get '/messages', to:'group_messages#show'
 
       member do
         post :join
