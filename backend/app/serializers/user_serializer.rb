@@ -13,9 +13,10 @@ class UserSerializer < ActiveModel::Serializer
     :figure,
     :muscle_mass,
     :body_fat_percentage,
+    :seriousness,
     :created_at,
     :updated_at,
-    :seriousness
+    :is_friends,
   )
 
   def thumbnail
