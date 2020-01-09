@@ -23,7 +23,7 @@ RSpec.describe "GroupMessage", type: :request do
     it 'return group messages' do
       get api_group_messages_path(group.id), headers: headers
       body = JSON.parse(response.body)
-      expect(body['data']['messages'].count).to eq 3
+      expect(body['data'].count).to eq 3
     end
   end
 end
