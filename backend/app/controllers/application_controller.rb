@@ -42,4 +42,7 @@ class ApplicationController < ActionController::API
     }
   end
 
+  def get_auth_id_or_0
+    current_user ? current_user.id : 0
+  end
 end

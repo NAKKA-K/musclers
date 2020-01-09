@@ -3,7 +3,7 @@ class Api::GroupsController < ApplicationController
 
   def index
     @groups = Group.order(created_at: :desc).all
-    Group.set_group_joined_to(@groups, current_user.id)
+    Group.set_group_joined_to(@groups, get_auth_id_or_0)
 
     success_res(
       200,
@@ -17,7 +17,7 @@ class Api::GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    Group.set_group_joined_to([@group], current_user.id)
+    Group.set_group_joined_to([@group], get_auth_id_or_0)
 
     success_res(
       200,
