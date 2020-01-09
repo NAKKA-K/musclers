@@ -160,7 +160,7 @@ Muscler'sのAPI仕様書
 + id: 1 (number)
 + user_id: 1 (number)
 + title: テストのブログ (string)
-+ body: ブログに書かれている実際の内容がここに記述されます。 (text)
++ body: ブログに書かれている実際の内容がここに記述されます。 (string)
 + created_at: `2019-11-19 04:58:55` (string)
 + updated_at: `2019-11-19 04:58:55` (string)
 
@@ -1162,8 +1162,9 @@ Muscler'sのAPI仕様書
 + Response 200 (application/json)
 
     + Attributes (object)
-        + group (Group)
-        + messages (array[GroupMessage])
+        + status: 200 (number)
+        + message: お勧めユーザーが見つかりました (string)
+        + data (array[GroupMessage,GroupMessage])
 
 ### 特定のグループに新規メッセージを送信する [POST]
 
