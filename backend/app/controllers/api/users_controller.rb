@@ -30,6 +30,7 @@ module Api
     end
 
     def update
+      # 初回登録時のデータ設定API
       begin
         @user = User.find(params[:id])
         @user.update!(nickname: params[:nickname], email: params[:email])
@@ -47,6 +48,7 @@ module Api
     end
 
     def edit
+      # 設定画面から行う全データの変更API
       begin
         edit_data = enum_params_to_integer(user_params)
         @user = User.find(params[:id])
