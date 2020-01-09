@@ -1,6 +1,9 @@
 <template>
   <div>
-    <primary-outline-btn @click.prevent="requestGroupJoin(group)">
+    <primary-btn v-if="isGroupJoined">
+      参加済み
+    </primary-btn>
+    <primary-outline-btn v-else @click.prevent="requestGroupJoin(group)">
       グループに参加する
     </primary-outline-btn>
 
@@ -19,16 +22,24 @@
 
 <script>
 import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
 
 export default {
   components: {
-    PrimaryOutlineBtn
+    PrimaryOutlineBtn,
+    PrimaryBtn
   },
 
   props: {
     group: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    isGroupJoined() {
+      return this.group ? this.group.joined : false
     }
   },
 
