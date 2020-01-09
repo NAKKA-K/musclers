@@ -2,25 +2,27 @@ class Api::GroupsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @groups = ActiveModel::Serializer::CollectionSerializer.new(
-      Group.order(created_at: :desc),
-      each_serializer: GroupSerializer
-    ).as_json
+    @groups = Group.order(created_at: :desc).all
+    Group.set_group_joined_to(@groups, current_user.id)
 
     success_res(
-        200,
-        message: '取得しました',
-        data: @groups,
+      200,
+      message: '取得しました',
+      data: ActiveModel::Serializer::CollectionSerializer.new(
+        @groups,
+        each_serializer: GroupSerializer
+      ).as_json,
     ) and return
   end
 
   def show
     @group = Group.find(params[:id])
+    Group.set_group_joined_to([@group], current_user.id)
 
     success_res(
-        200,
-        message: '取得しました',
-        data: GroupSerializer.new(@group).as_json,
+      200,
+      message: '取得しました',
+      data: GroupSerializer.new(@group).as_json,
     ) and return
   end
 
