@@ -1,10 +1,7 @@
 class GroupMessageSerializer < ActiveModel::Serializer
   include DateHelper
-  attributes :id, :body,:send_user, :created_at, :updated_at
-  
-  def send_user
-    UserSerializer.new(object.user)
-  end
+  attributes :id, :body, :updated_at, :created_at
+  belongs_to :user,key: :send_user, serializer: UserSerializer
 
   def created_at
     created_date(object.created_at)

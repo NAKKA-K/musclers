@@ -160,7 +160,7 @@ export default {
       .then((res) => res.data)
     const messages = await $axios
       .$get(`/api/groups/${params.id}/messages`)
-      .then((res) => res.data.messages)
+      .then((res) => res.data)
     const members = await $axios
       .$get(`/api/groups/${params.id}/users`)
       .then((res) => res.data.users)
