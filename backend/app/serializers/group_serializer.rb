@@ -11,7 +11,8 @@ class GroupSerializer < ActiveModel::Serializer
     :tags,
     :thumbnail,
     :created_at,
-    :updated_at
+    :updated_at,
+    :joined
   )
 
   def thumbnail
