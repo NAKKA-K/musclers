@@ -150,10 +150,7 @@ export default {
       { label: '肥満型', value: 25 },
       { label: 'その他', value: 99 }
     ],
-    thumbnailSrc: '',
-    edit: false,
-    resultEditType: null,
-    resultEditMessage: null
+    thumbnailSrc: ''
   }),
 
   validations: {
