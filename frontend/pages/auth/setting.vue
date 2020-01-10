@@ -14,6 +14,18 @@
         </primary-btn>
       </div>
     </v-layout>
+
+    <v-snackbar
+      v-model="edit"
+      :color="resultEditType"
+      top
+      vertical
+      :timeout="2500"
+    >
+      {{ resultEditMessage }}
+      <v-btn dark text @click="edit = false">CLOSE</v-btn>
+    </v-snackbar>
+
     <div class="mb-5">
       <img
         v-if="thumbnailSrc"
@@ -169,7 +181,10 @@ export default {
       { label: '肥満型', value: 25 },
       { label: 'その他', value: 99 }
     ],
-    thumbnailSrc: ''
+    thumbnailSrc: '',
+    edit: false,
+    resultEditType: null,
+    resultEditMessage: null
   }),
 
   validations: {
@@ -347,17 +362,33 @@ export default {
         }
       }
 
-      await this.$axios.$patch(`/api/users/${this.user.id}/edit`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      await this.$axios
+        .$patch(`/api/users/${this.user.id}/edit`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(() => {
+          this.resultEditMessage = `設定を保存しました`
+          this.resultEditType = 'info'
+        })
+        .catch((err) => {
+          this.resultEditType = 'error'
 
+          if (err.response.status === 409) {
+            this.resultEditMessage = err.response.data.message
+            return
+          }
+
+          this.resultEditMessage = `設定の保存に失敗しました`
+        })
+
+      /* 編集が成功していなくてもstoreに保存される */
       const currentUser = await this.$axios
         .$get('/api/auth/user')
         .then((res) => res.data)
       this.$store.dispatch('auth/setCurrentUser', { user: currentUser })
-
+      this.edit = true
       this.disabled = true
     }
   }
