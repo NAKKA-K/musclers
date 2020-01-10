@@ -12,7 +12,7 @@
         </v-btn>
       </template>
       <v-card>
-        <h4 class="font-weight-thin title-position">通知</h4>
+        <h5 class="font-weight-thin title-position">通知</h5>
         <div
           v-for="information in limitedInformation"
           :key="information.id"
@@ -130,7 +130,7 @@ export default {
   margin-bottom: 5px;
   padding: 10.8px 10px;
 }
-.title-position h4 {
+.title-position h5 {
   font-size: 15px;
 }
 .foot-position {
