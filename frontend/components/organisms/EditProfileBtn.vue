@@ -2,7 +2,7 @@
   <div>
     <v-layout class="justify-end">
       <div v-if="this.$parent.disabled">
-        <primary-outline-btn class="my-4" @click="enableEdit">
+        <primary-outline-btn class="my-4" @click="enableEdit(false)">
           <v-icon small>edit</v-icon>編集
         </primary-outline-btn>
       </div>
@@ -42,8 +42,9 @@ export default {
     resultEditMessage: null
   }),
   methods: {
-    enableEdit() {
-      this.$parent.disabled = false
+    enableEdit(editFlag) {
+      console.log('aaa')
+      this.$emit('enableEdit', editFlag)
     },
     async submitUserEdit() {
       const formData = new FormData()
@@ -103,7 +104,7 @@ export default {
         .then((res) => res.data)
       this.$store.dispatch('auth/setCurrentUser', { user: currentUser })
       this.edit = true
-      this.$parent.disabled = true
+      this.enableEdit(true)
     }
   }
 }
