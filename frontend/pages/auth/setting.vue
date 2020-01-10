@@ -129,6 +129,7 @@ export default {
   data: () => ({
     disabled: true,
     user: {},
+    value: null,
     seriousnessArray: [
       { label: '未設定', value: 0 },
       { label: 'エンジョイ', value: 2 },
