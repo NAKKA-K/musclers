@@ -16,7 +16,7 @@
         <div
           v-for="information in limitedInformation"
           :key="information.id"
-          class="contents-item"
+          class="content-items"
         >
           <span class="font-weight-thin">
             <v-avatar class="img-small">
@@ -114,21 +114,15 @@ export default {
   margin: 0px 10px 0px 0px;
   vertical-align: middle;
 }
-.text-position {
-  margin: 5px 0px;
-}
 .img-small {
   width: 30px;
   height: 30px;
-}
-.card-size {
-  width: 150%;
-  height: 150%;
 }
 .title-position {
   background-color: #ededed;
   margin-bottom: 5px;
   padding: 10.8px 10px;
+  margin: 5px 0px;
 }
 .title-position h5 {
   font-size: 15px;
@@ -141,7 +135,7 @@ export default {
 .foot-position h5 {
   font-size: 15px;
 }
-.contents-item {
+.content-items {
   padding: 3px 14px;
 }
 </style>
