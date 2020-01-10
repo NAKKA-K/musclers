@@ -128,12 +128,15 @@ export default {
 .title-position {
   background-color: #ededed;
   margin-bottom: 5px;
-  padding: 5px 10px;
+  padding: 10.8px 10px;
+}
+.title-position h4 {
+  font-size: 15px;
 }
 .foot-position {
   background-color: #ededed;
   margin-top: 5px;
-  padding: 8px 0;
+  padding: 10.8px 0;
 }
 .foot-position h5 {
   font-size: 15px;
