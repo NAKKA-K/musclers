@@ -13,7 +13,11 @@
       </template>
       <v-card>
         <h4 class="font-weight-thin title-position">通知</h4>
-        <div v-for="information in limitedInformation" :key="information.id">
+        <div
+          v-for="information in limitedInformation"
+          :key="information.id"
+          class="contents-item"
+        >
           <span class="font-weight-thin">
             <v-avatar class="img-small">
               <v-img :src="information.thumbnail" />
@@ -124,9 +128,17 @@ export default {
 .title-position {
   background-color: #ededed;
   margin-bottom: 5px;
+  padding: 5px 10px;
 }
 .foot-position {
   background-color: #ededed;
   margin-top: 5px;
+  padding: 8px 0;
+}
+.foot-position h5 {
+  font-size: 15px;
+}
+.contents-item {
+  padding: 3px 14px;
 }
 </style>
