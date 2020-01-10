@@ -1,6 +1,10 @@
 <template>
   <div>
+    <primary-btn v-if="isFriends">
+      友達申請済み
+    </primary-btn>
     <primary-outline-btn
+      v-else
       large
       class="user-request-btn"
       @click="sendFriendRequest"
@@ -23,16 +27,24 @@
 
 <script>
 import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
 
 export default {
   components: {
-    PrimaryOutlineBtn
+    PrimaryOutlineBtn,
+    PrimaryBtn
   },
 
   props: {
     user: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    isFriends() {
+      return this.user ? this.user.is_friends : false
     }
   },
 

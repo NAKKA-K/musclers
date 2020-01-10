@@ -15,7 +15,8 @@ module Api
 
     def show
       user_id = params[:id]
-      user_detail = User.fetch_user_detail_from(user_id)
+      auth_id = current_user ? current_user.id : 0
+      user_detail = User.fetch_user_detail_from(user_id, auth_id: auth_id)
 
       if user_detail.nil?
         error_res(
@@ -30,6 +31,7 @@ module Api
     end
 
     def update
+      # 初回登録時のデータ設定API
       begin
         @user = User.find(params[:id])
         @user.update!(nickname: params[:nickname], email: params[:email])
@@ -47,6 +49,7 @@ module Api
     end
 
     def edit
+      # 設定画面から行う全データの変更API
       begin
         edit_data = enum_params_to_integer(user_params)
         @user = User.find(params[:id])
