@@ -117,9 +117,9 @@ class User < ApplicationRecord
     end
   end
 
-  def self.fetch_user_detail_from(user_id, auth_id:0)
+  def self.fetch_user_detail_from(user_id, auth_id:)
     user = User.find_by(id: user_id)
-    User.set_friend_flag_to([user], auth_id)
+    User.set_friend_flag_to(users: [user], auth_id: auth_id)
     user
   end
 
@@ -152,7 +152,7 @@ class User < ApplicationRecord
     recommend_user_list
   end
 
-  def self.set_friend_flag_to(users, auth_id)
+  def self.set_friend_flag_to(users:, auth_id:)
     # HACK: eagerloadでやる方法がついぞ分からなかったため自分で実装
     # ログイン中のユーザーがユーザーに友達申請しているか判定するflagを追加
     user_ids = users.map(&:id)

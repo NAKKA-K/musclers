@@ -10,7 +10,7 @@ class Group < ApplicationRecord
   validates :description, presence: true, length: { maximum: 4096 }
   validates :is_public, presence: true
 
-  def self.set_group_joined_to(groups, auth_id)
+  def self.set_group_joined_to(groups:, auth_id:)
     # HACK: eagerloadでやる方法がついぞ分からなかったため自分で実装
     # ログイン中のユーザーがグループに参加しているか判定するflagを追加
     group_ids = groups.map(&:id)
