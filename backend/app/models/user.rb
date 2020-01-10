@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   include Confirmable
 
+  attr_accessor :is_friends
+
   has_many :group_users, :dependent => :destroy
   has_many :groups,through: :group_users, :dependent => :destroy
   has_many :group_messages, :dependent => :destroy
@@ -115,8 +117,10 @@ class User < ApplicationRecord
     end
   end
 
-  def self.fetch_user_detail_from(user_id)
-    User.find_by(id: user_id)
+  def self.fetch_user_detail_from(user_id, auth_id:)
+    user = User.find_by(id: user_id)
+    User.set_friend_flag_to(users: [user], auth_id: auth_id)
+    user
   end
 
   def self.search_user_in(params)
@@ -146,5 +150,17 @@ class User < ApplicationRecord
       recommend_user_list += User.search_random_users_limit(20 - list_count)
     end
     recommend_user_list
+  end
+
+  def self.set_friend_flag_to(users:, auth_id:)
+    # HACK: eagerloadでやる方法がついぞ分からなかったため自分で実装
+    # ログイン中のユーザーがユーザーに友達申請しているか判定するflagを追加
+    user_ids = users.map(&:id)
+    friends = Friend
+      .where(user_id: auth_id, target_id: user_ids)
+      .or(Friend.where(user_id: user_ids, target_id: auth_id))
+    users.each do |user|
+      user.is_friends = !!friends.find { |friend| friend.user_id == user.id || friend.target_id == user.id }
+    end
   end
 end

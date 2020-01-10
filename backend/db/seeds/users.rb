@@ -138,7 +138,7 @@ users = [
       figure: 5,
       seriousness: 0,
     },
-    thumbnail: 'https://scontent-sea1-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s750x750/68765671_378962866115886_6540317063799890795_n.jpg?_nc_ht=scontent-sea1-1.cdninstagram.com&oh=e222989717d0ece898555d55bb8a577b&oe=5DFED125&ig_cache_key=MjEyNjIwNDY0ODA3MDI4NjY2Mg%3D%3D.2'
+    thumbnail: 'https://publicdomainq.net/images/201906/04s/publicdomainq-0035055uxb.jpg'
   },
   {
     data:{
