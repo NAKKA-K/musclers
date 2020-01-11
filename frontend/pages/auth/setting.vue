@@ -2,7 +2,7 @@
   <div>
     <h2>マイページ</h2>
 
-    <EditProfileBtn :user="user" @enableEdit="enableEdit($event, value)" />
+    <EditProfileBtn :user="user" @enableEdit="enableEdit($event)" />
 
     <div class="mb-5">
       <img
@@ -275,8 +275,8 @@ export default {
   },
 
   methods: {
-    enableEdit(value) {
-      this.disabled = value
+    enableEdit(event) {
+      this.disabled = event
     },
     setUserPartial(key, value) {
       this.user = { ...this.user, [key]: value }
