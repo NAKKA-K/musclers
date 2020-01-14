@@ -72,7 +72,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/markdownit'
   ],
 
   /**
@@ -144,5 +145,12 @@ export default {
     webpack: {
       poll: true
     }
+  },
+  markdownit: {
+    injected: true,
+    breaks: true,
+    html: false,
+    linkify: false,
+    typography: true
   }
 }
