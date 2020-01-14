@@ -10,56 +10,57 @@
         <v-col
           v-for="user in users"
           :key="user.id"
+          class="my-2"
           cols="12"
           xl="3"
           lg="3"
           md="3"
           sm="3"
         >
-          <v-card
-            class="mx-auto my-4"
-            max-width="374"
-            max-height="530"
-            min-height="530"
+          <nuxt-link
+            :to="{ name: 'users-id', params: { id: user.id } }"
+            class="_no-decoration"
           >
-            <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
-              <v-img
-                height="300"
-                :src="
-                  user.thumbnail ||
-                    'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
-                "
-              ></v-img>
-            </nuxt-link>
-            <v-card-title class="pb-0">
-              <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
-                {{ user.nickname || 'No name' }}
-              </nuxt-link>
-            </v-card-title>
-            <v-card-text class="pb-1">
-              <div class="mb-4 black--text sub-info-text">
-                友達: 9000人<br />本気度: {{ user.seriousness || 'none' }}
-              </div>
-              <div class="card-body-overflow" v-text="user.description"></div>
-            </v-card-text>
+            <v-hover v-slot:default="{ hover }">
+              <v-card class="user-card" :elevation="hover ? 4 : 2">
+                <v-img
+                  class="user-image"
+                  alt="サムネイル"
+                  :src="
+                    user.thumbnail ||
+                      'https://data.ac-illust.com/data/thumbnails/e3/e3879bde102fa55e1b15630f564e7df1_w.jpeg'
+                  "
+                ></v-img>
+                <v-card-title class="user-name pb-0">
+                  {{ user.nickname || 'No name' }}
+                </v-card-title>
+                <v-card-text class="pb-1">
+                  <div class="mb-4 black--text sub-info-text">
+                    友達: 9000人<br />本気度: {{ user.seriousness || 'none' }}
+                  </div>
+                  <div
+                    class="card-body-overflow"
+                    v-text="user.description"
+                  ></div>
+                </v-card-text>
 
-            <div class="text-center">
-              <v-btn
-                color="#1CA1F1"
-                rounded
-                outlined
-                @click.prevent="() => sendFriendRequest(user)"
-              >
-                友達申請する
-              </v-btn>
-            </div>
-          </v-card>
+                <primary-outline-btn
+                  class="mt-4 user-request-btn"
+                  @click.prevent="sendFriendRequest(user)"
+                >
+                  友達申請する
+                </primary-outline-btn>
+              </v-card>
+            </v-hover>
+          </nuxt-link>
         </v-col>
       </v-row>
     </v-list>
     <div v-else>
       ユーザーが存在しません
     </div>
+
+    <paginator :meta="meta" @click="updateUsersPage"></paginator>
 
     <v-snackbar
       v-model="requestFriend"
@@ -77,6 +78,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Paginator from '../../components/Paginator'
+import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
 
 function fetchSearchedUsers({ fetcher, params }) {
   return fetcher.$get(`/api/users`, { params }).catch((err) => {
@@ -91,7 +93,8 @@ function fetchSearchedUsers({ fetcher, params }) {
 
 export default {
   components: {
-    Paginator
+    Paginator,
+    PrimaryOutlineBtn
   },
 
   data: () => ({
@@ -170,7 +173,38 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.user-card {
+  max-width: 374px;
+  max-height: 500px;
+  min-height: 500px;
+
+  > .user-image {
+    height: 250px;
+  }
+  > .user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+  > .user-request-btn {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+.user-card:hover {
+  > .user-name {
+    color: $main-color;
+  }
+  > .user-request-btn:hover:before {
+    opacity: 0.15; // vuetify側のopacityに加算されてる
+  }
+}
+
 .card-body-overflow {
   display: -webkit-box;
   -webkit-box-orient: vertical;

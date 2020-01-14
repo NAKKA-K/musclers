@@ -47,12 +47,15 @@ Rails.application.routes.draw do
     scope :user do
       resources :information, only: [:index]
 
-      resources :direct_message_groups,only: [:index]
+      resources :direct_message_groups,only: [:index, :show]
 
       post '/friends', to: 'friends#requestFriend'
     end
 
-    resources :groups, only: [:index, :show] do
+    resources :groups, only: [:index, :show, :create] do
+      get '/users', to:'group_members#show'
+      get '/messages', to:'group_messages#show'
+
       member do
         post :join
       end

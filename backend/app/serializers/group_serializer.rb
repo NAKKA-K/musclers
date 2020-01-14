@@ -1,6 +1,7 @@
 class GroupSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   include DateHelper
+  include ThumbnailHelper
 
   attributes(
     :id,
@@ -10,15 +11,12 @@ class GroupSerializer < ActiveModel::Serializer
     :tags,
     :thumbnail,
     :created_at,
-    :updated_at
+    :updated_at,
+    :joined
   )
 
   def thumbnail
-    if object.thumbnail.attached?
-      url_for(object.thumbnail)
-    else
-      root_url + "images/noimage.png"
-    end
+    make_thumbnail_url(object.thumbnail)
   end
 
   def created_at

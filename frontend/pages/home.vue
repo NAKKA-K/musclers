@@ -11,9 +11,14 @@
         class="search-placeholder"
         @keyup.enter="onSubmitSearch()"
       ></v-text-field>
-      <v-btn class="ml-2" large color="primary" @click="onSubmitSearch()">
+      <primary-btn
+        class="ml-2"
+        large
+        to="/groups/new"
+        @click="onSubmitSearch()"
+      >
         検索
-      </v-btn>
+      </primary-btn>
       <nuxt-link to="/search" class="ml-2 px-2 search-text">
         もっと詳しく
       </nuxt-link>
@@ -36,9 +41,12 @@
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
     </div>
-    <nuxt-link to="/user_blogs" class="d-inline-block mt-4 search-text">
+    <nuxt-link
+      to="/user_blogs"
+      class="d-inline-block search-text subtitle-1 mt-2"
+    >
       ユーザーブログをもっと見る
-      <v-icon class="blue--text">chevron_right</v-icon>
+      <v-icon>chevron_right</v-icon>
     </nuxt-link>
 
     <h2 class="mt-12 ml-0">新着グループ</h2>
@@ -80,7 +88,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <nuxt-link to="/groups" class="d-inline-block search-text">
+    <nuxt-link to="/groups" class="d-inline-block search-text subtitle-1">
       グループをもっと見る
       <v-icon class="blue--text">chevron_right</v-icon>
     </nuxt-link>
@@ -107,11 +115,18 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
 
 export default {
+  components: {
+    PrimaryBtn
+  },
+
   data: () => ({
     searchQuery: '',
     blogs: [],
+    groups: [],
+    tags: [],
     swiperOption: {
       slidesPerView: 'auto',
       spaceBetween: 0,
@@ -143,7 +158,7 @@ export default {
   },
 
   async asyncData({ $axios }) {
-    const blogs = await $axios.$get('/mock/api/blogs').then((res) => res.data)
+    const blogs = await $axios.$get('/api/blogs').then((res) => res.data)
     const tags = await $axios.$get('/api/tags').then((res) => res.data)
     const groups = await $axios
       .$get('/api/groups')
@@ -169,7 +184,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .search-placeholder {
   font-size: 85%;
 }
@@ -180,8 +195,13 @@ export default {
 
 .search-text {
   font-weight: bold;
-  font-size: 77%;
+  font-size: 70%;
   text-decoration: none;
+  color: $main-color-deep;
+
+  > .v-icon {
+    color: $main-color-deep !important;
+  }
 }
 
 .cell-wrapper {

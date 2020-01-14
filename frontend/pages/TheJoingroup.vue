@@ -3,30 +3,54 @@
   <div align="center">
     <v-container>
       <v-row>
-        <v-col v-for="group in joingroup" :key="group.id" cols="6">
-          <nuxt-link :to="{ name: 'groups-id', params: { id: group.id } }">
+        <v-col
+          v-for="group in groups"
+          :key="group.id"
+          class="link-box"
+          cols="6"
+        >
+          <nuxt-link
+            :to="{ name: 'groups-id', params: { id: group.id } }"
+            class="link-title"
+          >
             <v-img :src="group.thumbnail" class="img-size" />
-            <h4>{{ group.name }}</h4>
+            <p>{{ group.name }}</p>
           </nuxt-link>
         </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
+
 <script>
 export default {
   props: {
-    joingroup: {
-      type: Object,
+    groups: {
+      type: Array,
       default: null
     }
   }
 }
 </script>
-<style>
+
+<style lang="scss" scoped>
 .img-size {
   width: 121px;
   height: 121px;
-  border-radius: 50%;
+}
+.link-box {
+  &:hover {
+    background-color: #eeeeee;
+    border-radius: 15px;
+  }
+
+  .link-title {
+    @extend ._no-decoration;
+    color: black;
+
+    &:hover {
+      @extend ._text-hover;
+    }
+  }
 }
 </style>

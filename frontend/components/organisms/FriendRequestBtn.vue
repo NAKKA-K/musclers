@@ -1,8 +1,16 @@
 <template>
   <div>
-    <v-btn outlined color="blue lighten-1" @click="sendFriendRequest">
+    <primary-btn v-if="isFriends">
+      友達申請済み
+    </primary-btn>
+    <primary-outline-btn
+      v-else
+      large
+      class="user-request-btn"
+      @click="sendFriendRequest"
+    >
       友達申請をする
-    </v-btn>
+    </primary-outline-btn>
 
     <v-snackbar
       v-model="requestFriend"
@@ -18,11 +26,25 @@
 </template>
 
 <script>
+import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
+import PrimaryBtn from '~/components/atoms/PrimaryBtn.vue'
+
 export default {
+  components: {
+    PrimaryOutlineBtn,
+    PrimaryBtn
+  },
+
   props: {
     user: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    isFriends() {
+      return this.user ? this.user.is_friends : false
     }
   },
 
@@ -55,3 +77,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.user-request-btn {
+  font-weight: bold;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 1);
+}
+</style>
