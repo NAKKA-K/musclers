@@ -22,3 +22,10 @@
     </v-footer>
   </div>
 </template>
+
+<style lang="scss" scoped>
+a {
+  color: $main-color-deep;
+  text-decoration: none;
+}
+</style>
