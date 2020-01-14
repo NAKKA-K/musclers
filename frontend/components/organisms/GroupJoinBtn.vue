@@ -37,17 +37,17 @@ export default {
     }
   },
 
-  computed: {
-    isGroupJoined() {
-      return this.group ? this.group.joined : false
-    }
-  },
-
   data: () => ({
     join: false,
     resultJoinType: null,
     resultJoinMessage: null
   }),
+
+  computed: {
+    isGroupJoined() {
+      return this.group ? this.group.joined : false
+    }
+  },
 
   methods: {
     async requestGroupJoin(group) {
