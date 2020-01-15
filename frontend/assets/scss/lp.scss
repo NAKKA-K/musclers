@@ -9,7 +9,7 @@
     url('https://yumiid.com/wp-content/uploads/2018/03/%E7%AD%8B%E3%83%88%E3%83%AC%E3%81%8C%E7%94%B7%E5%A5%B3%E9%96%A2%E4%BF%82%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88-%E3%81%8A%E4%BA%92%E3%81%84%E5%88%87%E7%A3%8B%E7%90%A2%E7%A3%A8%E3%81%A7%E3%81%8D%E3%82%8B.png');
   background-size: cover;
   color: white;
-  font-size: 2.2em;
+  font-size: 1.6em;
   text-shadow: 0px 0px 5px #000;
 
   h1 {
@@ -31,7 +31,7 @@
   }
 
   @media screen and (min-width: 480px) and (max-width: 628px) {
-    font-size: 1.3em;
+    font-size: 1.1em;
     h1 {
       font-size: 36px;
     }
@@ -42,7 +42,7 @@
   }
 
   @media screen and (min-width: 629px) and (max-width: 959px) {
-    font-size: 1.6em;
+    font-size: 1.3em;
     h1 {
       font-size: 52px;
     }
@@ -55,6 +55,8 @@
   .register-wrapper {
     text-align: left;
     a.register-btn {
+      padding: 25px 60px;
+      font-size: 1.5rem;
       background: $trans-main-color !important;
     }
   }
