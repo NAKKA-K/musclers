@@ -42,17 +42,17 @@ export default {
     }
   },
 
-  computed: {
-    isFriends() {
-      return this.user ? this.user.is_friends : false
-    }
-  },
-
   data: () => ({
     requestFriend: false,
     resultRequestType: null,
     resultRequestMessage: null
   }),
+
+  computed: {
+    isFriends() {
+      return this.user ? this.user.is_friends : false
+    }
+  },
 
   methods: {
     async sendFriendRequest() {
