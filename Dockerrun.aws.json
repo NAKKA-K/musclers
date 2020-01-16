@@ -1,0 +1,67 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "volumes": [
+        {
+            "name": "backend_src",
+            "host": {
+                "sourcePath": "/var/app/current/backend"
+            }
+        },
+        {
+            "name": "frontend_src",
+            "host": {
+                "sourcePath": "/var/app/current/frontend"
+            }
+        }
+    ],
+    "containerDefinitions": [
+        {
+            "name": "api",
+            "image": "nakkak/musclers_api:latest",
+            "hostname": "api",
+            "essantial": true,
+            "portMappings": [
+                {
+                    "hostPort": 8080,
+                    "containerPort": 8080
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolumes": "backend_src",
+                    "containerPath": "/backend"
+                }
+            ],
+            "command": [
+                "bash -c",
+                "\"rm -f 'tmp/pids/server.pid' && bundle exec rails s -p 8080 -b '0.0.0.0'\""
+            ]
+        },
+        {
+            "name": "frontend",
+            "image": "nakkak/musclers_frontend:latest",
+            "hostname": "frontend",
+            "essantial": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 3000
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolumes": "frontend_src",
+                    "containerPath": "/frontend"
+                }
+            ],
+            "links": [
+                "api"
+            ],
+            "command": [
+                "npm",
+                "run",
+                "start"
+            ]
+        }
+    ]
+}
