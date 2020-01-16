@@ -163,7 +163,6 @@ export default {
       this.$nextTick(() => {
         const chatLog = document.getElementById('message-box')
         if (!chatLog) return
-        // TODO: これではoverflow:scroll表示されている要素に飛べないっぽい
         chatLog.scrollTop = chatLog.scrollHeight
       })
     },
