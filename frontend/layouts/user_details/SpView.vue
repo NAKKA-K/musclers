@@ -51,7 +51,6 @@
             <friend-request-btn
               block
               outlined
-              class="friend-request-button"
               :user="user"
             ></friend-request-btn>
             <p>{{ user.description }}</p>

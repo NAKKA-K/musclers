@@ -3,7 +3,7 @@ module Api
     skip_before_action :authenticate_user!, only: [:index, :show]
 
     def index
-      search_result_data = User.search_user_in(search_params)
+      search_result_data = User.search_user_in(search_params, auth_id: get_auth_id_or_0)
 
       data = ActiveModel::Serializer::CollectionSerializer.new(
         search_result_data,

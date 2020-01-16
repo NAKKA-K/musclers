@@ -1,14 +1,9 @@
 <template>
   <div>
-    <primary-btn v-if="isFriends">
+    <primary-btn v-if="isFriends" large>
       友達申請済み
     </primary-btn>
-    <primary-outline-btn
-      v-else
-      large
-      class="user-request-btn"
-      @click="sendFriendRequest"
-    >
+    <primary-outline-btn v-else large @click.prevent="sendFriendRequest">
       友達申請をする
     </primary-outline-btn>
 
@@ -80,8 +75,6 @@ export default {
 
 <style lang="scss" scoped>
 .user-request-btn {
-  font-weight: bold;
-  font-size: 16px;
   background-color: rgba(255, 255, 255, 1);
 }
 </style>

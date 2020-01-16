@@ -44,12 +44,10 @@
                   ></div>
                 </v-card-text>
 
-                <primary-outline-btn
-                  class="mt-4 user-request-btn"
-                  @click.prevent="sendFriendRequest(user)"
-                >
-                  友達申請する
-                </primary-outline-btn>
+                <friend-request-btn
+                  :user="user"
+                  class="mt-4 mb-2 user-friend-btn"
+                ></friend-request-btn>
               </v-card>
             </v-hover>
           </nuxt-link>
@@ -61,24 +59,13 @@
     </div>
 
     <paginator :meta="meta" @click="updateUsersPage"></paginator>
-
-    <v-snackbar
-      v-model="requestFriend"
-      :color="resultRequestType"
-      top
-      vertical
-      :timeout="2500"
-    >
-      {{ resultRequestMessage }}
-      <v-btn dark text @click="requestFriend = false">CLOSE</v-btn>
-    </v-snackbar>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Paginator from '../../components/Paginator'
-import PrimaryOutlineBtn from '~/components/atoms/PrimaryOutlineBtn.vue'
+import FriendRequestBtn from '~/components/organisms/FriendRequestBtn.vue'
 
 function fetchSearchedUsers({ fetcher, params }) {
   return fetcher.$get(`/api/users`, { params }).catch((err) => {
@@ -94,15 +81,12 @@ function fetchSearchedUsers({ fetcher, params }) {
 export default {
   components: {
     Paginator,
-    PrimaryOutlineBtn
+    FriendRequestBtn
   },
 
   data: () => ({
     searchQuery: '',
-    users: null,
-    requestFriend: false,
-    resultRequestType: null,
-    resultRequestMessage: null
+    users: null
   }),
 
   computed: {
@@ -144,25 +128,6 @@ export default {
   },
 
   methods: {
-    async sendFriendRequest(user) {
-      await this.$axios
-        .$post(`/api/user/friends`, { user_id: user.id })
-        .then(() => {
-          this.resultRequestMessage = `${user.nickname}さんに友達申請しました`
-          this.resultRequestType = 'info'
-        })
-        .catch((err) => {
-          this.resultRequestType = 'error'
-
-          if (err.response.status === 409) {
-            this.resultRequestMessage = err.response.data.message
-            return
-          }
-
-          this.resultRequestMessage = `友達申請に失敗しました`
-        })
-      this.requestFriend = true
-    },
     updateUsersPage(page) {
       // pageの変更をURLのクエリパラメータに反映
       const parameters = { page }
@@ -177,7 +142,7 @@ export default {
 .user-card {
   max-width: 374px;
   max-height: 500px;
-  min-height: 500px;
+  min-height: 520px;
 
   > .user-image {
     height: 250px;
@@ -190,18 +155,13 @@ export default {
     font-size: 1.1rem;
     max-width: 100%;
   }
-  > .user-request-btn {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+  > .user-friend-btn {
+    text-align: center;
   }
 }
 .user-card:hover {
   > .user-name {
     color: $main-color;
-  }
-  > .user-request-btn:hover:before {
-    opacity: 0.15; // vuetify側のopacityに加算されてる
   }
 }
 
