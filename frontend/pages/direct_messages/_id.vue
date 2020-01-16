@@ -17,7 +17,7 @@
     </v-snackbar>
 
     <v-card max-width="450" class="mx-auto chat-card">
-      <div class="overflow-y-auto messages">
+      <div id="message-box" class="overflow-y-auto messages">
         <template v-for="(item, index) in directMessages">
           <v-list :id="`message-${index}`" :key="index" three-line class="pa-0">
             <v-list-item>
@@ -160,12 +160,12 @@ export default {
       return this.directMessageGroup.by_user
     },
     scrollToEnd() {
-      const chatLog = document.getElementById(
-        `message-${this.directMessages.length - 1}`
-      )
-      if (!chatLog) return
-      // TODO: これではoverflow:scroll表示されている要素に飛べないっぽい
-      chatLog.scrollTop = chatLog.scrollHeight
+      this.$nextTick(() => {
+        const chatLog = document.getElementById('message-box')
+        if (!chatLog) return
+        // TODO: これではoverflow:scroll表示されている要素に飛べないっぽい
+        chatLog.scrollTop = chatLog.scrollHeight
+      })
     },
     sendMessage(e) {
       // 日本語変換でもkeydownが発火してしまうため処理で制御
