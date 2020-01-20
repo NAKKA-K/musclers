@@ -1,0 +1,66 @@
+.card-body-overflow {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  min-height: 5em;
+}
+.sub-info-text {
+  font-size: 14px;
+}
+
+.group-page-header {
+  display: flex;
+}
+
+.group-search-form {
+  display: flex;
+  align-items: center;
+
+  > .v-input--is-focused.search-box {
+    color: $main-color-deep !important;
+    caret-color: $main-color-deep !important;
+  }
+
+  > .search-text {
+    font-weight: bold;
+    font-size: 77%;
+    text-decoration: none;
+    color: $main-color-deep;
+  }
+}
+
+@media screen and (max-width: 599px){
+  .group-card {
+    max-width: 137px;
+    max-height: 300px;
+    min-height: 150px;
+  
+    > .group-image {
+      height: 100px;
+    }
+    > .group-name {
+      font-size: 1.1rem;
+    }
+  }  
+}  
+
+@media screen and (min-width: 600px){
+  .group-card {
+    max-width: 374px;
+    max-height: 550px;
+    min-height: 450px;
+
+    > .group-image {
+      height: 200px;
+    }
+    > .group-name {
+      font-size: 1.1rem;
+    }
+  }
+}
+.group-card:hover {
+  > .group-name {
+    color: $main-color;
+  }
+}
