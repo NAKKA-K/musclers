@@ -46,6 +46,7 @@ export default {
     '~/plugins/axios.js',
     '~/plugins/vuelidate.js',
     '~/plugins/queryParamsUpdater.js',
+    '~plugins/vue-scrollto',
     { src: '~/plugins/swiper.js', ssr: false },
     { src: '~/plugins/actioncable.js', ssr: false }
   ],
