@@ -29,43 +29,49 @@
       background-color="transparent"
       color="#f48009"
     >
-      <v-tab v-for="(item, index) in tabs" :key="index">
+      <v-tab
+        v-for="(item, index) in tabs"
+        :key="index"
+        v-scroll-to="'.group-tabs'"
+      >
         {{ item }}
       </v-tab>
 
-      <v-tabs-items v-model="tab" class="mt-6">
+      <v-tabs-items v-model="tab" class="mt-6 group-tabs">
         <v-tab-item class="flat-background">
           <h5 class="mb-2">概要</h5>
           <p style="white-space: pre-wrap;">{{ group.description }}</p>
         </v-tab-item>
         <v-tab-item class="flat-background">
-          <template v-for="(item, index) in messages">
-            <v-list
-              :id="`message-${index}`"
-              :key="index"
-              three-line
-              class="pa-0 flat-background"
-            >
-              <v-list-item>
-                <v-list-item-avatar>
-                  <v-img :src="item.send_user.thumbnail"></v-img>
-                </v-list-item-avatar>
+          <div id="message-box" class="overflow-y-auto messages">
+            <template v-for="(item, index) in messages">
+              <v-list
+                :id="`message-${index}`"
+                :key="index"
+                three-line
+                class="pa-0 flat-background"
+              >
+                <v-list-item>
+                  <v-list-item-avatar>
+                    <v-img :src="item.send_user.thumbnail"></v-img>
+                  </v-list-item-avatar>
 
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ item.send_user.nickname || 'unknown' }}
-                    <span class="grey--text text--lighten-1">
-                      {{ item.updated_at }}
-                    </span>
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="d-block">
-                    {{ item.body }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </template>
-          <v-col cols="12" class="mt-12 chat-message-box">
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{ item.send_user.nickname || 'unknown' }}
+                      <span class="grey--text text--lighten-1">
+                        {{ item.updated_at }}
+                      </span>
+                    </v-list-item-title>
+                    <v-list-item-subtitle class="d-block">
+                      {{ item.body }}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </template>
+          </div>
+          <v-col cols="12" class="mt-2 chat-message-box">
             <v-text-field
               v-model="message"
               outlined
@@ -196,14 +202,22 @@ export default {
         }
       }
     )
-
-    // this.groupMessageChannel.unsubscribe()
+  },
+  updated() {
+    this.scrollToEnd()
   },
   destroyed() {
     this.groupMessageChannel.unsubscribe()
     this.$cable.disconnect()
   },
   methods: {
+    scrollToEnd() {
+      this.$nextTick(() => {
+        const chatLog = document.getElementById('message-box')
+        if (!chatLog) return
+        chatLog.scrollTop = chatLog.scrollHeight
+      })
+    },
     sendMessage(e) {
       // 日本語変換でもkeydownが発火してしまうため処理で制御
       if (e.type !== 'click' && e.keyCode !== 13) return
@@ -231,5 +245,9 @@ export default {
 
 .flat-background {
   background-color: rgb(250, 250, 250) !important;
+}
+
+.messages {
+  height: 75vh;
 }
 </style>
