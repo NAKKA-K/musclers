@@ -51,16 +51,20 @@ class Api::BlogsController < ApplicationController
             success_res(
                 200,
                 message: 'ブログを新規作成しました',
-                data: @blog,
             ) and return
-        rescue ActiveRecord::RecordInvalid => e
+        rescue ActiveRecord::NotNullViolation => e
             #バリデーションエラー
             error_res(
-                422, 
-                message: '入力内容が正しくありません', 
-                err: '入力内容が正しくありません', 
+                400, 
+                message: '値を入力してください',
+                err: '値を入力してください',
             ) and return
-          
+        rescue ActiveRecord::RecordInvalid => e
+            error_res(
+                422, 
+                message: "入力内容が正しくありません",
+                err: e.record.errors 
+            ) and return
         rescue => e
             logger.error(e)
             error_res(
@@ -75,7 +79,8 @@ class Api::BlogsController < ApplicationController
 
     #送られてきたデータを正しく受け取るためのメソッド
     def blog_params
-        params.permit(:title, :body, :thumbnail)
+        params.fetch(:blog, {}).permit(:title, :body)
+
     end
 
 

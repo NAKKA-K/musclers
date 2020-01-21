@@ -57,7 +57,7 @@ describe 'ブログのAPI', type: :request do
 
         context 'ユーザーが非ログイン時の場合' do
             it 'ログインしてしません' do
-                patch api_user_path(@user.id)
+                post api_blogs_path(@user.id)
                 expect(response).to have_http_status(401)
             end
         end
@@ -65,8 +65,27 @@ describe 'ブログのAPI', type: :request do
         context 'ブログの内容が空白、空文字の場合' do
             it 'ブログの内容が空です' do
                 post api_blogs_path, headers: @headers
+                err_data = JSON.parse(response.body)
+                expect(response).to have_http_status(400)
+                expect(err_data['message']).to eq '値を入力してください'
+            end
+        end
+
+        context 'ブログの内容がバリデーションエラーの場合' do
+            it 'ブログの内容がバリデーションエラーです' do
+                post api_blogs_path, headers: @headers
+                err_data = JSON.parse(response.body)
                 expect(response).to have_http_status(422)
-                expect(JSON.parse(response.body)['message']).to eq '入力内容が正しくありません'
+                expect(err_data['message']).to eq '入力内容が正しくありません'
+            end
+        end
+
+        context 'サーバーのエラーの場合' do
+            it 'サーバーのエラーです' do
+                post api_blogs_path, headers: @headers
+                err_data = JSON.parse(response.body)
+                expect(response).to have_http_status(500)
+                expect(err_data['message']).to eq '新規作成に失敗しました'
             end
         end
 
