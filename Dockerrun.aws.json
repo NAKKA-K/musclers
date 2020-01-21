@@ -29,7 +29,7 @@
             ],
             "mountPoints": [
                 {
-                    "sourceVolumes": "backend_src",
+                    "sourceVolume": "backend_src",
                     "containerPath": "/backend"
                 }
             ],
@@ -54,7 +54,7 @@
             ],
             "mountPoints": [
                 {
-                    "sourceVolumes": "frontend_src",
+                    "sourceVolume": "frontend_src",
                     "containerPath": "/frontend"
                 }
             ],
