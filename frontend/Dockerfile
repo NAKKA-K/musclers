@@ -14,4 +14,4 @@ RUN npm install
 COPY . .
 
 RUN chmod +x scripts/npm_start_server.sh
-CMD bash scripts/npm_start_server.sh
+CMD ["ash", "scripts/npm_start_server.sh"]
