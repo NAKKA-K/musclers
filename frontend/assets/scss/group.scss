@@ -30,6 +30,19 @@
   }
 }
 
+.group-card {
+  max-width: 374px;
+  max-height: 550px;
+  min-height: 450px;
+
+  > .group-image {
+    height: 200px;
+  }
+  > .group-name {
+    font-size: 1.1rem;
+  }
+}
+
 @include smart-vertical {
   .group-card {
     max-width: 100vw;
@@ -78,21 +91,6 @@
 @include small-pc {
   .group-card {
     max-width: 33vw;
-    max-height: 550px;
-    min-height: 450px;
-
-    > .group-image {
-      height: 200px;
-    }
-    > .group-name {
-      font-size: 1.1rem;
-    }
-  }
-}
-
-@include normal-pc {
-  .group-card {
-    max-width: 374px;
     max-height: 550px;
     min-height: 450px;
 
