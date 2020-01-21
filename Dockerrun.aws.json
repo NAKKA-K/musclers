@@ -20,6 +20,7 @@
             "image": "nakkak/musclers_api:latest",
             "hostname": "api",
             "essantial": true,
+            "memory": 512,
             "portMappings": [
                 {
                     "hostPort": 8080,
@@ -44,6 +45,7 @@
             "image": "nakkak/musclers_frontend:latest",
             "hostname": "frontend",
             "essantial": true,
+            "memory": 256,
             "portMappings": [
                 {
                     "hostPort": 80,
