@@ -50,6 +50,7 @@ deploy: deploy_docker_build deploy_nuxt_build
 	docker login -u $(DOCKER_HUB_USER)
 	docker push $(DOCKER_HUB_USER)/musclers_frontend
 	docker push $(DOCKER_HUB_USER)/musclers_api
+	eb deploy
 
 .PHONY: mock/*
 

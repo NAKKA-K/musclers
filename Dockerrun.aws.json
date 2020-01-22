@@ -19,8 +19,7 @@
             "name": "api",
             "image": "nakkak/musclers_api:latest",
             "hostname": "api",
-            "essantial": true,
-            "memory": 512,
+            "memory": 750,
             "portMappings": [
                 {
                     "hostPort": 8080,
@@ -44,8 +43,7 @@
             "name": "frontend",
             "image": "nakkak/musclers_frontend:latest",
             "hostname": "frontend",
-            "essantial": true,
-            "memory": 256,
+            "memory": 200,
             "portMappings": [
                 {
                     "hostPort": 80,
@@ -78,15 +76,6 @@
                     "name": "WS_URL",
                     "value": "ws://musclers-env.txqs5vk4mh.us-east-1.elasticbeanstalk.com/cable"
                 }
-            ],
-            "command": [
-                "npm",
-                "run",
-                "build",
-                "&&",
-                "npm",
-                "run",
-                "start"
             ]
         }
     ]
