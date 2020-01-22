@@ -76,6 +76,11 @@
                     "name": "WS_URL",
                     "value": "ws://musclers-env.txqs5vk4mh.us-east-1.elasticbeanstalk.com/cable"
                 }
+            ],
+            "command": [
+                "npm",
+                "run",
+                "start"
             ]
         }
     ]
