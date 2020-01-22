@@ -43,10 +43,7 @@ deploy_docker_build: ./frontend/package.json ./backend/Gemfile
 	docker build -t $(DOCKER_HUB_USER)/musclers_frontend ./frontend
 	docker build -t $(DOCKER_HUB_USER)/musclers_api ./backend
 
-deploy_nuxt_build:
-	cd frontend/ && npm run build && cd -
-
-deploy: deploy_docker_build deploy_nuxt_build
+deploy: deploy_docker_build
 	docker login -u $(DOCKER_HUB_USER)
 	docker push $(DOCKER_HUB_USER)/musclers_frontend
 	docker push $(DOCKER_HUB_USER)/musclers_api
