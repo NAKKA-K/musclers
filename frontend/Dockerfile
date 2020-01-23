@@ -9,7 +9,7 @@ RUN apk update &&\
 
 COPY package*.json ./
 
-RUN npm install && npm cache clean --force
+RUN npm cache clean --force && npm install
 
 COPY . .
 
