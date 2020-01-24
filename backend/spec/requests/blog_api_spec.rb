@@ -49,7 +49,15 @@ describe 'ブログのAPI', type: :request do
 
     describe 'ブログの新規作成機能' do
         before do
+            @blog = create(:blog)
             @user = create(:user)
+            @params = {
+                blog: {
+                    title: @blog.title,
+                    body: @blog.body,
+                    user_id: @user.id
+                }
+            }
             @headers = {
                 'Authorization' => @user.access_token
             }
@@ -61,37 +69,34 @@ describe 'ブログのAPI', type: :request do
                 expect(response).to have_http_status(401)
             end
         end
-  
-        context 'ブログの内容が空白、空文字の場合' do
-            it 'ブログの内容が空です' do
-                post api_blogs_path, headers: @headers
-                err_data = JSON.parse(response.body)
-                expect(response).to have_http_status(400)
-                expect(err_data['message']).to eq '値を入力してください'
-            end
-        end
-
-        context 'ブログの内容がバリデーションエラーの場合' do
-            it 'ブログの内容がバリデーションエラーです' do
-                post api_blogs_path, headers: @headers
+        
+        context 'ブログのタイトルが空の場合' do
+            it 'ブログのタイトルが空白です' do
+                @params[:blog][:title] = " "
+                post api_blogs_path(@user.id), params: @params, headers: @headers
                 err_data = JSON.parse(response.body)
                 expect(response).to have_http_status(422)
                 expect(err_data['message']).to eq '入力内容が正しくありません'
+                expect(err_data['errors'][0]['message']['title'][0]).to eq 'ブログのタイトルを入力してください'
             end
         end
 
-        context 'サーバーのエラーの場合' do
-            it 'サーバーのエラーです' do
-                post api_blogs_path, headers: @headers
+        context 'ブログの内容が空の場合' do
+            it 'ブログの内容が空白です' do
+                @params[:blog][:body] = " "
+                post api_blogs_path(@user.id), params: @params, headers: @headers
                 err_data = JSON.parse(response.body)
-                expect(response).to have_http_status(500)
-                expect(err_data['message']).to eq '新規作成に失敗しました'
+                expect(response).to have_http_status(422)
+                expect(err_data['message']).to eq '入力内容が正しくありません'
+                expect(err_data['errors'][0]['message']['body'][0]).to eq 'ブログの内容を入力してください'
             end
         end
 
         context 'ブログが新規作成された場合' do
             it 'ブログの新規作成に成功' do
-                post api_blogs_path, headers: @headers
+                post api_blogs_path(@user.id), params: @params, headers: @headers
+                #@postblog = JSON.parse(response.body)
+                #expect{ puts @postblog }.to output(@postblog).to_stdout
                 expect(response).to have_http_status(200)
                 expect(JSON.parse(response.body)['message']).to eq 'ブログを新規作成しました'
             end

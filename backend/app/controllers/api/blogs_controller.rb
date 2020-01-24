@@ -52,13 +52,6 @@ class Api::BlogsController < ApplicationController
                 200,
                 message: 'ブログを新規作成しました',
             ) and return
-        rescue ActiveRecord::NotNullViolation => e
-            #バリデーションエラー
-            error_res(
-                400, 
-                message: '値を入力してください',
-                err: '値を入力してください',
-            ) and return
         rescue ActiveRecord::RecordInvalid => e
             error_res(
                 422, 
