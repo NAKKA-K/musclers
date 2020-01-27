@@ -19,7 +19,7 @@ export default {
 
     try {
       const res = await this.$axios.$post('/api/auth/sign_in', postData)
-      this.$store.dispatch('auth/setCurrentUser', { user: res.data })
+      this.$store.dispatch('authentication/setCurrentUser', { user: res.data })
       if (
         res.data.email === '' ||
         res.data.email === null ||

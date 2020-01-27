@@ -29,7 +29,7 @@
         @click.stop="drawer = !drawer"
       />
       <v-toolbar-title>
-        <nuxt-link v-if="currentUser" to="/auth/mypage" class="header-title">
+        <nuxt-link v-if="currentUser" to="/home" class="header-title">
           Muscler's
         </nuxt-link>
         <nuxt-link v-else to="/" class="header-title">Muscler's</nuxt-link>
@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentUser: 'auth/currentUser'
+      currentUser: 'authentication/currentUser'
     })
   },
   data: () => ({

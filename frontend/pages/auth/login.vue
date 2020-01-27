@@ -8,7 +8,7 @@
             <v-card class="elevation-12" style="height: 130%">
               <v-card-title primary-title margin-bottom class="justify-center">
                 <p class="display-3 text--primary font-weight-black">
-                  Musclers
+                  Muscler's
                 </p>
               </v-card-title>
               <v-card-actions primary-title class="justify-center">
@@ -62,8 +62,12 @@ export default {
       this.$axios
         .$get('/api/debug_login')
         .then((response) => {
-          this.$store.dispatch('auth/setCurrentUser', { user: response.data })
-          this.$store.dispatch('auth/setDebugLoggedIn', { flag: true })
+          this.$store.dispatch('authentication/setCurrentUser', {
+            user: response.data
+          })
+          this.$store.dispatch('authentication/setDebugLoggedIn', {
+            flag: true
+          })
           this.$router.push('/home')
         })
         .catch((error) => {
