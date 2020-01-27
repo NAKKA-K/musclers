@@ -65,9 +65,7 @@ export default {
           this.$store.dispatch('authentication/setCurrentUser', {
             user: response.data
           })
-          this.$store.dispatch('authentication/setDebugLoggedIn', {
-            flag: true
-          })
+          this.$auth.setUser(response.data)
           this.$router.push('/home')
         })
         .catch((error) => {

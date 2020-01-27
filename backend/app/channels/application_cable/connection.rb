@@ -8,7 +8,7 @@ module ApplicationCable
  
     private
       def find_verified_user
-        token = JSON.parse(cookies[:musclers])['auth']['currentUser']['id']
+        token = JSON.parse(cookies[:musclers])['authentication']['currentUser']['id']
 
         if verified_user = User.find_by(id: token)
           verified_user
