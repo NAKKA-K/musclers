@@ -41,4 +41,40 @@ class Api::BlogsController < ApplicationController
         end
     end
 
+   #ブログの新先登録アクション
+   def create
+        #例外判定
+        begin
+            #Blogオブジェクトの作成時にuser_idを付与する
+            @blog = Blog.create!(blog_params.merge(user_id: current_user.id))
+            #正しく作成
+            success_res(
+                200,
+                message: 'ブログを新規作成しました',
+            ) and return
+        rescue ActiveRecord::RecordInvalid => e
+            error_res(
+                422, 
+                message: "入力内容が正しくありません",
+                err: e.record.errors 
+            ) and return
+        rescue => e
+            logger.error(e)
+            error_res(
+                500, 
+                message: '新規作成に失敗しました',
+                err: '新規作成に失敗しました',
+            ) and return
+        end
+    end
+
+    private
+
+    #送られてきたデータを正しく受け取るためのメソッド
+    def blog_params
+        params.fetch(:blog, {}).permit(:title, :body)
+
+    end
+
+
 end
