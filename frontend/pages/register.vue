@@ -68,7 +68,7 @@ export default {
         return
       }
 
-      const user = this.$store.getters['auth/currentUser']
+      const user = this.$store.getters['authentication/currentUser']
       const postData = {
         id: user.id,
         email: this.email

@@ -1,6 +1,6 @@
 export default function({ $axios, store }) {
   $axios.onRequest((config) => {
-    const token = store.getters['auth/token']
+    const token = store.getters['authentication/token']
     if (token) {
       config.headers.common.Authorization = token
     }

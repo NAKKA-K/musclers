@@ -91,7 +91,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      currentUser: 'auth/currentUser'
+      currentUser: 'authentication/currentUser'
     }),
     getOpponent() {
       if (this.currentUser.id !== this.directMessageGroup.to_user.id) {

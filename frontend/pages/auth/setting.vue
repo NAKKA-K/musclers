@@ -283,7 +283,7 @@ export default {
   },
 
   asyncData({ store }) {
-    const user = store.getters['auth/currentUser']
+    const user = store.getters['authentication/currentUser']
     if (!user) return
 
     const data = { user }
@@ -356,7 +356,9 @@ export default {
       const currentUser = await this.$axios
         .$get('/api/auth/user')
         .then((res) => res.data)
-      this.$store.dispatch('auth/setCurrentUser', { user: currentUser })
+      this.$store.dispatch('authentication/setCurrentUser', {
+        user: currentUser
+      })
 
       this.disabled = true
     }
