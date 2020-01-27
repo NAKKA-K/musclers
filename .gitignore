@@ -66,4 +66,3 @@ $RECYCLE.BIN/
 !.elasticbeanstalk/.gitkeep
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-.ebextensions/*
