@@ -12,8 +12,12 @@
         </v-btn>
       </template>
       <v-card>
-        <h4 class="font-weight-thin title-position">通知</h4>
-        <div v-for="information in limitedInformation" :key="information.id">
+        <h5 class="font-weight-thin title-position">通知</h5>
+        <div
+          v-for="information in limitedInformation"
+          :key="information.id"
+          class="content-items"
+        >
           <span class="font-weight-thin">
             <v-avatar class="img-small">
               <v-img :src="information.thumbnail" />
@@ -96,9 +100,9 @@ export default {
       if (this.currentUser.provider === 'facebook') {
         this.$auth.logout()
       } else {
-        this.$store.dispatch('auth/setDebugLoggedIn', { flag: false })
+        this.$store.dispatch('authentication/setDebugLoggedIn', { flag: false })
       }
-      this.$store.dispatch('auth/logout')
+      this.$store.dispatch('authentication/logout')
       this.$router.push('/')
     }
   }
@@ -110,23 +114,28 @@ export default {
   margin: 0px 10px 0px 0px;
   vertical-align: middle;
 }
-.text-position {
-  margin: 5px 0px;
-}
 .img-small {
   width: 30px;
   height: 30px;
 }
-.card-size {
-  width: 150%;
-  height: 150%;
-}
 .title-position {
   background-color: #ededed;
   margin-bottom: 5px;
+  padding: 10.8px 10px;
+  margin: 5px 0px;
+}
+.title-position h5 {
+  font-size: 15px;
 }
 .foot-position {
   background-color: #ededed;
   margin-top: 5px;
+  padding: 10.8px 0;
+}
+.foot-position h5 {
+  font-size: 15px;
+}
+.content-items {
+  padding: 3px 14px;
 }
 </style>

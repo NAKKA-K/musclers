@@ -46,6 +46,7 @@ export default {
     '~/plugins/axios.js',
     '~/plugins/vuelidate.js',
     '~/plugins/queryParamsUpdater.js',
+    '~plugins/vue-scrollto',
     { src: '~/plugins/swiper.js', ssr: false },
     { src: '~/plugins/actioncable.js', ssr: false }
   ],
@@ -76,7 +77,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/markdownit'
   ],
 
   /**
@@ -148,5 +150,12 @@ export default {
     webpack: {
       poll: true
     }
+  },
+  markdownit: {
+    injected: true,
+    breaks: true,
+    html: false,
+    linkify: false,
+    typography: true
   }
 }

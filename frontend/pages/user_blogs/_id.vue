@@ -10,9 +10,7 @@
       </v-btn>
     </template>
 
-    <p class="mt-12 mx-6 blog-body">
-      {{ blog.body }}
-    </p>
+    <div v-html="$md.render(blog.body)"></div>
   </div>
 </template>
 

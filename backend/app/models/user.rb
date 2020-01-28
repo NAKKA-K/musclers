@@ -123,11 +123,11 @@ class User < ApplicationRecord
     user
   end
 
-  def self.search_user_in(params)
+  def self.search_user_in(params, auth_id:)
     # TODO: Sprint1の段階ではキーワードを無視して検索
     page = params[:page] ? params[:page] : 1
     per_page = params[:per_page] ? params[:per_page] : 20
-    User.page(page).per(per_page)
+    users = User.page(page).per(per_page)
       .search_by_keywords_or_all(params[:keywords])
       .where_seriousness_or_all(params[:seriousness])
       .where_gender_or_all(params[:gender])
@@ -136,6 +136,9 @@ class User < ApplicationRecord
       .where_between_weight_or_all(params[:weightMin], params[:weightMax])
       .where_between_height_or_all(params[:heightMin], params[:heightMax])
       .with_attached_thumbnail
+
+    User.set_friend_flag_to(users: users, auth_id: auth_id)
+    users
   end
 
   def self.find_for_oauth(auth)

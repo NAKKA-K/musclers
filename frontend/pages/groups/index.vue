@@ -46,8 +46,8 @@
           cols="12"
           xl="3"
           lg="3"
-          md="3"
-          sm="3"
+          md="4"
+          sm="6"
         >
           <nuxt-link
             :to="{ name: 'groups-id', params: { id: group.id } }"
@@ -146,53 +146,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-body-overflow {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  min-height: 5em;
-}
-.sub-info-text {
-  font-size: 14px;
-}
-
-.group-page-header {
-  display: flex;
-}
-
-.group-search-form {
-  display: flex;
-  align-items: center;
-
-  > .v-input--is-focused.search-box {
-    color: $main-color-deep !important;
-    caret-color: $main-color-deep !important;
-  }
-
-  > .search-text {
-    font-weight: bold;
-    font-size: 77%;
-    text-decoration: none;
-    color: $main-color-deep;
-  }
-}
-
-.group-card {
-  max-width: 374px;
-  max-height: 550px;
-  min-height: 450px;
-
-  > .group-image {
-    height: 200px;
-  }
-  > .group-name {
-    font-size: 1.1rem;
-  }
-}
-.group-card:hover {
-  > .group-name {
-    color: $main-color;
-  }
-}
+@import '~/assets/scss/group.scss';
 </style>

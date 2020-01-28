@@ -33,7 +33,7 @@ export default {
   middleware: 'auth',
 
   computed: {
-    ...mapGetters({ currentUser: 'auth/currentUser' })
+    ...mapGetters({ currentUser: 'authenticationauth/currentUser' })
   },
 
   methods: {
