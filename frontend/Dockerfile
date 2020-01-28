@@ -9,8 +9,8 @@ RUN apk update &&\
 
 COPY package*.json ./
 
-RUN npm cache clean --force && npm install
-
+RUN npm ci
 COPY . .
 
+RUN npm run build
 CMD npm run start
