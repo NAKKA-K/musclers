@@ -10,3 +10,5 @@ RUN apk update &&\
 COPY package*.json ./
 
 COPY . .
+
+RUN npm install

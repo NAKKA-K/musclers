@@ -17,7 +17,7 @@
     "containerDefinitions": [
         {
             "name": "api",
-            "image": "nakkak/musclers_api:latest",
+            "image": "samuraiyade361/musclers_api:latest",
             "hostname": "api",
             "memory": 450,
             "portMappings": [
@@ -41,7 +41,7 @@
         },
         {
             "name": "frontend",
-            "image": "nakkak/musclers_frontend:latest",
+            "image": "samuraiyade361/musclers_frontend:latest",
             "hostname": "frontend",
             "memory": 450,
             "portMappings": [
