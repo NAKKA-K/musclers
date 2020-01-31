@@ -6,18 +6,12 @@
             "host": {
                 "sourcePath": "/var/app/current/backend"
             }
-        },
-        {
-            "name": "frontend_src",
-            "host": {
-                "sourcePath": "/var/app/current/frontend"
-            }
         }
     ],
     "containerDefinitions": [
         {
             "name": "api",
-            "image": "nakkak/musclers_api:latest",
+            "image": "samuraiyade361/musclers_api:latest",
             "hostname": "api",
             "memory": 450,
             "portMappings": [
@@ -41,19 +35,13 @@
         },
         {
             "name": "frontend",
-            "image": "nakkak/musclers_frontend:latest",
+            "image": "samuraiyade361/musclers_frontend:latest",
             "hostname": "frontend",
             "memory": 450,
             "portMappings": [
                 {
                     "hostPort": 80,
                     "containerPort": 3000
-                }
-            ],
-            "mountPoints": [
-                {
-                    "sourceVolume": "frontend_src",
-                    "containerPath": "/frontend"
                 }
             ],
             "links": [
