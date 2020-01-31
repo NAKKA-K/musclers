@@ -54,7 +54,7 @@
                 },
                 {
                     "name": "API_URL",
-                    "value": "http://musclers-dev.ap-northeast-1.elasticbeanstalk.com:8080/"
+                    "value": "http://api:8080/"
                 },
                 {
                     "name": "API_URL_BROWSER",
