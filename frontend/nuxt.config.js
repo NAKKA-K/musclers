@@ -103,8 +103,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.API_URL
-    // browserBaseURL: process.env.API_URL_BROWSER
+    baseURL: process.env.API_URL,
+    browserBaseURL: process.env.API_URL_BROWSER
   },
 
   /*
