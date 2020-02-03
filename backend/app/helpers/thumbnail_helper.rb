@@ -5,7 +5,7 @@ module ThumbnailHelper
     if thumbnail.attached?
       url_for(thumbnail)
     else
-      root_url + "images/noimage.png"
+      "https://elasticbeanstalk-ap-northeast-1-156811864214.s3-ap-northeast-1.amazonaws.com/noimage.png"
     end
   end
 end
