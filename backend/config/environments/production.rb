@@ -84,5 +84,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   host = 'musclers.net:8080'
+  Rails.application.routes.default_url_options[:protocol] = 'https'
   Rails.application.routes.default_url_options[:host] = host
 end
