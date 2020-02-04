@@ -1,17 +1,75 @@
 <template>
-  <div>
+  <div class="policy-wrapper policy-frame policy-content">
     <h1>プライバシーポリシー</h1>
+    <p>
+      Muscler's運営チーム(以下「運営チーム」といいます。)は、個人情報保護の重要性について認識し、個人情報の保護に関する法律(以下「個人情報保護法」といいます。)を遵守すると共に、ご本人の個人情報を、以下のプライバシーポリシー(以下「本プライバシーポリシー」といいます。)
+      に従い、適切に取扱います。
+    </p>
 
-    <in-development-card></in-development-card>
+    <h2 class="mt-12">1.個人情報の利用目的</h2>
+    <p>
+      当サイトでは、お問い合わせ、アカウント登録などの際に、名前（ユーザーネーム）、メールアドレス等の個人情報をご登録いただく場合がございます。これらの個人情報は質問に対する回答や必要な情報を電子メールなどをでご連絡する場合に利用させていただくものであり、個人情報をご提供いただく際の目的以外では利用いたしません。
+    </p>
+
+    <h2 class="mt-12">2.個人情報の第三者への開示</h2>
+    <p>
+      当サイトでは、個人情報は適切に管理し、以下に該当する場合を除いて第三者に開示することはありません。
+    </p>
+    <ul>
+      <li>本人のご了解がある場合</li>
+      <li>法令等への協力のため、開示が必要となる場合</li>
+    </ul>
+    <p>
+      ご本人からの個人データの開示、訂正、追加、削除、利用停止のご希望の場合には、ご本人であることを確認させていただいた上、速やかに対応させていただきます。
+    </p>
+
+    <h2 class="mt-12">3.免責事項</h2>
+    <p>
+      当サイトからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。当サイトのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
+    </p>
+
+    <h2 class="mt-12">4.プライバシーポリシーの変更について</h2>
+    <p>
+      当サイトは、個人情報に関して適用される日本の法令を遵守するとともに、本ポリシーの内容を適宜見直しその改善に努めます。修正された最新のプライバシーポリシーは常に本ページにて開示されます。
+    </p>
+
+    <v-layout class="justify-end mt-12">
+      <p>
+        2020年2月4日 施行
+        <br />
+        <del>2020年2月4日 改定</del>
+      </p>
+      <p>以上</p>
+    </v-layout>
   </div>
 </template>
 
-<script>
-import InDevelopmentCard from '~/components/organisms/InDevelopmentCard.vue'
+<style lang="scss" scoped>
+.policy-wrapper {
+  max-width: 880px;
+  width: 100%;
+  margin: 50px auto 70px;
+  padding: 15px 3%;
 
-export default {
-  components: {
-    InDevelopmentCard
+  @include normal-pc {
+    padding: 15px 30px;
   }
 }
-</script>
+
+.policy-frame {
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(219, 219, 219);
+  border-image: initial;
+  border-radius: 3px;
+}
+
+.policy-content {
+  padding: 50px 5%;
+  background-color: white;
+
+  @include normal-pc {
+    padding: 55px;
+  }
+}
+</style>
