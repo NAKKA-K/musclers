@@ -104,7 +104,7 @@ export default {
    */
   axios: {
     baseURL: process.env.API_URL,
-    browserBaseURL: process.env.API_URL_BROWSER
+    browserBaseURL: process.env.API_URL_BROWSER || "https://musclers.net:8080/"
   },
 
   /*
