@@ -58,7 +58,7 @@
                 },
                 {
                     "name": "API_URL_BROWSER",
-                    "value": "'https://musclers.net:8080/'"
+                    "value": "https://musclers.net:8080/"
                 },
                 {
                     "name": "WS_URL",
