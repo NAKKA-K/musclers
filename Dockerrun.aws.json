@@ -58,11 +58,11 @@
                 },
                 {
                     "name": "API_URL_BROWSER",
-                    "value": "'http://musclers.net:8080/'"
+                    "value": "'https://musclers.net:8080/'"
                 },
                 {
                     "name": "WS_URL",
-                    "value": "ws://musclers.net:8080/cable"
+                    "value": "wss://musclers.net:8080/cable"
                 }
             ],
             "command": [
