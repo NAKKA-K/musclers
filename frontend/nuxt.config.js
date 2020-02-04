@@ -150,5 +150,6 @@ export default {
     html: false,
     linkify: false,
     typography: true
-  }
+  },
+  serverMiddleware: ['redirect-ssl']
 }
