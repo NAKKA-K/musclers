@@ -11,7 +11,10 @@ COPY package*.json ./
 
 RUN npm install
 COPY . .
-#RUN npm run build
 
-RUN chmod +x scripts/start_server.sh
-CMD ash scripts/start_server.sh
+ARG facebook_app
+ENV FACEBOOK_APP=$facebook_app
+RUN npm run build
+ENV FACEBOOK_APP=' '
+
+CMD ["npm","run","start"]
