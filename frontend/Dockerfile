@@ -12,3 +12,6 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
+
+RUN chmod +x scripts/start_server.sh
+CMD ash scripts/start_server.sh
