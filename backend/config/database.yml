@@ -25,4 +25,8 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: <%= Rails.application.credentials.aws[:rds_db_name] %>
+  username: <%= Rails.application.credentials.aws[:rds_user] %>
+  password: <%= Rails.application.credentials.aws[:rds_password] %>
+  host: <%= Rails.application.credentials.aws[:rds_host] %>
+  port: <%= Rails.application.credentials.aws[:rds_port] %>

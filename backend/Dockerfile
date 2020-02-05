@@ -10,6 +10,9 @@ WORKDIR /backend
 COPY Gemfile ./
 COPY Gemfile.lock ./
 
-RUN bundle install
+RUN bundle install --without development test
 
 COPY . .
+
+RUN chmod +x scripts/start_server.sh
+CMD bash scripts/start_server.sh

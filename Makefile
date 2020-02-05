@@ -1,4 +1,6 @@
-.PHONY: setenv reinit init run down ps migrate lintfix railsc test
+DOCKER_HUB_USER := nakkak
+
+.PHONY: setenv reinit init run down ps migrate lintfix railsc test deploy deploy_docker_build deploy_nuxt_build
 
 setenv: environments
 	cp environments/.env ./
@@ -36,6 +38,16 @@ railsc:
 
 test:
 	docker-compose exec api bundle exec rspec
+
+deploy_docker_build: ./frontend/package.json ./backend/Gemfile
+	docker build -t $(DOCKER_HUB_USER)/musclers_frontend ./frontend
+	docker build -t $(DOCKER_HUB_USER)/musclers_api ./backend
+
+deploy: deploy_docker_build
+	docker login -u $(DOCKER_HUB_USER)
+	docker push $(DOCKER_HUB_USER)/musclers_frontend
+	docker push $(DOCKER_HUB_USER)/musclers_api
+	eb deploy
 
 .PHONY: mock/*
 

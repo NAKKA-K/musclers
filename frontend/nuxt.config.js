@@ -60,15 +60,6 @@ export default {
   },
 
   /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/style-resources'
-  ],
-
-  /*
    ** Nuxt.js modules
    */
   modules: [
@@ -78,7 +69,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/auth',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    '@nuxtjs/style-resources'
   ],
 
   /**
@@ -112,7 +104,7 @@ export default {
    */
   axios: {
     baseURL: process.env.API_URL,
-    browserBaseURL: process.env.API_URL_BROWSER
+    browserBaseURL: process.env.API_URL_BROWSER || "https://musclers.net:8080/"
   },
 
   /*
@@ -157,5 +149,6 @@ export default {
     html: false,
     linkify: false,
     typography: true
-  }
+  },
+  serverMiddleware: ['redirect-ssl']
 }

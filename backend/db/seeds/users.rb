@@ -124,7 +124,7 @@ users = [
       figure: 5,
       seriousness: 1,
     },
-    thumbnail: 'http://www.realgym.jp/wordp/wp-content/uploads/2017/04/052-200x300.jpg'
+    thumbnail: 'https://frestocks.com/wp-content/uploads/2018/02/20171016_frestocks_kbysht_0187.jpg'
   },
   {
     data:{

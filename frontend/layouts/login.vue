@@ -19,7 +19,13 @@ export default {
   components: {
     TheHeader,
     TheFooter
-  }
+  },
+  head: () => ({
+    meta: [
+      { hid: 'noindex', name: 'robots', content: 'noindex' },
+      { hid: 'nofollow', name: 'robots', content: 'nofollow' }
+    ]
+  })
 }
 </script>
 

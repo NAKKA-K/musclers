@@ -1,6 +1,6 @@
 groups = [
   {
-    thumbnail: 'https://vps11-d.kuku.lu/files/20191205-1025_0c65736215847637b36a212f3617e1d4.png',
+    thumbnail: 'https://3.bp.blogspot.com/-KLsvZz5u3PQ/V1z9NhlbXjI/AAAAAAAA7QI/7DMtmzokbksgxLcqN3HlWLhVaOt7MSmsACLcB/s800/kinniku_hanasu.png',
     group: {
       name: '筋肉モンスターの集会所',
       description: <<~EOS,
@@ -191,7 +191,7 @@ groups = [
     },
   },
   {
-    thumbnail: 'https://vps11-d.kuku.lu/files/20191205-1341_08ce3b9bc145e8bfc374a086edae1196.jpg',
+    thumbnail: 'https://1.bp.blogspot.com/-ZbQuXroNTCA/XWS523HKw7I/AAAAAAABUYA/GqFh54ctBWomcep2aqdbLfUNVITrHr0dwCLcBGAs/s1600/taikan_training_frontbrige_man.png',
     group: {
       name: 'トレーニング教科書',
       description: <<~EOS,

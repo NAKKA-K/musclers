@@ -1,0 +1,6 @@
+# master.key
+/config/master.key
+
+# activestorage binaly data
+/storage/*
+!/storage/.keep

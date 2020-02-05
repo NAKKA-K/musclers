@@ -1,0 +1,75 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "volumes": [
+        {
+            "name": "backend_src",
+            "host": {
+                "sourcePath": "/var/app/current/backend"
+            }
+        }
+    ],
+    "containerDefinitions": [
+        {
+            "name": "api",
+            "image": "samuraiyade361/musclers_api:latest",
+            "hostname": "api",
+            "memory": 450,
+            "portMappings": [
+                {
+                    "hostPort": 8080,
+                    "containerPort": 8080
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "backend_src",
+                    "containerPath": "/backend"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "RAILS_ENV",
+                    "value": "production"
+                }
+            ]
+        },
+        {
+            "name": "frontend",
+            "image": "samuraiyade361/musclers_frontend:latest",
+            "hostname": "frontend",
+            "memory": 450,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 3000
+                }
+            ],
+            "links": [
+                "api"
+            ],
+            "environment": [
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
+                },
+                {
+                    "name": "API_URL",
+                    "value": "http://api:8080/"
+                },
+                {
+                    "name": "API_URL_BROWSER",
+                    "value": "https://musclers.net:8080/"
+                },
+                {
+                    "name": "WS_URL",
+                    "value": "wss://musclers.net:8080/cable"
+                }
+            ],
+            "command": [
+                "npm",
+                "run",
+                "start"
+            ]
+        }
+    ]
+}
