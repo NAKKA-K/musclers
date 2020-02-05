@@ -46,24 +46,6 @@
             ],
             "links": [
                 "api"
-            ],
-            "environment": [
-                {
-                    "name": "NODE_ENV",
-                    "value": "production"
-                },
-                {
-                    "name": "API_URL",
-                    "value": "http://api:8080/"
-                },
-                {
-                    "name": "API_URL_BROWSER",
-                    "value": "https://musclers.net:8080/"
-                },
-                {
-                    "name": "WS_URL",
-                    "value": "wss://musclers.net:8080/cable"
-                }
             ]
         }
     ]
