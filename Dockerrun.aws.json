@@ -64,11 +64,6 @@
                     "name": "WS_URL",
                     "value": "wss://musclers.net:8080/cable"
                 }
-            ],
-            "command": [
-                "npm",
-                "run",
-                "start"
             ]
         }
     ]
