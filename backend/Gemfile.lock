@@ -99,7 +99,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     jsonapi-renderer (0.2.2)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
